@@ -11,7 +11,7 @@ type Featured = {
     duration: string
 }
 
-type Test = {rating: number}
+type Rating = {rating: number}
 
 const FEATURED: Featured = {
     title: "Dune: Part Two",
@@ -25,7 +25,7 @@ const FEATURED: Featured = {
     duration: "2h 46m",
 };
 
-function RatingBadge({ rating }: Test) {
+function RatingBadge({ rating }: Rating) {
     return <span className={styles["rating-badge"]}>★ {rating}</span>;
 }
 
