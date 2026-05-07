@@ -1,10 +1,12 @@
 import Header from "../header/Header";
+import Hero from "../hero/Hero";
 import styles from "./Home.module.css";
 
 export default function Home() {
     return (
         <div className={styles["home-wrapper"]}>
             <Header />
+            <Hero />
             <section className={styles["cta-banner"]}>
                 <div className={styles["section-label cta-banner-eyebrow"]}>Join the community</div>
                 <h2 className={styles["cta-banner-title"]}>Track every film you've ever watched.</h2>
