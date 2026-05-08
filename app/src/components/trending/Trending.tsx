@@ -1,5 +1,6 @@
 import MovieCard from "./MovieCard";
 import styles from "./Trending.module.css"
+import { Link } from "react-router";
 
 type Trending = {
     id: number,
@@ -67,25 +68,11 @@ export default function Trending() {
                     <div className={styles["section-label section-label--spaced"]}>Trending now</div>
                     <h2 className={styles["section-heading"]}>Films everyone's talking about</h2>
                 </div>
-                <a href="#" className={styles["section-link"]}>View all →</a>
+                <Link to="/catalog" className={styles["section-link"]}>View all →</Link>
             </div>
             <div className={styles["trending-grid"]}>
                 {TRENDING.map((movie, index) => (
                     <MovieCard key={movie.id} movie={movie} index={index} />
-                    // <div key={movie.id} className={styles["movie-card"]}>
-                    //     <div className={styles["movie-card-img-wrapper"]}>
-                    //         <img src={movie.poster} alt={movie.title} className={styles["movie-card-img"]} />
-                    //         <div className={styles["movie-card-rank"]}>#{index + 1}</div>
-                    //     </div>
-                    //     <div className={styles["movie-card-body"]}>
-                    //         <div className={styles["movie-card-genre"]}>{movie.genre}</div>
-                    //         <div className={styles["movie-card-title"]}>{movie.title}</div>
-                    //         <div className={styles["movie-card-footer"]}>
-                    //             <span className={styles["movie-card-year"]}>{movie.year}</span>
-                    //             <RatingBadge rating={movie.rating} />
-                    //         </div>
-                    //     </div>
-                    // </div>
                 ))}
             </div>
         </section>

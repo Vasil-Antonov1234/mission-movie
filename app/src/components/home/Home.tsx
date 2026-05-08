@@ -1,4 +1,3 @@
-import Header from "../header/Header";
 import Hero from "../hero/Hero";
 import GenreFilter from "../trending/GenreFilter";
 import Trending from "../trending/Trending";
@@ -7,7 +6,6 @@ import styles from "./Home.module.css";
 export default function Home() {
     return (
         <div className={styles["home-wrapper"]}>
-            <Header />
             <Hero />
             <GenreFilter />
             <Trending />
