@@ -2,16 +2,17 @@ import MovieCard from "./MovieCard";
 import styles from "./Trending.module.css"
 import { Link } from "react-router";
 
-type Trending = {
+type Movie = {
     id: number,
     title: string,
     year: number,
     rating: number,
     genre: string,
-    poster: string
+    poster: string,
+    position: number
 }
 
-const TRENDING: Trending[] = [
+const TRENDING: Movie[] = [
     {
         id: 1,
         title: "Oppenheimer",
@@ -19,6 +20,7 @@ const TRENDING: Trending[] = [
         rating: 8.9,
         genre: "Drama",
         poster: "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=400&q=80",
+        position: 1
     },
     {
         id: 2,
@@ -27,6 +29,7 @@ const TRENDING: Trending[] = [
         rating: 8.0,
         genre: "Fantasy",
         poster: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=400&q=80",
+        position: 2
     },
     {
         id: 3,
@@ -35,6 +38,7 @@ const TRENDING: Trending[] = [
         rating: 7.4,
         genre: "War / Drama",
         poster: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400&q=80",
+        position: 3
     },
     {
         id: 4,
@@ -43,6 +47,7 @@ const TRENDING: Trending[] = [
         rating: 7.9,
         genre: "Romance",
         poster: "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=400&q=80",
+        position: 4
     },
     {
         id: 5,
@@ -51,14 +56,9 @@ const TRENDING: Trending[] = [
         rating: 7.5,
         genre: "Comedy",
         poster: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
+        position: 5
     },
 ];
-
-// type Rating = {rating: number}
-
-// function RatingBadge({ rating }: Rating) {
-//     return <span className={styles["rating-badge"]}>★ {rating}</span>;
-// }
 
 export default function Trending() {
     return (
@@ -71,8 +71,17 @@ export default function Trending() {
                 <Link to="/catalog" className={styles["section-link"]}>View all →</Link>
             </div>
             <div className={styles["trending-grid"]}>
-                {TRENDING.map((movie, index) => (
-                    <MovieCard key={movie.id} movie={movie} index={index} />
+                {TRENDING.map((movie: Movie) => (
+                    <MovieCard
+                        key={movie.id}
+                        id={movie.id}
+                        title={movie.title}
+                        year={movie.year}
+                        rating={movie.rating}
+                        genre={movie.genre}
+                        poster={movie.poster}
+                        position={movie.position}
+                    />
                 ))}
             </div>
         </section>
