@@ -1,4 +1,5 @@
 import Hero from "../hero/Hero";
+import Reviews from "../reviews/Reviews";
 import GenreFilter from "../trending/GenreFilter";
 import Trending from "../trending/Trending";
 import styles from "./Home.module.css";
@@ -20,6 +21,7 @@ export default function Home() {
                     Create your free account
                 </button>
             </section>
+            <Reviews />
         </div>
     );
 }

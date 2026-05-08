@@ -1,0 +1,60 @@
+.reviews-section {
+    padding: 48px 60px;
+    border-top: 1px solid #1a1a1a;
+    background: #0a0a0a;
+}
+
+.reviews-section .section-header {
+    margin-bottom: 28px;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.trending-section .section-header {
+    margin-bottom: 20px;
+}
+
+.reviews-section .section-header {
+    margin-bottom: 28px;
+}
+
+.section-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #e8b84b;
+    font-weight: 500;
+}
+
+.section-label--spaced {
+    margin-bottom: 6px;
+}
+
+.section-heading {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #e8e2d9;
+}
+
+.section-link {
+    font-size: 13px;
+    color: #e8b84b;
+    text-decoration: none;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
