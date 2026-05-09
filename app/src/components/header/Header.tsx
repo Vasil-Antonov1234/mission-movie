@@ -20,9 +20,9 @@ export default function Header() {
                         Mission<span className={styles["logo-accent"]}>Movie</span>
                     </div>
                     <div className={styles["hamburger-menu"]} onClick={mobileNavHandler}>
-                        <span className={styles["hamburger-menu-first"]}></span>
-                        <span className={styles["hamburger-menu-second"]}></span>
-                        <span className={styles["hamburger-menu-third"]}></span>
+                        <span className={mobileNavOpen ? `${styles["hamburger-menu-span"]} ${styles["hamburger-menu-first-close"]}` : `${styles["hamburger-menu-span"]} ${styles["hamburger-menu-first-open"]}`}></span>
+                        <span className={mobileNavOpen ? `${styles["hamburger-menu-span"]} ${styles["hamburger-menu-second-close"]}` : `${styles["hamburger-menu-span"]} ${styles["hamburger-menu-second-open"]}`}></span>
+                        <span className={mobileNavOpen ? `${styles["hamburger-menu-span"]} ${styles["hamburger-menu-third-close"]}` : `${styles["hamburger-menu-span"]} ${styles["hamburger-menu-third-open"]}`}></span>
                     </div>
                 </div>
                 <div className={styles["navbar-links"]}>
