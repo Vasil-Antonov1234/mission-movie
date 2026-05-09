@@ -6,14 +6,20 @@ export default function Header() {
 
     const [searchQuery, setSearchQuery] = useState("");
 
+    const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
+    function mobileNavHandler() {
+        setMobileNavOpen((state) => !state);
+    };
+
     return (
-        <nav className={styles["navbar"]}>
+        <nav className={mobileNavOpen ? `${styles["navbar"]} ${styles["logo-hamburger-menu-wrapper-open"]}` : `${styles["navbar"]} ${styles["logo-hamburger-menu-wrapper-close"]}`}>
             <div className={styles["navbar-left"]}>
                 <div className={styles["logo-hamburger-menu-wrapper"]}>
                     <div className={styles["logo"]}>
                         Mission<span className={styles["logo-accent"]}>Movie</span>
                     </div>
-                    <div className={styles["hamburger-menu"]}>
+                    <div className={styles["hamburger-menu"]} onClick={mobileNavHandler}>
                         <span className={styles["hamburger-menu-first"]}></span>
                         <span className={styles["hamburger-menu-second"]}></span>
                         <span className={styles["hamburger-menu-third"]}></span>
