@@ -9,8 +9,15 @@ export default function Header() {
     return (
         <nav className={styles["navbar"]}>
             <div className={styles["navbar-left"]}>
-                <div className={styles["logo"]}>
-                    Mission<span className={styles["logo-accent"]}>Movie</span>
+                <div className={styles["logo-hamburger-menu-wrapper"]}>
+                    <div className={styles["logo"]}>
+                        Mission<span className={styles["logo-accent"]}>Movie</span>
+                    </div>
+                    <div className={styles["hamburger-menu"]}>
+                        <span className={styles["hamburger-menu-first"]}></span>
+                        <span className={styles["hamburger-menu-second"]}></span>
+                        <span className={styles["hamburger-menu-third"]}></span>
+                    </div>
                 </div>
                 <div className={styles["navbar-links"]}>
                     <NavLink to="/" className={styles["nav-link"]}>Home</NavLink>
