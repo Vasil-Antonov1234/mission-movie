@@ -70,7 +70,7 @@ export default function Trending() {
                 </div>
                 <Link to="/catalog" className={styles["section-link"]}>View all →</Link>
             </div>
-            <div className={styles["trending-grid"]}>
+            <div className={styles["trending-container"]}>
                 {TRENDING.map((movie: Movie) => (
                     <MovieCard
                         key={movie.id}

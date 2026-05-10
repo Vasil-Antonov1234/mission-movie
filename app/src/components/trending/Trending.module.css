@@ -6,7 +6,7 @@
     margin-bottom: 20px;
 }
 
-.trending-grid {
+.trending-container {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 16px;
@@ -57,12 +57,6 @@
 
 .trending-section .section-header {
     margin-bottom: 20px;
-}
-
-.trending-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 16px;
 }
 
 .movie-card {
@@ -143,4 +137,10 @@
     font-size: 12px;
     padding: 2px 8px;
     border-radius: 4px;
+}
+
+@media(max-width: 700px) {
+    .trending-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
 }
