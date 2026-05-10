@@ -8,9 +8,8 @@
     margin-bottom: 28px;
 }
 
-.reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+.reviews-container {
+    display: flex;
     gap: 20px;
 }
 
@@ -53,8 +52,8 @@
     text-decoration: none;
 }
 
-.reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+@media(max-width: 690px) {
+    .reviews-container {
+        flex-direction: column;
+    }
 }

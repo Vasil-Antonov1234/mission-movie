@@ -55,7 +55,7 @@ export default function Reviews() {
                 </div>
                 <Link to="#" className={styles["section-link"]}>All reviews →</Link>
             </div>
-            <div className={styles["reviews-grid"]}>
+            <div className={styles["reviews-container"]}>
                 {REVIEWS.map((review: Review) => (
                     <ReviewCard 
                         key={review.id} 
