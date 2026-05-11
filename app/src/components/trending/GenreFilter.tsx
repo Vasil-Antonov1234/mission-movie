@@ -25,7 +25,9 @@ export default function GenreFilter() {
                     className=
                     {showGenreFilter ?
                         activeGenre === genre ? `${styles["genre-btn"]} ${styles["genre-btn--active"]}` : `${styles["genre-btn"]} ${styles["genre-btn--non-active"]}` :
-                        `${styles["genre-btn"]} ${styles["genre-btn--non-active"]} ${styles["genre-btn-hide"]}`
+                        activeGenre === genre ? 
+                                                `${styles["genre-btn"]} ${styles["genre-btn--active"]} ${styles["genre-btn"]} ${styles["genre-btn--non-active"]} ${styles["genre-btn-hide"]}` : 
+                                                `${styles["genre-btn"]} ${styles["genre-btn--non-active"]} ${styles["genre-btn"]} ${styles["genre-btn--non-active"]} ${styles["genre-btn-hide"]}`
                     }
                     onClick={() => setActiveGenre(genre)}
                 >{genre}</button>
