@@ -5,14 +5,28 @@ const GENRES = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance
 
 export default function GenreFilter() {
     const [activeGenre, setActiveGenre] = useState("All");
+    const [showGenreFilter, setShowGenreFilter] = useState(false);
+
+    function showGenreFilterHandler() {
+        setShowGenreFilter((state) => !state);
+    };
 
     return (
         <div className={styles["genre-filter"]}>
-            <span className={styles["genre-filter-label"]}>Browse by:</span>
+            <span className={styles["genre-filter-label"]} onClick={showGenreFilterHandler}>Browse by:</span>
+            <div>
+                <span className={showGenreFilter ? `${styles["genre-arrow"]} ${styles["rotate-left"]}` : `${styles["genre-arrow"]} ${styles["rotate-right"]}`}>▶</span>
+                <span className={showGenreFilter ? `${styles["genre-arrow"]} ${styles["rotate-left"]}` : `${styles["genre-arrow"]} ${styles["rotate-right"]}`}>▶</span>
+                <span className={showGenreFilter ? `${styles["genre-arrow"]} ${styles["rotate-left"]}` : `${styles["genre-arrow"]} ${styles["rotate-right"]}`}>▶</span>
+            </div>
             {GENRES.map((genre) => (
                 <button
                     key={genre}
-                    className={activeGenre === genre ? `${styles["genre-btn"]} ${styles["genre-btn--active"]}` : styles["genre-btn"]}
+                    className=
+                    {showGenreFilter ?
+                        activeGenre === genre ? `${styles["genre-btn"]} ${styles["genre-btn--active"]}` : `${styles["genre-btn"]} ${styles["genre-btn--non-active"]}` :
+                        `${styles["genre-btn"]} ${styles["genre-btn--non-active"]} ${styles["genre-btn-hide"]}`
+                    }
                     onClick={() => setActiveGenre(genre)}
                 >{genre}</button>
             ))}

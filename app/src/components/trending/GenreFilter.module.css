@@ -32,8 +32,113 @@
 }
 
 .genre-btn--active {
-    background: #e8b84b;
+    background-color: #e8b84b;
     border-color: #e8b84b;
     color: #111;
     font-weight: 500;
+}
+
+.genre-arrow {
+    font-size: 17px;
+    color: #e8b84b;
+    display: none;
+}
+
+@media(max-width: 900px) {
+    .genre-filter {
+        flex-wrap: wrap;
+    }
+}
+
+@media(max-width: 530px) {
+    .genre-filter {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 5px;
+        position: absolute;
+        top: 84%;
+        z-index: 1;
+    }
+
+    .genre-arrow {
+        display: inline-block;
+    }
+
+    .genre-filter-label {
+        padding: 6px 16px;
+        border: 1px solid #2a2a2a;
+        border-radius: 10px;
+        background-color: rgb(102, 28, 32);
+        font-size: 14px;
+        width: 130px;
+        color: whitesmoke;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 500;
+    }
+
+    .genre-btn {
+        min-width: 130px;
+        color: #635c56;
+        animation: genre-btn-show 1s ease;
+    }
+    
+    .genre-btn--non-active {
+        background-color: rgba(231, 226, 226, 0.932);
+    }
+    
+    .genre-btn-hide {
+        transform: translateX(-140px);
+        animation: genre-btn-hide 1s ease;
+    }
+
+    .rotate-left {
+        transform: rotate(180deg);
+        animation: rotate-left 1s ease;
+    }
+
+    .rotate-right {
+        transform: rotate(0deg);
+        animation: rotate-right 1s ease;
+    }
+
+    @keyframes genre-btn-hide {
+        from {
+            transform: translateX(0px) rotateZ(0deg);
+        }
+
+        to {
+            transform: translateX(-140px) rotateZ(45deg);
+        }
+    }
+
+    @keyframes genre-btn-show {
+        from {
+            transform: translateX(-140px) rotateZ(45deg);
+        }
+
+        to {
+            transform: translateX(0px) rotateZ(0deg);
+        }
+    }
+
+    @keyframes rotate-left {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(180deg);
+        }
+    }
+
+    @keyframes rotate-right {
+        from {
+            transform: rotate(180deg);
+        }
+
+        to {
+            transform: rotate(0deg);
+        }
+    }
 }
