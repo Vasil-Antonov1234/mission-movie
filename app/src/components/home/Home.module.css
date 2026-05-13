@@ -21,7 +21,7 @@
 }
 
 .cta-banner-text {
-  font-size: clamp(3px, 5vw, 15px);
+  font-size: clamp(5px, 6vw, 15px);
   color: #7a7068;
   max-width: 480px;
   margin: 0 auto 32px;

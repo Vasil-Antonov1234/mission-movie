@@ -69,3 +69,9 @@
         display: none;
     }
 }
+
+@media(max-width: 300px) {
+    .reviews-section {
+        padding: clamp(10px, 10vw, 34px) clamp(5px, 10vw, 30px);
+    }
+}
