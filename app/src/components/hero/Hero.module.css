@@ -31,9 +31,18 @@
     max-width: 540px;
 }
 
+.section-label {
+    font-size: clamp(3px, 5vw, 11px);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #e8b84b;
+    font-weight: 500;
+    margin-bottom: 14px;
+}
+
 .hero-title {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: 52px;
+    font-size: clamp(2.5rem, 10vw, 3.25rem);
     font-weight: 700;
     line-height: 1.1;
     color: #f0ebe2;
@@ -55,7 +64,7 @@
 }
 
 .hero-description {
-    font-size: 15px;
+    font-size: clamp(7px, 5vw, 15px);
     line-height: 1.7;
     color: #b0a89e;
     margin-bottom: 28px;
@@ -72,7 +81,7 @@
     align-items: center;
     gap: 8px;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: clamp(10px, 5vw, 14px);
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s;
@@ -101,11 +110,27 @@
 }
 
 .rating-badge {
-  background: #e8b84b;
-  color: #111;
-  font-family: 'Playfair Display', Georgia, serif;
-  font-weight: 700;
-  font-size: 12px;
-  padding: 2px 8px;
-  border-radius: 4px;
+    background: #e8b84b;
+    color: #111;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+@media(max-width: 440px) {
+    .hero-meta {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .hero-meta-dot {
+        display: none;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        width: fit-content;
+    }
 }

@@ -36,7 +36,7 @@ export default function Hero() {
             <div className={styles["hero-overlay-h"]} />
             <div className={styles["hero-overlay-v"]} />
             <div className={styles["hero-content"]}>
-                <div className={styles["section-label hero-eyebrow"]}>✦ Featured film</div>
+                <div className={styles["section-label"]}>✦ Featured film</div>
                 <h1 className={styles["hero-title"]}>{FEATURED.title}</h1>
                 <div className={styles["hero-meta"]}>
                     <span>{FEATURED.year}</span>
