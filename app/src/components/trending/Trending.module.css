@@ -51,14 +51,6 @@
     text-decoration: none;
 }
 
-.trending-section {
-    padding: 16px 60px 48px;
-}
-
-.trending-section .section-header {
-    margin-bottom: 20px;
-}
-
 .movie-card {
     background: #161616;
     border: 1px solid #1f1f1f;
@@ -154,5 +146,15 @@
 
     .section-link-top {
         display: none;
+    }
+}
+
+@media(max-width: 280px) {
+    .trending-section {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 }

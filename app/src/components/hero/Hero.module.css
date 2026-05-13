@@ -134,3 +134,9 @@
         width: fit-content;
     }
 }
+
+@media(max-width: 300px) {
+    .section-label {
+        margin-top: 10px;
+    }
+}
