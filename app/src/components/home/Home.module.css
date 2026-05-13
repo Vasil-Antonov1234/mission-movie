@@ -13,7 +13,7 @@
 
 .cta-banner-title {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 36px;
+  font-size: clamp(1.05rem, 10vw, 2.25rem);
   font-weight: 700;
   color: #e8e2d9;
   margin-bottom: 12px;
@@ -21,11 +21,20 @@
 }
 
 .cta-banner-text {
-  font-size: 15px;
+  font-size: clamp(3px, 5vw, 15px);
   color: #7a7068;
   max-width: 480px;
   margin: 0 auto 32px;
   line-height: 1.7;
+}
+
+.section-label {
+    font-size: clamp(3px, 5vw, 11px);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #e8b84b;
+    font-weight: 500;
+    margin-bottom: 14px;
 }
 
 .cta-banner-eyebrow {
@@ -66,6 +75,12 @@
 }
 
 .cta-btn--large {
-  font-size: 15px;
-  padding: 14px 40px;
+  font-size: clamp(10px, 5vw, 15px);
+  padding: clamp(10px, 5vw, 15px) clamp(20px, 10vw, 40px);
+}
+
+@media(max-width: 300px) {
+  .cta-banner {
+    padding: clamp(10px, 10vw, 34px) clamp(5px, 10vw, 30px);
+  }
 }
