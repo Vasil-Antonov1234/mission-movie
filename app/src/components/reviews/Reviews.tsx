@@ -53,13 +53,13 @@ export default function Reviews() {
                     <div className={styles["section-label section-label--spaced"]}>Latest reviews</div>
                     <h2 className={styles["section-heading"]}>From our critics</h2>
                 </div>
-                <Link to="#" className={styles["section-link"]}>All reviews →</Link>
+                <Link to="#" className={`${styles["section-link"]} ${styles["section-link-top"]}`}>All reviews →</Link>
             </div>
             <div className={styles["reviews-container"]}>
                 {REVIEWS.map((review: Review) => (
-                    <ReviewCard 
-                        key={review.id} 
-                        id={review.id} 
+                    <ReviewCard
+                        key={review.id}
+                        id={review.id}
                         title={review.title}
                         rating={review.rating}
                         excerpt={review.excerpt}
@@ -69,6 +69,7 @@ export default function Reviews() {
                     />
                 ))}
             </div>
+            <Link to="#" className={`${styles["section-link"]} ${styles["section-link-bottom"]}`}>All reviews →</Link>
         </section>
     )
 }
