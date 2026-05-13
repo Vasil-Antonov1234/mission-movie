@@ -68,7 +68,7 @@ export default function Trending() {
                     <div className={styles["section-label section-label--spaced"]}>Trending now</div>
                     <h2 className={styles["section-heading"]}>Films everyone's talking about</h2>
                 </div>
-                <Link to="/catalog" className={styles["section-link"]}>View all →</Link>
+                <Link to="/catalog" className={`${styles["section-link"]} ${styles["section-link-top"]}`}>View all →</Link>
             </div>
             <div className={styles["trending-container"]}>
                 {TRENDING.map((movie: Movie) => (
@@ -84,6 +84,7 @@ export default function Trending() {
                     />
                 ))}
             </div>
+            <Link to="/catalog" className={`${styles["section-link"]} ${styles["section-link-bottom"]}`}>View all →</Link>
         </section>
     );
 }
