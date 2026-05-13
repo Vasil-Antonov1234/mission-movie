@@ -35,7 +35,7 @@
 }
 
 .review-card-excerpt {
-    font-size: 14px;
+    font-size: clamp(5px, 6vw, 14px);
     line-height: 1.75;
     color: #a09890;
     font-style: italic;
