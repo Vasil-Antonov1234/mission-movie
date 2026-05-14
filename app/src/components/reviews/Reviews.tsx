@@ -1,16 +1,7 @@
+import type { Review } from "../../types/components.type";
 import styles from "./Reviews.module.css";
 import ReviewCard from "./RviewCard";
 import { Link } from "react-router";
-
-type Review = {
-    id: number,
-    title: string,
-    rating: number,
-    excerpt: string,
-    author: string,
-    date: string,
-    poster: string
-}
 
 const REVIEWS: Review[] = [
     {

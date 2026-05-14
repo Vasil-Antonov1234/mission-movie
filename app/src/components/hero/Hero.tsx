@@ -1,17 +1,5 @@
+import type { Featured, Rating } from "../../types/components.type";
 import styles from "./Hero.module.css";
-
-type Featured = {
-    title: string,
-    year: number,
-    genre: string[],
-    rating: number,
-    description: string,
-    backdrop: string,
-    director: string,
-    duration: string
-}
-
-type Rating = {rating: number}
 
 const FEATURED: Featured = {
     title: "Dune: Part Two",

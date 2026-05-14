@@ -1,17 +1,5 @@
+import type { Rating, Review } from "../../types/components.type";
 import styles from "./ReviewCard.module.css";
-
-type Review = {
-    id: number,
-    title: string,
-    rating: number,
-    excerpt: string,
-    author: string,
-    date: string,
-    poster: string
-}
-
-
-type Rating = { rating: number }
 
 function StarRating({ rating }: Rating) {
     const filled = Math.round((rating / 5) * 5);

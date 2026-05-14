@@ -1,16 +1,8 @@
+import type { Movie } from "../../types/components.type";
 import MovieCard from "./MovieCard";
 import styles from "./Trending.module.css"
 import { Link } from "react-router";
 
-type Movie = {
-    id: number,
-    title: string,
-    year: number,
-    rating: number,
-    genre: string,
-    poster: string,
-    position: number
-}
 
 const TRENDING: Movie[] = [
     {

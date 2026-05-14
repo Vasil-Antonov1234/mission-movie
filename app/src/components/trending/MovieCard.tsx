@@ -1,19 +1,10 @@
+import type { Movie } from "../../types/components.type";
 import styles from "./MovieCard.module.css";
 
 type Rating = { rating: number }
 
 function RatingBadge({ rating }: Rating) {
     return <span className={styles["rating-badge"]}>★ {rating}</span>;
-}
-
-type Movie = {
-    id: number,
-    title: string,
-    year: number,
-    rating: number,
-    genre: string,
-    poster: string,
-    position: number
 }
 
 export default function MovieCard(
