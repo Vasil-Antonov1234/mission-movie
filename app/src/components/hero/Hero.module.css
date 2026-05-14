@@ -119,6 +119,12 @@
     border-radius: 4px;
 }
 
+@media(max-width: 620px) {
+    .hero-content {
+        padding-right: 30px;
+    }
+}
+
 @media(max-width: 440px) {
     .hero-meta {
         flex-wrap: wrap;
@@ -132,6 +138,10 @@
     .hero-actions {
         flex-direction: column;
         width: fit-content;
+    }
+
+    .hero-content {
+        left: 20px;
     }
 }
 

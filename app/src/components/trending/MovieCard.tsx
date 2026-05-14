@@ -1,4 +1,4 @@
-import type { Movie } from "../../types/components.type";
+import type { Movie } from "../../types/component.types";
 import styles from "./MovieCard.module.css";
 
 type Rating = { rating: number }
