@@ -54,9 +54,9 @@
     .genre-filter {
         flex-direction: column;
         align-items: flex-start;
-        padding-left: 5px;
+        padding-left: 20px;
         position: absolute;
-        top: 84%;
+        top: 70%;
         z-index: 1;
     }
 
@@ -88,7 +88,7 @@
     }
     
     .genre-btn-hide {
-        transform: translateX(-140px);
+        transform: translateX(-160px);
         animation: genre-btn-hide 1s ease;
     }
 

@@ -58,3 +58,20 @@
 .review-card-date {
     color: #555;
 }
+
+@media(max-width: 400px) {
+    .review-card {
+        padding: 10px;
+    }
+
+    .review-card-meta {
+        flex-direction: column;
+    }
+}
+
+@media(max-width: 240px) {
+    .review-card-header {
+        flex-direction: column;
+        align-items: center;
+    }
+}
