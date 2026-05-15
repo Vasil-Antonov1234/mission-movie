@@ -1,4 +1,5 @@
 import type { Movie } from "../../types/component.types";
+import GenreFilter from "../trending/GenreFilter";
 import MovieCard from "../trending/MovieCard";
 import styles from "./AllMovies.module.css";
 
@@ -108,8 +109,8 @@ export default function AllMovies() {
     return (
         <section className={styles["trending-section"]}>
             <div>
-                {/* <h2 className={styles["section-heading"]}>Films everyone's talking about</h2> */}
                 <h1 className={styles["section-heading-title"]}>Whatch new titles</h1>
+                <GenreFilter />
             </div>
             <div className={styles["trending-container"]}>
                 {allTrendings.map((movie: Movie) => (
