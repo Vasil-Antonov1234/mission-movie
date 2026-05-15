@@ -4,13 +4,13 @@ import styles from "./Trending.module.css"
 import { Link } from "react-router";
 
 
-const TRENDING: Movie[] = [
+const trending: Movie[] = [
     {
         id: 1,
-        title: "Oppenheimer",
-        year: 2023,
+        title: "Spider-Man",
+        year: 2002,
         rating: 8.9,
-        genre: "Drama",
+        genre: "Adventure",
         poster: "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=400&q=80",
         position: 1
     },
@@ -57,13 +57,13 @@ export default function Trending() {
         <section className={styles["trending-section"]}>
             <div className={styles["section-header"]}>
                 <div>
-                    <div className={styles["section-label section-label--spaced"]}>Trending now</div>
+                    <div className={`${styles["section-label"]} ${styles["section-label--spaced"]}`}>Trending now</div>
                     <h2 className={styles["section-heading"]}>Films everyone's talking about</h2>
                 </div>
                 <Link to="/catalog" className={`${styles["section-link"]} ${styles["section-link-top"]}`}>View all →</Link>
             </div>
             <div className={styles["trending-container"]}>
-                {TRENDING.map((movie: Movie) => (
+                {trending.map((movie: Movie) => (
                     <MovieCard
                         key={movie.id}
                         id={movie.id}
