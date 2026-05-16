@@ -67,6 +67,7 @@ export default function Trending() {
                         rating={movie.rating}
                         genre={movie.genre}
                         poster={movie.poster}
+                        position={trending.indexOf(movie) + 1}
                     />
                 ))}
             </div>

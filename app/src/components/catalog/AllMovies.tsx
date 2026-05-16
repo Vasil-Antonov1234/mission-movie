@@ -183,6 +183,7 @@ export default function AllMovies() {
                         rating={movie.rating}
                         genre={movie.genre}
                         poster={movie.poster}
+                        position={allTrendings.indexOf(movie) + 1}
                     />
                 ))}
             </div>

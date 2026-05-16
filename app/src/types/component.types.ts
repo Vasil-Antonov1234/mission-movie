@@ -27,5 +27,6 @@ export type Movie = {
     year: number,
     rating: number,
     genre: string,
-    poster: string
+    poster: string,
+    position?: number
 };

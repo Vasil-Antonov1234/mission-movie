@@ -13,7 +13,7 @@ export default function MovieCard(
         <div className={styles["movie-card"]}>
             <div className={styles["movie-card-img-wrapper"]}>
                 <img src={movie.poster} alt={movie.title} className={styles["movie-card-img"]} />
-                <div className={styles["movie-card-rank"]}>#{}</div>
+                <div className={styles["movie-card-rank"]}>#{movie.position}</div>
             </div>
             <div className={styles["movie-card-body"]}>
                 <div className={styles["movie-card-genre"]}>{movie.genre}</div>
