@@ -9,10 +9,19 @@
 .section-heading-title {
     color: #e8b84b;
     margin-bottom: 10px;
+    font-size: clamp(10px, 5vw, 37px);
 }
 
 .trending-container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(10, 1fr);
+    max-width: 3000px;
+    margin: auto;
     gap: 16px;
+}
+
+@media(max-width: 1400px) {
+    .trending-container {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
 }

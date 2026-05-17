@@ -169,9 +169,9 @@ const allTrendings: Movie[] = [
 export default function AllMovies() {
     return (
         <section className={styles["trending-section"]}>
+                <GenreFilter />
             <div>
                 <h1 className={styles["section-heading-title"]}>Whatch new titles</h1>
-                <GenreFilter />
             </div>
             <div className={styles["trending-container"]}>
                 {allTrendings.map((movie) => (
