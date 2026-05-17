@@ -39,7 +39,7 @@
 }
 
 .genre-arrow {
-    font-size: 17px;
+    font-size: clamp(7px, 7vw, 17px);
     color: #e8b84b;
     display: none;
 }
@@ -80,9 +80,11 @@
     }
 
     .genre-btn {
-        min-width: 130px;
+        min-width: 120px;
         color: #635c56;
         animation: genre-btn-show 1s ease;
+        padding-top: calc(1.5vw);
+        padding-bottom: calc(1.5vw);
     }
     
     .genre-btn--non-active {
