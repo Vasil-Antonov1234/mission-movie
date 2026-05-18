@@ -5,6 +5,9 @@
     padding: 24px;
     cursor: pointer;
     transition: border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .review-card:hover {
@@ -42,6 +45,20 @@
     font-family: 'Playfair Display', Georgia, serif;
     font-weight: 400;
     margin-bottom: 16px;
+    max-width: 140ch;
+    max-height: 100px;
+    overflow: hidden;
+}
+
+.text-wrapper {
+    display: flex;
+    align-items: flex-end;
+}
+
+.ellipsis {
+    font-size: 20px;
+    letter-spacing: 3px;
+    transform: translateY(-17px);
 }
 
 .review-card-meta {
@@ -73,5 +90,9 @@
     .review-card-header {
         flex-direction: column;
         align-items: center;
+    }
+
+    .review-card-excerpt {
+        max-height: 200px;
     }
 }
