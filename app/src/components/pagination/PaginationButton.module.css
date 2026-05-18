@@ -1,0 +1,16 @@
+.page-button {
+    border: 1px solid whitesmoke;
+    background-color: #555;
+    padding: 5px 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: clamp(4px, 5vw, 20px);
+    cursor: pointer;
+    width: 45px
+}
+
+.page-button:hover {
+    color: #0d0d0d;
+    background-color: #b8b5b5;
+    font-weight: 900;
+}

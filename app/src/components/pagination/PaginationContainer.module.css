@@ -1,0 +1,10 @@
+.pages-container {
+    border: 1px solid #555;
+    padding: 5px 10px;
+    margin: 10px auto 0px;
+    border-radius: 5px;
+    background-color: #e8e2d9;
+    display: flex;
+    gap: 4px;
+    width: 300px;
+}

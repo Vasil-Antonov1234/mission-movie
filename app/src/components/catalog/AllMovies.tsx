@@ -1,4 +1,5 @@
 import type { Movie } from "../../types/component.types";
+import PaginationContainer from "../pagination/PaginationContainer";
 import GenreFilter from "../trending/GenreFilter";
 import MovieCard from "../trending/MovieCard";
 import styles from "./AllMovies.module.css";
@@ -164,7 +165,9 @@ const allTrendings: Movie[] = [
         genre: "Action, Adventure, Drama",
         poster: "https://m.media-amazon.com/images/M/MV5BMTg1NTU3OTcyMF5BMl5BanBnXkFtZTgwMDY5Njc3MDI@._V1_FMjpg_UX1000_.jpg"
     }
-]
+];
+
+const paginationCount = [1, 2, 3];
 
 export default function AllMovies() {
     return (
@@ -187,6 +190,7 @@ export default function AllMovies() {
                     />
                 ))}
             </div>
+            <PaginationContainer count={paginationCount} />
         </section>
     )
 }
