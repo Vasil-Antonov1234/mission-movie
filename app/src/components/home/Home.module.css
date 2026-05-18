@@ -3,6 +3,8 @@
   min-height: 100vh;
   color: #e8e2d9;
   font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+  max-width: 2700px;
+  margin: 0 auto;
 }
 
 .cta-banner {

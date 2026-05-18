@@ -10,6 +10,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    max-width: 2700px;
+    margin: 0 auto;
 }
 
 .navbar-left {
@@ -260,6 +262,7 @@
     .navbar {
         flex-direction: column;
         height: 70px;
+        margin: 0;
     }
 }
 
