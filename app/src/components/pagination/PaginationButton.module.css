@@ -9,8 +9,18 @@
     width: 45px
 }
 
-.page-button:hover {
+.page-button:hover,
+.page-button-active {
     color: #0d0d0d;
     background-color: #b8b5b5;
     font-weight: 900;
+}
+
+.page-button-active {
+    border: 1px solid whitesmoke;
+    padding: 5px 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: clamp(4px, 5vw, 20px);
+    width: 45px
 }
