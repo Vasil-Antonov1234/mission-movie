@@ -6,7 +6,9 @@
     background-color: #e8e2d9;
     display: flex;
     gap: 4px;
-    width: 300px;
+    flex-wrap: wrap;
+    width: fit-content;
+    justify-content: center;
 }
 
 .previous-page {
