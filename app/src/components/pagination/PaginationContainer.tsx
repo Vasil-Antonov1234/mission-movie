@@ -9,8 +9,8 @@ export default function PaginationContainer(props: PaginationContainerProps) {
     const [activePage, setActivePage] = useState(1);
 
     function activePageHandler(page: number | string) {
-        
-        if (typeof(page) === "number") {
+
+        if (typeof (page) === "number") {
             setActivePage(page)
         }
 
@@ -26,10 +26,13 @@ export default function PaginationContainer(props: PaginationContainerProps) {
 
     return (
         <section className={styles["pages-container"]}>
-            <PaginationButton count={"<"} onPageChange={previewsPageHandler} page={null} />
-            {typeof(props.count) !== "string" ? props.count.map((button) => <PaginationButton count={button} onPageChange={activePageHandler} page={activePage} />) : ""}
-            <PaginationButton count={">"} onPageChange={nextPageHandler} page={null} />
-
+            <div className={activePage > 1 ? `${styles["previous-page"]} ${styles["show-prev-next-page"]}` : styles["previous-page"]}>
+                <PaginationButton count={"<"} onPageChange={previewsPageHandler} page={null} />
+            </div>
+            {typeof (props.count) !== "string" ? props.count.map((button) => <PaginationButton count={button} onPageChange={activePageHandler} page={activePage} />) : ""}
+            <div className={activePage < props.count.length ? `${styles["previous-page"]} ${styles["show-prev-next-page"]}` : styles["previous-page"]}>
+                <PaginationButton count={">"} onPageChange={nextPageHandler} page={null} />
+            </div>
         </section>
     );
 }

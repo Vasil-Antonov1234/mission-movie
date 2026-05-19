@@ -8,3 +8,11 @@
     gap: 4px;
     width: 300px;
 }
+
+.previous-page {
+    display: none;
+}
+
+.show-prev-next-page {
+    display: inline-block;
+}
