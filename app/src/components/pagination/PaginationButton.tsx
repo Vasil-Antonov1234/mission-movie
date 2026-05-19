@@ -1,6 +1,6 @@
 import styles from "./PaginationButton.module.css";
 
-type PaginationButtonProps = { count: number, onPageChange: (page: number)=> void, page: number };
+type PaginationButtonProps = { count: number | string, onPageChange: (page: number | string)=> void, page: number | null };
 
 export default function PaginationButton(props: PaginationButtonProps) {
     return (
