@@ -8,7 +8,7 @@ function RatingBadge({ rating }: Rating) {
 export default function MovieCard(
     movie: Movie
 ) {
-    
+
     return (
         <div className={styles["movie-card"]}>
             <div className={styles["movie-card-img-wrapper"]}>
@@ -18,10 +18,10 @@ export default function MovieCard(
             <div className={styles["movie-card-body"]}>
                 <div className={styles["movie-card-genre"]}>{movie.genre}</div>
                 <div className={styles["movie-card-title"]}>{movie.title}</div>
-                <div className={styles["movie-card-footer"]}>
-                    <span className={styles["movie-card-year"]}>{movie.year}</span>
-                    <RatingBadge rating={movie.rating} />
-                </div>
+            </div>
+            <div className={styles["movie-card-footer"]}>
+                <span className={styles["movie-card-year"]}>{movie.year}</span>
+                <RatingBadge rating={movie.rating} />
             </div>
         </div>
     );
