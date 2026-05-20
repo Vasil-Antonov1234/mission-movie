@@ -8,6 +8,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    /* width: 700px; */
 }
 
 .review-card:hover {
@@ -74,6 +75,12 @@
 
 .review-card-date {
     color: #555;
+}
+
+@media(max-width: 700px) {
+    .review-card {
+        width: unset;
+    }
 }
 
 @media(max-width: 400px) {

@@ -1,0 +1,29 @@
+.review-section {
+    background: rgb(201, 199, 199);
+    min-height: 100vh;
+    max-width: 2700px;
+    margin: 0 auto;
+    color: #e8e2d9;
+    padding: 16px 60px 48px;
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+}
+
+.section-heading-title {
+    color: rgb(102, 28, 32);
+    margin-bottom: 10px;
+    font-size: clamp(10px, 5vw, 37px);
+}
+
+.reviews-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 3000px;
+    margin: auto;
+    gap: 16px;
+}
+
+@media(max-width: 740px) {
+    .reviews-container {
+        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    }
+}
