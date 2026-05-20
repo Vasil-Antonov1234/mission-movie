@@ -8,10 +8,12 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: all 0.3s ease;
 }
 
 .review-card:hover {
-    border-color: #333;
+    border-color: #e8b84b;
+    box-shadow: #111 0px 0px 10px 3px;
 }
 
 .review-card-header {
