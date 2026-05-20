@@ -27,3 +27,14 @@
         grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
     }
 }
+
+@media(max-width: 300px) {
+    .review-section {
+        padding: 16px 10px 48px;
+    }
+
+    .section-heading-title {
+        text-align: center;
+        font-size: 12px;
+    }
+}
