@@ -1,5 +1,6 @@
 import type { Review } from "../../types/component.types";
 import ReviewCard from "../reviews/RviewCard";
+import SelectionFilter from "../trending/SelectionFilter";
 import styles from "./AllReviews.module.css";
 
 const allReviews: Review[] = [
@@ -75,13 +76,16 @@ const allReviews: Review[] = [
     }
 ];
 
+const options = ["All", "Latest by year", "Oldest by year", "Alphabetically"];
+
 export default function AllReviews() {
     return (
         <section className={styles["review-section"]}>
             <h1 className={styles["section-heading-title"]}>Read new reviews</h1>
+            <SelectionFilter options={options} />
             <div className={styles["reviews-container"]}>
                 {allReviews.map((review) => (
-                    <ReviewCard 
+                    <ReviewCard
                         key={review.id}
                         id={review.id}
                         title={review.title}

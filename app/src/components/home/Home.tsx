@@ -1,14 +1,16 @@
 import Hero from "../hero/Hero";
 import Reviews from "../reviews/Reviews";
-import GenreFilter from "../trending/GenreFilter";
+import SelectionFilter from "../trending/SelectionFilter";
 import Trending from "../trending/Trending";
 import styles from "./Home.module.css";
+
+const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary"];
 
 export default function Home() {
     return (
         <div className={styles["home-wrapper"]}>
             <Hero />
-            <GenreFilter />
+            <SelectionFilter options={options} />
             <Trending />
             <section className={styles["cta-banner"]}>
                 <div className={`${styles["section-label"]} ${styles["cta-banner-eyebrow"]}`}>Join the community</div>

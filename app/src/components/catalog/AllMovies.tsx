@@ -1,6 +1,6 @@
 import type { Movie } from "../../types/component.types";
 import PaginationContainer from "../pagination/PaginationContainer";
-import GenreFilter from "../trending/GenreFilter";
+import SelectionFilter from "../trending/SelectionFilter";
 import MovieCard from "../trending/MovieCard";
 import styles from "./AllMovies.module.css";
 
@@ -168,11 +168,12 @@ const allTrendings: Movie[] = [
 ];
 
 const paginationCount = [1, 2, 3];
+const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary"];
 
 export default function AllMovies() {
     return (
         <section className={styles["trending-section"]}>
-                <GenreFilter />
+                <SelectionFilter options={options} />
             <div>
                 <h1 className={styles["section-heading-title"]}>Whatch new titles</h1>
             </div>

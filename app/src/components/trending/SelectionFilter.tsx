@@ -1,9 +1,10 @@
 import { useState } from "react";
 import styles from "./GenreFilter.module.css";
+import type { SelectionOptions } from "../../types/component.types";
 
-const GENRES = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary"];
-
-export default function GenreFilter() {
+export default function SelectionFilter(
+    props: SelectionOptions
+) {
     const [activeGenre, setActiveGenre] = useState("All");
     const [showGenreFilter, setShowGenreFilter] = useState(false);
 
@@ -19,7 +20,7 @@ export default function GenreFilter() {
                 <span className={showGenreFilter ? `${styles["genre-arrow"]} ${styles["rotate-left"]}` : `${styles["genre-arrow"]} ${styles["rotate-right"]}`}>▶</span>
                 <span className={showGenreFilter ? `${styles["genre-arrow"]} ${styles["rotate-left"]}` : `${styles["genre-arrow"]} ${styles["rotate-right"]}`}>▶</span>
             </div>
-            {GENRES.map((genre) => (
+            {props.options.map((genre) => (
                 <button
                     key={genre}
                     className=

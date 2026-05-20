@@ -30,3 +30,5 @@ export type Movie = {
     poster: string,
     position?: number
 };
+
+export type SelectionOptions = { options: string[] };
