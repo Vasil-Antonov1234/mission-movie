@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "./GenreFilter.module.css";
+import styles from "./SelectionFilter.module.css";
 import type { SelectionOptions } from "../../types/component.types";
 
 export default function SelectionFilter(

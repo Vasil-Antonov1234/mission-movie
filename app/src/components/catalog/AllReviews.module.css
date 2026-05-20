@@ -1,5 +1,5 @@
 .review-section {
-    background: rgb(201, 199, 199);
+    background: rgb(241, 241, 241);
     min-height: 100vh;
     max-width: 2700px;
     margin: 0 auto;
@@ -21,25 +21,6 @@
     margin: auto;
     gap: 16px;
 }
-
-/* .reviews-filter-wrapper {
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: flex-end;
-    gap: 5px;
-}
-
-.review-filter-label {
-    letter-spacing: 1px;
-    color: rgb(102, 28, 32);
-    font-weight: 700;
-}
-
-.review-filter {
-    border: 2px solid #dddddd;
-    padding: 5px 10px;
-    transition: 0.4s;
-} */
 
 @media(max-width: 740px) {
     .reviews-container {
