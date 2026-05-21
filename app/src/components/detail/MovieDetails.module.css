@@ -1,12 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
-/* ─── RESET & BASE ─── */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 /* ─── PAGE WRAPPER ─── */
 .detail-wrapper {
   background: #0d0d0d;
@@ -19,24 +12,6 @@
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: #0d0d0d; }
 ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
-
-/* ─── BACK BUTTON ─── */
-.back-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: transparent;
-  border: none;
-  color: #a09890;
-  font-size: 13px;
-  font-family: inherit;
-  cursor: pointer;
-  padding: 0;
-  transition: color 0.2s;
-  letter-spacing: 0.03em;
-}
-.back-btn:hover { color: #e8e2d9; }
-.back-btn-arrow { font-size: 16px; }
 
 /* ─── HERO BACKDROP ─── */
 .detail-hero {

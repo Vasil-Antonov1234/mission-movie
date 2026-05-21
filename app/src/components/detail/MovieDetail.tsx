@@ -113,7 +113,7 @@ type RatingBadgeProps = {rating: number, large?: boolean}
 
 function RatingBadge({ rating, large = false }: RatingBadgeProps) {
     return (
-        <span className={`${styles["rating-badge"]}${large ? " rating-badge--large" : ""}`}>
+        <span className={`${styles["rating-badge"]} ${large ? " rating-badge--large" : ""}`}>
             ★ {rating}
         </span>
     );
@@ -161,9 +161,9 @@ export default function MovieDetail() {
                         </div>
 
                         <div className={styles["detail-hero-actions"]}>
-                            <button className={`${styles["cta-btn"]}${styles["cta-btn--primary"]}`}>▶ Watch Trailer</button>
-                            <button className={`${styles["cta-btn"]}${styles["cta-btn--secondary"]}`}>+ Add to Watchlist</button>
-                            <button className={`${styles["cta-btn"]}${styles["cta-btn--ghost"]}`}>♥ Favourite</button>
+                            <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>▶ Watch Trailer</button>
+                            <button className={`${styles["cta-btn"]} ${styles["cta-btn--secondary"]}`}>+ Add to Watchlist</button>
+                            <button className={`${styles["cta-btn"]} ${styles["cta-btn--ghost"]}`}>♥ Favourite</button>
                         </div>
                     </div>
                 </div>
@@ -190,7 +190,7 @@ export default function MovieDetail() {
                         <div className={styles["scores-grid"]}>
                             <div className={styles["score-card"]}>
                                 <div className={styles["score-card-label"]}>Reelist Score</div>
-                                <div className={`${styles["score-card-value"]}${styles["score-card-value--gold"]}`}>{movie.rating}</div>
+                                <div className={`${styles["score-card-value"]} ${styles["score-card-value--gold"]}`}>{movie.rating}</div>
                                 <div className={styles["score-card-sub"]}>{movie.ratingsCount} ratings</div>
                             </div>
                             <div className={styles["score-card"]}>
