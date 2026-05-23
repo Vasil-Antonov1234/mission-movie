@@ -187,7 +187,7 @@ export default function MovieDetail() {
                     {/* Scores */}
                     <section className={styles["scores-section"]}>
                         <div className={styles["section-label"]}>Ratings</div>
-                        <div className={styles["scores-grid"]}>
+                        <div className={styles["scores-container"]}>
                             <div className={styles["score-card"]}>
                                 <div className={styles["score-card-label"]}>Reelist Score</div>
                                 <div className={`${styles["score-card-value"]} ${styles["score-card-value--gold"]}`}>{movie.rating}</div>
