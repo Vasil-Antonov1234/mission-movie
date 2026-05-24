@@ -20,8 +20,8 @@ const MOVIE = {
     country: "United States",
     releaseDate: "July 21, 2023",
     genres: ["Drama", "History", "Thriller"],
-    backdrop: "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=1400&q=80",
-    poster: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&q=80",
+    backdrop: "https://m.media-amazon.com/images/I/91L+jiIFA3L.jpg",
+    poster: "https://m.media-amazon.com/images/I/91L+jiIFA3L.jpg",
     synopsis:
         "The story of J. Robert Oppenheimer and his role in the development of the atomic bomb during World War II. Tasked by General Leslie Groves to lead the Manhattan Project, Oppenheimer assembles a team of the world's brightest minds at a secret laboratory in Los Alamos, New Mexico. The film chronicles not only the scientific achievement but also the profound moral reckoning that followed — a man who both saved and damned the world in the same breath. Intercut with a 1954 security hearing that threatens to strip him of his reputation, the film is as much a psychological portrait as it is a historical epic.",
     cast: [
@@ -29,25 +29,25 @@ const MOVIE = {
             id: 1,
             name: "Cillian Murphy",
             role: "J. Robert Oppenheimer",
-            photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
+            photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-nMx32JMWKq1YWId_yvkG-DTpRcrMZw5brTeIwI6ag1Z4sC8TvBBOC9Zw-ie6pMarbxG1luhB0stDor6tdt7SghnZUTKpLjSuri9qF2g&s=10",
         },
         {
             id: 2,
             name: "Emily Blunt",
             role: "Katherine Oppenheimer",
-            photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80",
+            photo: "https://s.yimg.com/os/en/mandatory_995/770b9ee1b5583034feb5e8748fc641a4",
         },
         {
             id: 3,
             name: "Matt Damon",
             role: "Gen. Leslie Groves",
-            photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80",
+            photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM4aq1mki4ROCo_-GZPHdOTyHyT2HkgYXRONZxxd-UjOpstfMQzEi4PxGa5T2w7euPyt3qZHa3upuZ0v2dhVhsAk-mZddpcayg8FcuHBQ&s=10",
         },
         {
             id: 4,
             name: "Robert Downey Jr.",
             role: "Lewis Strauss",
-            photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
+            photo: "https://variety.com/wp-content/uploads/2024/01/GettyImages-1431200396-e1704401442760.jpg?w=681&h=383&crop=1",
         },
     ],
     reviews: [
