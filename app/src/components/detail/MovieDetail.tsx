@@ -181,9 +181,9 @@ export default function MovieDetail() {
                                 <div className={styles["score-card-sub"]}>{movie.ratingsCount} ratings</div>
                             </div>
                             <div className={styles["score-card"]}>
-                                <div className={styles["score-card-label"]}>Metascore</div>
+                                <div className={styles["score-card-label"]}>From</div>
                                 <div className={styles["score-card-value"]}>{movie.metascore}</div>
-                                <div className={styles["score-card-sub"]}>Metacritic</div>
+                                <div className={styles["score-card-sub"]}>Users</div>
                             </div>
                             <div className={styles["score-card"]}>
                                 <div className={styles["score-card-label"]}>Tomatometer</div>

@@ -322,7 +322,8 @@
 
 /* Cast */
 .cast-section {
-    margin-bottom: 48px;
+    margin: 48px auto;
+    width: calc(50vw);
 }
 
 .cast-grid {
