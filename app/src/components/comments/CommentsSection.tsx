@@ -1,21 +1,11 @@
 import { useState } from "react";
 import styles from "./CommentsSection.module.css";
-import type { Comment } from "../../types/component.types";
+import type { CommentType } from "../../types/component.types";
+import Comment from "./Comment";
 
-type StarRatingProps = { rating: number }
+type CommentsSectionProps = { comments: CommentType[] }
 
-function StarRating({ rating }: StarRatingProps) {
-    const filled = Math.round((rating / 5) * 5);
-    return (
-        <span className={styles["star-rating"]}>
-            {"★".repeat(filled)}{"☆".repeat(5 - filled)}
-        </span>
-    );
-}
-
-type CommentsSectionProps = { comments: Comment[] }
-
-export default function CommentsSection( { comments }: CommentsSectionProps ) {
+export default function CommentsSection({ comments }: CommentsSectionProps) {
     const [userRating, setUserRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
 
@@ -41,7 +31,7 @@ export default function CommentsSection( { comments }: CommentsSectionProps ) {
                     ))}
                 </div>
                 {userRating > 0 && (
-                    <span style={{ fontSize: "13px", color: "#e8b84b" }}>
+                    <span className={styles["user-rating"]}>
                         {["", "Poor", "Fair", "Good", "Great", "Masterpiece"][userRating]}
                     </span>
                 )}
@@ -49,16 +39,7 @@ export default function CommentsSection( { comments }: CommentsSectionProps ) {
 
             <div className={styles["comments-list"]}>
                 {comments.map((comment) => (
-                    <div key={comment.id} className={styles["comment-item"]}>
-                        <div className={styles["comment-item-header"]}>
-                            <div>
-                                <div className={styles["comment-item-author"]}>{comment.author}</div>
-                                <div className={styles["comment-item-date"]}>{comment.date}</div>
-                            </div>
-                            <StarRating rating={comment.rating} />
-                        </div>
-                        <p className={styles["comment-item-text"]}>"{comment.text}"</p>
-                    </div>
+                    <Comment key={comment.id} comment={comment}/>
                 ))}
             </div>
         </section>
