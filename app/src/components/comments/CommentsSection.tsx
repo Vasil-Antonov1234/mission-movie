@@ -25,21 +25,16 @@ export default function CommentsSection( { comments }: CommentsSectionProps ) {
             <h2 className={styles["synopsis-heading"]}>Comments</h2>
 
             {/* Rate this film */}
-            <div style={{ marginBottom: "24px", display: "flex", alignItems: "center", gap: "12px" }}>
-                <span style={{ fontSize: "13px", color: "#7a7068" }}>Rate this film:</span>
-                <div style={{ display: "flex", gap: "4px" }}>
+            <div className={styles["rate-film-container"]}>
+                <span className={styles["rate-film-label"]}>Rate this film:</span>
+                <div className={styles["stars-container"]}>
                     {[1, 2, 3, 4, 5].map((star) => (
                         <span
                             key={star}
                             onClick={() => setUserRating(star)}
                             onMouseEnter={() => setHoverRating(star)}
                             onMouseLeave={() => setHoverRating(0)}
-                            style={{
-                                fontSize: "22px",
-                                cursor: "pointer",
-                                color: star <= (hoverRating || userRating) ? "#e8b84b" : "#2a2a2a",
-                                transition: "color 0.15s",
-                            }}
+                            className={star <= (hoverRating || userRating) ? `${styles["star"]} ${styles["star-gold"]}` : styles["star"]}
                         >
                             ★
                         </span>
