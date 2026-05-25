@@ -1,0 +1,66 @@
+.comments-section {
+    margin-bottom: 48px;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.synopsis-heading {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #e8e2d9;
+    margin-bottom: 14px;
+}
+
+.section-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #e8b84b;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.comment-item {
+    background: #111;
+    border: 1px solid #1e1e1e;
+    border-radius: 10px;
+    padding: 22px 24px;
+    transition: border-color 0.2s;
+}
+
+.comment-item:hover {
+    border-color: #2a2a2a;
+}
+
+.comment-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.comment-item-author {
+    font-size: 14px;
+    font-weight: 500;
+    color: #e8e2d9;
+    margin-bottom: 2px;
+}
+
+.comment-item-date {
+    font-size: 12px;
+    color: #555;
+}
+
+.comment-item-text {
+    font-size: 14px;
+    line-height: 1.75;
+    color: #a09890;
+    font-style: italic;
+    font-family: 'Playfair Display', Georgia, serif;
+}

@@ -369,57 +369,6 @@
     font-style: italic;
 }
 
-/* Reviews */
-.reviews-section {
-    margin-bottom: 48px;
-}
-
-.reviews-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 16px;
-}
-
-.review-item {
-    background: #111;
-    border: 1px solid #1e1e1e;
-    border-radius: 10px;
-    padding: 22px 24px;
-    transition: border-color 0.2s;
-}
-
-.review-item:hover {
-    border-color: #2a2a2a;
-}
-
-.review-item-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 12px;
-}
-
-.review-item-author {
-    font-size: 14px;
-    font-weight: 500;
-    color: #e8e2d9;
-    margin-bottom: 2px;
-}
-
-.review-item-date {
-    font-size: 12px;
-    color: #555;
-}
-
-.review-item-text {
-    font-size: 14px;
-    line-height: 1.75;
-    color: #a09890;
-    font-style: italic;
-    font-family: 'Playfair Display', Georgia, serif;
-}
-
 /* ─── RIGHT SIDEBAR ─── */
 .detail-sidebar {}
 

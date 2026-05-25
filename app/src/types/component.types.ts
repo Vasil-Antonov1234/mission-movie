@@ -32,3 +32,11 @@ export type Movie = {
 };
 
 export type SelectionOptions = { options: string[] };
+
+export type Comment = {
+    id: number,
+    author: string,
+    date: string,
+    rating: number,
+    text: string
+};
