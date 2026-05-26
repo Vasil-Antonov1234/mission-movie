@@ -35,6 +35,7 @@ export default function CommentsSection({ comments }: CommentsSectionProps) {
                         {["", "Poor", "Fair", "Good", "Great", "Masterpiece"][userRating]}
                     </span>
                 )}
+                <textarea className={styles["comment-item"]} placeholder="Write a comment..."></textarea>
             </div>
 
             <div className={styles["comments-list"]}>

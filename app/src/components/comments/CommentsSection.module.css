@@ -56,5 +56,21 @@
 
 .user-rating {
     font-size: 13px;
-    color: #e8b84b;   
+    color: #e8b84b;
+}
+
+.comment-item {
+    background: #111;
+    border: 1px solid #1e1e1e;
+    color: #a09890;
+    border-radius: 10px;
+    padding: 10px 20px;
+    resize: none;
+    width: 40%;
+    height: 100px;
+    transition: border-color 0.2s;
+}
+
+.comment-item:hover {
+    border-color: #777676;
 }
