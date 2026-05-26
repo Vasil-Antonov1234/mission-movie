@@ -40,3 +40,10 @@ export type CommentType = {
     rating: number,
     text: string
 };
+
+export type Cast = {person: {
+    id: number,
+    name: string,
+    role: string,
+    photo: string
+}};

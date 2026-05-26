@@ -1,5 +1,6 @@
 import styles from "./MovieDetails.module.css";
 import CommentsSection from "../comments/CommentsSection";
+import CastCard from "./CastCard";
 
 const MOVIE = {
     id: 1,
@@ -201,13 +202,7 @@ export default function MovieDetail() {
                         <h2 className={styles["synopsis-heading"]}>Cast</h2>
                         <div className={styles["cast-grid"]}>
                             {movie.cast.map((person) => (
-                                <div key={person.id} className={styles["cast-card"]}>
-                                    <img src={person.photo} alt={person.name} className={styles["cast-card-img"]} />
-                                    <div className={styles["cast-card-body"]}>
-                                        <div className={styles["cast-card-name"]}>{person.name}</div>
-                                        <div className={styles["cast-card-role"]}>{person.role}</div>
-                                    </div>
-                                </div>
+                                <CastCard key={person.id} person={person} />
                             ))}
                         </div>
                     </section>
