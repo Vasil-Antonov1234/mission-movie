@@ -50,5 +50,5 @@ export type Cast = {person: {
 
 export type ButtonProps = { 
     text: string,
-    width?: string 
+    addStyle?: string 
 };

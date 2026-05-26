@@ -20,7 +20,7 @@ export default function Home() {
                     Write reviews, build lists, discover new films, and connect with other cinephiles who share
                     your taste.
                 </p>
-                <ButtonPrimary text="Create your free account" width="cta-btn--large"/>
+                <ButtonPrimary text="Create your free account" addStyle="cta-btn--large"/>
             </section>
             <Reviews />
         </div>

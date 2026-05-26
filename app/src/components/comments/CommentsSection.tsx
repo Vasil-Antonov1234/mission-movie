@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./CommentsSection.module.css";
 import type { CommentType } from "../../types/types";
 import Comment from "./Comment";
+import ButtonPrimary from "../buttons/ButtonPrimary";
 
 type CommentsSectionProps = { comments: CommentType[] }
 
@@ -36,6 +37,7 @@ export default function CommentsSection({ comments }: CommentsSectionProps) {
                     </span>
                 )}
                 <textarea className={styles["comment-item"]} placeholder="Write a comment..."></textarea>
+                <ButtonPrimary text="Submit"/>
             </div>
 
             <div className={styles["comments-list"]}>

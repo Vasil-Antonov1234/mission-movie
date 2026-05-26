@@ -152,9 +152,9 @@ export default function MovieDetail() {
                         </div>
 
                         <div className={styles["detail-hero-actions"]}>
-                            <ButtonPrimary text="▶ Watch Trailer" width="btn-170"/>
-                            <ButtonSecondary text="+ Add to Watchlist" width="btn-170"/>
-                            <ButtonChost text="♥ Favourite" width="btn-170"/>
+                            <ButtonPrimary text="▶ Watch Trailer" addStyle="btn-170"/>
+                            <ButtonSecondary text="+ Add to Watchlist" addStyle="btn-170"/>
+                            <ButtonChost text="♥ Favourite" addStyle="btn-170"/>
                         </div>
                     </div>
                 </div>
