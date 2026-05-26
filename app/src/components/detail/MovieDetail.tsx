@@ -1,6 +1,9 @@
 import styles from "./MovieDetails.module.css";
 import CommentsSection from "../comments/CommentsSection";
 import CastCard from "./CastCard";
+import ButtonChost from "../buttons/ButtonGhost";
+import ButtonSecondary from "../buttons/ButtonSecondary";
+import ButtonPrimary from "../buttons/ButtonPrimary";
 
 const MOVIE = {
     id: 1,
@@ -149,9 +152,9 @@ export default function MovieDetail() {
                         </div>
 
                         <div className={styles["detail-hero-actions"]}>
-                            <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>▶ Watch Trailer</button>
-                            <button className={`${styles["cta-btn"]} ${styles["cta-btn--secondary"]}`}>+ Add to Watchlist</button>
-                            <button className={`${styles["cta-btn"]} ${styles["cta-btn--ghost"]}`}>♥ Favourite</button>
+                            <ButtonPrimary text="▶ Watch Trailer" width="btn-170"/>
+                            <ButtonSecondary text="+ Add to Watchlist" width="btn-170"/>
+                            <ButtonChost text="♥ Favourite" width="btn-170"/>
                         </div>
                     </div>
                 </div>

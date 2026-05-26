@@ -1,0 +1,53 @@
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    border: none;
+    padding: 7px 18px;
+    letter-spacing: 0.02em;
+}
+
+.btn-170 {
+    width: 170px;
+}
+
+.cta-btn--primary {
+    background: #e8b84b;
+    color: #111;
+}
+
+.cta-btn--primary:hover {
+    background: #f5ca60;
+}
+
+.cta-btn--secondary {
+    background: transparent;
+    color: #e8e2d9;
+    border: 1px solid #2e2e2e;
+}
+
+.cta-btn--secondary:hover {
+    border-color: #555;
+}
+
+.cta-btn--ghost {
+    background: rgba(255, 255, 255, 0.06);
+    color: #a09890;
+    border: 1px solid transparent;
+}
+
+.cta-btn--ghost:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #e8e2d9;
+}
+
+.cta-btn--large {
+    font-size: clamp(10px, 5vw, 15px);
+    padding: clamp(10px, 5vw, 15px) clamp(20px, 10vw, 40px);
+}

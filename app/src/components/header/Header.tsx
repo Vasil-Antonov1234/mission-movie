@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./Header.module.css";
 import { NavLink } from "react-router";
+import ButtonSecondary from "../buttons/ButtonSecondary";
 
 export default function Header() {
 
@@ -43,7 +44,7 @@ export default function Header() {
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
                 </div>
-                <button className={`${styles["cta-btn"]} ${styles["cta-btn--secondary"]}`}>Sign in</button>
+                <ButtonSecondary text="Sign in"/>
                 <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Join</button>
             </div>
         </nav>

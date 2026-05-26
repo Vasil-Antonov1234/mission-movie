@@ -1,4 +1,6 @@
 import type { Featured, Rating } from "../../types/types";
+import ButtonPrimary from "../buttons/ButtonPrimary";
+import ButtonSecondary from "../buttons/ButtonSecondary";
 import styles from "./Hero.module.css";
 
 const FEATURED: Featured = {
@@ -37,8 +39,8 @@ export default function Hero() {
                 </div>
                 <p className={styles["hero-description"]}>{FEATURED.description}</p>
                 <div className={styles["hero-actions"]}>
-                    <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>▶ Watch Trailer</button>
-                    <button className={`${styles["cta-btn"]} ${styles["cta-btn--secondary"]}`}>Read Review</button>
+                    <ButtonPrimary text="▶ Watch Trailer"/>
+                    <ButtonSecondary text="Read Review"/>
                 </div>
             </div>
         </div>

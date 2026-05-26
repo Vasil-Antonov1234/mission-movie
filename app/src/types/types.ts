@@ -47,3 +47,8 @@ export type Cast = {person: {
     role: string,
     photo: string
 }};
+
+export type ButtonProps = { 
+    text: string,
+    width?: string 
+};

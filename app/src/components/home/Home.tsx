@@ -1,3 +1,4 @@
+import ButtonPrimary from "../buttons/ButtonPrimary";
 import Hero from "../hero/Hero";
 import Reviews from "../reviews/Reviews";
 import SelectionFilter from "../trending/SelectionFilter";
@@ -19,9 +20,7 @@ export default function Home() {
                     Write reviews, build lists, discover new films, and connect with other cinephiles who share
                     your taste.
                 </p>
-                <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]} ${styles["cta-btn--large"]}`}>
-                    Create your free account
-                </button>
+                <ButtonPrimary text="Create your free account" width="cta-btn--large"/>
             </section>
             <Reviews />
         </div>
