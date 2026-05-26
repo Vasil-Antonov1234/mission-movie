@@ -16,7 +16,7 @@ type CommentProps = { comment: CommentType };
 
 export default function Comment({ comment }: CommentProps) {
     return (
-        <div key={comment.id} className={styles["comment-item"]}>
+        <div className={styles["comment-item"]}>
             <div className={styles["comment-item-header"]}>
                 <div>
                     <div className={styles["comment-item-author"]}>{comment.author}</div>

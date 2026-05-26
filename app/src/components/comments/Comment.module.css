@@ -15,6 +15,7 @@
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 12px;
+    flex-wrap: wrap;
 }
 
 .comment-item-author {
@@ -30,9 +31,15 @@
 }
 
 .comment-item-text {
-    font-size: 14px;
+    font-size: clamp(4px, 5vw, 14px);
     line-height: 1.75;
     color: #a09890;
     font-style: italic;
     font-family: 'Playfair Display', Georgia, serif;
+}
+
+@media(max-width: 250px) {
+    .comment-item {
+        padding: 5px 10px;
+    }
 }
