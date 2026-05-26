@@ -1,4 +1,4 @@
-import type { Review } from "../../types/component.types";
+import type { Review } from "../../types/types";
 import styles from "./Reviews.module.css";
 import ReviewCard from "./RviewCard";
 import { Link } from "react-router";

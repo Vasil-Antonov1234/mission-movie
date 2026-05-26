@@ -1,4 +1,4 @@
-import type { Rating, Review } from "../../types/component.types";
+import type { Rating, Review } from "../../types/types";
 import styles from "./ReviewCard.module.css";
 
 function StarRating({ rating }: Rating) {

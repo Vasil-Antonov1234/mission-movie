@@ -1,4 +1,4 @@
-import type { Cast } from "../../types/component.types";
+import type { Cast } from "../../types/types";
 import styles from "./CastCard.module.css";
 
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./SelectionFilter.module.css";
-import type { SelectionOptions } from "../../types/component.types";
+import type { SelectionOptions } from "../../types/types";
 
 export default function SelectionFilter(
     props: SelectionOptions

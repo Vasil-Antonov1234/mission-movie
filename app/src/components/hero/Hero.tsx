@@ -1,4 +1,4 @@
-import type { Featured, Rating } from "../../types/component.types";
+import type { Featured, Rating } from "../../types/types";
 import styles from "./Hero.module.css";
 
 const FEATURED: Featured = {

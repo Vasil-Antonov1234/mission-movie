@@ -1,4 +1,4 @@
-import type { CommentType } from "../../types/component.types";
+import type { CommentType } from "../../types/types";
 import styles from "./Comment.module.css";
 
 type StarRatingProps = { rating: number }

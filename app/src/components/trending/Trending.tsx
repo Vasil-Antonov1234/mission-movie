@@ -1,4 +1,4 @@
-import type { Movie } from "../../types/component.types";
+import type { Movie } from "../../types/types";
 import MovieCard from "./MovieCard";
 import styles from "./Trending.module.css";
 import { Link } from "react-router";

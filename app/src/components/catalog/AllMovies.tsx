@@ -1,4 +1,4 @@
-import type { Movie } from "../../types/component.types";
+import type { Movie } from "../../types/types";
 import PaginationContainer from "../pagination/PaginationContainer";
 import SelectionFilter from "../trending/SelectionFilter";
 import MovieCard from "../trending/MovieCard";

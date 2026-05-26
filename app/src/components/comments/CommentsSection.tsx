@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./CommentsSection.module.css";
-import type { CommentType } from "../../types/component.types";
+import type { CommentType } from "../../types/types";
 import Comment from "./Comment";
 
 type CommentsSectionProps = { comments: CommentType[] }

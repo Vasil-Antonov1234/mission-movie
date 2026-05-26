@@ -1,4 +1,4 @@
-import type { Review } from "../../types/component.types";
+import type { Review } from "../../types/types";
 import ReviewCard from "../reviews/RviewCard";
 import SelectionFilter from "../trending/SelectionFilter";
 import styles from "./AllReviews.module.css";

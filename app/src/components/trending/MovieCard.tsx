@@ -1,4 +1,4 @@
-import type { Movie, Rating } from "../../types/component.types";
+import type { Movie, Rating } from "../../types/types";
 import styles from "./MovieCard.module.css";
 import { Link } from "react-router";
 
