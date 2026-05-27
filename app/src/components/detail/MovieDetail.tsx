@@ -4,6 +4,7 @@ import CastCard from "./CastCard";
 import ButtonChost from "../buttons/ButtonGhost";
 import ButtonSecondary from "../buttons/ButtonSecondary";
 import ButtonPrimary from "../buttons/ButtonPrimary";
+import SiilarFilm from "./SimilarFilm";
 
 const MOVIE = {
     id: 1,
@@ -277,14 +278,7 @@ export default function MovieDetail() {
                         <div className={styles["sidebar-card-title"]}>Similar Films</div>
                         <div className={styles["similar-list"]}>
                             {movie.similar.map((film) => (
-                                <div key={film.id} className={styles["similar-item"]}>
-                                    <img src={film.poster} alt={film.title} className={styles["similar-item-img"]} />
-                                    <div className={styles["similar-item-info"]}>
-                                        <div className={styles["similar-item-title"]}>{film.title}</div>
-                                        <div className={styles["similar-item-year"]}>{film.year}</div>
-                                        <RatingBadge rating={film.rating} />
-                                    </div>
-                                </div>
+                                <SiilarFilm key={film.id} film={film}/>
                             ))}
                         </div>
                     </div>

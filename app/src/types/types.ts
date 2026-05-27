@@ -41,14 +41,24 @@ export type CommentType = {
     text: string
 };
 
-export type Cast = {person: {
-    id: number,
-    name: string,
-    role: string,
-    photo: string
-}};
+export type Cast = {
+    person: {
+        id: number,
+        name: string,
+        role: string,
+        photo: string
+    }
+};
 
-export type ButtonProps = { 
+export type ButtonProps = {
     text: string,
-    addStyle?: string 
+    addStyle?: string
+};
+
+export type SimilarFilm = {
+    id: number,
+    title: string,
+    year: number,
+    rating: number,
+    poster: string
 };
