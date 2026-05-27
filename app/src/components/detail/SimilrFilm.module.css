@@ -41,3 +41,9 @@
     color: #555;
     margin-bottom: 4px;
 }
+
+@media(max-width: 230px) {
+    .similar-item {
+        flex-direction: column;
+    }
+}

@@ -444,6 +444,12 @@
     .sidebar-info-item {
         flex-basis: 20%;
     }
+
+    .similar-list {
+        flex-direction: row;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
 }
 
 @media(max-width: 500px) {
