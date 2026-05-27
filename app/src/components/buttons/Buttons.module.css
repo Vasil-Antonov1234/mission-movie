@@ -51,3 +51,9 @@
     font-size: clamp(10px, 5vw, 15px);
     padding: clamp(10px, 5vw, 15px) clamp(20px, 10vw, 40px);
 }
+
+@media(max-width: 190px) {
+    .btn-170 {
+        width: 100px;
+    }
+}
