@@ -3,7 +3,7 @@
     display: flex;
     gap: 8px;
     align-items: center;
-    overflow-x: auto;
+    /* overflow-x: auto; */
 }
 
 .genre-filter-label {
