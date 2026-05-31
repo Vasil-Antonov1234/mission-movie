@@ -462,6 +462,17 @@
         padding: 15px 20px 24px;
     }
 
+    .cast-section {
+        width: 100%;
+    }
+
+    .cast-grid {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+    
     .sidebar-info-list {
         flex-direction: column;
     }
@@ -484,6 +495,11 @@
 }
 
 @media(max-width: 240px) {
+    
+    .detail-body {
+        padding: 10px;
+        padding-right: 20px;
+    }
 
     .detail-hero {
         height: 700px;
@@ -497,6 +513,7 @@
     }
 
     .cast-grid {
+        display: grid;
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     }
 
