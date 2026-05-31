@@ -89,6 +89,10 @@
 }
 
 @media(max-width: 240px) {
+    .review-card {
+        margin-bottom: 10px;
+    }
+
     .review-card-header {
         flex-direction: column;
         align-items: center;

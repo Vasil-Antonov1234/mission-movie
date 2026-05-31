@@ -6,6 +6,7 @@
     min-height: 100vh;
     color: #e8e2d9;
     font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+    width: fit-content;
     max-width: 2700px;
     margin: 0 auto;
 }

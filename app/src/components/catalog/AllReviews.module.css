@@ -41,6 +41,7 @@
 
 @media(max-width: 230px) {
     .reviews-container {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        /* grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); */
+        display: block;
     }
 }

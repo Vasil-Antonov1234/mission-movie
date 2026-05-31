@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./Header.module.css";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import ButtonSecondary from "../buttons/ButtonSecondary";
 
 export default function Header() {
@@ -17,9 +17,9 @@ export default function Header() {
         <nav className={mobileNavOpen ? `${styles["navbar"]} ${styles["logo-hamburger-menu-wrapper-open"]}` : `${styles["navbar"]} ${styles["logo-hamburger-menu-wrapper-close"]}`}>
             <div className={styles["navbar-left"]}>
                 <div className={styles["logo-hamburger-menu-wrapper"]}>
-                    <div className={styles["logo"]}>
+                    <Link to="/" className={styles["logo"]}>
                         Mission<span className={styles["logo-accent"]}>Movie</span>
-                    </div>
+                    </Link>
                     <div className={styles["hamburger-menu"]} onClick={mobileNavHandler}>
                         <span className={mobileNavOpen ? `${styles["hamburger-menu-span"]} ${styles["hamburger-menu-first-close"]}` : `${styles["hamburger-menu-span"]} ${styles["hamburger-menu-first-open"]}`}></span>
                         <span className={mobileNavOpen ? `${styles["hamburger-menu-span"]} ${styles["hamburger-menu-second-close"]}` : `${styles["hamburger-menu-span"]} ${styles["hamburger-menu-second-open"]}`}></span>
