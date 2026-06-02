@@ -1,5 +1,6 @@
 .hero {
     position: relative;
+    width: 33.3%;
     height: 560px;
     overflow: hidden;
 }

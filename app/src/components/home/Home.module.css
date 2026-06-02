@@ -1,33 +1,33 @@
 .home-wrapper {
-  background: #0d0d0d;
-  min-height: 100vh;
-  color: #e8e2d9;
-  font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
-  max-width: 2700px;
-  margin: 0 auto;
+    background: #0d0d0d;
+    min-height: 100vh;
+    color: #e8e2d9;
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+    max-width: 2700px;
+    margin: 0 auto;
 }
 
 .cta-banner {
-  padding: 64px 60px;
-  text-align: center;
-  border-top: 1px solid #1a1a1a;
+    padding: 64px 60px;
+    text-align: center;
+    border-top: 1px solid #1a1a1a;
 }
 
 .cta-banner-title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(1.05rem, 10vw, 2.25rem);
-  font-weight: 700;
-  color: #e8e2d9;
-  margin-bottom: 12px;
-  letter-spacing: -0.02em;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.05rem, 10vw, 2.25rem);
+    font-weight: 700;
+    color: #e8e2d9;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
 }
 
 .cta-banner-text {
-  font-size: clamp(5px, 6vw, 15px);
-  color: #7a7068;
-  max-width: 480px;
-  margin: 0 auto 32px;
-  line-height: 1.7;
+    font-size: clamp(5px, 6vw, 15px);
+    color: #7a7068;
+    max-width: 480px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
 }
 
 .section-label {
@@ -40,49 +40,142 @@
 }
 
 .cta-banner-eyebrow {
-  margin-bottom: 12px;
+    margin-bottom: 12px;
 }
 
 .cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: inherit;
-  border: none;
-  padding: 7px 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    border: none;
+    padding: 7px 18px;
 }
 
 .cta-btn--primary {
-  background: #e8b84b;
-  color: #111;
+    background: #e8b84b;
+    color: #111;
 }
 
 .cta-btn--primary:hover {
-  background: #f5ca60;
+    background: #f5ca60;
 }
 
 .cta-btn--secondary {
-  background: transparent;
-  color: #e8e2d9;
-  border: 1px solid #333;
+    background: transparent;
+    color: #e8e2d9;
+    border: 1px solid #333;
 }
 
 .cta-btn--secondary:hover {
-  border-color: #555;
+    border-color: #555;
 }
 
 .cta-btn--large {
-  font-size: clamp(10px, 5vw, 15px);
-  padding: clamp(10px, 5vw, 15px) clamp(20px, 10vw, 40px);
+    font-size: clamp(10px, 5vw, 15px);
+    padding: clamp(10px, 5vw, 15px) clamp(20px, 10vw, 40px);
+}
+
+/* Hero caroucel */
+
+.hero-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.next-slide {
+    position: absolute;
+    top: 30%;
+    z-index: 1;
+    font-size: clamp(30px, 10vw, 100px);
+    cursor: pointer;
+}
+
+.previous-slide {
+    position: absolute;
+    top: 30%;
+    right: 0%;
+    z-index: 1;
+    font-size: clamp(30px, 10vw, 100px);
+    cursor: pointer;
+}
+
+.hide-nexts-previous-button {
+    display: none;
+}
+
+.hero-container {
+    display: flex;
+    width: 300%;
+}
+
+.hero-container-state2-next {
+    transform: translate(-33.3%);
+    animation: hero-state2-next ease 1s;
+}
+
+@keyframes hero-state2-next {
+    from {
+        transform: translateX(0%);
+    }
+
+    to {
+        transform: translateX(-33.3%);
+    }
+}
+
+.hero-container-state3-next {
+    transform: translate(-66.6%);
+    animation: hero-state3-next ease 1s;
+}
+
+@keyframes hero-state3-next {
+    from {
+        transform: translateX(-33.3%);
+    }
+
+    to {
+        transform: translateX(-66.6%);
+    }
+}
+
+.hero-container-state2-previous {
+    transform: translate(-33.3%);
+    animation: hero-state2-previous ease 1s;
+}
+
+@keyframes hero-state2-previous {
+    from {
+        transform: translateX(-66.6%);
+    }
+
+    to {
+        transform: translateX(-33.3%);
+    }
+}
+
+.hero-container-state1-previous {
+    transform: translate(0%);
+    animation: hero-state1-previous ease 1s;
+}
+
+@keyframes hero-state1-previous {
+    from {
+        transform: translateX(-33.3%);
+    }
+
+    to {
+        transform: translateX(0%);
+    }
 }
 
 @media(max-width: 300px) {
-  .cta-banner {
-    padding: clamp(10px, 10vw, 34px) clamp(5px, 10vw, 30px);
-  }
+    .cta-banner {
+        padding: clamp(10px, 10vw, 34px) clamp(5px, 10vw, 30px);
+    }
 }
