@@ -5,14 +5,53 @@ import Reviews from "../reviews/Reviews";
 import SelectionFilter from "../trending/SelectionFilter";
 import Trending from "../trending/Trending";
 import styles from "./Home.module.css";
+import type { Featured } from "../../types/types";
 
 const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary"];
 
+const featuredMovies: Featured[] = [
+    {
+        id: 30,
+        title: "Dune: Part Two",
+        year: 2024,
+        genre: ["Sci-Fi", "Adventure"],
+        rating: 8.8,
+        description:
+            "Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe.",
+        backdrop: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=80",
+        director: "Denis Villeneuve",
+        duration: "2h 46m"
+    },
+    {
+        id: 31,
+        title: "The End of Oak Street",
+        year: 2026,
+        genre: ["Action", "Sci-Fi", "Adventure", "Mistery"],
+        rating: 9.1,
+        description:
+            "The Platt family bands together to navigate their new surroundings after a cosmic event transports their suburban neighborhood to someplace unknown.",
+        backdrop: "https://m.media-amazon.com/images/M/MV5BYjU5MTBkOTMtMzg2MC00N2Y0LTk1MmUtMjhmNmZhZjgxZGZlXkEyXkFqcGc@._V1_.jpg",
+        director: "David Robert Mitchell",
+        duration: "1h 50m"
+    },
+    {
+        id: 32,
+        title: "House of the Dragon: Season 3",
+        year: 2026,
+        genre: ["Action", "Adventure", "Fantasy"],
+        rating: 8.3,
+        description:
+            "An internal succession war within House Targaryen at the height of its power, 172 years before the birth of Daenerys Targaryen.",
+        backdrop: "https://pbs.twimg.com/media/GbAeMfFXIAAiMlK.jpg",
+        director: "Ryan J. Condal",
+        duration: "1h"
+    }
+]
 
 export default function Home() {
     const [heroState, setHeroState] = useState(1);
     const [moveState, SetMoveState] = useState("next");
-    
+
     function nextHeroHandler() {
         setHeroState((state) => state + 1);
         SetMoveState("next");
@@ -29,9 +68,7 @@ export default function Home() {
                 <span className={heroState < 3 ? styles["next-slide"] : styles["hide-nexts-previous-button"]} onClick={nextHeroHandler}>{"<"}</span>
                 <span className={heroState > 1 ? styles["previous-slide"] : styles["hide-nexts-previous-button"]} onClick={previousHeroHandler}>{">"}</span>
                 <div className={`${styles["hero-container"]} ${styles[`hero-container-state${heroState}-${moveState}`]}`}>
-                    <Hero />
-                    <Hero />
-                    <Hero />
+                    {featuredMovies.map((movie) => <Hero key={movie.id} movie={movie}/>)}
                 </div>
             </section>
             <SelectionFilter options={options} />

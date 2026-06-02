@@ -3,41 +3,31 @@ import ButtonPrimary from "../buttons/ButtonPrimary";
 import ButtonSecondary from "../buttons/ButtonSecondary";
 import styles from "./Hero.module.css";
 
-const FEATURED: Featured = {
-    title: "Dune: Part Two",
-    year: 2024,
-    genre: ["Sci-Fi", "Adventure"],
-    rating: 8.8,
-    description:
-        "Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe.",
-    backdrop: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=80",
-    director: "Denis Villeneuve",
-    duration: "2h 46m",
-};
-
 function RatingBadge({ rating }: Rating) {
     return <span className={styles["rating-badge"]}>★ {rating}</span>;
 }
 
-export default function Hero() {
+type HeroProps = {movie: Featured}
+
+export default function Hero(movie: HeroProps) {
     return (
         <div className={styles["hero"]}>
-            <img src={FEATURED.backdrop} alt={FEATURED.title} className={styles["hero-backdrop"]} />
+            <img src={movie.movie.backdrop} alt={movie.movie.title} className={styles["hero-backdrop"]} />
             <div className={styles["hero-overlay-h"]} />
             <div className={styles["hero-overlay-v"]} />
             <div className={styles["hero-content"]}>
                 <div className={styles["section-label"]}>✦ Featured film</div>
-                <h1 className={styles["hero-title"]}>{FEATURED.title}</h1>
+                <h1 className={styles["hero-title"]}>{movie.movie.title}</h1>
                 <div className={styles["hero-meta"]}>
-                    <span>{FEATURED.year}</span>
+                    <span>{movie.movie.year}</span>
                     <span className={styles["hero-meta-dot"]}>·</span>
-                    <span>{FEATURED.duration}</span>
+                    <span>{movie.movie.duration}</span>
                     <span className={styles["hero-meta-dot"]}>·</span>
-                    <span>{FEATURED.genre.join(", ")}</span>
+                    <span>{movie.movie.genre.join(", ")}</span>
                     <span className={styles["hero-meta-dot"]}>·</span>
-                    <RatingBadge rating={FEATURED.rating} />
+                    <RatingBadge rating={movie.movie.rating} />
                 </div>
-                <p className={styles["hero-description"]}>{FEATURED.description}</p>
+                <p className={styles["hero-description"]}>{movie.movie.description}</p>
                 <div className={styles["hero-actions"]}>
                     <ButtonPrimary text="▶ Watch Trailer"/>
                     <ButtonSecondary text="Read Review"/>

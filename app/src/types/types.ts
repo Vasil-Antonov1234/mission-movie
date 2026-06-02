@@ -1,4 +1,5 @@
 export type Featured = {
+    id: number,
     title: string,
     year: number,
     genre: string[],
