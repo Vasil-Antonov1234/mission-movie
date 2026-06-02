@@ -91,7 +91,7 @@
 .next-slide {
     position: absolute;
     top: 30%;
-    z-index: 1;
+    z-index: 101;
     font-size: clamp(30px, 10vw, 100px);
     cursor: pointer;
 }
@@ -100,7 +100,7 @@
     position: absolute;
     top: 30%;
     right: 0%;
-    z-index: 1;
+    z-index: 101;
     font-size: clamp(30px, 10vw, 100px);
     cursor: pointer;
 }

@@ -150,4 +150,8 @@
     .section-label {
         margin-top: 10px;
     }
+
+    .hero {
+        height: 700px
+    }
 }
