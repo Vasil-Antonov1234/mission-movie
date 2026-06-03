@@ -88,25 +88,28 @@
     overflow: hidden;
 }
 
-.next-slide {
+.next-slide,
+.previous-slide {
     position: absolute;
-    top: 30%;
     z-index: 101;
+    color: #e8b84b;
     font-size: clamp(30px, 10vw, 100px);
     cursor: pointer;
+    top: 30%;
+
 }
 
 .previous-slide {
-    position: absolute;
-    top: 30%;
     right: 0%;
-    z-index: 101;
-    font-size: clamp(30px, 10vw, 100px);
-    cursor: pointer;
 }
 
 .hide-nexts-previous-button {
     display: none;
+}
+
+.next-slide:hover,
+.previous-slide:hover {
+    color: #f5ca60;
 }
 
 .hero-container {
