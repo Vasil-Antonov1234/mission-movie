@@ -53,11 +53,21 @@ export default function Home() {
     const [moveState, SetMoveState] = useState("next");
 
     function nextHeroHandler() {
+
+        if (heroState > 2) {
+            return
+        }
+
         setHeroState((state) => state + 1);
         SetMoveState("next");
     };
 
     function previousHeroHandler() {
+
+        if (heroState < 2) {
+            return
+        }
+
         setHeroState((state) => state - 1);
         SetMoveState("previous");
     };
@@ -70,8 +80,8 @@ export default function Home() {
         <div className={styles["home-wrapper"]}>
             <section className={styles["hero-wrapper"]}>
                 <div className={styles["slide"]}>
-                    <span className={heroState < 3 ? styles["next-slide"] : styles["hide-nexts-previous-button"]} onClick={nextHeroHandler} onTouchEnd={(event) => touchEndHandler(event)}>{"<"}</span>
-                    <span className={heroState > 1 ? styles["previous-slide"] : styles["hide-nexts-previous-button"]} onClick={previousHeroHandler} onTouchEnd={(event) => touchEndHandler(event)}>{">"}</span>
+                    <span className={heroState === 3 ? styles["next-slide"] : `${styles["next-slide"]} ${styles["hover-slade"]}`} onClick={nextHeroHandler} onTouchEnd={(event) => touchEndHandler(event)}>{"<"}</span>
+                    <span className={heroState === 1 ? styles["previous-slide"] : `${styles["previous-slide"]} ${styles["hover-slade"]}`} onClick={previousHeroHandler} onTouchEnd={(event) => touchEndHandler(event)}>{">"}</span>
                     <div className={`${styles["hero-container"]} ${styles[`hero-container-state${heroState}-${moveState}`]}`}>
                         {featuredMovies.map((movie) => <Hero key={movie.id} movie={movie} />)}
                     </div>
