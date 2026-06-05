@@ -91,7 +91,6 @@
 .slide {
     overflow: scroll;
     scroll-snap-type: x mandatory;
-    white-space: nowrap;
 }
 
 .slide::-webkit-scrollbar {

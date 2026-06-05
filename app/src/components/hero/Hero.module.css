@@ -3,8 +3,8 @@
     width: 33.3%;
     height: 560px;
     overflow: hidden;
-
     scroll-snap-align: none start;
+    z-index: 100;
 }
 
 .hero-backdrop {

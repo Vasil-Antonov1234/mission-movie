@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import Hero from "../hero/Hero";
 import Reviews from "../reviews/Reviews";
@@ -62,12 +62,16 @@ export default function Home() {
         SetMoveState("previous");
     };
 
+    function touchEndHandler(event: React.TouchEvent<HTMLSpanElement>) {
+        event.preventDefault();
+    }
+
     return (
         <div className={styles["home-wrapper"]}>
             <section className={styles["hero-wrapper"]}>
                 <div className={styles["slide"]}>
-                    <span className={heroState < 3 ? styles["next-slide"] : styles["hide-nexts-previous-button"]} onClick={nextHeroHandler}>{"<"}</span>
-                    <span className={heroState > 1 ? styles["previous-slide"] : styles["hide-nexts-previous-button"]} onClick={previousHeroHandler}>{">"}</span>
+                    <span className={heroState < 3 ? styles["next-slide"] : styles["hide-nexts-previous-button"]} onClick={nextHeroHandler} onTouchEnd={(event) => touchEndHandler(event)}>{"<"}</span>
+                    <span className={heroState > 1 ? styles["previous-slide"] : styles["hide-nexts-previous-button"]} onClick={previousHeroHandler} onTouchEnd={(event) => touchEndHandler(event)}>{">"}</span>
                     <div className={`${styles["hero-container"]} ${styles[`hero-container-state${heroState}-${moveState}`]}`}>
                         {featuredMovies.map((movie) => <Hero key={movie.id} movie={movie} />)}
                     </div>
