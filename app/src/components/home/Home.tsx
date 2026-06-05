@@ -65,10 +65,12 @@ export default function Home() {
     return (
         <div className={styles["home-wrapper"]}>
             <section className={styles["hero-wrapper"]}>
-                <span className={heroState < 3 ? styles["next-slide"] : styles["hide-nexts-previous-button"]} onClick={nextHeroHandler}>{"<"}</span>
-                <span className={heroState > 1 ? styles["previous-slide"] : styles["hide-nexts-previous-button"]} onClick={previousHeroHandler}>{">"}</span>
-                <div className={`${styles["hero-container"]} ${styles[`hero-container-state${heroState}-${moveState}`]}`}>
-                    {featuredMovies.map((movie) => <Hero key={movie.id} movie={movie}/>)}
+                <div className={styles["slide"]}>
+                    <span className={heroState < 3 ? styles["next-slide"] : styles["hide-nexts-previous-button"]} onClick={nextHeroHandler}>{"<"}</span>
+                    <span className={heroState > 1 ? styles["previous-slide"] : styles["hide-nexts-previous-button"]} onClick={previousHeroHandler}>{">"}</span>
+                    <div className={`${styles["hero-container"]} ${styles[`hero-container-state${heroState}-${moveState}`]}`}>
+                        {featuredMovies.map((movie) => <Hero key={movie.id} movie={movie} />)}
+                    </div>
                 </div>
             </section>
             <SelectionFilter options={options} />
