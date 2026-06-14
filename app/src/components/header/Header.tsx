@@ -47,7 +47,9 @@ export default function Header() {
                 <Link to="/login">
                     <ButtonSecondary text="Sign in"/>
                 </Link>
-                <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Join</button>
+                <Link to="/register">
+                    <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Join</button>
+                </Link>
             </div>
         </nav>
     );
