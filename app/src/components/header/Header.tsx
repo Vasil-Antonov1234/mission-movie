@@ -44,7 +44,9 @@ export default function Header() {
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
                 </div>
-                <ButtonSecondary text="Sign in"/>
+                <Link to="/login">
+                    <ButtonSecondary text="Sign in"/>
+                </Link>
                 <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Join</button>
             </div>
         </nav>

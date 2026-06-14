@@ -54,7 +54,7 @@ export default function Login() {
                                 type="email"
                                 className={styles["auth-input"]}
                                 placeholder="you@example.com"
-                                value=""
+                                // value=""
                                 autoComplete="email"
                             />
                         </div>
@@ -73,7 +73,7 @@ export default function Login() {
                                 type={showPassword ? "text" : "password"}
                                 className={`${styles["auth-input"]} ${styles["auth-input--has-icon"]}`}
                                 placeholder="••••••••"
-                                value=""
+                                // value=""
                                 autoComplete="current-password"
                             />
                             <span
