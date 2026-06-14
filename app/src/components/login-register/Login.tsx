@@ -64,7 +64,7 @@ export default function Login() {
                     <div className={styles["auth-field"]}>
                         <div className={styles["auth-field-header"]}>
                             <label className={styles["auth-label"]} htmlFor="password">Password</label>
-                            <Link to="/forgot-password" className="auth-forgot-link">Forgot password?</Link>
+                            <Link to="/forgot-password" className={styles["auth-forgot-link"]}>Forgot password?</Link>
                         </div>
                         <div className={styles["auth-input-wrapper"]}>
                             <input
