@@ -5,6 +5,7 @@ import Footer from "./components/footer/Footer"
 import AllMovies from "./components/catalog/AllMovies"
 import AllReviews from "./components/catalog/AllReviews"
 import MovieDetail from "./components/detail/MovieDetail"
+import Login from "./components/login-register/Login"
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/catalog/movies" element={<AllMovies />} />
                 <Route path="/catalog/reviews" element={<AllReviews />} />
                 <Route path="/catalog/:movieId/details" element={<MovieDetail />} />
+                <Route path="/login" element={<Login />} />
             </Routes>
             <Footer />
         </>
