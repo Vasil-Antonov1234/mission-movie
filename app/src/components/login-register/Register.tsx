@@ -1,11 +1,22 @@
 import { useState } from "react";
 import styles from "./Auth.module.css";
 import { Link } from "react-router";
+import useForm from "../../hooks/useForm";
+
+const initialValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+}
 
 export default function Register() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
+    const { formInputRegister } = useForm(initialValues)
 
+    
     return (
         <div className={styles["auth-wrapper"]}>
             {/* Background blurs */}
@@ -50,24 +61,22 @@ export default function Register() {
                         <div className={styles["auth-field"]}>
                             <label className={styles["auth-label"]} htmlFor="firstName">First name</label>
                             <input
+                                {...formInputRegister("firstName")}
                                 id="firstName"
-                                name="firstName"
                                 type="text"
                                 className={styles["auth-input"]}
                                 placeholder="Jane"
-                                // value=""
                                 autoComplete="given-name"
                             />
                         </div>
                         <div className={styles["auth-field"]}>
                             <label className={styles["auth-label"]} htmlFor="lastName">Last name</label>
                             <input
+                                {...formInputRegister("lastName")}
                                 id="lastName"
-                                name="lastName"
                                 type="text"
                                 className={styles["auth-input"]}
                                 placeholder="Doe"
-                                // value=""
                                 autoComplete="family-name"
                             />
                         </div>
@@ -77,12 +86,11 @@ export default function Register() {
                     <div className={styles["auth-field"]}>
                         <label className={styles["auth-label"]} htmlFor="email">Email</label>
                         <input
+                            {...formInputRegister("email")}
                             id="email"
-                            name="email"
                             type="email"
                             className={styles["auth-input"]}
                             placeholder="you@example.com"
-                            // value=""
                             autoComplete="email"
                         />
                     </div>
@@ -92,12 +100,11 @@ export default function Register() {
                         <label className={styles["auth-label"]} htmlFor="password">Password</label>
                         <div className={styles["auth-input-wrapper"]}>
                             <input
+                                {...formInputRegister("password")}
                                 id="password"
-                                name="password"
                                 type={showPassword ? "text" : "password"}
                                 className={`${styles["auth-input"]} ${styles["auth-input--has-icon"]}`}
                                 placeholder="Min. 8 characters"
-                                // value=""
                                 autoComplete="new-password"
                             />
                             <span
@@ -114,12 +121,11 @@ export default function Register() {
                         <label className={styles["auth-label"]} htmlFor="confirmPassword">Confirm password</label>
                         <div className="auth-input-wrapper">
                             <input
+                                {...formInputRegister("confirmPassword")}
                                 id="confirmPassword"
-                                name="confirmPassword"
                                 type={showConfirm ? "text" : "password"}
                                 className={`${styles["auth-input"]} ${styles["auth-input--has-icon"]}`}
                                 placeholder="Repeat your password"
-                                // value=""
                                 autoComplete="new-password"
                             />
                             <span
