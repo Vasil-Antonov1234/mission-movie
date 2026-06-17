@@ -314,7 +314,7 @@
 }
 
 .auth-strength-bar--weak   { background: #c0392b; }
-.auth-strength-bar--fair   { background: #e67e22; }
+.auth-strength-bar--medium   { background: #e67e22; }
 .auth-strength-bar--good   { background: #2ecc71; }
 .auth-strength-bar--strong { background: #27ae60; }
 

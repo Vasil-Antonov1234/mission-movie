@@ -29,8 +29,6 @@ function getPassStrengthHandler(password: string) {
         level = (level + 1) as Level;
     };
 
-    console.log(level)
-
     const stages = {
         0: { label: "", key: "" },
         1: { label: "Weak", key: "weak" },
@@ -56,8 +54,7 @@ function PasswordStrengthHandler({ password }: PasswordStrengthHandlerProps) {
                 {[1, 2, 3, 4].map((x) => (
                     <div
                         key={x}
-                        className={x < level ? styles["auth-strength-bar"] : `${styles["auth-strength-bar"]} ${styles[`auth-strength-bar--${result.key}`]}`}
-                        // className={`auth-strength-bar${x <= score ? ` auth-strength-bar--${key}` : ""}`}
+                        className={x >= level ? `${styles["auth-strength-bar"]} ${styles[`auth-strength-bar--${result.key}`]}` : styles["auth-strength-bar"]}
                     />
                 ))}
             </div>
@@ -65,8 +62,6 @@ function PasswordStrengthHandler({ password }: PasswordStrengthHandlerProps) {
                 <span className={`${styles["auth-strength-label"]} ${styles[`auth-strength-label--${result.key}`]}`}>
                     {result.label} password
                 </span>
-
-                // <span className={`auth-strength-label auth-strength-label--${key}`}></span>
             )}
         </div>
     )
