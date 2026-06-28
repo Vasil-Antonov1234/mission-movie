@@ -20,10 +20,14 @@ export default function PaginationContainer(props: PaginationContainerProps) {
 
     function previewsPageHandler() {
         setActivePage((state) => state - 1)
+
+        props.onPageNumber(activePage - 1)
     };
 
     function nextPageHandler() {
         setActivePage((state) => state + 1);
+
+        props.onPageNumber(activePage + 1);
     };
 
     return (

@@ -95,7 +95,7 @@ const allMovies: Movie[] = [
         genre: "Horror",
         poster: "https://filmizip.com/uploads/posts/2026-04/ltlz5ihlpaxqstxgmmbehfniskz.webp"
     },
-{
+    {
         id: 12,
         title: "The Punisher: One Last Kill",
         year: 2026,
@@ -103,7 +103,7 @@ const allMovies: Movie[] = [
         genre: "Action, Adventure, Crime",
         poster: "https://lh5.googleusercontent.com/proxy/eRujBnpOiR-aA7O40XV6wzPS48HL9xHK8yME_gPQjVJh--cX98UMKnHdvYSrKg8VI4ej7ySN3rz-Id30O3F46WUThCYSoujsNLi5DJRgAb40"
     },
-{
+    {
         id: 13,
         title: "Arctic's Edge",
         year: 2025,
@@ -111,7 +111,7 @@ const allMovies: Movie[] = [
         genre: "Thriller",
         poster: "https://m.media-amazon.com/images/M/MV5BMDcyYjVhMDItYjg0OS00MTUwLTkzYTgtODBlNDU3MTJmNzRjXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
     },
-{
+    {
         id: 14,
         title: "Planet of the Apes",
         year: 2001,
@@ -119,7 +119,7 @@ const allMovies: Movie[] = [
         genre: "Action, Adventure, Sci-Fi",
         poster: "https://cdng.europosters.eu/pod_public/1300/262747.jpg"
     },
-{
+    {
         id: 15,
         title: "Rebel Moon - Part One: A Child of Fire",
         year: 2023,
@@ -127,7 +127,7 @@ const allMovies: Movie[] = [
         genre: "Action, Adventure",
         poster: "https://m.media-amazon.com/images/M/MV5BYTRmOTk2ZDYtY2Q3Mi00MGYwLWFjNDQtYTliODc3NzM1ZjBlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
     },
-{
+    {
         id: 16,
         title: "Schindler's List",
         year: 1993,
@@ -135,7 +135,7 @@ const allMovies: Movie[] = [
         genre: "Drama, History",
         poster: "https://i.pinimg.com/736x/16/dc/f0/16dcf03b7244c896d4c149b250913f0f.jpg"
     },
-{
+    {
         id: 17,
         title: "Insidious: The Red Door",
         year: 2023,
@@ -143,7 +143,7 @@ const allMovies: Movie[] = [
         genre: "Horror, Mystery, Thriller",
         poster: "https://m.media-amazon.com/images/M/MV5BNzUzOGY5ZGQtZGZkMi00YjJkLWJjODktMGNiMmI5YjBkYTVjXkEyXkFqcGc@._V1_.jpg"
     },
-{
+    {
         id: 18,
         title: "Close Range",
         year: 2015,
@@ -151,7 +151,7 @@ const allMovies: Movie[] = [
         genre: "Action, Crime, Thriller",
         poster: "https://m.media-amazon.com/images/M/MV5BNzYyMTA0MzAtYzAwNy00NjhmLTk1ZTMtMzU0YTY2M2I0NWU3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
     },
-{
+    {
         id: 19,
         title: "Escape Plan",
         year: 2013,
@@ -159,13 +159,45 @@ const allMovies: Movie[] = [
         genre: "Action, Thriller",
         poster: "https://image.tmdb.org/t/p/original/yzYPg7GiB8oZOpT6QTWRVPGaGdC.jpg"
     },
-{
+    {
         id: 20,
         title: "The Last Face",
         year: 2013,
         rating: 6.4,
         genre: "Action, Adventure, Drama",
         poster: "https://m.media-amazon.com/images/M/MV5BMTg1NTU3OTcyMF5BMl5BanBnXkFtZTgwMDY5Njc3MDI@._V1_FMjpg_UX1000_.jpg"
+    },
+    {
+        id: 21,
+        title: "Breaking Bad",
+        year: 2008,
+        rating: 9.5,
+        genre: "Thriller, Crime, Drama",
+        poster: "https://image.tmdb.org/t/p/original/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg"
+    },
+    {
+        id: 22,
+        title: "Parasite",
+        year: 2019,
+        rating: 8.5,
+        genre: "Thriller, Dark Comedy, Drama",
+        poster: "https://image.tmdb.org/t/p/original/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg"
+    },
+    {
+        id: 23,
+        title: "Chernobyl",
+        year: 2019,
+        rating: 9.3,
+        genre: "Thriller, History, Drama",
+        poster: "https://m.media-amazon.com/images/I/71LKF6d63FL._AC_UF894,1000_QL80_.jpg"
+    },
+    {
+        id: 24,
+        title: "Tom Clancy's Jack Ryan: Ghost War",
+        year: 2026,
+        rating: 5.7,
+        genre: "Thriller, Action, Drama",
+        poster: "https://upload.wikimedia.org/wikipedia/en/f/f2/Jack_Ryan%2C_Ghost_War_poster.jpeg"
     }
 ];
 
@@ -173,21 +205,18 @@ const paginationCount = [1, 2, 3];
 const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary"];
 
 export default function AllMovies() {
-    const [currentPage, setCurrentPage] = useState(1);
-    
-    const filteredMovies = filterMoviesHandler(allMovies, currentPage);
-    
+    const [activePage, setActivePage] = useState(1);
+
+    const filteredMovies = filterMoviesHandler(allMovies, activePage);
+
     function pageNumberHandler(page: number | string) {
-        
-        if (typeof(page) === "number") {
-            setCurrentPage(page);
-        };
-        
+
+        setActivePage(Number(page));
     };
-    
+
     return (
         <section className={styles["trending-section"]}>
-                <SelectionFilter options={options} />
+            <SelectionFilter options={options} />
             <div>
                 <h1 className={styles["section-heading-title"]}>Whatch new titles</h1>
             </div>
