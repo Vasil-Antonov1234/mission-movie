@@ -2,7 +2,7 @@ import { useState } from "react";
 import PaginationButton from "./PaginationButton";
 import styles from "./PaginationContainer.module.css";
 
-type PaginationContainerProps = { count: number[] | string }
+type PaginationContainerProps = { count: number[] | string, onPageNumber(page: number | string): void }
 
 
 export default function PaginationContainer(props: PaginationContainerProps) {
@@ -13,6 +13,8 @@ export default function PaginationContainer(props: PaginationContainerProps) {
         if (typeof (page) === "number") {
             setActivePage(page)
         }
+
+        props.onPageNumber(page)
 
     };
 

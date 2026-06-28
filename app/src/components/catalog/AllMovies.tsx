@@ -3,8 +3,10 @@ import PaginationContainer from "../pagination/PaginationContainer";
 import SelectionFilter from "../trending/SelectionFilter";
 import MovieCard from "../trending/MovieCard";
 import styles from "./AllMovies.module.css";
+import { filterMoviesHandler } from "../../utils/filterMoviesHandler";
+import { useState } from "react";
 
-const allTrendings: Movie[] = [
+const allMovies: Movie[] = [
     {
         id: 1,
         title: "Spider-Man",
@@ -171,6 +173,18 @@ const paginationCount = [1, 2, 3];
 const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary"];
 
 export default function AllMovies() {
+    const [currentPage, setCurrentPage] = useState(1);
+    
+    const filteredMovies = filterMoviesHandler(allMovies, currentPage);
+    
+    function pageNumberHandler(page: number | string) {
+        
+        if (typeof(page) === "number") {
+            setCurrentPage(page);
+        };
+        
+    };
+    
     return (
         <section className={styles["trending-section"]}>
                 <SelectionFilter options={options} />
@@ -178,7 +192,7 @@ export default function AllMovies() {
                 <h1 className={styles["section-heading-title"]}>Whatch new titles</h1>
             </div>
             <div className={styles["trending-container"]}>
-                {allTrendings.map((movie) => (
+                {filteredMovies.map((movie) => (
                     <MovieCard
                         key={movie.id}
                         id={movie.id}
@@ -187,11 +201,11 @@ export default function AllMovies() {
                         rating={movie.rating}
                         genre={movie.genre}
                         poster={movie.poster}
-                        position={allTrendings.indexOf(movie) + 1}
+                        position={allMovies.indexOf(movie) + 1}
                     />
                 ))}
             </div>
-            <PaginationContainer count={paginationCount} />
+            <PaginationContainer count={paginationCount} onPageNumber={pageNumberHandler} />
         </section>
     )
 }
