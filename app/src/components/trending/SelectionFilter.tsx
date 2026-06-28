@@ -12,6 +12,12 @@ export default function SelectionFilter(
         setShowGenreFilter((state) => !state);
     };
 
+    function setGenreHandler(genre: string) {
+        setActiveGenre(genre);
+        
+        props.setSortBy(genre);
+    };
+
     return (
         <div className={styles["genre-filter"]}>
             <span className={styles["genre-filter-label"]} onClick={showGenreFilterHandler}>Browse by:</span>
@@ -30,7 +36,7 @@ export default function SelectionFilter(
                                                 `${styles["genre-btn"]} ${styles["genre-btn--active"]} ${styles["genre-btn"]} ${styles["genre-btn--non-active"]} ${styles["genre-btn-hide"]}` : 
                                                 `${styles["genre-btn"]} ${styles["genre-btn--non-active"]} ${styles["genre-btn"]} ${styles["genre-btn--non-active"]} ${styles["genre-btn-hide"]}`
                     }
-                    onClick={() => setActiveGenre(genre)}
+                    onClick={() => setGenreHandler(genre)}
                 >{genre}</button>
             ))}
         </div>

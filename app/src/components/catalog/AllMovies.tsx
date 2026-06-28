@@ -3,8 +3,8 @@ import PaginationContainer from "../pagination/PaginationContainer";
 import SelectionFilter from "../trending/SelectionFilter";
 import MovieCard from "../trending/MovieCard";
 import styles from "./AllMovies.module.css";
-import { filterMoviesHandler } from "../../utils/filterMoviesHandler";
 import { useState } from "react";
+import filterRecordsHandler from "../../utils/filterRecordsHandler";
 
 const allMovies: Movie[] = [
     {
@@ -207,7 +207,7 @@ const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romanc
 export default function AllMovies() {
     const [activePage, setActivePage] = useState(1);
 
-    const filteredMovies = filterMoviesHandler(allMovies, activePage);
+    const filteredMovies = filterRecordsHandler.filterMovies(allMovies, activePage);
 
     function pageNumberHandler(page: number | string) {
 
@@ -216,7 +216,7 @@ export default function AllMovies() {
 
     return (
         <section className={styles["trending-section"]}>
-            <SelectionFilter options={options} />
+            <SelectionFilter options={options} setSortBy={() => {}} />
             <div>
                 <h1 className={styles["section-heading-title"]}>Whatch new titles</h1>
             </div>

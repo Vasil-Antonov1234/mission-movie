@@ -1,4 +1,6 @@
+import { useState } from "react";
 import type { Review } from "../../types/types";
+import filterRecordsHandler from "../../utils/filterRecordsHandler";
 import ReviewCard from "../reviews/RviewCard";
 import SelectionFilter from "../trending/SelectionFilter";
 import styles from "./AllReviews.module.css";
@@ -11,7 +13,7 @@ const allReviews: Review[] = [
         excerpt:
             "A masterclass in ambiguity. Triet's courtroom drama buries its audience under layers of doubt, never letting them breathe until the final frame. A devastating and brilliant piece of cinema.",
         author: "Elena Marsh",
-        date: "Mar 12, 2024",
+        date: "Mar 12, 2021",
         poster: "https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=200&q=80",
     },
     {
@@ -21,7 +23,7 @@ const allReviews: Review[] = [
         excerpt:
             "Cord Jefferson's debut is a razor-sharp satire that dares to bite the hand that feeds it. Jeffrey Wright is magnetic in every single scene — this is the role of his career.",
         author: "James Okafor",
-        date: "Feb 28, 2024",
+        date: "Feb 28, 2023",
         poster: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=200&q=80",
     },
     {
@@ -31,7 +33,7 @@ const allReviews: Review[] = [
         excerpt:
             "Bayona crafts a survival story with immense restraint and humanity. The film never exploits its true story — instead, it honors it. A gruelling, tender watch.",
         author: "Sofia Navarro",
-        date: "Jan 15, 2024",
+        date: "Jan 15, 2012",
         poster: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=200&q=80",
     },
     {
@@ -41,7 +43,7 @@ const allReviews: Review[] = [
         excerpt:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat error laboriosam aliquam aperiam obcaecati recusandae ab accusantium vel blanditiis delectus optio tempore ipsum esse perspiciatis, quaerat quibusdam beatae magnam dolorum quo illum non! Consectetur magni, alias beatae earum rerum odio.",
         author: "Sofia Navarro",
-        date: "May 15, 2026",
+        date: "May 15, 2024",
         poster: "https://resizing.flixster.com/H-BsJxCvZurd6BZxRVOBxNKdC7s=/206x305/v2/https://resizing.flixster.com/JQfWKjnQxi07mkv1FViwPl8Dsrg=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzL2MxOGExOWEwLTgyY2ItNDBhZi04YjdlLTY2OGZiOTQ5M2Q4NC5qcGc=",
     },
     {
@@ -51,7 +53,7 @@ const allReviews: Review[] = [
         excerpt:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat error laboriosam aliquam aperiam obcaecati recusandae ab accusantium vel blanditiis delectus optio tempore ipsum esse perspiciatis, quaerat quibusdam beatae magnam dolorum quo illum non! Consectetur magni, alias beatae earum rerum odio.",
         author: "James Okafor",
-        date: "April 14, 2026",
+        date: "April 14, 2025",
         poster: "https://resizing.flixster.com/dq6Rh_VzwnOIc-cxJsrpOopfg64=/206x305/v2/https://resizing.flixster.com/wciPMzUm5zbBhWKN24eGdoRfK8I=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzLzBlZDNhZmI5LTM3N2EtNGIyZC1iZTA5LTU0NzUyY2M2ZGYyYi5qcGc=",
     },
     {
@@ -71,7 +73,7 @@ const allReviews: Review[] = [
         excerpt:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat error laboriosam aliquam aperiam obcaecati recusandae ab accusantium vel blanditiis delectus optio tempore ipsum esse perspiciatis, quaerat quibusdam beatae magnam dolorum quo illum non! Consectetur magni, alias beatae earum rerum odio.",
         author: "James Okafor",
-        date: "April 14, 2026",
+        date: "April 14, 2023",
         poster: "https://resizing.flixster.com/dq6Rh_VzwnOIc-cxJsrpOopfg64=/206x305/v2/https://resizing.flixster.com/wciPMzUm5zbBhWKN24eGdoRfK8I=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzLzBlZDNhZmI5LTM3N2EtNGIyZC1iZTA5LTU0NzUyY2M2ZGYyYi5qcGc=",
     }
 ];
@@ -79,12 +81,20 @@ const allReviews: Review[] = [
 const options = ["All", "Latest by year", "Oldest by year", "Alphabetically"];
 
 export default function AllReviews() {
+    const [activeReview, setActiveReviwe] = useState("All");
+
+    function activeReviewHandler(sortBy: string) {
+        setActiveReviwe(sortBy)
+    }
+
+    const filteredReviews = filterRecordsHandler.filterReviews(allReviews, activeReview)
+
     return (
         <section className={styles["review-section"]}>
             <h1 className={styles["section-heading-title"]}>Read new reviews</h1>
-            <SelectionFilter options={options} />
+            <SelectionFilter options={options} setSortBy={activeReviewHandler} />
             <div className={styles["reviews-container"]}>
-                {allReviews.map((review) => (
+                {filteredReviews.map((review) => (
                     <ReviewCard
                         key={review.id}
                         id={review.id}
