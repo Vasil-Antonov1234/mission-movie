@@ -39,5 +39,14 @@ export default {
         };
         
         return filteredReviews;
+    },
+    filterByGenre(allMovies: Movie[], activeGenre: string) {
+        let filteredMovies = allMovies;
+
+        if (activeGenre !== "All") {
+            filteredMovies = allMovies.filter((x) => x.genre.toLocaleLowerCase().includes(activeGenre.toLocaleLowerCase()));
+        }
+        
+        return filteredMovies;
     }
 }

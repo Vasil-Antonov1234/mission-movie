@@ -208,7 +208,9 @@ export default function AllMovies() {
     const [activePage, setActivePage] = useState(1);
     const [activeGenre, setActiveGenre] = useState("All");
 
-    const filteredMovies = filterRecordsHandler.filterMoviesByPage(allMovies, activePage);
+    let filteredMovies = filterRecordsHandler.filterByGenre(allMovies, activeGenre);
+
+    filteredMovies = filterRecordsHandler.filterMoviesByPage(filteredMovies, activePage);
 
     function pageNumberHandler(page: number | string) {
 
