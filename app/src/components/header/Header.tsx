@@ -15,7 +15,7 @@ export default function Header() {
 
     return (
         <nav className={mobileNavOpen ? `${styles["navbar"]} ${styles["logo-hamburger-menu-wrapper-open"]}` : `${styles["navbar"]} ${styles["logo-hamburger-menu-wrapper-close"]}`}>
-            <div className={styles["navbar-left"]}>
+            <div className={mobileNavOpen ? styles["navbar-left"] : `${styles["navbar-left"]} ${styles["small"]}`}>
                 <div className={styles["logo-hamburger-menu-wrapper"]}>
                     <Link to="/" className={styles["logo"]}>
                         Mission<span className={styles["logo-accent"]}>Movie</span>

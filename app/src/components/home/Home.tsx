@@ -51,7 +51,8 @@ const featuredMovies: Featured[] = [
 export default function Home() {
     const [heroState, setHeroState] = useState(1);
     const [moveState, SetMoveState] = useState("next");
-
+    const [activeGenre, setActiveGenre] = useState("All");
+    
     function nextHeroHandler() {
 
         if (heroState > 2) {
@@ -87,7 +88,10 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-            <SelectionFilter options={options} />
+            <SelectionFilter 
+                options={options}
+                setSortBy={setActiveGenre}
+                activeState={activeGenre}/>
             <Trending />
             <section className={styles["cta-banner"]}>
                 <div className={`${styles["section-label"]} ${styles["cta-banner-eyebrow"]}`}>Join the community</div>
