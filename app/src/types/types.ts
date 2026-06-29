@@ -67,3 +67,7 @@ export type SimilarFilm = {
     rating: number,
     poster: string
 };
+
+export type Trending = {
+    trending: Movie[]
+}

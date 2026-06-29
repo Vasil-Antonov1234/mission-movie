@@ -5,9 +5,10 @@ import Reviews from "../reviews/Reviews";
 import SelectionFilter from "../trending/SelectionFilter";
 import Trending from "../trending/Trending";
 import styles from "./Home.module.css";
-import type { Featured } from "../../types/types";
+import type { Featured, Movie } from "../../types/types";
+import filterRecordsHandler from "../../utils/filterRecordsHandler";
 
-const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary"];
+const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary", "Fantasy", "Adventure"];
 
 const featuredMovies: Featured[] = [
     {
@@ -48,11 +49,56 @@ const featuredMovies: Featured[] = [
     }
 ]
 
+const trending: Movie[] = [
+    {
+        id: 1,
+        title: "Spider-Man",
+        year: 2002,
+        rating: 9.7,
+        genre: "Adventure",
+        poster: "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=400&q=80"
+    },
+    {
+        id: 2,
+        title: "Poor Things",
+        year: 2023,
+        rating: 9.5,
+        genre: "Fantasy",
+        poster: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=400&q=80"
+    },
+    {
+        id: 3,
+        title: "The Zone of Interest",
+        year: 2023,
+        rating: 9.4,
+        genre: "War / Drama",
+        poster: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400&q=80"
+    },
+    {
+        id: 4,
+        title: "Past Lives",
+        year: 2023,
+        rating: 9.1,
+        genre: "Romance",
+        poster: "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=400&q=80"
+    },
+    {
+        id: 5,
+        title: "Fallen Leaves",
+        year: 2023,
+        rating: 9.0,
+        genre: "Comedy",
+        poster: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80"
+    }
+];
+
 export default function Home() {
     const [heroState, setHeroState] = useState(1);
     const [moveState, SetMoveState] = useState("next");
     const [activeGenre, setActiveGenre] = useState("All");
-    
+
+    const filteredTrending = filterRecordsHandler.filterByGenre(trending, activeGenre);
+
     function nextHeroHandler() {
 
         if (heroState > 2) {
@@ -88,11 +134,11 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-            <SelectionFilter 
+            <SelectionFilter
                 options={options}
                 setSortBy={setActiveGenre}
-                activeState={activeGenre}/>
-            <Trending />
+                activeState={activeGenre} />
+            <Trending trending={filteredTrending} />
             <section className={styles["cta-banner"]}>
                 <div className={`${styles["section-label"]} ${styles["cta-banner-eyebrow"]}`}>Join the community</div>
                 <h2 className={styles["cta-banner-title"]}>Track every film you've ever watched.</h2>
