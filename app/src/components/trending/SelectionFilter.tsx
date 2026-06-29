@@ -5,7 +5,6 @@ import type { SelectionOptions } from "../../types/types";
 export default function SelectionFilter(
     props: SelectionOptions
 ) {
-    const [activeGenre, setActiveGenre] = useState("All");
     const [showGenreFilter, setShowGenreFilter] = useState(false);
 
     function showGenreFilterHandler() {
@@ -13,8 +12,7 @@ export default function SelectionFilter(
     };
 
     function setGenreHandler(genre: string) {
-        setActiveGenre(genre);
-        
+
         props.setSortBy(genre);
     };
 
@@ -31,8 +29,8 @@ export default function SelectionFilter(
                     key={genre}
                     className=
                     {showGenreFilter ?
-                        activeGenre === genre ? `${styles["genre-btn"]} ${styles["genre-btn--active"]}` : `${styles["genre-btn"]} ${styles["genre-btn--non-active"]}` :
-                        activeGenre === genre ? 
+                        props.activeState === genre ? `${styles["genre-btn"]} ${styles["genre-btn--active"]}` : `${styles["genre-btn"]} ${styles["genre-btn--non-active"]}` :
+                        props.activeState === genre ? 
                                                 `${styles["genre-btn"]} ${styles["genre-btn--active"]} ${styles["genre-btn"]} ${styles["genre-btn--non-active"]} ${styles["genre-btn-hide"]}` : 
                                                 `${styles["genre-btn"]} ${styles["genre-btn--non-active"]} ${styles["genre-btn"]} ${styles["genre-btn--non-active"]} ${styles["genre-btn-hide"]}`
                     }

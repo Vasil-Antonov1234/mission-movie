@@ -32,7 +32,11 @@ export type Movie = {
     position?: number
 };
 
-export type SelectionOptions = { options: string[], setSortBy: (sortBy: string) => void};
+export type SelectionOptions = { 
+        options: string[], 
+        setSortBy: (sortBy: string) => void,
+        activeState: string
+    };
 
 export type CommentType = {
     id: number,

@@ -206,8 +206,9 @@ const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romanc
 
 export default function AllMovies() {
     const [activePage, setActivePage] = useState(1);
+    const [activeGenre, setActiveGenre] = useState("All");
 
-    const filteredMovies = filterRecordsHandler.filterMovies(allMovies, activePage);
+    const filteredMovies = filterRecordsHandler.filterMoviesByPage(allMovies, activePage);
 
     function pageNumberHandler(page: number | string) {
 
@@ -216,7 +217,11 @@ export default function AllMovies() {
 
     return (
         <section className={styles["trending-section"]}>
-            <SelectionFilter options={options} setSortBy={() => {}} />
+            <SelectionFilter 
+                options={options} 
+                setSortBy={setActiveGenre}
+                activeState={activeGenre}
+                />
             <div>
                 <h1 className={styles["section-heading-title"]}>Whatch new titles</h1>
             </div>

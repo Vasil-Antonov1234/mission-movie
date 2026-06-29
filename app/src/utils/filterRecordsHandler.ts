@@ -1,7 +1,7 @@
 import type { Movie, Review } from "../types/types";
 
 export default {
-    filterMovies(allMovies: Movie[], currentPage: number) {
+    filterMoviesByPage(allMovies: Movie[], currentPage: number) {
         let filteredMovies = allMovies.sort((a, b) => {
             return b.rating - a.rating
         });

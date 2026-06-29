@@ -83,16 +83,15 @@ const options = ["All", "Latest by year", "Oldest by year", "Alphabetically"];
 export default function AllReviews() {
     const [activeReview, setActiveReviwe] = useState("All");
 
-    function activeReviewHandler(sortBy: string) {
-        setActiveReviwe(sortBy)
-    }
-
     const filteredReviews = filterRecordsHandler.filterReviews(allReviews, activeReview)
 
     return (
         <section className={styles["review-section"]}>
             <h1 className={styles["section-heading-title"]}>Read new reviews</h1>
-            <SelectionFilter options={options} setSortBy={activeReviewHandler} />
+            <SelectionFilter 
+                options={options} 
+                setSortBy={setActiveReviwe} 
+                activeState={activeReview} />
             <div className={styles["reviews-container"]}>
                 {filteredReviews.map((review) => (
                     <ReviewCard
