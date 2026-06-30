@@ -14,6 +14,10 @@
     font-size: clamp(10px, 5vw, 37px);
 }
 
+.trending-wrapper {
+    min-height: 807.5px;
+}
+
 .trending-container {
     display: grid;
     grid-template-columns: repeat(10, 1fr);

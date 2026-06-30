@@ -219,28 +219,30 @@ export default function AllMovies() {
 
     return (
         <section className={styles["trending-section"]}>
-            <SelectionFilter 
-                options={options} 
+            <SelectionFilter
+                options={options}
                 setSortBy={setActiveGenre}
                 activeState={activeGenre}
-                />
+            />
             <div>
                 <h1 className={styles["section-heading-title"]}>Whatch new titles</h1>
             </div>
-            <div className={styles["trending-container"]}>
-                {filteredMovies.map((movie) => (
-                    <MovieCard
-                        key={movie.id}
-                        id={movie.id}
-                        title={movie.title}
-                        year={movie.year}
-                        rating={movie.rating}
-                        genre={movie.genre}
-                        poster={movie.poster}
-                        position={allMovies.indexOf(movie) + 1}
-                    />
-                ))}
-            </div>
+            <section className={styles["trending-wrapper"]}>
+                <div className={styles["trending-container"]}>
+                    {filteredMovies.map((movie) => (
+                        <MovieCard
+                            key={movie.id}
+                            id={movie.id}
+                            title={movie.title}
+                            year={movie.year}
+                            rating={movie.rating}
+                            genre={movie.genre}
+                            poster={movie.poster}
+                            position={allMovies.indexOf(movie) + 1}
+                        />
+                    ))}
+                </div>
+            </section>
             <PaginationContainer count={paginationCount} onPageNumber={pageNumberHandler} />
         </section>
     )
