@@ -1,10 +1,13 @@
 import express from "express";
+import routes from "./routes.js";
 
 const app = express()
 
 app.get("/", (req, res) => {
     res.send("Hello from the backend")
 })
+
+app.use(routes);
 
 const PORT = process.env.PORT || 5000;
 
