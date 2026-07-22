@@ -2,3 +2,5 @@
 
 ## Initial Setup
 - [x] Initialize project
+- [x] Install Express
+- [ ] Add CORS
