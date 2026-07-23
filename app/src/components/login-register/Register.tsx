@@ -72,6 +72,23 @@ export default function Register() {
     const [showConfirm, setShowConfirm] = useState(false);
     const { formInputRegister, data } = useForm(initialValues)
 
+    async function submitHandler(event: React.SubmitEvent) {
+        event.preventDefault();
+
+        const response = await fetch("http://localhost:5000/users/register", 
+            { method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            }
+        );
+
+        const result = await response.json();
+
+        console.log(result);
+    }
+
 
     return (
         <div className={styles["auth-wrapper"]}>
@@ -110,7 +127,7 @@ export default function Register() {
                 </div>
 
                 {/* Form */}
-                <form className={styles["auth-form"]} noValidate>
+                <form className={styles["auth-form"]} onSubmit={submitHandler} noValidate>
 
                     {/* First / Last name */}
                     <div className={styles["auth-form-row"]}>

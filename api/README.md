@@ -7,3 +7,5 @@
 - [x] Add movie controller
 - [x] Add review controller
 - [x] Add CORS
+
+## Authentication and Authorization

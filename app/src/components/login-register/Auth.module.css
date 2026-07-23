@@ -70,7 +70,9 @@
   margin-bottom: 36px;
 }
 
-.auth-logo-accent { color: #e8b84b; }
+.auth-logo-accent {
+  color: #e8b84b;
+}
 
 /* ─── HEADING ─── */
 .auth-eyebrow {
@@ -152,7 +154,9 @@
   box-shadow: 0 0 0 3px rgba(232, 184, 75, 0.08);
 }
 
-.auth-input::placeholder { color: #3a3530; }
+.auth-input::placeholder {
+  color: #3a3530;
+}
 
 .auth-input--error {
   border-color: #c0392b !important;
@@ -170,9 +174,14 @@
   user-select: none;
   transition: color 0.2s;
 }
-.auth-input-icon:hover { color: #7a7068; }
 
-.auth-input--has-icon { padding-right: 40px; }
+.auth-input-icon:hover {
+  color: #7a7068;
+}
+
+.auth-input--has-icon {
+  padding-right: 40px;
+}
 
 /* ─── ERROR MESSAGE ─── */
 .auth-error-msg {
@@ -194,7 +203,10 @@
   text-decoration: none;
   transition: color 0.2s;
 }
-.auth-forgot-link:hover { color: #e8b84b; }
+
+.auth-forgot-link:hover {
+  color: #e8b84b;
+}
 
 /* ─── DIVIDER ─── */
 .auth-divider {
@@ -231,8 +243,15 @@
   transition: background 0.2s, transform 0.1s;
   letter-spacing: 0.02em;
 }
-.auth-submit-btn:hover { background: #f5ca60; }
-.auth-submit-btn:active { transform: scale(0.99); }
+
+.auth-submit-btn:hover {
+  background: #f5ca60;
+}
+
+.auth-submit-btn:active {
+  transform: scale(0.99);
+}
+
 .auth-submit-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -256,9 +275,15 @@
   justify-content: center;
   gap: 10px;
 }
-.auth-social-btn:hover { border-color: #444; color: #e8e2d9; }
 
-.auth-social-icon { font-size: 16px; }
+.auth-social-btn:hover {
+  border-color: #444;
+  color: #e8e2d9;
+}
+
+.auth-social-icon {
+  font-size: 16px;
+}
 
 /* ─── SWITCH LINK ─── */
 .auth-switch {
@@ -274,7 +299,10 @@
   font-weight: 500;
   transition: color 0.2s;
 }
-.auth-switch-link:hover { color: #f5ca60; }
+
+.auth-switch-link:hover {
+  color: #f5ca60;
+}
 
 /* ─── TERMS ─── */
 .auth-terms {
@@ -290,7 +318,10 @@
   text-decoration: none;
   transition: color 0.2s;
 }
-.auth-terms-link:hover { color: #a09890; }
+
+.auth-terms-link:hover {
+  color: #a09890;
+}
 
 /* ─── PASSWORD STRENGTH ─── */
 .auth-strength {
@@ -313,20 +344,42 @@
   transition: background 0.3s;
 }
 
-.auth-strength-bar--weak   { background: #c0392b; }
-.auth-strength-bar--medium   { background: #e67e22; }
-.auth-strength-bar--good   { background: #2ecc71; }
-.auth-strength-bar--strong { background: #27ae60; }
+.auth-strength-bar--weak {
+  background: #c0392b;
+}
+
+.auth-strength-bar--medium {
+  background: #e67e22;
+}
+
+.auth-strength-bar--good {
+  background: #2ecc71;
+}
+
+.auth-strength-bar--strong {
+  background: #27ae60;
+}
 
 .auth-strength-label {
   font-size: 11px;
   color: #555;
 }
 
-.auth-strength-label--weak   { color: #c0392b; }
-.auth-strength-label--fair   { color: #e67e22; }
-.auth-strength-label--good   { color: #2ecc71; }
-.auth-strength-label--strong { color: #27ae60; }
+.auth-strength-label--weak {
+  color: #c0392b;
+}
+
+.auth-strength-label--fair {
+  color: #e67e22;
+}
+
+.auth-strength-label--good {
+  color: #2ecc71;
+}
+
+.auth-strength-label--strong {
+  color: #27ae60;
+}
 
 /* ─── CHECKBOX ─── */
 .auth-checkbox-row {
