@@ -6,4 +6,4 @@
 - [x] Add routes
 - [x] Add movie controller
 - [x] Add review controller
-- [ ] Add CORS
+- [x] Add CORS

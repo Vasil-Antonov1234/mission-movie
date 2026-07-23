@@ -211,7 +211,7 @@ export default function AllMovies() {
 
     useEffect(() => {
         const GetMovies = async () => {
-            const response = await fetch("http://localhost:5000",
+            const response = await fetch("http://localhost:5000/movies",
                 {
                     method: "GET",
                     headers: {
