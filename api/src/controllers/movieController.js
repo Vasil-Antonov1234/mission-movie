@@ -5,7 +5,7 @@ const movieController = Router();
 movieController.get("/", (req, res) => {
     
     // get all
-    res.json(["Test"]);
+    res.json([]);
 });
 
 export default movieController;

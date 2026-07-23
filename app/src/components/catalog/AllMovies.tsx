@@ -207,10 +207,10 @@ const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romanc
 export default function AllMovies() {
     const [activePage, setActivePage] = useState(1);
     const [activeGenre, setActiveGenre] = useState("All");
-    const [test, setTest] = useState([]);
+    const [test, setTest] = useState<Movie[]>([]);
 
     useEffect(() => {
-        const GetMovies = async () => {
+        (async () => {
             const response = await fetch("http://localhost:5000/movies",
                 {
                     method: "GET",
@@ -220,14 +220,13 @@ export default function AllMovies() {
                 }
             );
 
-            const result = await response.json();
+            const result = await response.json() as Movie[] | [];
 
             if (response.ok) {
                 setTest(result)
             }
-        }
+        })();
 
-        GetMovies();
     }, []);
 
     console.log(test);
