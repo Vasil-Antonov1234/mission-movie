@@ -10,3 +10,4 @@
 
 ## Authentication and Authorization
 - [x] Add user controller
+- [ ] Add json parser
