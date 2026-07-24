@@ -181,7 +181,7 @@ export default function Register() {
                                 autoComplete="new-password"
                             />
                             <span
-                                className="auth-input-icon"
+                                className={styles["auth-input-icon"]}
                                 onClick={() => setShowPassword((state) => !state)}
                             >
                                 {showPassword ? "🙈" : "👁"}
@@ -193,7 +193,7 @@ export default function Register() {
                     {/* Confirm password */}
                     <div className={styles["auth-field"]}>
                         <label className={styles["auth-label"]} htmlFor="confirmPassword">Confirm password</label>
-                        <div className="auth-input-wrapper">
+                        <div className={styles["auth-input-wrapper"]}>
                             <input
                                 {...formInputRegister("confirmPassword")}
                                 id="confirmPassword"
@@ -203,7 +203,7 @@ export default function Register() {
                                 autoComplete="new-password"
                             />
                             <span
-                                className="auth-input-icon"
+                                className={styles["auth-input-icon"]}
                                 onClick={() => setShowConfirm((state) => !state)}
                             >
                                 {showConfirm ? "🙈" : "👁"}
