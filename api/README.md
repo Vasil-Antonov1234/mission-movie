@@ -16,3 +16,6 @@
 - [x] Add bcrypt
 - [x] Add validation
 - [x] Hash password with zod transofm and bcrypt
+- [x] Add user controller
+- [x] Add user service
+- [x] Add user repository
