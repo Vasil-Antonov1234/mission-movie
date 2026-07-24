@@ -24,3 +24,4 @@
 - [x] Create access token
 - [x] Add logout
 - [x] Add login
+- [x] Add auth middleware
