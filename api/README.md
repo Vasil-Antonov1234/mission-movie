@@ -11,4 +11,5 @@
 ## Authentication and Authorization
 - [x] Add user controller
 - [x] Add json parser
-- [ ] Setup database
+- [x] Setup database with Prisma ORM
+- [ ] Add user model
