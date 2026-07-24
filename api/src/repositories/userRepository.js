@@ -13,5 +13,17 @@ export default {
             throw error;            
         };
 
+    },
+
+    async fondByEmail(email) {
+        
+        try {
+            return await prisma.user.findUnique({
+                where: { email }
+            });
+        } catch (error) {
+            throw error
+        }
+        
     }
 }

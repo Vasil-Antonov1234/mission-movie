@@ -31,4 +31,22 @@ userController.get("/logout", (req, res) => {
     res.json({ message: "Logout successful" });
 })
 
+userController.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const { user, token } = await userService.login(email, password);
+
+        res.json({
+            id: user.id,
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            accessToken: token
+        });
+    } catch (error) {
+        return res.status(400).json(error.message);
+    }
+})
+
 export default userController;

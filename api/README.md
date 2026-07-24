@@ -22,3 +22,5 @@
 - [x] Change node with tsx in package.json
 - [x] Install jsonwebtoken
 - [x] Create access token
+- [x] Add logout
+- [x] Add login
