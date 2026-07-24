@@ -10,4 +10,5 @@
 
 ## Authentication and Authorization
 - [x] Add user controller
-- [ ] Add json parser
+- [x] Add json parser
+- [ ] Setup database
