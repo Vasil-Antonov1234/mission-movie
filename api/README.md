@@ -13,3 +13,6 @@
 - [x] Add json parser
 - [x] Setup database with Prisma ORM
 - [x] Add user model
+- [x] Add bcrypt
+- [x] Add validation
+- [x] Hash password with zod transofm and bcrypt
