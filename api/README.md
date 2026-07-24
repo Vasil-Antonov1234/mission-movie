@@ -19,3 +19,6 @@
 - [x] Add user controller
 - [x] Add user service
 - [x] Add user repository
+- [x] Change node with tsx in package.json
+- [x] Install jsonwebtoken
+- [x] Create access token
