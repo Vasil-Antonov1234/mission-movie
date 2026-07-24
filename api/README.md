@@ -9,3 +9,4 @@
 - [x] Add CORS
 
 ## Authentication and Authorization
+- [x] Add user controller
