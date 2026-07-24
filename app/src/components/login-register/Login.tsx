@@ -1,9 +1,34 @@
 import { Link } from "react-router";
 import styles from "./Auth.module.css";
 import { useState } from "react";
+import useForm from "../../hooks/useForm";
+
+const initialValues = {
+    email: "",
+    password: ""
+};
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
+    const { formInputRegister, data } = useForm(initialValues)
+
+    async function submitHandler(event: React.SubmitEvent) {
+        event.preventDefault();
+
+        const response = await fetch("http://localhost:5000/users/login",
+            {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify(data)
+            }
+        );
+
+        const result = await response.json();
+
+        console.log(result);
+    }
 
     return (
         <div className={styles["auth-wrapper"]}>
@@ -42,19 +67,18 @@ export default function Login() {
                 </div>
 
                 {/* Form */}
-                <form className={styles["auth-form"]} noValidate>
+                <form className={styles["auth-form"]} onSubmit={submitHandler} noValidate>
 
                     {/* Email */}
                     <div className={styles["auth-field"]}>
                         <label className={styles["auth-label"]} htmlFor="email">Email</label>
                         <div className={styles["auth-input-wrapper"]}>
                             <input
+                                {...formInputRegister("email")}
                                 id="email"
-                                name="email"
                                 type="email"
                                 className={styles["auth-input"]}
                                 placeholder="you@example.com"
-                                // value=""
                                 autoComplete="email"
                             />
                         </div>
@@ -68,12 +92,11 @@ export default function Login() {
                         </div>
                         <div className={styles["auth-input-wrapper"]}>
                             <input
+                                {...formInputRegister("password")}
                                 id="password"
-                                name="password"
                                 type={showPassword ? "text" : "password"}
                                 className={`${styles["auth-input"]} ${styles["auth-input--has-icon"]}`}
                                 placeholder="••••••••"
-                                // value=""
                                 autoComplete="current-password"
                             />
                             <span
