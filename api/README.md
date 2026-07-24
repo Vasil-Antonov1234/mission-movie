@@ -12,4 +12,4 @@
 - [x] Add user controller
 - [x] Add json parser
 - [x] Setup database with Prisma ORM
-- [ ] Add user model
+- [x] Add user model
