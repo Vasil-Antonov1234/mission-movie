@@ -43,6 +43,19 @@ movieController.get("/:movieId", async (req, res) => {
     } catch (error) {
         res.status(400).json({ error: getErrorMessage(error) });
     }
+});
+
+movieController.delete("/:movieId", isAuthMiddleware, async (req, res) => {
+    const movieId = Number(req.params.movieId);
+    const userId = Number(req.user.id);
+
+    try {
+        const movie = await movieService.removeById(movieId, userId);
+
+        res.status(200).json(`${movie.title} has been deleted`);
+    } catch (error) {
+        res.status(400).json({ error: getErrorMessage(error) })
+    }
 })
 
 export default movieController;

@@ -30,5 +30,14 @@ export default {
                 id: movieId
             }
         });
+    },
+
+    async removeById(movieId, userId) {
+        return await prisma.movie.delete({
+            where: {
+                id: movieId,
+                authorId : userId
+            }
+        })
     }
 }

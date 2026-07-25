@@ -17,5 +17,19 @@ export default {
         };
 
         return movie;
+    },
+
+    async removeById(movieId, userId) {
+        const movie = await movieRepository.getById(movieId);
+
+        if (!movie) {
+            throw new Error("Movie not found");
+        };
+
+        if (movie.authorId !== userId) {
+            throw new Error("Unauthorized");
+        };
+
+        return await movieRepository.removeById(movieId, userId)
     }
 }
