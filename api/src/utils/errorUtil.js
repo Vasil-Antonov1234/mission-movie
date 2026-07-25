@@ -5,6 +5,6 @@ export function getErrorMessage(error) {
         case "ZodError":
             return Object.values(z.flattenError(error).fieldErrors).flat().join(", ") || "Invalid input";
         default:
-            return error.message || "An unknown error occured";
+        return error.message || "An unknown error occured";
     }
 }
