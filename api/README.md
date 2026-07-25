@@ -34,3 +34,4 @@
  - [x] Add error util
  - [x] Add movie service
  - [x] Add movie repository
+ - [x] Get all movies

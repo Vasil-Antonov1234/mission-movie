@@ -5,11 +5,16 @@ import movieService from "../services/movieService.js";
 
 const movieController = Router();
 
-movieController.get("/", (req, res) => {   
-    console.log(req.user);
+movieController.get("/", async (req, res) => {   
 
-    // get all
-    res.json([]);
+    try {
+        const movies = await movieService.getAll();
+
+        res.json(movies);
+    } catch (error) {
+        res.json({ error: getErrorMessage(error) });
+    }
+
 });
 
 
@@ -20,7 +25,7 @@ movieController.post("/create", async (req, res) => {
 
         const movie = await movieService.create(movieData);
 
-        res.status(200).json(movie);
+        res.status(201).json(movie);
     } catch (error) {
         res.status(400).json({ error: getErrorMessage(error) });
     };

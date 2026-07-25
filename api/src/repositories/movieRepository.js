@@ -5,5 +5,9 @@ export default {
         return await prisma.movie.create({
             data: movieData
         });
+    },
+
+    async getAll() {
+        return await prisma.movie.findMany();
     }
 }
