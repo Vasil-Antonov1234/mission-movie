@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { createUserSchema } from "../schemas/userSchema.js";
 import userService from "../services/userService.js";
+import { getErrorMessage } from "../utils/errorUtil.js";
 
 const userController = Router();
 
@@ -19,7 +20,7 @@ userController.post("/register", async (req, res) => {
             accessToken: token
         });
     } catch (error) {
-        return res.status(400).json({ error: error.message });
+        return res.status(400).json({ error: getErrorMessage(error) });
     };
 
 })

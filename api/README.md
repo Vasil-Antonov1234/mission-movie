@@ -28,5 +28,7 @@
 
 ## Resources Endpoints
 - [x] Add movie model
-- [x] Add create movie schema
 - [ ] Create movie endpoint
+ - [x] Add create movie schema
+ - [x] Validate create movie input
+ - [x] Add error util
