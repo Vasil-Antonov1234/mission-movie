@@ -25,6 +25,7 @@
 - [x] Add logout
 - [x] Add login
 - [x] Add auth middleware
+- [x] Add isAuth middleware
 
 ## Resources Endpoints
 - [x] Add movie model
@@ -36,3 +37,6 @@
  - [x] Add movie repository
  - [x] Get all movies
  - [x] Get movie details
+
+## Ownership Movies
+- [ ] Add owner on movie create
