@@ -25,3 +25,6 @@
 - [x] Add logout
 - [x] Add login
 - [x] Add auth middleware
+
+## Resources Endpoints
+- [x] Add movie model
