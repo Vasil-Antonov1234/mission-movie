@@ -33,6 +33,10 @@ model Movie {
 	rating	Float
 	genre	String
 	poster	String
+	synopsis	String
+	duration	String
+	director	String
+	trailerUrl	String
 	createdAt	DateTime	@default(now())
 	updatedAt	DateTime	@updatedAt
 	

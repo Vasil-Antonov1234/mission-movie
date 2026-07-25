@@ -8,7 +8,17 @@ export default {
     },
 
     async getAll() {
-        return await prisma.movie.findMany();
+        return await prisma.movie.findMany({
+            select: {
+                poster: true,
+                title: true,
+                genre: true,
+                year: true,
+                rating: true,
+                id: true,
+                authorId: true
+            }
+        });
     },
 
     async getById(movieId) {
