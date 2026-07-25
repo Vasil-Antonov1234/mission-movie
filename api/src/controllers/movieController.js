@@ -29,6 +29,18 @@ movieController.post("/create", async (req, res) => {
     } catch (error) {
         res.status(400).json({ error: getErrorMessage(error) });
     };
+});
+
+movieController.get("/:movieId", async (req, res) => {
+    const movieId = req.params.movieId;
+
+    try {
+        const movie = await movieService.getById(movieId);
+
+        res.status(200).json(movie);
+    } catch (error) {
+        res.status(400).json({ error: getErrorMessage(error) });
+    }
 })
 
 export default movieController;

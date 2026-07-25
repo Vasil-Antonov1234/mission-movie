@@ -9,5 +9,13 @@ export default {
 
     async getAll() {
         return await prisma.movie.findMany();
+    },
+
+    async getById(movieId) {
+        return await prisma.movie.findUnique({
+            where: {
+                id: movieId
+            }
+        });
     }
 }
