@@ -1,9 +1,12 @@
 import { prisma } from "../lib/prisma.js";
 
 export default {
-    async createOne(movieData) {
+    async createOne(movieData, userId) {
         return await prisma.movie.create({
-            data: movieData
+            data: {
+                ...movieData,
+                authorId: userId
+            }
         });
     },
 

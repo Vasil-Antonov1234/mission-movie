@@ -2,6 +2,7 @@ import { Router } from "express";
 import { createMovieSchema } from "../schemas/movieSchema.js";
 import { getErrorMessage } from "../utils/errorUtil.js";
 import movieService from "../services/movieService.js";
+import { isAuthMiddleware } from "../middlewares/authMiddleware.js";
 
 const movieController = Router();
 
@@ -18,12 +19,13 @@ movieController.get("/", async (req, res) => {
 });
 
 
-movieController.post("/create", async (req, res) => {
+movieController.post("/create", isAuthMiddleware, async (req, res) => {
     
     try {
         const movieData = await createMovieSchema.parseAsync(req.body);
+        const userId = req.user.id;
 
-        const movie = await movieService.create(movieData);
+        const movie = await movieService.create(movieData, userId);
 
         res.status(201).json(movie);
     } catch (error) {

@@ -1,8 +1,8 @@
 import movieRepository from "../repositories/movieRepository.js"
 
 export default {
-    async create(movieData) {
-        return await movieRepository.createOne(movieData);
+    async create(movieData, userId) {
+        return await movieRepository.createOne(movieData, userId);
     },
 
     async getAll() {

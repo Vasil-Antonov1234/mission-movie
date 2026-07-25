@@ -39,4 +39,4 @@
  - [x] Get movie details
 
 ## Ownership Movies
-- [ ] Add owner on movie create
+- [x] Add owner on movie create
