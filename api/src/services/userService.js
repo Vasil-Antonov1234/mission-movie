@@ -1,14 +1,13 @@
 import userRepository from "../repositories/userRepository.js"
-import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { generateAccessToken } from "../utils/generateAccessToken.js";
+import accessTokenUtil from "../utils/accessTokenUtil.js";
 
 export default {
     async register(userData) {
 
         const user = await userRepository.register(userData);
                 
-        const token = generateAccessToken(user);
+        const token = accessTokenUtil.generate(user);
 
         return { user, token };
     },
@@ -26,7 +25,7 @@ export default {
             throw new Error("Invalid user or password");
         };
 
-        const token = generateAccessToken(user);
+        const token = accessTokenUtil.generate(user);
 
         return { user, token };
     }

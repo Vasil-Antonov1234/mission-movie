@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 import { error } from "node:console";
+import accessTokenUtil from "../utils/accessTokenUtil.js";
 
-export function AuthMiddleware(req, res, next) {
+export async function AuthMiddleware(req, res, next) {
     const token = req.headers["authorization"];
 
     if (!token) {
@@ -9,8 +10,12 @@ export function AuthMiddleware(req, res, next) {
     };
 
     try {
-
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        
+        // Chek if token is in the blacklist
+
+        await accessTokenUtil.check(token);
+
         req.user = decodedToken;
         next();
 

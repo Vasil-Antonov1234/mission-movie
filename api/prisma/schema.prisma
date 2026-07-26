@@ -45,3 +45,10 @@ model Movie {
 	
 	@@map("movies")
 }
+
+model Token {
+	token		String		@unique
+	createdAt	DateTime	@default(now())
+
+	@@map("black_list_tokens")
+}

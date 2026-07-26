@@ -2,6 +2,7 @@ import { Router } from "express";
 import { createUserSchema } from "../schemas/userSchema.js";
 import userService from "../services/userService.js";
 import { getErrorMessage } from "../utils/errorUtil.js";
+import accessTokenUtil from "../utils/accessTokenUtil.js";
 
 const userController = Router();
 
@@ -20,16 +21,23 @@ userController.post("/register", async (req, res) => {
             accessToken: token
         });
     } catch (error) {
-        return res.status(400).json({ error: getErrorMessage(error) });
+        res.status(400).json({ error: getErrorMessage(error) });
     };
 
 })
 
-userController.get("/logout", (req, res) => {
+userController.get("/logout", async (req, res) => {
 
-    // TODO invalidate access token
+    const token = req.headers["authorization"];
 
-    res.json({ message: "Logout successful" });
+    try {
+        
+        await accessTokenUtil.invalidate(token);
+        res.json({ message: "Logout successful" });
+    } catch (error) {
+        res.status(400).json({ error: getErrorMessage(error)} )         
+    }
+
 })
 
 userController.post("/login", async (req, res) => {
@@ -46,7 +54,7 @@ userController.post("/login", async (req, res) => {
             accessToken: token
         });
     } catch (error) {
-        return res.status(400).json(error.message);
+        res.status(400).json(error.message);
     }
 })
 
