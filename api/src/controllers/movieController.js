@@ -4,13 +4,24 @@ import { getErrorMessage } from "../utils/errorUtil.js";
 import movieService from "../services/movieService.js";
 import { isAuthMiddleware } from "../middlewares/authMiddleware.js";
 import { patrialMovieSchema } from "../schemas/partialMovieSchema.js";
+import querustring from "node:querystring";
 
 const movieController = Router();
 
-movieController.get("/", async (req, res) => {   
+movieController.get("/", async (req, res) => {
+    
+    let filter = {};
+
+    if (req.query.where) {
+        if (Array.isArray(req.query.where)) {
+            req.query.where.forEach((x) => filter[x.replaceAll('"', '').split("=")[0]] = x.replaceAll('"', '').split("=")[1])
+        } else {
+            filter = querustring.parse(req.query.where.replaceAll('"', ''));
+        }
+    };
 
     try {
-        const movies = await movieService.getAll();
+        const movies = await movieService.getAll(filter);
 
         res.json(movies);
     } catch (error) {

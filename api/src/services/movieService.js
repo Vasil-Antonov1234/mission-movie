@@ -5,8 +5,21 @@ export default {
         return await movieRepository.createOne(movieData, userId);
     },
 
-    async getAll() {
-        return await movieRepository.getAll();
+    async getAll(filter) {
+
+        if (filter.authorId) {
+            filter.authorId = Number(filter.authorId);
+        };
+
+        if (filter.year) {
+            filter.year = Number(filter.year);
+        };
+
+        if (filter.rating) {
+            filter.rating = Number(filter.rating);
+        };
+
+        return await movieRepository.getAll(filter);
     },
 
     async getById(movieId) {
@@ -43,7 +56,7 @@ export default {
         if (movie.authorId !== userId) {
             throw new Error("Unauthorized");
         };
-        
+
         return await movieRepository.updateOne(movieId, userId, parsedMovieData);
     }
 }

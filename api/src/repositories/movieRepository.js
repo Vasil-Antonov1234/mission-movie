@@ -10,8 +10,9 @@ export default {
         });
     },
 
-    async getAll() {
+    async getAll(filter) {
         return await prisma.movie.findMany({
+            where: filter,
             select: {
                 poster: true,
                 title: true,
