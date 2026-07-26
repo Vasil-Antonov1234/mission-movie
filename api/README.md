@@ -46,3 +46,4 @@
 
 ## Bonus
 - [x] Invalidate user session
+- [ ] Clear expired tokens

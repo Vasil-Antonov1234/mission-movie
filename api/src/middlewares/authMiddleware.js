@@ -12,8 +12,6 @@ export async function AuthMiddleware(req, res, next) {
     try {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         
-        // Chek if token is in the blacklist
-
         await accessTokenUtil.check(token);
 
         req.user = decodedToken;

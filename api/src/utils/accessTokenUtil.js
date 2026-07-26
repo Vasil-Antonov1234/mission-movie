@@ -18,6 +18,16 @@ export default {
                 token
             }
         });
+
+        const oneHourAgo = new Date(Date.now() - 3600000);
+
+        await prisma.token.deleteMany({
+            where: {
+                createdAt: {
+                    lt: oneHourAgo
+                }
+            }
+        })
     },
 
     async check(token) {
