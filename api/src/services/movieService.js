@@ -10,7 +10,7 @@ export default {
     },
 
     async getById(movieId) {
-        const movie = await movieRepository.getById(Number(movieId));
+        const movie = await movieRepository.getById(movieId);
 
         if (!movie) {
             throw new Error("This movie does not exists in the database");
@@ -31,5 +31,9 @@ export default {
         };
 
         return await movieRepository.removeById(movieId, userId)
+    },
+
+    async updateOne(movieId, userId, movieData) {
+        return await movieRepository.updateOne(movieId, userId, movieData);
     }
 }

@@ -14,7 +14,7 @@ export const createMovieSchema = z.object({
     synopsis: z.string()
         .min(1, { error: "Sinopsis is required"}),
     duration: z.string()
-        .regex(/^[0-9]h [0-9]m$/, { error: "Invalid duration format"}),
+        .regex(/^[0-9]{1,2}h [0-9]{1,2}m$/, { error: "Invalid duration format"}),
     director: z.string()
         .min(1, { error: "Director is required"}),
     trailerUrl: z.httpUrl({ error: "Invalid URL format"})

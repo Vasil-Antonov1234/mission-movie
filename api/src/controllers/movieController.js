@@ -34,7 +34,7 @@ movieController.post("/create", isAuthMiddleware, async (req, res) => {
 });
 
 movieController.get("/:movieId", async (req, res) => {
-    const movieId = req.params.movieId;
+    const movieId = Number(req.params.movieId);
 
     try {
         const movie = await movieService.getById(movieId);
@@ -56,6 +56,20 @@ movieController.delete("/:movieId", isAuthMiddleware, async (req, res) => {
     } catch (error) {
         res.status(400).json({ error: getErrorMessage(error) })
     }
+});
+
+movieController.patch("/:movieId", isAuthMiddleware, async (req, res) => {
+    const movieId = Number(req.params.movieId);
+    const userId = Number(req.user.id);
+    const movieData = req.body;
+    
+    try {
+        const movie = await movieService.updateOne(movieId, userId, movieData);
+        
+        res.status(200).json({movie});
+    } catch (error) {
+        res.status(400).json({ error: getErrorMessage(error) });
+    };
 })
 
 export default movieController;

@@ -39,5 +39,17 @@ export default {
                 authorId : userId
             }
         })
+    },
+
+    async updateOne(movieId, userId, movieData) {
+        return await prisma.movie.update({
+            where: {
+                id: movieId,
+                authorId: userId
+            },
+            data: {
+                ...movieData
+            }
+        })
     }
 }
