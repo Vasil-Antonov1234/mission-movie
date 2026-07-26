@@ -34,6 +34,16 @@ export default {
     },
 
     async updateOne(movieId, userId, parsedMovieData) {
+        const movie = await movieRepository.getById(movieId);
+
+        if (!movie) {
+            throw new Error("Movie not found");
+        };
+
+        if (movie.authorId !== userId) {
+            throw new Error("Unauthorized");
+        };
+        
         return await movieRepository.updateOne(movieId, userId, parsedMovieData);
     }
 }
