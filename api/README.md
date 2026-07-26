@@ -42,3 +42,4 @@
 - [x] Add owner on movie create
 - [x] Delete movie by author
 - [x] Edit movie by author
+- [x] Validate input data before update movie

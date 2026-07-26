@@ -3,6 +3,7 @@ import { createMovieSchema } from "../schemas/movieSchema.js";
 import { getErrorMessage } from "../utils/errorUtil.js";
 import movieService from "../services/movieService.js";
 import { isAuthMiddleware } from "../middlewares/authMiddleware.js";
+import { patrialMovieSchema } from "../schemas/partialMovieSchema.js";
 
 const movieController = Router();
 
@@ -64,7 +65,8 @@ movieController.patch("/:movieId", isAuthMiddleware, async (req, res) => {
     const movieData = req.body;
     
     try {
-        const movie = await movieService.updateOne(movieId, userId, movieData);
+        const parsedMovieData = await patrialMovieSchema.parseAsync(movieData);
+        const movie = await movieService.updateOne(movieId, userId, parsedMovieData);
         
         res.status(200).json({movie});
     } catch (error) {

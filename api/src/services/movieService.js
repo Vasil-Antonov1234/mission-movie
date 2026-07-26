@@ -33,7 +33,7 @@ export default {
         return await movieRepository.removeById(movieId, userId)
     },
 
-    async updateOne(movieId, userId, movieData) {
-        return await movieRepository.updateOne(movieId, userId, movieData);
+    async updateOne(movieId, userId, parsedMovieData) {
+        return await movieRepository.updateOne(movieId, userId, parsedMovieData);
     }
 }
