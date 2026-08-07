@@ -207,7 +207,7 @@ const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romanc
 export default function AllMovies() {
     const [activePage, setActivePage] = useState(1);
     const [activeGenre, setActiveGenre] = useState("All");
-    const [test, setTest] = useState<Movie[]>([]);
+    const [movies, setMovies] = useState<Movie[]>([]);
 
     useEffect(() => {
         (async () => {
@@ -224,13 +224,13 @@ export default function AllMovies() {
             const result = await response.json() as Movie[] | [];
 
             if (response.ok) {
-                setTest(result)
+                setMovies(result)
             }
         })();
 
     }, []);
 
-    console.log(test);
+    console.log(movies);
 
     let filteredMovies = filterRecordsHandler.filterByGenre(allMovies, activeGenre);
 
