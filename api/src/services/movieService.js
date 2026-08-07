@@ -7,16 +7,16 @@ export default {
 
     async getAll(filter) {
 
-        if (filter.authorId) {
-            filter.authorId = Number(filter.authorId);
+        if (filter.query.authorId) {
+            filter.query.authorId = Number(filter.authorId);
         };
 
-        if (filter.year) {
-            filter.year = Number(filter.year);
+        if (filter.query.year) {
+            filter.query.year = Number(filter.year);
         };
 
-        if (filter.rating) {
-            filter.rating = Number(filter.rating);
+        if (filter.query.rating) {
+            filter.query.rating = Number(filter.rating);
         };
 
         return await movieRepository.getAll(filter);

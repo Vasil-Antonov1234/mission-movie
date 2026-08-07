@@ -12,16 +12,8 @@ export default {
 
     async getAll(filter) {
         return await prisma.movie.findMany({
-            where: filter,
-            select: {
-                poster: true,
-                title: true,
-                genre: true,
-                year: true,
-                rating: true,
-                id: true,
-                authorId: true
-            }
+            where: filter.query,
+            select: filter.select
         });
     },
 

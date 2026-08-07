@@ -9,14 +9,32 @@ import querustring from "node:querystring";
 const movieController = Router();
 
 movieController.get("/", async (req, res) => {
-    
-    let filter = {};
+
+    let filter = {
+        query: {},
+        select: {
+            poster: true,
+            title: true,
+            genre: true,
+            year: true,
+            rating: true,
+            id: true,
+            authorId: true,
+            synopsis: true,
+            duration: true,
+            director: true,
+            trailerUrl: true,
+            createdAt:true,
+            updatedAt: true,
+            author: true
+        }
+    };
 
     if (req.query.where) {
         if (Array.isArray(req.query.where)) {
-            req.query.where.forEach((x) => filter[x.replaceAll('"', '').split("=")[0]] = x.replaceAll('"', '').split("=")[1])
+            req.query.where.forEach((x) => filter.query[x.replaceAll('"', '').split("=")[0]] = x.replaceAll('"', '').split("=")[1]);
         } else {
-            filter = querustring.parse(req.query.where.replaceAll('"', ''));
+            filter.query = querustring.parse(req.query.where.replaceAll('"', ''));
         }
     };
 
@@ -32,7 +50,7 @@ movieController.get("/", async (req, res) => {
 
 
 movieController.post("/create", isAuthMiddleware, async (req, res) => {
-    
+
     try {
         const movieData = await createMovieSchema.parseAsync(req.body);
         const userId = req.user.id;
@@ -74,12 +92,12 @@ movieController.patch("/:movieId", isAuthMiddleware, async (req, res) => {
     const movieId = Number(req.params.movieId);
     const userId = Number(req.user.id);
     const movieData = req.body;
-    
+
     try {
         const parsedMovieData = await patrialMovieSchema.parseAsync(movieData);
         const movie = await movieService.updateOne(movieId, userId, parsedMovieData);
-        
-        res.status(200).json({movie});
+
+        res.status(200).json({ movie });
     } catch (error) {
         res.status(400).json({ error: getErrorMessage(error) });
     };
