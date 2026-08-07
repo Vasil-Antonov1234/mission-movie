@@ -3,8 +3,9 @@ import PaginationContainer from "../pagination/PaginationContainer";
 import SelectionFilter from "../trending/SelectionFilter";
 import MovieCard from "../trending/MovieCard";
 import styles from "./AllMovies.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import filterRecordsHandler from "../../utils/filterRecordsHandler";
+import useFetch from "../../hooks/useFetch";
 
 const allMovies: Movie[] = [
     {
@@ -207,28 +208,10 @@ const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romanc
 export default function AllMovies() {
     const [activePage, setActivePage] = useState(1);
     const [activeGenre, setActiveGenre] = useState("All");
-    const [movies, setMovies] = useState<Movie[]>([]);
+    
+    const { data } = useFetch("/movies", []);
 
-    useEffect(() => {
-        (async () => {
-            const response = await fetch("http://localhost:5000/movies",
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "authorization": ""
-                    }
-                }
-            );
-
-            const result = await response.json() as Movie[] | [];
-
-            if (response.ok) {
-                setMovies(result)
-            }
-        })();
-
-    }, []);
+    const movies = data
 
     console.log(movies);
 
