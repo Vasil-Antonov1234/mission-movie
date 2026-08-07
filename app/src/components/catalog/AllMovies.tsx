@@ -209,7 +209,7 @@ export default function AllMovies() {
     const [activePage, setActivePage] = useState(1);
     const [activeGenre, setActiveGenre] = useState("All");
     
-    const { data } = useFetch("/movies?where=genre%3D%22Action-Berrety%22", []);
+    const { data } = useFetch("/movies", []);
 
     const movies = data
 

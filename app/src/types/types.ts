@@ -22,14 +22,31 @@ export type Review = {
     poster: string
 };
 
-export type Movie = {
+export type Author = {
     id: number,
+    email: string,
+    firstName: string,
+    lastName: string,
+    password: string,
+    createdAt: string,
+    updatedAt: string
+}
+
+export type Movie = {
+    id?: number,
     title: string,
-    year: number,
-    rating: number,
+    year?: number,
+    rating?: number,
     genre: string,
     poster: string,
     position?: number
+    synopsis?: string,
+    duration?: string,
+    director?: string,
+    trailerUrl?: string,
+    createdAt?: string,
+    updatedAt?: string,
+    author?: Author
 };
 
 export type SelectionOptions = { 

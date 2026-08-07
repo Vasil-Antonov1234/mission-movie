@@ -19,14 +19,14 @@ movieController.get("/", async (req, res) => {
             year: true,
             rating: true,
             id: true,
-            authorId: true,
-            synopsis: true,
-            duration: true,
-            director: true,
-            trailerUrl: true,
-            createdAt:true,
-            updatedAt: true,
-            author: true
+            authorId: false,
+            synopsis: false,
+            duration: false,
+            director: false,
+            trailerUrl: false,
+            createdAt: false,
+            updatedAt: false,
+            author: false
         }
     };
 
