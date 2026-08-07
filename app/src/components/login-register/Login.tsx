@@ -10,10 +10,9 @@ const initialValues = {
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
-    const { formInputRegister, data } = useForm(initialValues)
+    const { formInputRegister, data, setData } = useForm(initialValues)
 
-    async function submitHandler(event: React.SubmitEvent) {
-        event.preventDefault();
+    async function actionHandler() {
 
         const response = await fetch("http://localhost:5000/users/login",
             {
@@ -24,6 +23,13 @@ export default function Login() {
                 body: JSON.stringify(data)
             }
         );
+
+        setData((state) => ({...state, password: ""}))
+
+        if (response.ok) {
+            setData(initialValues);
+        }
+
 
         const result = await response.json();
 
@@ -67,7 +73,7 @@ export default function Login() {
                 </div>
 
                 {/* Form */}
-                <form className={styles["auth-form"]} onSubmit={submitHandler} noValidate>
+                <form className={styles["auth-form"]} action={actionHandler} noValidate>
 
                     {/* Email */}
                     <div className={styles["auth-field"]}>
