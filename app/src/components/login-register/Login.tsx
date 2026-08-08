@@ -1,12 +1,31 @@
 import { Link } from "react-router";
 import styles from "./Auth.module.css";
-import { useState } from "react";
+import { Activity, useState } from "react";
 import useForm from "../../hooks/useForm";
 import useFetch from "../../hooks/useFetch";
+import { useFormStatus } from "react-dom";
 
 const initialValues = {
     email: "",
     password: ""
+};
+
+
+function Loading() {
+
+    const { pending } = useFormStatus();
+
+
+    return (
+        <Activity
+            mode={pending ? "visible" : "hidden"}
+            children={<div className={styles["loading"]}>Loading
+                <span className={styles["loading-dot1"]}>.</span>
+                <span className={styles["loading-dot2"]}>.</span>
+                <span className={styles["loading-dot3"]}>.</span>
+            </div>}
+        />
+    )
 };
 
 export default function Login() {
@@ -15,14 +34,14 @@ export default function Login() {
     const { request } = useFetch();
 
     async function actionHandler() {
-        
+
         try {
             const result = await request("/users/login", "POST", data);
-            
+
             setData(initialValues);
             console.log(result);
         } catch (error) {
-            setData((state) => ({...state, password: ""}));
+            setData((state) => ({ ...state, password: "" }));
             console.log(error)
         }
     }
@@ -65,6 +84,9 @@ export default function Login() {
 
                 {/* Form */}
                 <form className={styles["auth-form"]} action={actionHandler} noValidate>
+
+                    {<Loading />}
+
 
                     {/* Email */}
                     <div className={styles["auth-field"]}>
