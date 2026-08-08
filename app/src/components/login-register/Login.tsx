@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import styles from "./Auth.module.css";
 import { useState } from "react";
 import useForm from "../../hooks/useForm";
+import useFetch from "../../hooks/useFetch";
 
 const initialValues = {
     email: "",
@@ -11,29 +12,19 @@ const initialValues = {
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const { formInputRegister, data, setData } = useForm(initialValues)
+    const { request } = useFetch();
 
     async function actionHandler() {
-
-        const response = await fetch("http://localhost:5000/users/login",
-            {
-                method: "POST",
-                headers: {
-                    "Content-type": "application/json"
-                },
-                body: JSON.stringify(data)
-            }
-        );
-
-        setData((state) => ({...state, password: ""}))
-
-        if (response.ok) {
+        
+        try {
+            const result = await request("/users/login", "POST", data);
+            
             setData(initialValues);
+            console.log(result);
+        } catch (error) {
+            setData((state) => ({...state, password: ""}));
+            console.log(error)
         }
-
-
-        const result = await response.json();
-
-        console.log(result);
     }
 
     return (

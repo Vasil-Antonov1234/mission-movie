@@ -3,7 +3,7 @@ import type { Method, Movie, Options } from "../types/types";
 
 const BASE_URL = "http://localhost:5000";
 
-export default function useFetch(url: string, initialState: Movie[] | []) {
+export default function useFetch(url?: string, initialState?: Movie[] | []) {
     const [data, setData] = useState(initialState);
 
     useEffect(() => {
@@ -35,8 +35,8 @@ export default function useFetch(url: string, initialState: Movie[] | []) {
             options.body = JSON.stringify(body);
         };
 
+        const response = await fetch(`${BASE_URL}${url}`, options);
 
-        const response = await fetch(`${BASE_URL}${url}}`, options);
 
         if (!response.ok) {
             const result = await response.json();
@@ -47,7 +47,7 @@ export default function useFetch(url: string, initialState: Movie[] | []) {
 
         setData(result);
 
-        return result
+        return result;
     };
 
     return { data, setData, request };
