@@ -49,11 +49,11 @@ export type Movie = {
     author?: Author
 };
 
-export type SelectionOptions = { 
-        options: string[], 
-        setSortBy: (sortBy: string) => void,
-        activeState: string
-    };
+export type SelectionOptions = {
+    options: string[],
+    setSortBy: (sortBy: string) => void,
+    activeState: string
+};
 
 export type CommentType = {
     id: number,
@@ -87,4 +87,27 @@ export type SimilarFilm = {
 
 export type Trending = {
     trending: Movie[]
-}
+};
+
+export type Method = "GET" | "POST" | "PUT" | "PATCH";
+
+export type LoginBody = {
+    email: string,
+    password: string
+};
+
+export type RegisterBody = {
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+};
+
+export type Options = {
+    method: Method,
+    headers?: {
+        "content-type": string,
+        "X-admin"?: string
+    },
+    body?: string
+};
