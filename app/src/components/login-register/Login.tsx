@@ -1,31 +1,13 @@
 import { Link } from "react-router";
 import styles from "./Auth.module.css";
-import { Activity, useState } from "react";
+import { useState } from "react";
 import useForm from "../../hooks/useForm";
 import useFetch from "../../hooks/useFetch";
-import { useFormStatus } from "react-dom";
+import Loading from "../loading/Loading";
 
 const initialValues = {
     email: "",
     password: ""
-};
-
-
-function Loading() {
-
-    const { pending } = useFormStatus();
-
-
-    return (
-        <Activity
-            mode={pending ? "visible" : "hidden"}
-            children={<div className={styles["loading"]}>Loading
-                <span className={styles["loading-dot1"]}>.</span>
-                <span className={styles["loading-dot2"]}>.</span>
-                <span className={styles["loading-dot3"]}>.</span>
-            </div>}
-        />
-    )
 };
 
 export default function Login() {
