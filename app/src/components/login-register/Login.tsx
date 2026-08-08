@@ -17,10 +17,18 @@ export default function Login() {
 
     async function actionHandler() {
 
+        const { email, password} = data;
+
+        if (!email || !password) {
+            alert("Email and password are required")
+        };
+
         try {
             const result = await request("/users/login", "POST", data);
 
             setData(initialValues);
+
+            localStorage.setItem("auth", JSON.stringify(result.accessToken));
             console.log(result);
         } catch (error) {
             setData((state) => ({ ...state, password: "" }));
