@@ -5,6 +5,7 @@ import useForm from "../../hooks/useForm";
 import useFetch from "../../hooks/useFetch";
 import Loading from "../loading/Loading";
 import { validate } from "../../utils/validate";
+import type { ValidateValue } from "../../types/types";
 
 const initialValues = {
     email: "",
@@ -15,14 +16,19 @@ export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const { formInputRegister, data, setData } = useForm(initialValues)
     const { request } = useFetch();
+    const [errors, setErrors] = useState<ValidateValue>({});
 
     async function actionHandler() {
-        const errors = validate(data);
+        const fieldErrors = validate(data);
 
-        if (Object.keys(errors).length > 0) {
+        if (Object.keys(fieldErrors).length > 0) {
             setData((state) => ({ ...state, password: "" }));
-            return;
-        };
+            setErrors(fieldErrors);
+
+            return
+        }
+
+        setErrors({});
 
         try {
             const result = await request("/users/login", "POST", data);
@@ -87,7 +93,7 @@ export default function Login() {
                                 {...formInputRegister("email")}
                                 id="email"
                                 type="email"
-                                className={styles["auth-input"]}
+                                className={errors.email ? `${styles["auth-input"]} ${styles["field-error"]}` : styles["auth-input"]}
                                 placeholder="you@example.com"
                                 autoComplete="email"
                             />
@@ -105,7 +111,7 @@ export default function Login() {
                                 {...formInputRegister("password")}
                                 id="password"
                                 type={showPassword ? "text" : "password"}
-                                className={`${styles["auth-input"]} ${styles["auth-input--has-icon"]}`}
+                                className={`${styles["auth-input"]} ${styles["auth-input--has-icon"]} ${errors.password ? styles["field-error"] : ""}`}
                                 placeholder="••••••••"
                                 autoComplete="current-password"
                             />
