@@ -93,10 +93,11 @@ export default function Login() {
                                 {...formInputRegister("email")}
                                 id="email"
                                 type="email"
-                                className={errors.email ? `${styles["auth-input"]} ${styles["field-error"]}` : styles["auth-input"]}
+                                className={errors.email ? `${styles["auth-input"]} ${styles["auth-input--error"]}` : styles["auth-input"]}
                                 placeholder="you@example.com"
                                 autoComplete="email"
                             />
+                            <p className={styles["auth-error-msg"]}>{errors.email}</p>
                         </div>
                     </div>
 
@@ -111,10 +112,11 @@ export default function Login() {
                                 {...formInputRegister("password")}
                                 id="password"
                                 type={showPassword ? "text" : "password"}
-                                className={`${styles["auth-input"]} ${styles["auth-input--has-icon"]} ${errors.password ? styles["field-error"] : ""}`}
+                                className={`${styles["auth-input"]} ${styles["auth-input--has-icon"]} ${errors.password ? styles["auth-input--error"] : ""}`}
                                 placeholder="••••••••"
                                 autoComplete="current-password"
                             />
+                            <p className={styles["auth-error-msg"]}>{errors.password}</p>
                             <span
                                 className={styles["auth-input-icon"]}
                                 onClick={() => setShowPassword((state) => !state)}
