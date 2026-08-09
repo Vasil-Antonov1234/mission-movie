@@ -22,7 +22,7 @@ export function validate(value: ValidateValue) {
         errors["password"] = "Password is required";
     };
 
-    if (value.password && value.password !== value.confirmPassword) {
+    if (value.password && value.confirmPassword && value.password !== value.confirmPassword) {
         errors["password"] = "Passwords mismatch";
         errors["confirmPassword"] = "Passwords mismatch";
     };

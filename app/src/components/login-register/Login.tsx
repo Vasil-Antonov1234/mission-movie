@@ -4,6 +4,7 @@ import { useState } from "react";
 import useForm from "../../hooks/useForm";
 import useFetch from "../../hooks/useFetch";
 import Loading from "../loading/Loading";
+import { validate } from "../../utils/validate";
 
 const initialValues = {
     email: "",
@@ -16,11 +17,11 @@ export default function Login() {
     const { request } = useFetch();
 
     async function actionHandler() {
+        const errors = validate(data);
 
-        const { email, password} = data;
-
-        if (!email || !password) {
-            alert("Email and password are required")
+        if (Object.keys(errors).length > 0) {
+            setData((state) => ({ ...state, password: "" }));
+            return;
         };
 
         try {
