@@ -111,3 +111,20 @@ export type Options = {
     },
     body?: string
 };
+
+export type ValidateValue = {
+    firstName?: string,
+    lastName?: string,
+    email?: string,
+    password?: string,
+    confirmPassword?: string,
+    title?: string,
+    year?: string,
+    rating?: string,
+    genre?: string,
+    poster?: string,
+    synopsis?: string,
+    duration?: string,
+    director?: string,
+    trailerUrl?: string
+};
