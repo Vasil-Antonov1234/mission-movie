@@ -1,13 +1,18 @@
 import { Link } from "react-router";
 import styles from "./Auth.module.css";
-import { useState } from "react";
+import React, { useState } from "react";
 import useForm from "../../hooks/useForm";
 import useFetch from "../../hooks/useFetch";
 import Loading from "../loading/Loading";
 import { validate } from "../../utils/validate";
 import type { ValidateValue } from "../../types/types";
 
-const initialValues = {
+type Values = {
+    email: string,
+    password: string
+};
+
+const initialValues: Values = {
     email: "",
     password: ""
 };
@@ -17,13 +22,25 @@ export default function Login() {
     const { formInputRegister, data, setData } = useForm(initialValues)
     const { request } = useFetch();
     const [errors, setErrors] = useState<ValidateValue>({});
+    const [touched, setTouched] = useState<ValidateValue>({});
+
+    function validateHandler(event: React.BaseSyntheticEvent) {
+        setTouched((state) => ({
+            ...state,
+            [event.target.name]: true
+        }));
+
+        const fieldErrors = validate(data)
+        setErrors(fieldErrors);
+    }
 
     async function actionHandler() {
         const fieldErrors = validate(data);
+        setErrors(fieldErrors);
+        setTouched(fieldErrors);
 
         if (Object.keys(fieldErrors).length > 0) {
             setData((state) => ({ ...state, password: "" }));
-            setErrors(fieldErrors);
 
             return
         }
@@ -93,11 +110,12 @@ export default function Login() {
                                 {...formInputRegister("email")}
                                 id="email"
                                 type="email"
-                                className={errors.email ? `${styles["auth-input"]} ${styles["auth-input--error"]}` : styles["auth-input"]}
+                                className={touched.email && errors.email ? `${styles["auth-input"]} ${styles["auth-input--error"]}` : styles["auth-input"]}
                                 placeholder="you@example.com"
                                 autoComplete="email"
+                                onBlur={validateHandler}
                             />
-                            <p className={styles["auth-error-msg"]}>{errors.email}</p>
+                            {touched.email ? <p className={styles["auth-error-msg"]}>{errors.email}</p> : ""}
                         </div>
                     </div>
 
@@ -112,11 +130,12 @@ export default function Login() {
                                 {...formInputRegister("password")}
                                 id="password"
                                 type={showPassword ? "text" : "password"}
-                                className={`${styles["auth-input"]} ${styles["auth-input--has-icon"]} ${errors.password ? styles["auth-input--error"] : ""}`}
+                                className={`${styles["auth-input"]} ${styles["auth-input--has-icon"]} ${touched.password && errors.password ? styles["auth-input--error"] : ""}`}
                                 placeholder="••••••••"
                                 autoComplete="current-password"
+                                onBlur={validateHandler}
                             />
-                            <p className={styles["auth-error-msg"]}>{errors.password}</p>
+                            {touched.password ? <p className={styles["auth-error-msg"]}>{errors.password}</p> : ""}
                             <span
                                 className={styles["auth-input-icon"]}
                                 onClick={() => setShowPassword((state) => !state)}
