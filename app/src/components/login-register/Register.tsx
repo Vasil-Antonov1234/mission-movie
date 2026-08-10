@@ -2,6 +2,9 @@ import { useState } from "react";
 import styles from "./Auth.module.css";
 import { Link } from "react-router";
 import useForm from "../../hooks/useForm";
+import useFetch from "../../hooks/useFetch";
+import type { ValidateValue } from "../../types/types";
+import { validate } from "../../utils/validate";
 
 const initialValues = {
     firstName: "",
@@ -37,7 +40,7 @@ function getPassStrengthHandler(password: string) {
         4: { label: "Strong", key: "strong" }
     }
 
-    type Result = {label: string, key: string}
+    type Result = { label: string, key: string }
     const result: Result = stages[level]
 
     return { level, result }
@@ -70,25 +73,50 @@ function PasswordStrengthHandler({ password }: PasswordStrengthHandlerProps) {
 export default function Register() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
-    const { formInputRegister, data } = useForm(initialValues)
+    const { formInputRegister, data, setData } = useForm(initialValues)
+    const { request } = useFetch();
+    const [errors, setErrors] = useState<ValidateValue>({});
+    const [touched, setTouched] = useState<ValidateValue>({});
 
-    async function submitHandler(event: React.SubmitEvent) {
-        event.preventDefault();
+    function validateHandler(event: React.BaseSyntheticEvent) {
+        setTouched((state) => ({
+            ...state,
+            [event.target.name]: true
+        }));
 
-        const response = await fetch("http://localhost:5000/users/register", 
-            { method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            }
-        );
+        const fieldErrors = validate(data);
+        setErrors(fieldErrors);
+    };
 
-        const result = await response.json();
+    async function actionHandler() {
+        const fieldErrors = validate(data);
+        setErrors(fieldErrors);
+        setTouched(fieldErrors);
 
-        console.log(result);
-    }
+        if (Object.keys(fieldErrors).length > 0) {
+            setData((state) => ({
+                ...state,
+                password: "",
+                confirmPassword: ""
+            }))
+            return;
+        };
 
+        setErrors({});
+
+        try {
+            const result = await request("/users/register", "POST", data);
+            console.log(result);
+        } catch (error) {
+            setData((state) => ({
+                ...state,
+                password: "",
+                confirmPassword: ""
+            }));
+
+            console.log(error);
+        };
+    };
 
     return (
         <div className={styles["auth-wrapper"]}>
@@ -127,7 +155,7 @@ export default function Register() {
                 </div>
 
                 {/* Form */}
-                <form className={styles["auth-form"]} onSubmit={submitHandler} noValidate>
+                <form className={styles["auth-form"]} action={actionHandler} noValidate>
 
                     {/* First / Last name */}
                     <div className={styles["auth-form-row"]}>
@@ -137,10 +165,12 @@ export default function Register() {
                                 {...formInputRegister("firstName")}
                                 id="firstName"
                                 type="text"
-                                className={styles["auth-input"]}
+                                className={touched.firstName && errors.firstName ? `${styles["auth-input"]} ${styles["auth-input--error"]}` : styles["auth-input"]}
                                 placeholder="Jane"
                                 autoComplete="given-name"
+                                onBlur={validateHandler}
                             />
+                            {touched.firstName ? <p className={styles["auth-error-msg"]}>{errors.firstName}</p> : ""}
                         </div>
                         <div className={styles["auth-field"]}>
                             <label className={styles["auth-label"]} htmlFor="lastName">Last name</label>
@@ -148,10 +178,12 @@ export default function Register() {
                                 {...formInputRegister("lastName")}
                                 id="lastName"
                                 type="text"
-                                className={styles["auth-input"]}
+                                className={touched.lastName && errors.lastName ? `${styles["auth-input"]} ${styles["auth-input--error"]}` : styles["auth-input"]}
                                 placeholder="Doe"
                                 autoComplete="family-name"
+                                onBlur={validateHandler}
                             />
+                            {touched.lastName ? <p className={styles["auth-error-msg"]}>{errors.lastName}</p> : ""}
                         </div>
                     </div>
 
@@ -162,10 +194,12 @@ export default function Register() {
                             {...formInputRegister("email")}
                             id="email"
                             type="email"
-                            className={styles["auth-input"]}
+                            className={touched.email && errors.email ? `${styles["auth-input"]} ${styles["auth-input--error"]}` : styles["auth-input"]}
                             placeholder="you@example.com"
                             autoComplete="email"
+                            onBlur={validateHandler}
                         />
+                        {touched.email ? <p className={styles["auth-error-msg"]}>{errors.email}</p> : ""}
                     </div>
 
                     {/* Password */}
@@ -176,10 +210,12 @@ export default function Register() {
                                 {...formInputRegister("password")}
                                 id="password"
                                 type={showPassword ? "text" : "password"}
-                                className={`${styles["auth-input"]} ${styles["auth-input--has-icon"]}`}
+                                className={`${styles["auth-input"]} ${styles["auth-input--has-icon"]} ${touched.password && errors.password ? styles["auth-input--error"] : ""}`}
                                 placeholder="Min. 8 characters"
                                 autoComplete="new-password"
+                                onBlur={validateHandler}
                             />
+                            {touched.password ? <p className={styles["auth-error-msg"]}>{errors.password}</p> : ""}
                             <span
                                 className={styles["auth-input-icon"]}
                                 onClick={() => setShowPassword((state) => !state)}
@@ -187,7 +223,7 @@ export default function Register() {
                                 {showPassword ? "🙈" : "👁"}
                             </span>
                         </div>
-                        <PasswordStrengthHandler password={data.password}/>
+                        <PasswordStrengthHandler password={data.password} />
                     </div>
 
                     {/* Confirm password */}
@@ -198,10 +234,12 @@ export default function Register() {
                                 {...formInputRegister("confirmPassword")}
                                 id="confirmPassword"
                                 type={showConfirm ? "text" : "password"}
-                                className={`${styles["auth-input"]} ${styles["auth-input--has-icon"]}`}
+                                className={`${styles["auth-input"]} ${styles["auth-input--has-icon"]} ${touched.confirmPassword && errors.confirmPassword ? styles["auth-input--error"] : ""}`}
                                 placeholder="Repeat your password"
                                 autoComplete="new-password"
+                                onBlur={validateHandler}
                             />
+                            {touched.confirmPassword ? <p className={styles["auth-error-msg"]}>{errors.confirmPassword}</p> : ""}
                             <span
                                 className={styles["auth-input-icon"]}
                                 onClick={() => setShowConfirm((state) => !state)}

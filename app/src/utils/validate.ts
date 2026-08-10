@@ -22,6 +22,10 @@ export function validate(value: ValidateValue) {
         errors["password"] = "Password is required";
     };
 
+    if (value.confirmPassword === "") {
+        errors["confirmPassword"] = "Confirm password is required";
+    };
+
     if (value.password && value.confirmPassword && value.password !== value.confirmPassword) {
         errors["password"] = "Passwords mismatch";
         errors["confirmPassword"] = "Passwords mismatch";
@@ -29,6 +33,24 @@ export function validate(value: ValidateValue) {
 
     if (value.password && value.password.length < 8) {
         errors["password"] = "Password must be at least 8 characters long";
+    };
+
+    // First name
+    if (value.firstName === "") {
+        errors["firstName"] = "First name is required";
+    };
+
+    if (value.firstName && !value.firstName.match(/^[A-Z]{1}[a-zA-Z]+$/)) {
+        errors.firstName = "The first name must start with a capital letter and contain only letters";
+    };
+
+    // Last name
+    if (value.lastName === "") {
+        errors["lastName"] = "First name is required";
+    };
+
+    if (value.lastName && !value.lastName.match(/^[A-Z]{1}[a-zA-Z]+$/)) {
+        errors.lastName = "The last name must start with a capital letter and contain only letters";
     };
 
     // Movie validation
