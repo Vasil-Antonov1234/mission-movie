@@ -1,11 +1,12 @@
 import { Link } from "react-router";
 import styles from "./Auth.module.css";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import useForm from "../../hooks/useForm";
 import useFetch from "../../hooks/useFetch";
 import Loading from "../loading/Loading";
 import { validate } from "../../utils/validate";
 import type { ValidateValue } from "../../types/types";
+import UserContext from "../../contexts/UserContext";
 
 type Values = {
     email: string,
@@ -23,6 +24,7 @@ export default function Login() {
     const { request } = useFetch();
     const [errors, setErrors] = useState<ValidateValue>({});
     const [touched, setTouched] = useState<ValidateValue>({});
+    const { onLogin } = useContext(UserContext);
 
     function validateHandler(event: React.BaseSyntheticEvent) {
         setTouched((state) => ({
@@ -52,7 +54,8 @@ export default function Login() {
 
             setData(initialValues);
 
-            localStorage.setItem("auth", JSON.stringify(result));
+            onLogin(result)
+            
             console.log(result);
         } catch (error) {
             setData((state) => ({ ...state, password: "" }));

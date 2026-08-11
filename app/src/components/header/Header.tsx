@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { Activity, useContext, useState } from "react";
 import styles from "./Header.module.css";
 import { Link, NavLink } from "react-router";
 import ButtonSecondary from "../buttons/ButtonSecondary";
+import UserContext from "../../contexts/UserContext";
 
 export default function Header() {
+    const { isAuthenticated, onLogout } = useContext(UserContext);
 
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -44,12 +46,18 @@ export default function Header() {
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
                 </div>
-                <Link to="/login">
-                    <ButtonSecondary text="Sign in"/>
-                </Link>
-                <Link to="/register">
-                    <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Join</button>
-                </Link>
+                <Activity mode={isAuthenticated ? "hidden" : "visible"}>
+                    <Link to="/login">
+                        <ButtonSecondary text="Sign in" />
+                    </Link>
+                    <Link to="/register">
+                        <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Join</button>
+                    </Link>
+                </Activity>
+                <Activity mode={isAuthenticated ? "visible" : "hidden"}>
+                    <ButtonSecondary text="Logout" clickHandler={onLogout}/>
+                </Activity>
+
             </div>
         </nav>
     );

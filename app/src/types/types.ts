@@ -74,7 +74,8 @@ export type Cast = {
 
 export type ButtonProps = {
     text: string,
-    addStyle?: string
+    addStyle?: string,
+    clickHandler?: () => void
 };
 
 export type SimilarFilm = {
@@ -127,4 +128,25 @@ export type ValidateValue = {
     duration?: string,
     director?: string,
     trailerUrl?: string
+};
+
+export type UserCtx = {
+    user: {
+        id?: number,
+        accessToken?: "",
+        firstName?: "",
+        lastName?: "",
+        email?: "",
+    }
+    onLogin: (user: User) => void,
+    onLogout: () => void,
+    isAuthenticated: boolean
+};
+
+export type User = {
+    id?: number,
+    accessToken?: "",
+    firstName?: "",
+    lastName?: "",
+    email?: ""
 };
