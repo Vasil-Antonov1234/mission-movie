@@ -52,7 +52,7 @@ export default function Login() {
 
             setData(initialValues);
 
-            localStorage.setItem("auth", JSON.stringify(result.accessToken));
+            localStorage.setItem("auth", JSON.stringify(result));
             console.log(result);
         } catch (error) {
             setData((state) => ({ ...state, password: "" }));
