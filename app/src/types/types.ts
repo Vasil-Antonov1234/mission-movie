@@ -107,8 +107,9 @@ export type RegisterBody = {
 export type Options = {
     method: Method,
     headers?: {
-        "content-type": string,
-        "X-admin"?: string
+        "content-type"?: string,
+        "X-admin"?: string,
+        "authorization"?: string
     },
     body?: string
 };
@@ -150,3 +151,7 @@ export type User = {
     lastName?: "",
     email?: ""
 };
+
+export type Config = {
+    accessToken?: string
+}

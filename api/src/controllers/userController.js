@@ -29,7 +29,7 @@ userController.post("/register", async (req, res) => {
 userController.get("/logout", async (req, res) => {
 
     const token = req.headers["authorization"];
-
+    
     try {
         
         await accessTokenUtil.invalidate(token);

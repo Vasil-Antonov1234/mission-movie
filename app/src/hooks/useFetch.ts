@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Method, Movie, Options } from "../types/types";
+import type { Config, Method, Movie, Options } from "../types/types";
 
 const BASE_URL = "http://localhost:5000";
 
@@ -25,7 +25,7 @@ export default function useFetch(url?: string, initialState?: Movie[] | []) {
 
     }, [url]);
 
-    async function request<T>(url: string, method: Method, body?: T) {
+    async function request<T>(url: string, method: Method, config: Config = {}, body?: T) {
         const options: Options = { method: method };
 
         if (body) {
@@ -34,6 +34,13 @@ export default function useFetch(url?: string, initialState?: Movie[] | []) {
             };
             options.body = JSON.stringify(body);
         };
+
+        if (config.accessToken) {
+            options.headers = {
+                ...options.headers,
+                "authorization": config.accessToken
+            }
+        }
 
         const response = await fetch(`${BASE_URL}${url}`, options);
 

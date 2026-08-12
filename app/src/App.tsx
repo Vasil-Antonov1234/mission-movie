@@ -10,10 +10,12 @@ import Register from "./components/login-register/Register"
 import { useState } from "react"
 import UserContext from "./contexts/UserContext"
 import type { User } from "./types/types"
+import useFetch from "./hooks/useFetch"
 
 function App() {
     const[user, setUser] = useState<User>({});
     const navigate = useNavigate();
+    const { request } = useFetch()
 
     function loginHandler(user: User) {
         setUser(user);
@@ -21,12 +23,13 @@ function App() {
         navigate("/");
     };
 
-    function logoutHandler() {
+    async function logoutHandler() {
+        await request("/users/logout", "GET", { accessToken: user.accessToken });
         setUser({});
         localStorage.removeItem("auth");
     };
 
-    const isAuthenticated = !!user.accessToken;
+    const isAuthenticated = !!user?.accessToken;
 
     return (
         <UserContext.Provider value={{user, onLogin: loginHandler, onLogout: logoutHandler, isAuthenticated}}>

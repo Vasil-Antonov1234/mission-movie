@@ -50,7 +50,7 @@ export default function Login() {
         setErrors({});
 
         try {
-            const result = await request("/users/login", "POST", data);
+            const result = await request("/users/login", "POST", {}, data);
 
             setData(initialValues);
 
