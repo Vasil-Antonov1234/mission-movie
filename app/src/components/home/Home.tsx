@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Activity, useContext, useState } from "react";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import Hero from "../hero/Hero";
 import Reviews from "../reviews/Reviews";
@@ -7,6 +7,7 @@ import Trending from "../trending/Trending";
 import styles from "./Home.module.css";
 import type { Featured, Movie } from "../../types/types";
 import filterRecordsHandler from "../../utils/filterRecordsHandler";
+import UserContext from "../../contexts/UserContext";
 
 const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary", "Fantasy", "Adventure"];
 
@@ -96,6 +97,7 @@ export default function Home() {
     const [heroState, setHeroState] = useState(1);
     const [moveState, SetMoveState] = useState("next");
     const [activeGenre, setActiveGenre] = useState("All");
+    const { isAuthenticated } = useContext(UserContext);
 
     const filteredTrending = filterRecordsHandler.filterByGenre(trending, activeGenre);
 
@@ -139,15 +141,17 @@ export default function Home() {
                 setSortBy={setActiveGenre}
                 activeState={activeGenre} />
             <Trending trending={filteredTrending} />
-            <section className={styles["cta-banner"]}>
-                <div className={`${styles["section-label"]} ${styles["cta-banner-eyebrow"]}`}>Join the community</div>
-                <h2 className={styles["cta-banner-title"]}>Track every film you've ever watched.</h2>
-                <p className={styles["cta-banner-text"]}>
-                    Write reviews, build lists, discover new films, and connect with other cinephiles who share
-                    your taste.
-                </p>
-                <ButtonPrimary text="Create your free account" addStyle="cta-btn--large" />
-            </section>
+            <Activity mode={isAuthenticated ? "hidden" : "visible"}>
+                <section className={styles["cta-banner"]}>
+                    <div className={`${styles["section-label"]} ${styles["cta-banner-eyebrow"]}`}>Join the community</div>
+                    <h2 className={styles["cta-banner-title"]}>Track every film you've ever watched.</h2>
+                    <p className={styles["cta-banner-text"]}>
+                        Write reviews, build lists, discover new films, and connect with other cinephiles who share
+                        your taste.
+                    </p>
+                    <ButtonPrimary text="Create your free account" addStyle="cta-btn--large" />
+                </section>
+            </Activity>
             <Reviews />
         </div>
     );

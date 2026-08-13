@@ -55,7 +55,13 @@ export default function Header() {
                     </Link>
                 </Activity>
                 <Activity mode={isAuthenticated ? "visible" : "hidden"}>
-                    <ButtonSecondary text="Logout" clickHandler={onLogout}/>
+                    <Link to="#">
+                        <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Add movie</button>
+                    </Link>
+                    <Link to="#">
+                        <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Write review</button>
+                    </Link>
+                    <ButtonSecondary text="Logout" clickHandler={onLogout} />
                 </Activity>
 
             </div>
