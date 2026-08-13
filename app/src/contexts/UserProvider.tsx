@@ -29,6 +29,7 @@ export default function UserProvider({ children }: { children: React.ReactNode }
         onLogout: logoutHandler,
         isAuthenticated
     }
+    
     return (
         <UserContext.Provider value={ userContextValues }>
             { children }
