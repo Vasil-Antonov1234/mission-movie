@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styles from "./Auth.module.css";
 import { Link } from "react-router";
 import useForm from "../../hooks/useForm";
 import useFetch from "../../hooks/useFetch";
 import type { ValidateValue } from "../../types/types";
 import { validate } from "../../utils/validate";
+import UserContext from "../../contexts/UserContext";
 
 const initialValues = {
     firstName: "",
@@ -77,6 +78,7 @@ export default function Register() {
     const { request } = useFetch();
     const [errors, setErrors] = useState<ValidateValue>({});
     const [touched, setTouched] = useState<ValidateValue>({});
+    const { onLogin } = useContext(UserContext)
 
     function validateHandler(event: React.BaseSyntheticEvent) {
         setTouched((state) => ({
@@ -105,8 +107,9 @@ export default function Register() {
         setErrors({});
 
         try {
-            const result = await request("/users/register", "POST", data);
-            console.log(result);
+            const result = await request("/users/register", "POST", {}, data);
+            
+            onLogin(result);
         } catch (error) {
             setData((state) => ({
                 ...state,
@@ -114,7 +117,7 @@ export default function Register() {
                 confirmPassword: ""
             }));
 
-            console.log(error);
+            alert(error);
         };
     };
 
