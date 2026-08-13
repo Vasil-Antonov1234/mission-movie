@@ -3,8 +3,8 @@ import type { User } from "../types/types";
 
 export function usePersistedState(initialValues: User, key = "auth") {
     const [state, setState] = useState(() => {
-       const data = localStorage.getItem(key);
-        
+        const data = localStorage.getItem(key);
+
         if (data) {
             return JSON.parse(data);
         };
@@ -12,10 +12,17 @@ export function usePersistedState(initialValues: User, key = "auth") {
         return initialValues;
     });
 
-    function setPersistedState(value: User) {
+    function setPersistedState(input: User | ((value: User) => void)) {
 
-        localStorage.setItem(key, JSON.stringify(value));
-        setState(value);
+        if (typeof input === "function") {
+            setState(input(state));
+            localStorage.setItem(key, JSON.stringify(input(state)));
+
+            return
+        };
+
+        localStorage.setItem(key, JSON.stringify(input));
+        setState(input);
     };
 
     return [state, setPersistedState];

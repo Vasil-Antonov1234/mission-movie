@@ -1,11 +1,11 @@
-import { useState } from "react";
 import type { User, UserCtx } from "../types/types";
 import { useNavigate } from "react-router";
 import useFetch from "../hooks/useFetch";
 import UserContext from "./UserContext";
+import { usePersistedState } from "../hooks/usePersistedState";
 
 export default function UserProvider({ children }: { children: React.ReactNode }) {
-    const [user, setUser] = useState<User>({});
+    const [user, setUser] = usePersistedState({});
     const navigate = useNavigate();
     const { request } = useFetch()
 
@@ -29,7 +29,7 @@ export default function UserProvider({ children }: { children: React.ReactNode }
         onLogout: logoutHandler,
         isAuthenticated
     }
-    
+
     return (
         <UserContext.Provider value={ userContextValues }>
             { children }
