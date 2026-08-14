@@ -5,6 +5,8 @@ import ButtonChost from "../buttons/ButtonGhost";
 import ButtonSecondary from "../buttons/ButtonSecondary";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import SiilarFilm from "./SimilarFilm";
+import useFetch from "../../hooks/useFetch";
+import { useParams, Link } from "react-router";
 
 const MOVIE = {
     id: 1,
@@ -103,7 +105,7 @@ const MOVIE = {
     ],
 };
 
-type RatingBadgeProps = {rating: number, large?: boolean}
+type RatingBadgeProps = { rating: number, large?: boolean }
 
 function RatingBadge({ rating, large = false }: RatingBadgeProps) {
     return (
@@ -114,14 +116,24 @@ function RatingBadge({ rating, large = false }: RatingBadgeProps) {
 }
 
 export default function MovieDetail() {
-    const movie = MOVIE;
+    const oldMovie = MOVIE;
+
+    const movieId = useParams().movieId;
+
+    const { data: movie } = useFetch(`/movies/${movieId}`);
+
+    if (!movie || Array.isArray(movie)) {
+        return;
+    };
+
+    console.log(movie)
 
     return (
         <div className={styles["detail-wrapper"]}>
 
             {/* ─── HERO ─── */}
             <div className={styles["detail-hero"]}>
-                <img src={movie.backdrop} alt={movie.title} className={styles["detail-hero-img"]} />
+                <img src={movie.poster} alt={movie.title} className={styles["detail-hero-img"]} />
                 <div className={styles["detail-hero-overlay-h"]} />
                 <div className={styles["detail-hero-overlay-v"]} />
 
@@ -133,7 +145,7 @@ export default function MovieDetail() {
 
                     {/* Info */}
                     <div className={styles["detail-hero-info"]}>
-                        <div className={styles["detail-tagline"]}>"{movie.tagline}"</div>
+                        <div className={styles["detail-tagline"]}>"{oldMovie.tagline}"</div>
                         <h1 className={styles["detail-title"]}>{movie.title}</h1>
 
                         <div className={styles["detail-meta-row"]}>
@@ -147,15 +159,17 @@ export default function MovieDetail() {
                         </div>
 
                         <div className={styles["detail-genre-tags"]}>
-                            {movie.genres.map((g) => (
+                            {movie.genre.split(", ").map((g) => (
                                 <span key={g} className={styles["detail-genre-tag"]}>{g}</span>
                             ))}
                         </div>
 
                         <div className={styles["detail-hero-actions"]}>
-                            <ButtonPrimary text="▶ Watch Trailer" addStyle="btn-170"/>
-                            <ButtonSecondary text="+ Add to Watchlist" addStyle="btn-170"/>
-                            <ButtonChost text="♥ Favourite" addStyle="btn-170"/>
+                            <Link to={movie.trailerUrl? movie.trailerUrl : ""} target="_blank">
+                                <ButtonPrimary text="▶ Watch Trailer" addStyle="btn-170" />
+                            </Link>
+                            <ButtonSecondary text="+ Add to Watchlist" addStyle="btn-170" />
+                            <ButtonChost text="♥ Favourite" addStyle="btn-170" />
                         </div>
                     </div>
                 </div>
@@ -183,16 +197,16 @@ export default function MovieDetail() {
                             <div className={styles["score-card"]}>
                                 <div className={styles["score-card-label"]}>Reelist Score</div>
                                 <div className={`${styles["score-card-value"]} ${styles["score-card-value--gold"]}`}>{movie.rating}</div>
-                                <div className={styles["score-card-sub"]}>{movie.ratingsCount} ratings</div>
+                                <div className={styles["score-card-sub"]}>{oldMovie.ratingsCount} ratings</div>
                             </div>
                             <div className={styles["score-card"]}>
                                 <div className={styles["score-card-label"]}>From</div>
-                                <div className={styles["score-card-value"]}>{movie.metascore}</div>
+                                <div className={styles["score-card-value"]}>{oldMovie.metascore}</div>
                                 <div className={styles["score-card-sub"]}>Users</div>
                             </div>
                             <div className={styles["score-card"]}>
                                 <div className={styles["score-card-label"]}>Tomatometer</div>
-                                <div className={styles["score-card-value"]}>{movie.rottenTomatoes}%</div>
+                                <div className={styles["score-card-value"]}>{oldMovie.rottenTomatoes}%</div>
                                 <div className={styles["score-card-sub"]}>Rotten Tomatoes</div>
                             </div>
                         </div>
@@ -205,7 +219,7 @@ export default function MovieDetail() {
                         <div className={styles["section-label"]}>People</div>
                         <h2 className={styles["synopsis-heading"]}>Cast</h2>
                         <div className={styles["cast-grid"]}>
-                            {movie.cast.map((person) => (
+                            {oldMovie.cast.map((person) => (
                                 <CastCard key={person.id} person={person} />
                             ))}
                         </div>
@@ -213,7 +227,7 @@ export default function MovieDetail() {
 
                     <hr className={styles["section-divider"]} />
 
-                    <CommentsSection comments={movie.reviews} />
+                    <CommentsSection comments={oldMovie.reviews} />
 
                 </main>
 
@@ -226,39 +240,39 @@ export default function MovieDetail() {
                         <div className={styles["sidebar-info-list"]}>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Director</span>
-                                <span className={styles["sidebar-info-value"]}>{movie.director}</span>
+                                <span className={styles["sidebar-info-value"]}>{oldMovie.director}</span>
                             </div>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Written by</span>
-                                <span className={styles["sidebar-info-value"]}>{movie.writers.join(", ")}</span>
+                                <span className={styles["sidebar-info-value"]}>{oldMovie.writers.join(", ")}</span>
                             </div>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Studio</span>
-                                <span className={styles["sidebar-info-value"]}>{movie.studio}</span>
+                                <span className={styles["sidebar-info-value"]}>{oldMovie.studio}</span>
                             </div>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Release Date</span>
-                                <span className={styles["sidebar-info-value"]}>{movie.releaseDate}</span>
+                                <span className={styles["sidebar-info-value"]}>{oldMovie.releaseDate}</span>
                             </div>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Runtime</span>
-                                <span className={styles["sidebar-info-value"]}>{movie.duration}</span>
+                                <span className={styles["sidebar-info-value"]}>{oldMovie.duration}</span>
                             </div>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Language</span>
-                                <span className={styles["sidebar-info-value"]}>{movie.language}</span>
+                                <span className={styles["sidebar-info-value"]}>{oldMovie.language}</span>
                             </div>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Country</span>
-                                <span className={styles["sidebar-info-value"]}>{movie.country}</span>
+                                <span className={styles["sidebar-info-value"]}>{oldMovie.country}</span>
                             </div>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Budget</span>
-                                <span className={styles["sidebar-info-value"]}>{movie.budget}</span>
+                                <span className={styles["sidebar-info-value"]}>{oldMovie.budget}</span>
                             </div>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Box Office</span>
-                                <span className={styles["sidebar-info-value"]}>{movie.boxOffice}</span>
+                                <span className={styles["sidebar-info-value"]}>{oldMovie.boxOffice}</span>
                             </div>
                         </div>
                     </div>
@@ -267,7 +281,7 @@ export default function MovieDetail() {
                     <div className={styles["sidebar-card"]}>
                         <div className={styles["sidebar-card-title"]}>Genres</div>
                         <div className={styles["sidebar-tags"]}>
-                            {movie.genres.map((g) => (
+                            {oldMovie.genres.map((g) => (
                                 <button key={g} className={styles["sidebar-tag"]}>{g}</button>
                             ))}
                         </div>
@@ -277,8 +291,8 @@ export default function MovieDetail() {
                     <div className={styles["sidebar-card"]}>
                         <div className={styles["sidebar-card-title"]}>Similar Films</div>
                         <div className={styles["similar-list"]}>
-                            {movie.similar.map((film) => (
-                                <SiilarFilm key={film.id} film={film}/>
+                            {oldMovie.similar.map((film) => (
+                                <SiilarFilm key={film.id} film={film} />
                             ))}
                         </div>
                     </div>
