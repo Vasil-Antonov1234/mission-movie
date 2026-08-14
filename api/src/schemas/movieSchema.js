@@ -10,12 +10,12 @@ export const createMovieSchema = z.object({
         .max(10, { error: "Rating cannot be bigger than 10"}),
     genre: z.string()
         .regex(/^[A-Za-z \,]/, { error: "Invalid genre" }),
-    poster: z.httpUrl({ error: "Invalid URL format" }),
+    poster: z.httpUrl({ error: "Invalid movie poster URL format" }),
     synopsis: z.string()
-        .min(1, { error: "Sinopsis is required"}),
+        .min(30, { error: "Sinopsis must be at least 30 characters"}),
     duration: z.string()
         .regex(/^[0-9]{1,2}h [0-9]{1,2}m$/, { error: "Invalid duration format"}),
     director: z.string()
         .min(1, { error: "Director is required"}),
-    trailerUrl: z.httpUrl({ error: "Invalid URL format"})
+    trailerUrl: z.httpUrl({ error: "Invalid movie trailer URL format"})
 })

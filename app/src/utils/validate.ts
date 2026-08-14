@@ -105,7 +105,9 @@ export function validate(value: ValidateValue) {
         errors["duration"] = "Duration is required";
     };
 
-    // TODO regex duration va\lidate
+    if (!value.duration?.match(/^[0-9]{1,2}h [0-9]{1,2}m$/)) {
+        errors["duration"] = "Invalid movie duration format";
+    };
 
     // Director
     if (value.director === "") {

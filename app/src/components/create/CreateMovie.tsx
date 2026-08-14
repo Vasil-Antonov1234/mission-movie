@@ -57,7 +57,14 @@ export default function CreateMovie() {
 
 			console.log(result);
 		} catch (error) {
-			alert(error);
+						
+			if (error instanceof Error) {
+				alert(error.message)
+			} else if (typeof error === "string") {
+				alert(error);
+			} else {
+				alert("An unexpected error occurred");
+			};
 		};
 	}
 

@@ -43,7 +43,7 @@ movieController.get("/", async (req, res) => {
 
         res.json(movies);
     } catch (error) {
-        res.json({ error: getErrorMessage(error) });
+        res.json(getErrorMessage(error));
     }
 
 });
@@ -59,7 +59,7 @@ movieController.post("/create", isAuthMiddleware, async (req, res) => {
 
         res.status(201).json(movie);
     } catch (error) {
-        res.status(400).json({ error: getErrorMessage(error) });
+        res.status(400).json(getErrorMessage(error));
     };
 });
 
@@ -71,7 +71,7 @@ movieController.get("/:movieId", async (req, res) => {
 
         res.status(200).json(movie);
     } catch (error) {
-        res.status(400).json({ error: getErrorMessage(error) });
+        res.status(400).json(getErrorMessage(error));
     }
 });
 
@@ -84,7 +84,7 @@ movieController.delete("/:movieId", isAuthMiddleware, async (req, res) => {
 
         res.status(200).json(`${movie.title} has been deleted`);
     } catch (error) {
-        res.status(400).json({ error: getErrorMessage(error) })
+        res.status(400).json(getErrorMessage(error))
     }
 });
 
@@ -99,7 +99,7 @@ movieController.patch("/:movieId", isAuthMiddleware, async (req, res) => {
 
         res.status(200).json({ movie });
     } catch (error) {
-        res.status(400).json({ error: getErrorMessage(error) });
+        res.status(400).json(getErrorMessage(error));
     };
 })
 
