@@ -128,7 +128,15 @@ export type ValidateValue = {
     synopsis?: string,
     duration?: string,
     director?: string,
-    trailerUrl?: string
+    trailerUrl?: string,
+    writtenBy?: string,
+    tagline?: string,
+    studio?: string,
+    releaseDate?: string,
+    language?: string,
+    country?: string,
+    budget?: string,
+    boxOffice?: string
 };
 
 export type UserCtx = {

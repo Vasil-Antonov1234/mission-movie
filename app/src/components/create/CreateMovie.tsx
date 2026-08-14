@@ -18,7 +18,15 @@ const initialValues = {
 	synopsis: "",
 	duration: "",
 	director: "",
-	trailerUrl: ""
+	trailerUrl: "",
+	tagline: "",
+	writtenBy: "",
+	studio: "",
+	releaseDate: "",
+	language: "",
+	country: "",
+	budget: "",
+	boxOffice: ""
 };
 
 function isValidUrl(url: string): boolean {
@@ -68,7 +76,7 @@ export default function CreateMovie() {
 				alert(error.message)
 			} else if (typeof error === "string") {
 				alert(error);
-				
+
 				if (error === "Invalid token") {
 					onLogout("/login");
 				};
@@ -123,6 +131,23 @@ export default function CreateMovie() {
 								{touched.title && <span className={styles.errorMsg}>{errors.title}</span>}
 							</div>
 
+							{/* Tagline */}
+							<div className={`${styles.field} ${styles.colSpan2}`}>
+								<label className={styles.label} htmlFor="tagline">
+									Tagline <span className={styles.required}>*</span>
+								</label>
+								<input
+									id="tagline"
+									{...formInputRegister("tagline")}
+									type="text"
+									className={`${styles.input}${errors.tagline && touched.tagline ? ` ${styles["input--error"]}` : ""}`}
+									placeholder="e.g. A Brand New Day starts now."
+									autoComplete="off"
+									onBlur={validateHandler}
+								/>
+								{touched.tagline && <span className={styles.errorMsg}>{errors.tagline}</span>}
+							</div>
+
 							{/* Director */}
 							<div className={styles.field}>
 								<label className={styles.label} htmlFor="director">
@@ -139,6 +164,22 @@ export default function CreateMovie() {
 								{touched.director && <span className={styles.errorMsg}>{errors.director}</span>}
 							</div>
 
+							{/* Written by */}
+							<div className={styles.field}>
+								<label className={styles.label} htmlFor="writtenBy">
+									Written by <span className={styles.required}>*</span>
+								</label>
+								<input
+									id="writtenBy"
+									{...formInputRegister("writtenBy")}
+									type="text"
+									className={styles.input}
+									placeholder="e.g. Manel Santisteban"
+									onBlur={validateHandler}
+								/>
+								{touched.writtenBy && <span className={styles.errorMsg}>{errors.writtenBy}</span>}
+							</div>
+
 							{/* Genre */}
 							<div className={styles.field}>
 								<label className={styles.label} htmlFor="genre">
@@ -148,8 +189,8 @@ export default function CreateMovie() {
 									id="genre"
 									{...formInputRegister("genre")}
 									className={styles.input}
-								// className={`${styles.select}${errors.genre ? ` ${styles["select--error"]}` : ""}`}
-								onBlur={validateHandler}
+									// className={`${styles.select}${errors.genre ? ` ${styles["select--error"]}` : ""}`}
+									onBlur={validateHandler}
 								/>
 								{touched.genre && <span className={styles.errorMsg}>{errors.genre}</span>}
 							</div>
@@ -162,6 +203,22 @@ export default function CreateMovie() {
 						<div className={styles.cardTitle}>Film Details</div>
 
 						<div className={styles.formGridThree}>
+
+							{/* Release date */}
+							<div className={styles.field}>
+								<label className={styles.label} htmlFor="releaseDate">
+									Release date <span className={styles.required}>*</span>
+								</label>
+								<input
+									id="releaseDate"
+									type="text"
+									{...formInputRegister("releaseDate")}
+									className={styles.input}
+									placeholder="e.g. May 2, 2017"
+									onBlur={validateHandler}
+								/>
+								{touched.releaseDate && <span className={styles.errorMsg}>{errors.releaseDate}</span>}
+							</div>
 
 							{/* Year */}
 							<div className={styles.field}>
@@ -198,6 +255,86 @@ export default function CreateMovie() {
 								{/* {!errors.duration && (
 									<span className={styles.inputHint}>Format: 2h 15m or 135m</span>
 								)} */}
+							</div>
+
+							{/* Studio */}
+							<div className={styles.field}>
+								<label className={styles.label} htmlFor="studio">
+									Studio <span className={styles.required}>*</span>
+								</label>
+								<input
+									id="studio"
+									{...formInputRegister("studio")}
+									type="text"
+									className={styles.input}
+									placeholder="e.g. Netflix"
+									onBlur={validateHandler}
+								/>
+								{touched.studio && <span className={styles.errorMsg}>{errors.studio}</span>}
+							</div>
+
+							{/* Language */}
+							<div className={styles.field}>
+								<label className={styles.label} htmlFor="language">
+									Language <span className={styles.required}>*</span>
+								</label>
+								<input
+									id="language"
+									{...formInputRegister("language")}
+									type="text"
+									className={styles.input}
+									placeholder="e.g. English"
+									onBlur={validateHandler}
+								/>
+								{touched.language && <span className={styles.errorMsg}>{errors.language}</span>}
+							</div>
+
+							{/* Country */}
+							<div className={styles.field}>
+								<label className={styles.label} htmlFor="country">
+									Country <span className={styles.required}>*</span>
+								</label>
+								<input
+									id="country"
+									{...formInputRegister("country")}
+									type="text"
+									className={styles.input}
+									placeholder="e.g. USA"
+									onBlur={validateHandler}
+								/>
+								{touched.country && <span className={styles.errorMsg}>{errors.country}</span>}
+							</div>
+
+							{/* Budget */}
+							<div className={styles.field}>
+								<label className={styles.label} htmlFor="budget">
+									Budget <span className={styles.required}>*</span>
+								</label>
+								<input
+									id="budget"
+									{...formInputRegister("budget")}
+									type="text"
+									className={styles.input}
+									placeholder="e.g. $100M"
+									onBlur={validateHandler}
+								/>
+								{touched.budget && <span className={styles.errorMsg}>{errors.budget}</span>}
+							</div>
+
+							{/* BoxOffice */}
+							<div className={styles.field}>
+								<label className={styles.label} htmlFor="boxOffice">
+									BoxOffice <span className={styles.required}>*</span>
+								</label>
+								<input
+									id="boxOffice"
+									{...formInputRegister("boxOffice")}
+									type="text"
+									className={styles.input}
+									placeholder="e.g. $100 000M"
+									onBlur={validateHandler}
+								/>
+								{touched.boxOffice && <span className={styles.errorMsg}>{errors.boxOffice}</span>}
 							</div>
 
 							{/* Rating */}
