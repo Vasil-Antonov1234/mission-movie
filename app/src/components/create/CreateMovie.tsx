@@ -5,24 +5,7 @@ import { useContext, useState } from "react";
 import UserContext from "../../contexts/UserContext";
 import type { ValidateValue } from "../../types/types";
 import { validate } from "../../utils/validate";
-
-// const genres = [
-// 	"Action",
-// 	"Adventure",
-// 	"Animation",
-// 	"Comedy",
-// 	"Crime",
-// 	"Documentary",
-// 	"Drama",
-// 	"Fantasy",
-// 	"Horror",
-// 	"Mystery",
-// 	"Romance",
-// 	"Sci-Fi",
-// 	"Thriller",
-// 	"War",
-// 	"Western",
-// ];
+import { useNavigate } from "react-router";
 
 const currentYear = new Date().getFullYear();
 
@@ -50,28 +33,46 @@ function isValidUrl(url: string): boolean {
 export default function CreateMovie() {
 	const { formInputRegister, data, setData } = useForm(initialValues)
 	const { request } = useFetch()
-	const { user } = useContext(UserContext)
+	const { user, onLogout } = useContext(UserContext)
 	const [errors, setErrors] = useState<ValidateValue>({});
+	const [touched, setTouched] = useState<ValidateValue>({});
+	const navigate = useNavigate();
+
+	function validateHandler(event: React.BaseSyntheticEvent) {
+		setTouched((state) => ({
+			...state,
+			[event.target.name]: true
+		}));
+
+		const fieldErrors = validate(data);
+		setErrors(fieldErrors);
+	};
 
 	async function actionHandler() {
 		const fieldErrors = validate(data);
 		setErrors(fieldErrors);
+		setTouched(fieldErrors);
 
 		if (Object.keys(fieldErrors).length > 0) {
 			return;
 		};
 
 		try {
-			const result = await request("/movies/create", "POST", { accessToken: user.accessToken }, data);
+			await request("/movies/create", "POST", { accessToken: user.accessToken }, data);
 			setErrors({});
 
-			console.log(result);
+			navigate("/");
 		} catch (error) {
 
 			if (error instanceof Error) {
 				alert(error.message)
 			} else if (typeof error === "string") {
 				alert(error);
+				
+				if (error === "Invalid token") {
+					onLogout("/login");
+				};
+
 			} else {
 				alert("An unexpected error occurred");
 			};
@@ -80,6 +81,8 @@ export default function CreateMovie() {
 
 	const handleReset = () => {
 		setData(initialValues);
+		setTouched({});
+		setErrors({});
 	};
 
 	const showPosterPreview = data.poster.trim() !== "" && isValidUrl(data.poster);
@@ -112,12 +115,12 @@ export default function CreateMovie() {
 									id="title"
 									{...formInputRegister("title")}
 									type="text"
-									// className={`${styles.input}${errors.title ? ` ${styles["input--error"]}` : ""}`}
-									className={styles.input}
+									className={`${styles.input}${errors.title && touched.title ? ` ${styles["input--error"]}` : ""}`}
 									placeholder="e.g. Oppenheimer"
 									autoComplete="off"
+									onBlur={validateHandler}
 								/>
-								{errors.title && <span className={styles.errorMsg}>{errors.title}</span>}
+								{touched.title && <span className={styles.errorMsg}>{errors.title}</span>}
 							</div>
 
 							{/* Director */}
@@ -131,8 +134,9 @@ export default function CreateMovie() {
 									type="text"
 									className={styles.input}
 									placeholder="e.g. Christopher Nolan"
+									onBlur={validateHandler}
 								/>
-								{errors.director && <span className={styles.errorMsg}>{errors.director}</span>}
+								{touched.director && <span className={styles.errorMsg}>{errors.director}</span>}
 							</div>
 
 							{/* Genre */}
@@ -145,8 +149,9 @@ export default function CreateMovie() {
 									{...formInputRegister("genre")}
 									className={styles.input}
 								// className={`${styles.select}${errors.genre ? ` ${styles["select--error"]}` : ""}`}
+								onBlur={validateHandler}
 								/>
-								{errors.genre && <span className={styles.errorMsg}>{errors.genre}</span>}
+								{touched.genre && <span className={styles.errorMsg}>{errors.genre}</span>}
 							</div>
 
 						</div>
@@ -171,8 +176,9 @@ export default function CreateMovie() {
 									max={currentYear + 5}
 									className={styles.input}
 									placeholder={String(currentYear)}
+									onBlur={validateHandler}
 								/>
-								{errors.year && <span className={styles.errorMsg}>{errors.year}</span>}
+								{touched.year && <span className={styles.errorMsg}>{errors.year}</span>}
 							</div>
 
 							{/* Duration */}
@@ -186,8 +192,9 @@ export default function CreateMovie() {
 									type="text"
 									className={styles.input}
 									placeholder="e.g. 2h 46m"
+									onBlur={validateHandler}
 								/>
-								{errors.duration && <span className={styles.errorMsg}>{errors.duration}</span>}
+								{touched.duration && <span className={styles.errorMsg}>{errors.duration}</span>}
 								{/* {!errors.duration && (
 									<span className={styles.inputHint}>Format: 2h 15m or 135m</span>
 								)} */}
@@ -207,10 +214,11 @@ export default function CreateMovie() {
 										max={10}
 										step={0.1}
 										className={styles.ratingSlider}
+										onBlur={validateHandler}
 									/>
 									<span className={styles.ratingBadge}>★ {Number(data.rating).toFixed(1)}</span>
 								</div>
-								{errors.rating && <span className={styles.errorMsg}>{errors.rating}</span>}
+								{touched.rating && <span className={styles.errorMsg}>{errors.rating}</span>}
 							</div>
 
 						</div>
@@ -233,8 +241,9 @@ export default function CreateMovie() {
 									type="url"
 									className={styles.input}
 									placeholder="https://…"
+									onBlur={validateHandler}
 								/>
-								{errors.poster && <span className={styles.errorMsg}>{errors.poster}</span>}
+								{touched.poster && <span className={styles.errorMsg}>{errors.poster}</span>}
 
 								{/* Live poster preview */}
 								<div className={styles.posterPreviewWrapper}>
@@ -243,6 +252,7 @@ export default function CreateMovie() {
 											src={data.poster}
 											alt="Poster preview"
 											className={styles.posterPreviewImg}
+											onBlur={validateHandler}
 										// onError={() => setPosterError(true)}
 										/>
 									) : (
@@ -265,11 +275,12 @@ export default function CreateMovie() {
 									{...formInputRegister("trailerUrl")}
 									className={styles.input}
 									placeholder="https://youtube.com/…"
+									onBlur={validateHandler}
 								/>
-								{errors.trailerUrl && <span className={styles.errorMsg}>{errors.trailerUrl}</span>}
-								{/* {!errors.trailerUrl && (
+								{touched.trailerUrl && <span className={styles.errorMsg}>{errors.trailerUrl}</span>}
+								{!errors.trailerUrl && (
 									<span className={styles.inputHint}>Optional — YouTube or Vimeo link</span>
-								)} */}
+								)}
 							</div>
 
 						</div>
@@ -286,14 +297,12 @@ export default function CreateMovie() {
 							<textarea
 								id="synopsis"
 								{...formInputRegister("synopsis")}
-								// name="synopsis"
 								className={styles.textarea}
 								placeholder="Write a short description of the film…"
-								// value={form.synopsis}
-								// onChange={handleChange}
 								rows={5}
+								onBlur={validateHandler}
 							/>
-							{errors.synopsis && <span className={styles.errorMsg}>{errors.synopsis}</span>}
+							{touched.synopsis && <span className={styles.errorMsg}>{errors.synopsis}</span>}
 							<span className={styles.inputHint}>
 								{data.synopsis.trim().length} characters
 								{data.synopsis.trim().length > 0 && data.synopsis.trim().length < 30
@@ -318,7 +327,6 @@ export default function CreateMovie() {
 						// disabled={loading}
 						>
 							Add Movie
-							{/* {loading ? "Saving…" : "Add Movie"} */}
 						</button>
 					</div>
 

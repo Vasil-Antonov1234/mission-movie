@@ -17,8 +17,5 @@ export default function useForm<T extends Record<string, string>>(initialValues:
             onChange: changeHandler
         }
     }
-
     return {changeHandler, formInputRegister, data, setData}
 }
-
-// 'ChangeEvent<HTMLTextAreaElement, HTMLTextAreaElement>

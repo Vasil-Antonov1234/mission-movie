@@ -1,5 +1,39 @@
 import type { ValidateValue } from "../types/types";
 
+const genres = [
+	"Action",
+	"Adventure",
+	"Animation",
+	"Comedy",
+	"Crime",
+	"Documentary",
+	"Drama",
+	"Fantasy",
+	"Horror",
+	"Mystery",
+	"Romance",
+	"Sci-Fi",
+	"Thriller",
+	"War",
+	"Western",
+    "Action-Berets",
+    "Superhero",
+    "Marvel"
+];
+
+function validateGenre(text: string) {
+    const tokens = text.split(", ");
+    let result = true;
+
+    tokens.forEach((x) => {
+        if (!genres.includes(x)) {
+            result = false;
+        }
+    });
+
+    return result
+};
+
 export function validate(value: ValidateValue) {
     const errors: ValidateValue = {};
 
@@ -77,13 +111,17 @@ export function validate(value: ValidateValue) {
         errors["rating"] = "Rating must be an intiger between 1 and 10";
     };
 
-    if (value.rating && !value.rating.match(/^[0-9]{1,2}$/)) {
+    if (value.rating && !value.rating.match(/^[0-9]\.[0-9]$/)) {
         errors["rating"] = "Rating must be an intiger between 1 and 10";
     };
 
     // Genre
     if (value.genre === "") {
         errors["genre"] = "Genre is required";
+    };
+
+    if (value.genre && !validateGenre(value.genre)) {
+        errors["genre"] = "Invalid genre is detected";
     };
 
     // Poster
@@ -105,7 +143,7 @@ export function validate(value: ValidateValue) {
         errors["duration"] = "Duration is required";
     };
 
-    if (!value.duration?.match(/^[0-9]{1,2}h [0-9]{1,2}m$/) && value.duration !== "") {
+    if (value.duration && !value.duration?.match(/^[0-9]{1,2}h [0-9]{1,2}m$/) && value.duration !== "") {
         errors["duration"] = "Invalid movie duration format";
     };
 
@@ -123,7 +161,7 @@ export function validate(value: ValidateValue) {
         errors["trailerUrl"] = "Trailer is required";
     };
 
-    if (value.trailerUrl && value.trailerUrl.match(/^https?:\/\//)) {
+    if (value.trailerUrl && !value.trailerUrl.match(/^https?:\/\//)) {
         errors["trailerUrl"] = "Invalid URL address";
     };
 

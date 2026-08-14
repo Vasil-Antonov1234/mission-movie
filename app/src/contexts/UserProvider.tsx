@@ -15,7 +15,7 @@ export default function UserProvider({ children }: { children: React.ReactNode }
         navigate("/");
     };
 
-    async function logoutHandler() {
+    async function logoutHandler(navigateTo?: string) {
         try {
             
             await request("/users/logout", "GET", { accessToken: user.accessToken });
@@ -24,7 +24,12 @@ export default function UserProvider({ children }: { children: React.ReactNode }
         } finally {
             setUser({});
             localStorage.removeItem("auth");
-            navigate("/");  
+
+            if (navigateTo) {
+                navigate(navigateTo);
+            } else {
+                navigate("/");
+            };
         };
         
     };

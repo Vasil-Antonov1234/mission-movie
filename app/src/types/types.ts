@@ -140,7 +140,7 @@ export type UserCtx = {
         email?: string
     }
     onLogin: (user: User) => void,
-    onLogout: () => void,
+    onLogout: (navigateTo?: string) => void,
     isAuthenticated: boolean
 };
 
