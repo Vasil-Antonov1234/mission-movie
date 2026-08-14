@@ -1,8 +1,10 @@
 import styles from "./CreateMovie.module.css";
 import useForm from "../../hooks/useForm";
 import useFetch from "../../hooks/useFetch";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import UserContext from "../../contexts/UserContext";
+import type { ValidateValue } from "../../types/types";
+import { validate } from "../../utils/validate";
 
 // const genres = [
 // 	"Action",
@@ -49,15 +51,23 @@ export default function CreateMovie() {
 	const { formInputRegister, data, setData } = useForm(initialValues)
 	const { request } = useFetch()
 	const { user } = useContext(UserContext)
+	const [errors, setErrors] = useState<ValidateValue>({});
 
 	async function actionHandler() {
+		const fieldErrors = validate(data);
+		setErrors(fieldErrors);
+
+		if (Object.keys(fieldErrors).length > 0) {
+			return;
+		};
 
 		try {
-			const result = await request("/movies/create", "POST", { accessToken: user.accessToken }, data );
+			const result = await request("/movies/create", "POST", { accessToken: user.accessToken }, data);
+			setErrors({});
 
 			console.log(result);
 		} catch (error) {
-						
+
 			if (error instanceof Error) {
 				alert(error.message)
 			} else if (typeof error === "string") {
@@ -107,7 +117,7 @@ export default function CreateMovie() {
 									placeholder="e.g. Oppenheimer"
 									autoComplete="off"
 								/>
-								{/* {errors.title && <span className={styles.errorMsg}>{errors.title}</span>} */}
+								{errors.title && <span className={styles.errorMsg}>{errors.title}</span>}
 							</div>
 
 							{/* Director */}
@@ -122,7 +132,7 @@ export default function CreateMovie() {
 									className={styles.input}
 									placeholder="e.g. Christopher Nolan"
 								/>
-								{/* {errors.director && <span className={styles.errorMsg}>{errors.director}</span>} */}
+								{errors.director && <span className={styles.errorMsg}>{errors.director}</span>}
 							</div>
 
 							{/* Genre */}
@@ -136,7 +146,7 @@ export default function CreateMovie() {
 									className={styles.input}
 								// className={`${styles.select}${errors.genre ? ` ${styles["select--error"]}` : ""}`}
 								/>
-								{/* {errors.genre && <span className={styles.errorMsg}>{errors.genre}</span>} */}
+								{errors.genre && <span className={styles.errorMsg}>{errors.genre}</span>}
 							</div>
 
 						</div>
@@ -162,7 +172,7 @@ export default function CreateMovie() {
 									className={styles.input}
 									placeholder={String(currentYear)}
 								/>
-								{/* {errors.year && <span className={styles.errorMsg}>{errors.year}</span>} */}
+								{errors.year && <span className={styles.errorMsg}>{errors.year}</span>}
 							</div>
 
 							{/* Duration */}
@@ -177,8 +187,8 @@ export default function CreateMovie() {
 									className={styles.input}
 									placeholder="e.g. 2h 46m"
 								/>
-								{/* {errors.duration && <span className={styles.errorMsg}>{errors.duration}</span>}
-								{!errors.duration && (
+								{errors.duration && <span className={styles.errorMsg}>{errors.duration}</span>}
+								{/* {!errors.duration && (
 									<span className={styles.inputHint}>Format: 2h 15m or 135m</span>
 								)} */}
 							</div>
@@ -200,6 +210,7 @@ export default function CreateMovie() {
 									/>
 									<span className={styles.ratingBadge}>★ {Number(data.rating).toFixed(1)}</span>
 								</div>
+								{errors.rating && <span className={styles.errorMsg}>{errors.rating}</span>}
 							</div>
 
 						</div>
@@ -223,7 +234,7 @@ export default function CreateMovie() {
 									className={styles.input}
 									placeholder="https://…"
 								/>
-								{/* {errors.posterUrl && <span className={styles.errorMsg}>{errors.posterUrl}</span>} */}
+								{errors.poster && <span className={styles.errorMsg}>{errors.poster}</span>}
 
 								{/* Live poster preview */}
 								<div className={styles.posterPreviewWrapper}>
@@ -255,8 +266,8 @@ export default function CreateMovie() {
 									className={styles.input}
 									placeholder="https://youtube.com/…"
 								/>
-								{/* {errors.trailerUrl && <span className={styles.errorMsg}>{errors.trailerUrl}</span>}
-								{!errors.trailerUrl && (
+								{errors.trailerUrl && <span className={styles.errorMsg}>{errors.trailerUrl}</span>}
+								{/* {!errors.trailerUrl && (
 									<span className={styles.inputHint}>Optional — YouTube or Vimeo link</span>
 								)} */}
 							</div>
@@ -282,7 +293,7 @@ export default function CreateMovie() {
 								// onChange={handleChange}
 								rows={5}
 							/>
-							{/* {errors.synopsis && <span className={styles.errorMsg}>{errors.synopsis}</span>} */}
+							{errors.synopsis && <span className={styles.errorMsg}>{errors.synopsis}</span>}
 							<span className={styles.inputHint}>
 								{data.synopsis.trim().length} characters
 								{data.synopsis.trim().length > 0 && data.synopsis.trim().length < 30

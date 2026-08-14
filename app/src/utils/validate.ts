@@ -105,7 +105,7 @@ export function validate(value: ValidateValue) {
         errors["duration"] = "Duration is required";
     };
 
-    if (!value.duration?.match(/^[0-9]{1,2}h [0-9]{1,2}m$/)) {
+    if (!value.duration?.match(/^[0-9]{1,2}h [0-9]{1,2}m$/) && value.duration !== "") {
         errors["duration"] = "Invalid movie duration format";
     };
 
