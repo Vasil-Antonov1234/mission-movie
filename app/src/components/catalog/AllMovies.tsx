@@ -3,7 +3,7 @@ import PaginationContainer from "../pagination/PaginationContainer";
 import SelectionFilter from "../trending/SelectionFilter";
 import MovieCard from "../trending/MovieCard";
 import styles from "./AllMovies.module.css";
-import { useState } from "react";
+import { Activity, useState } from "react";
 import filterRecordsHandler from "../../utils/filterRecordsHandler";
 import useFetch from "../../hooks/useFetch";
 
@@ -208,8 +208,10 @@ const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romanc
 export default function AllMovies() {
     const [activePage, setActivePage] = useState(1);
     const [activeGenre, setActiveGenre] = useState("All");
-    
+
     const { data } = useFetch("/movies", []);
+
+    const test = [];
 
     let filteredMovies = filterRecordsHandler.filterByGenre(allMovies, activeGenre);
 
@@ -230,9 +232,22 @@ export default function AllMovies() {
             <div>
                 <h1 className={styles["section-heading-title"]}>Whatch new titles</h1>
             </div>
-            <section className={styles["trending-wrapper"]}>
-                <div className={styles["trending-container"]}>
-                    {filteredMovies.map((movie) => (
+            <Activity mode={data && data.length > 0 ? "visible" : "hidden"}>
+                <section className={styles["trending-wrapper"]}>
+                    <div className={styles["trending-container"]}>
+                        {data?.map((movie) => (
+                            <MovieCard
+                                key={movie.id}
+                                id={movie.id}
+                                title={movie.title}
+                                year={movie.year}
+                                rating={movie.rating}
+                                genre={movie.genre}
+                                poster={movie.poster}
+                                position={allMovies.indexOf(movie) + 1}
+                            />
+                        ))}
+                        {/* {filteredMovies.map((movie) => (
                         <MovieCard
                             key={movie.id}
                             id={movie.id}
@@ -243,9 +258,13 @@ export default function AllMovies() {
                             poster={movie.poster}
                             position={allMovies.indexOf(movie) + 1}
                         />
-                    ))}
-                </div>
-            </section>
+                    ))} */}
+                    </div>
+                </section>
+            </Activity>
+            <Activity mode={data && test.length > 0 ? "hidden" : "visible"}>
+                <h2 className={styles["no-movies"]}>Nothing here yet</h2>
+            </Activity>
             <PaginationContainer count={paginationCount} onPageNumber={pageNumberHandler} />
         </section>
     )
