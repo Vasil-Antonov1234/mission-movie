@@ -17,26 +17,28 @@ export default function SelectionFilter(
     };
 
     return (
-        <div className={styles["genre-filter"]}>
-            <span className={styles["genre-filter-label"]} onClick={showGenreFilterHandler}>Browse by:</span>
-            <div>
-                <span className={showGenreFilter ? `${styles["genre-arrow"]} ${styles["rotate-left"]}` : `${styles["genre-arrow"]} ${styles["rotate-right"]}`}>▶</span>
-                <span className={showGenreFilter ? `${styles["genre-arrow"]} ${styles["rotate-left"]}` : `${styles["genre-arrow"]} ${styles["rotate-right"]}`}>▶</span>
-                <span className={showGenreFilter ? `${styles["genre-arrow"]} ${styles["rotate-left"]}` : `${styles["genre-arrow"]} ${styles["rotate-right"]}`}>▶</span>
+        <>
+            <div className={showGenreFilter ? styles["genre-filter"] : `${styles["genre-filter"]} ${styles["genre-filter-hide"]}`}>
+            <span className={showGenreFilter ? styles["genre-filter-label"] : `${styles["genre-filter-label"]} ${styles["genre-filter-label-show"]}`} onClick={showGenreFilterHandler}>Browse by:</span>
+                <div>
+                    <span className={showGenreFilter ? `${styles["genre-arrow"]} ${styles["rotate-left"]}` : `${styles["genre-arrow"]} ${styles["rotate-right"]}`}>▶</span>
+                    <span className={showGenreFilter ? `${styles["genre-arrow"]} ${styles["rotate-left"]}` : `${styles["genre-arrow"]} ${styles["rotate-right"]}`}>▶</span>
+                    <span className={showGenreFilter ? `${styles["genre-arrow"]} ${styles["rotate-left"]}` : `${styles["genre-arrow"]} ${styles["rotate-right"]}`}>▶</span>
+                </div>
+                {props.options.map((genre) => (
+                    <button
+                        key={genre}
+                        className=
+                        {showGenreFilter ?
+                            props.activeState === genre ? `${styles["genre-btn"]} ${styles["genre-btn--active"]}` : `${styles["genre-btn"]} ${styles["genre-btn--non-active"]}` :
+                            props.activeState === genre ?
+                                `${styles["genre-btn"]} ${styles["genre-btn--active"]} ${styles["genre-btn"]} ${styles["genre-btn--non-active"]} ${styles["genre-btn-hide"]}` :
+                                `${styles["genre-btn"]} ${styles["genre-btn--non-active"]} ${styles["genre-btn"]} ${styles["genre-btn--non-active"]} ${styles["genre-btn-hide"]}`
+                        }
+                        onClick={() => setGenreHandler(genre)}
+                    >{genre}</button>
+                ))}
             </div>
-            {props.options.map((genre) => (
-                <button
-                    key={genre}
-                    className=
-                    {showGenreFilter ?
-                        props.activeState === genre ? `${styles["genre-btn"]} ${styles["genre-btn--active"]}` : `${styles["genre-btn"]} ${styles["genre-btn--non-active"]}` :
-                        props.activeState === genre ? 
-                                                `${styles["genre-btn"]} ${styles["genre-btn--active"]} ${styles["genre-btn"]} ${styles["genre-btn--non-active"]} ${styles["genre-btn-hide"]}` : 
-                                                `${styles["genre-btn"]} ${styles["genre-btn--non-active"]} ${styles["genre-btn"]} ${styles["genre-btn--non-active"]} ${styles["genre-btn-hide"]}`
-                    }
-                    onClick={() => setGenreHandler(genre)}
-                >{genre}</button>
-            ))}
-        </div>
+        </>
     );
 }

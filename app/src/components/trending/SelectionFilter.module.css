@@ -59,7 +59,21 @@
         position: fixed;
         top: -0.5%;
         right: 1%;
-        z-index: 1;
+        z-index: 100;
+    }
+
+    .genre-filter-hide {
+        animation: genre-filter-hide 3s forwards;
+    }
+
+    @keyframes genre-filter-hide {
+        0% {
+            transform: translateX(0px);
+        }
+
+        100% {
+            transform: translateX(140px);
+        }
     }
 
     .genre-arrow {
@@ -78,6 +92,20 @@
         text-align: center;
         text-transform: uppercase;
         font-weight: 500;
+    }
+
+    .genre-filter-label-show {
+        animation: genre-filter-label-show 3s forwards;
+    }
+
+    @keyframes genre-filter-label-show {
+        0% {
+            transform: translateX(0px);
+        }
+
+        100% {
+            transform: translateX(-140px);
+        }
     }
 
     .genre-btn {
