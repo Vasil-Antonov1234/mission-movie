@@ -16,9 +16,17 @@ export default function UserProvider({ children }: { children: React.ReactNode }
     };
 
     async function logoutHandler() {
-        await request("/users/logout", "GET", { accessToken: user.accessToken });
-        setUser({});
-        localStorage.removeItem("auth");
+        try {
+            
+            await request("/users/logout", "GET", { accessToken: user.accessToken });
+        } catch (error) {
+            alert(error);
+        } finally {
+            setUser({});
+            localStorage.removeItem("auth");
+            navigate("/");  
+        };
+        
     };
 
     const isAuthenticated = !!user?.accessToken;

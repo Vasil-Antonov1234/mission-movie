@@ -56,10 +56,10 @@ export default function Login() {
 
             onLogin(result)
             
-            console.log(result);
+            // console.log(result);
         } catch (error) {
             setData((state) => ({ ...state, password: "" }));
-            console.log(error)
+            alert(error);
         }
     }
 
