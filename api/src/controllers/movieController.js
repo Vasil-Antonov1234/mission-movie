@@ -53,7 +53,7 @@ movieController.post("/create", isAuthMiddleware, async (req, res) => {
 
     try {
         const movieData = await createMovieSchema.parseAsync(req.body);
-        const userId = req.user.id;
+        const userId = Number(req.user.id);
 
         const movie = await movieService.create(movieData, userId);
 

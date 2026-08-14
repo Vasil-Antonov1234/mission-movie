@@ -104,11 +104,10 @@ export default function Register() {
             return;
         };
 
-        setErrors({});
-
         try {
             const result = await request("/users/register", "POST", {}, data);
             
+            setErrors({});
             onLogin(result);
         } catch (error) {
             setData((state) => ({

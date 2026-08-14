@@ -134,10 +134,10 @@ export type ValidateValue = {
 export type UserCtx = {
     user: {
         id?: number,
-        accessToken?: "",
-        firstName?: "",
-        lastName?: "",
-        email?: "",
+        accessToken?: string,
+        firstName?: string,
+        lastName?: string,
+        email?: string
     }
     onLogin: (user: User) => void,
     onLogout: () => void,
@@ -146,12 +146,12 @@ export type UserCtx = {
 
 export type User = {
     id?: number,
-    accessToken?: "",
-    firstName?: "",
-    lastName?: "",
-    email?: "",
-    password?: "",
-    confirmPassword?: ""
+    accessToken?: string,
+    firstName?: string,
+    lastName?: string,
+    email?: string,
+    password?: string,
+    confirmPassword?: string
 };
 
 export type Config = {

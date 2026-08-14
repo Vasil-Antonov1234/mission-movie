@@ -1,5 +1,8 @@
 import styles from "./CreateMovie.module.css";
 import useForm from "../../hooks/useForm";
+import useFetch from "../../hooks/useFetch";
+import { useContext } from "react";
+import UserContext from "../../contexts/UserContext";
 
 // const genres = [
 // 	"Action",
@@ -24,7 +27,7 @@ const currentYear = new Date().getFullYear();
 const initialValues = {
 	title: "",
 	year: "",
-	rating: "",
+	rating: "1.0",
 	genre: "",
 	poster: "",
 	synopsis: "",
@@ -32,8 +35,6 @@ const initialValues = {
 	director: "",
 	trailerUrl: ""
 };
-
-// ─── HELPERS ─────────────────────────────────────────────────────────────────
 
 function isValidUrl(url: string): boolean {
 	try {
@@ -46,26 +47,25 @@ function isValidUrl(url: string): boolean {
 
 export default function CreateMovie() {
 	const { formInputRegister, data, setData } = useForm(initialValues)
-
-	let submitted = false;
+	const { request } = useFetch()
+	const { user } = useContext(UserContext)
 
 	async function actionHandler() {
-		console.log(data);
-		submitted = true;
-	}
 
-	
+		try {
+			const result = await request("/movies/create", "POST", { accessToken: user.accessToken }, data );
+
+			console.log(result);
+		} catch (error) {
+			alert(error);
+		};
+	}
 
 	const handleReset = () => {
 		setData(initialValues);
 	};
 
-	// ── Derived ──
-
-	const showPosterPreview =
-		data.poster.trim() !== "" && isValidUrl(data.poster);
-
-	// ── Render ──
+	const showPosterPreview = data.poster.trim() !== "" && isValidUrl(data.poster);
 
 	return (
 		<div className={styles.wrapper}>
@@ -77,14 +77,6 @@ export default function CreateMovie() {
 				<p className={styles.pageSubtitle}>
 					Fill in the details below to add a film to the Reelist catalogue.
 				</p>
-
-				{/* ─── Success banner ─── */}
-				{submitted && (
-					<div className={styles.successBanner}>
-						<span className={styles.successIcon}>✓</span>
-						Movie added successfully! You can add another one below.
-					</div>
-				)}
 
 				<form action={actionHandler} noValidate>
 
@@ -135,7 +127,7 @@ export default function CreateMovie() {
 									id="genre"
 									{...formInputRegister("genre")}
 									className={styles.input}
-									// className={`${styles.select}${errors.genre ? ` ${styles["select--error"]}` : ""}`}
+								// className={`${styles.select}${errors.genre ? ` ${styles["select--error"]}` : ""}`}
 								/>
 								{/* {errors.genre && <span className={styles.errorMsg}>{errors.genre}</span>} */}
 							</div>
@@ -233,7 +225,7 @@ export default function CreateMovie() {
 											src={data.poster}
 											alt="Poster preview"
 											className={styles.posterPreviewImg}
-											// onError={() => setPosterError(true)}
+										// onError={() => setPosterError(true)}
 										/>
 									) : (
 										<div className={styles.posterPreviewEmpty}>
@@ -305,7 +297,7 @@ export default function CreateMovie() {
 						<button
 							type="submit"
 							className={styles.btnPrimary}
-							// disabled={loading}
+						// disabled={loading}
 						>
 							Add Movie
 							{/* {loading ? "Saving…" : "Add Movie"} */}
