@@ -205,9 +205,9 @@ export default function MovieDetail() {
                                 <div className={styles["score-card-sub"]}>Users</div>
                             </div>
                             <div className={styles["score-card"]}>
-                                <div className={styles["score-card-label"]}>Tomatometer</div>
-                                <div className={styles["score-card-value"]}>{oldMovie.rottenTomatoes}%</div>
-                                <div className={styles["score-card-sub"]}>Rotten Tomatoes</div>
+                                <div className={styles["score-card-label"]}>Reviews</div>
+                                <div className={styles["score-card-value"]}>{oldMovie.rottenTomatoes}</div>
+                                <div className={styles["score-card-sub"]}>Counter</div>
                             </div>
                         </div>
                     </section>
@@ -256,7 +256,7 @@ export default function MovieDetail() {
                             </div>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Runtime</span>
-                                <span className={styles["sidebar-info-value"]}>{oldMovie.duration}</span>
+                                <span className={styles["sidebar-info-value"]}>{movie.duration}</span>
                             </div>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Language</span>
@@ -281,7 +281,7 @@ export default function MovieDetail() {
                     <div className={styles["sidebar-card"]}>
                         <div className={styles["sidebar-card-title"]}>Genres</div>
                         <div className={styles["sidebar-tags"]}>
-                            {oldMovie.genres.map((g) => (
+                            {movie.genre.split(", ").map((g) => (
                                 <button key={g} className={styles["sidebar-tag"]}>{g}</button>
                             ))}
                         </div>

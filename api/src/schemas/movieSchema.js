@@ -12,10 +12,26 @@ export const createMovieSchema = z.object({
         .regex(/^[A-Za-z \,]/, { error: "Invalid genre" }),
     poster: z.httpUrl({ error: "Invalid movie poster URL format" }),
     synopsis: z.string()
-        .min(30, { error: "Sinopsis must be at least 30 characters"}),
+        .min(30, { error: "Sinopsis must be at least 30 characters long"}),
     duration: z.string()
         .regex(/^[0-9]{1,2}h [0-9]{1,2}m$/, { error: "Invalid duration format"}),
     director: z.string()
         .min(1, { error: "Director is required"}),
-    trailerUrl: z.httpUrl({ error: "Invalid movie trailer URL format"})
+    trailerUrl: z.httpUrl({ error: "Invalid movie trailer URL format"}),
+    tagline: z.string()
+        .min(1, { error: "Tagline is required"}),
+    writtenBy: z.string()
+        .min(5, { error: "A writter name must be at least 5 characters long"}),
+    studio: z.string()
+        .min(1, { error: "Studio is required" }),
+    releaseDate: z.string()
+        .regex(/^([A-Z]{1}[a-z]{1,9}) ([1-2][0-9]|3[0-1]|[1-9]), (1[8-9][8-9][8-9]|2[0-9]{3})$/, { error: "Invalid date format" }),
+    language: z.string()
+        .min(5, { error: "Language must be at least 5 characters"}),
+    country: z.string()
+        .min(5, { error: "Country must be at least 5 characters"}),
+    budget: z.string()
+        .regex(/^\$\d{1,3} ?\d{0,3} ?\d{0,3}M?$/, { error: "Invalid budget data" }),
+    boxOffice: z.string()
+        .regex(/^\$\d{1,3} ?\d{0,3} ?\d{0,3}M?$/, { error: "Invalid box office data"})
 })

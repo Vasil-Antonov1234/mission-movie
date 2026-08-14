@@ -10,12 +10,12 @@ export const patrialMovieSchema = z.object({
         .max(10, { error: "Rating cannot be bigger than 10"}).optional(),
     genre: z.string()
         .regex(/^[A-Za-z \,]/, { error: "Invalid genre" }).optional(),
-    poster: z.httpUrl({ error: "Invalid URL format" }).optional(),
+    poster: z.httpUrl({ error: "Invalid movie poster URL format" }).optional(),
     synopsis: z.string()
-        .min(1, { error: "Sinopsis is required"}).optional(),
+        .min(30, { error: "Sinopsis must be at least 30 characters"}).optional(),
     duration: z.string()
         .regex(/^[0-9]{1,2}h [0-9]{1,2}m$/, { error: "Invalid duration format"}).optional(),
     director: z.string()
         .min(1, { error: "Director is required"}).optional(),
-    trailerUrl: z.httpUrl({ error: "Invalid URL format"}).optional()
+    trailerUrl: z.httpUrl({ error: "Invalid movie trailer URL format"}).optional()
 })
