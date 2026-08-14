@@ -149,7 +149,9 @@ export type User = {
     accessToken?: "",
     firstName?: "",
     lastName?: "",
-    email?: ""
+    email?: "",
+    password?: "",
+    confirmPassword?: ""
 };
 
 export type Config = {

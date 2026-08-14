@@ -55,7 +55,7 @@ export default function Header() {
                     </Link>
                 </Activity>
                 <Activity mode={isAuthenticated ? "visible" : "hidden"}>
-                    <Link to="#">
+                    <Link to="/movie/create">
                         <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Add movie</button>
                     </Link>
                     <Link to="#">
