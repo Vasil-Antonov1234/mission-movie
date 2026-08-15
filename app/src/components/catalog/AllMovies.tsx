@@ -213,7 +213,7 @@ export default function AllMovies() {
 
     const movies = data && Array.isArray(data) ? data : [];
 
-    let filteredMovies = filterRecordsHandler.filterByGenre(allMovies, activeGenre);
+    let filteredMovies = filterRecordsHandler.filterByGenre(movies, activeGenre);
 
     filteredMovies = filterRecordsHandler.filterMoviesByPage(filteredMovies, activePage);
 
@@ -232,10 +232,10 @@ export default function AllMovies() {
             <div>
                 <h1 className={styles["section-heading-title"]}>Whatch new titles</h1>
             </div>
-            <Activity mode={movies && movies.length > 0 ? "visible" : "hidden"}>
+            <Activity mode={filteredMovies && filteredMovies.length > 0 ? "visible" : "hidden"}>
                 <section className={styles["trending-wrapper"]}>
                     <div className={styles["trending-container"]}>
-                        {movies.map((movie) => (
+                        {filteredMovies.map((movie) => (
                             <MovieCard
                                 key={movie.id}
                                 id={movie.id}
@@ -262,7 +262,7 @@ export default function AllMovies() {
                     </div>
                 </section>
             </Activity>
-            <Activity mode={movies && movies.length > 0 ? "hidden" : "visible"}>
+            <Activity mode={filteredMovies && filteredMovies.length > 0 ? "hidden" : "visible"}>
                 <h2 className={styles["no-movies"]}>Nothing here yet</h2>
             </Activity>
             <PaginationContainer count={paginationCount} onPageNumber={pageNumberHandler} />
