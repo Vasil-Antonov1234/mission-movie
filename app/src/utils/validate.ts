@@ -19,7 +19,9 @@ const genres = [
     "Action-Berets",
     "Superhero",
     "Marvel",
-    "TV-serries"
+    "TV-serries",
+    "Epic",
+    "Historical"
 ];
 
 function validateGenre(text: string) {

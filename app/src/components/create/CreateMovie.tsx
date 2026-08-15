@@ -157,7 +157,7 @@ export default function CreateMovie() {
 									id="director"
 									{...formInputRegister("director")}
 									type="text"
-									className={styles.input}
+									className={`${styles.input}${errors.director && touched.director ? ` ${styles["input--error"]}` : ""}`}
 									placeholder="e.g. Christopher Nolan"
 									onBlur={validateHandler}
 								/>
@@ -173,7 +173,7 @@ export default function CreateMovie() {
 									id="writtenBy"
 									{...formInputRegister("writtenBy")}
 									type="text"
-									className={styles.input}
+									className={`${styles.input}${errors.writtenBy && touched.writtenBy ? ` ${styles["input--error"]}` : ""}`}
 									placeholder="e.g. Manel Santisteban"
 									onBlur={validateHandler}
 								/>
@@ -188,7 +188,7 @@ export default function CreateMovie() {
 								<input
 									id="genre"
 									{...formInputRegister("genre")}
-									className={styles.input}
+									className={`${styles.input}${errors.genre && touched.genre ? ` ${styles["input--error"]}` : ""}`}
 									// className={`${styles.select}${errors.genre ? ` ${styles["select--error"]}` : ""}`}
 									onBlur={validateHandler}
 								/>
@@ -213,7 +213,7 @@ export default function CreateMovie() {
 									id="releaseDate"
 									type="text"
 									{...formInputRegister("releaseDate")}
-									className={styles.input}
+									className={`${styles.input}${errors.releaseDate && touched.releaseDate ? ` ${styles["input--error"]}` : ""}`}
 									placeholder="e.g. May 2"
 									onBlur={validateHandler}
 								/>
@@ -231,7 +231,7 @@ export default function CreateMovie() {
 									{...formInputRegister("year")}
 									min={1888}
 									max={currentYear + 5}
-									className={styles.input}
+									className={`${styles.input}${errors.year && touched.year ? ` ${styles["input--error"]}` : ""}`}
 									placeholder={String(currentYear)}
 									onBlur={validateHandler}
 								/>
@@ -247,14 +247,14 @@ export default function CreateMovie() {
 									id="duration"
 									{...formInputRegister("duration")}
 									type="text"
-									className={styles.input}
+									className={`${styles.input}${errors.duration && touched.duration ? ` ${styles["input--error"]}` : ""}`}
 									placeholder="e.g. 2h 46m"
 									onBlur={validateHandler}
 								/>
 								{touched.duration && <span className={styles.errorMsg}>{errors.duration}</span>}
-								{/* {!errors.duration && (
-									<span className={styles.inputHint}>Format: 2h 15m or 135m</span>
-								)} */}
+								{errors.duration && (
+									<span className={styles.inputHint}>Format: 2h 15m</span>
+								)}
 							</div>
 
 							{/* Studio */}
@@ -266,7 +266,7 @@ export default function CreateMovie() {
 									id="studio"
 									{...formInputRegister("studio")}
 									type="text"
-									className={styles.input}
+									className={`${styles.input}${errors.studio && touched.studio ? ` ${styles["input--error"]}` : ""}`}
 									placeholder="e.g. Netflix"
 									onBlur={validateHandler}
 								/>
@@ -282,7 +282,7 @@ export default function CreateMovie() {
 									id="language"
 									{...formInputRegister("language")}
 									type="text"
-									className={styles.input}
+									className={`${styles.input}${errors.language && touched.language ? ` ${styles["input--error"]}` : ""}`}
 									placeholder="e.g. English"
 									onBlur={validateHandler}
 								/>
@@ -298,7 +298,7 @@ export default function CreateMovie() {
 									id="country"
 									{...formInputRegister("country")}
 									type="text"
-									className={styles.input}
+									className={`${styles.input}${errors.country && touched.country ? ` ${styles["input--error"]}` : ""}`}
 									placeholder="e.g. USA"
 									onBlur={validateHandler}
 								/>
@@ -314,7 +314,7 @@ export default function CreateMovie() {
 									id="budget"
 									{...formInputRegister("budget")}
 									type="text"
-									className={styles.input}
+									className={`${styles.input}${errors.budget && touched.budget ? ` ${styles["input--error"]}` : ""}`}
 									placeholder="e.g. $100M"
 									onBlur={validateHandler}
 								/>
@@ -330,7 +330,7 @@ export default function CreateMovie() {
 									id="boxOffice"
 									{...formInputRegister("boxOffice")}
 									type="text"
-									className={styles.input}
+									className={`${styles.input}${errors.boxOffice && touched.boxOffice ? ` ${styles["input--error"]}` : ""}`}
 									placeholder="e.g. $100 000M"
 									onBlur={validateHandler}
 								/>
@@ -376,7 +376,7 @@ export default function CreateMovie() {
 									id="posterUrl"
 									{...formInputRegister("poster")}
 									type="url"
-									className={styles.input}
+									className={`${styles.input}${errors.poster && touched.poster ? ` ${styles["input--error"]}` : ""}`}
 									placeholder="https://…"
 									onBlur={validateHandler}
 								/>
@@ -410,7 +410,7 @@ export default function CreateMovie() {
 									id="trailerUrl"
 									type="url"
 									{...formInputRegister("trailerUrl")}
-									className={styles.input}
+									className={`${styles.input}${errors.trailerUrl && touched.trailerUrl ? ` ${styles["input--error"]}` : ""}`}
 									placeholder="https://youtube.com/…"
 									onBlur={validateHandler}
 								/>
@@ -434,7 +434,7 @@ export default function CreateMovie() {
 							<textarea
 								id="synopsis"
 								{...formInputRegister("synopsis")}
-								className={styles.textarea}
+								className={`${styles.textarea}${errors.synopsis && touched.synopsis ? ` ${styles["input--error"]}` : ""}`}
 								placeholder="Write a short description of the film…"
 								rows={5}
 								onBlur={validateHandler}
