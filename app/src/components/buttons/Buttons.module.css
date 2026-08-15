@@ -52,6 +52,28 @@
     padding: clamp(10px, 5vw, 15px) clamp(20px, 10vw, 40px);
 }
 
+.btn-red {
+    width: 170px;
+    background-color: rgb(99, 10, 10);
+    color: #a09890;
+}
+
+.btn-red:hover {
+    background-color: darkred;
+    color: white;
+}
+
+.btn-gray {
+    width: 170px;
+    background-color: rgb(223, 216, 216);
+    color: #a09890;
+}
+
+.btn-gray:hover {
+    background-color: gainsboro;
+    color: black;
+}
+
 @media(max-width: 190px) {
     .btn-170 {
         width: 100px;

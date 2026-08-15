@@ -142,6 +142,9 @@
     align-items: center;
     flex-wrap: wrap;
 }
+.detail-hero-edit-delete {
+    margin-top: 10px;
+}
 
 /* ─── BUTTONS ─── */
 .cta-btn {

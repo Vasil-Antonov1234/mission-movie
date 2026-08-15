@@ -7,6 +7,8 @@ import ButtonPrimary from "../buttons/ButtonPrimary";
 import SiilarFilm from "./SimilarFilm";
 import useFetch from "../../hooks/useFetch";
 import { useParams, Link } from "react-router";
+import { Activity, useContext } from "react";
+import UserContext from "../../contexts/UserContext";
 
 const MOVIE = {
     id: 1,
@@ -116,13 +118,13 @@ function RatingBadge({ rating, large = false }: RatingBadgeProps) {
 }
 
 export default function MovieDetail() {
+    const { isAuthenticated } = useContext(UserContext);
     const oldMovie = MOVIE;
 
     const movieId = useParams().movieId;
 
     const { data: movie } = useFetch(`/movies/${movieId}`);
 
-    console.log(movie)
 
     if (!movie || Array.isArray(movie)) {
         return;
@@ -165,12 +167,22 @@ export default function MovieDetail() {
                         </div>
 
                         <div className={styles["detail-hero-actions"]}>
-                            <Link to={movie.trailerUrl? movie.trailerUrl : ""} target="_blank">
+                            <Link to={movie.trailerUrl ? movie.trailerUrl : ""} target="_blank">
                                 <ButtonPrimary text="▶ Watch Trailer" addStyle="btn-170" />
                             </Link>
                             <ButtonSecondary text="+ Add to Watchlist" addStyle="btn-170" />
                             <ButtonChost text="♥ Favourite" addStyle="btn-170" />
                         </div>
+                        <Activity mode={isAuthenticated ? "visible" : "hidden"}>
+                            <div className={`${styles["detail-hero-actions"]} ${styles["detail-hero-edit-delete"]}`}>
+                                <Link to="#">
+                                    <ButtonSecondary text="Edit" addStyle="btn-gray" />
+                                </Link>
+                                <Link to="#">
+                                    <ButtonSecondary text="Delete" addStyle="btn-red" />
+                                </Link>
+                            </div>
+                        </Activity>
                     </div>
                 </div>
             </div>
