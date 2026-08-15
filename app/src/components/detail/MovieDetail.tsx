@@ -122,11 +122,11 @@ export default function MovieDetail() {
 
     const { data: movie } = useFetch(`/movies/${movieId}`);
 
+    console.log(movie)
+
     if (!movie || Array.isArray(movie)) {
         return;
     };
-
-    console.log(movie)
 
     return (
         <div className={styles["detail-wrapper"]}>
@@ -145,7 +145,7 @@ export default function MovieDetail() {
 
                     {/* Info */}
                     <div className={styles["detail-hero-info"]}>
-                        <div className={styles["detail-tagline"]}>"{oldMovie.tagline}"</div>
+                        <div className={styles["detail-tagline"]}>"{movie.tagline}"</div>
                         <h1 className={styles["detail-title"]}>{movie.title}</h1>
 
                         <div className={styles["detail-meta-row"]}>
@@ -240,19 +240,19 @@ export default function MovieDetail() {
                         <div className={styles["sidebar-info-list"]}>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Director</span>
-                                <span className={styles["sidebar-info-value"]}>{oldMovie.director}</span>
+                                <span className={styles["sidebar-info-value"]}>{movie.director}</span>
                             </div>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Written by</span>
-                                <span className={styles["sidebar-info-value"]}>{oldMovie.writers.join(", ")}</span>
+                                <span className={styles["sidebar-info-value"]}>{movie.writtenBy}</span>
                             </div>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Studio</span>
-                                <span className={styles["sidebar-info-value"]}>{oldMovie.studio}</span>
+                                <span className={styles["sidebar-info-value"]}>{movie.studio}</span>
                             </div>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Release Date</span>
-                                <span className={styles["sidebar-info-value"]}>{oldMovie.releaseDate}</span>
+                                <span className={styles["sidebar-info-value"]}>{`${movie.releaseDate}, ${movie.year}`}</span>
                             </div>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Runtime</span>
@@ -260,19 +260,19 @@ export default function MovieDetail() {
                             </div>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Language</span>
-                                <span className={styles["sidebar-info-value"]}>{oldMovie.language}</span>
+                                <span className={styles["sidebar-info-value"]}>{movie.language}</span>
                             </div>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Country</span>
-                                <span className={styles["sidebar-info-value"]}>{oldMovie.country}</span>
+                                <span className={styles["sidebar-info-value"]}>{movie.country}</span>
                             </div>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Budget</span>
-                                <span className={styles["sidebar-info-value"]}>{oldMovie.budget}</span>
+                                <span className={styles["sidebar-info-value"]}>{movie.budget}</span>
                             </div>
                             <div className={styles["sidebar-info-item"]}>
                                 <span className={styles["sidebar-info-label"]}>Box Office</span>
-                                <span className={styles["sidebar-info-value"]}>{oldMovie.boxOffice}</span>
+                                <span className={styles["sidebar-info-value"]}>{movie.boxOffice}</span>
                             </div>
                         </div>
                     </div>

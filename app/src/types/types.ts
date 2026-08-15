@@ -46,7 +46,15 @@ export type Movie = {
     trailerUrl?: string,
     createdAt?: string,
     updatedAt?: string,
-    author?: Author
+    author?: Author,
+    tagline?: string,
+    writtenBy?: string,
+    studio?: string,
+    releaseDate?: string,
+    language?: string,
+    country?: string,
+    budget?: string,
+    boxOffice?: string
 };
 
 export type SelectionOptions = {
