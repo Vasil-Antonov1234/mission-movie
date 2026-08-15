@@ -12,15 +12,23 @@ export default function useFetch(url?: string, initialState?: Movie[] | [] | Mov
         };
 
         (async () => {
-            const response = await fetch(`${BASE_URL}${url}`);
-
-            if (!response.ok) {
-                return {}
-            };
-
-            const result = await response.json();
-
-            setData(result);
+            try {
+                const response = await fetch(`${BASE_URL}${url}`);
+    
+                if (!response.ok) {
+                    return {}
+                };
+    
+                const result = await response.json();
+    
+                setData(result);
+            } catch (error) {
+                if (error instanceof Error) {
+                    alert(error.message)
+                } else {
+                    alert("An unexpected error occurr");
+                };
+            }
         })()
 
     }, [url]);
