@@ -18,7 +18,8 @@ const genres = [
 	"Western",
     "Action-Berets",
     "Superhero",
-    "Marvel"
+    "Marvel",
+    "TV-serries"
 ];
 
 function validateGenre(text: string) {
@@ -117,7 +118,7 @@ export function validate(value: ValidateValue) {
         errors["rating"] = "Rating must be an intiger between 1 and 10";
     };
 
-    if (value.rating && !value.rating.match(/^[0-9]\.[0-9]$/)) {
+    if (value.rating && !value.rating.match(/^[0-9]{1}[0-9]?(\.[0-9]{1})?$/)) {
         errors["rating"] = "Rating must be an intiger between 1 and 10";
     };
 
