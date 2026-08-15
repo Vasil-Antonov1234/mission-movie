@@ -25,7 +25,7 @@ export default function UserProvider({ children }: { children: React.ReactNode }
             setUser({});
             localStorage.removeItem("auth");
 
-            if (navigateTo) {
+            if (navigateTo && typeof(navigateTo) === "string") {
                 navigate(navigateTo);
             } else {
                 navigate("/");
