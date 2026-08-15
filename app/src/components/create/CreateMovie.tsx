@@ -103,7 +103,7 @@ export default function CreateMovie() {
 				<div className={styles.pageEyebrow}>Film Management</div>
 				<h1 className={styles.pageTitle}>Add a New Movie</h1>
 				<p className={styles.pageSubtitle}>
-					Fill in the details below to add a film to the Reelist catalogue.
+					Fill in the details below to add a film to the movies catalogue.
 				</p>
 
 				<form action={actionHandler} noValidate>
@@ -214,7 +214,7 @@ export default function CreateMovie() {
 									type="text"
 									{...formInputRegister("releaseDate")}
 									className={styles.input}
-									placeholder="e.g. May 2, 2017"
+									placeholder="e.g. May 2"
 									onBlur={validateHandler}
 								/>
 								{touched.releaseDate && <span className={styles.errorMsg}>{errors.releaseDate}</span>}

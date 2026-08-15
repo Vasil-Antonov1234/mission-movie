@@ -34,6 +34,8 @@ function validateGenre(text: string) {
     return result
 };
 
+const currentYear = new Date().getFullYear();
+
 export function validate(value: ValidateValue) {
     const errors: ValidateValue = {};
 
@@ -102,6 +104,10 @@ export function validate(value: ValidateValue) {
         errors["year"] = "Invalid date format";
     };
 
+    if (value.year && !isNaN(Number(value.year)) && (Number(value.year) < 1888 || Number(value.year) > currentYear + 4)) {
+        errors["year"] = `Year must be between 1888 and ${currentYear + 4}`;
+    };
+
     // Rating
     if (value.rating === "") {
         errors["rating"] = "Rating is required";
@@ -138,6 +144,10 @@ export function validate(value: ValidateValue) {
         errors["synopsis"] = "Synopsis is required";
     };
 
+    if (value.synopsis && value.synopsis.length < 30) {
+        errors["synopsis"] = "Synopsis must be at least 30 characters long.";
+    };
+
     // Duration
     if (value.duration === "") {
         errors["duration"] = "Duration is required";
@@ -152,6 +162,10 @@ export function validate(value: ValidateValue) {
         errors["director"] = "Director is required";
     };
 
+    if (value.director && !value.director.match(/^[A-Z]/)) {
+        errors["director"] = "The director's name must start with a capital letter";
+    };
+
     if (value.director && value.director.length < 3) {
         errors["director"] = "Director name must be at least 3 characters long";
     };
@@ -163,6 +177,74 @@ export function validate(value: ValidateValue) {
 
     if (value.trailerUrl && !value.trailerUrl.match(/^https?:\/\//)) {
         errors["trailerUrl"] = "Invalid URL address";
+    };
+
+    // Tagline
+    if (value.tagline === "") {
+        errors["tagline"] = "Tagline is required";
+    };
+
+    // Written by
+    if (value.writtenBy === "") {
+        errors["writtenBy"] = "A writter name is required";
+    };
+
+    if (value.writtenBy && !value.writtenBy.match(/^[A-Z]/)) {
+        errors["writtenBy"] = "The writer's name must start with a capital letter";
+    }
+
+    if (value.writtenBy && value.writtenBy.length < 5) {
+        errors["writtenBy"] = "A writer name must be at least 5 characters long";
+    };
+
+    // Studio
+    if (value.studio === "") {
+        errors["studio"] = "Studio name is required";
+    };
+
+    // Release date
+    if (value.releaseDate === "") {
+        errors["releaseDate"] = "Release date is required";
+    };
+
+    if (value.releaseDate && !value.releaseDate.match(/^([A-Z]{1}[a-z]{1,9}) ([1-2][0-9]|3[0-1]|[1-9])$/)) {
+        errors["releaseDate"] = "Invalid date format";
+    };
+
+    // Language
+    if (value.language === "") {
+        errors["language"] = "Language is required";
+    };
+
+    if (value.language && value.language.length < 5) {
+        errors["language"] = "Language must be at least 5 characters";
+    };
+
+    // Country
+    if (value.country === "") {
+        errors["country"] = "Country is required";
+    };
+
+    if (value.country && value.country.length < 2) {
+        errors["country"] = "Country must be at least 2 characters";
+    };
+
+    // Budget
+    if (value.budget === "") {
+        errors["budget"] = "Budget is required";
+    };
+
+    if (value.budget && !value.budget.match(/^\$\d{1,3} ?\d{0,3} ?\d{0,3}M?$/)) {
+        errors["budget"] = "Invalid budget data";
+    };
+
+    // Box office
+    if (value.boxOffice === "") {
+        errors["boxOffice"] = "Box office amount is required";
+    };
+
+    if (value.boxOffice && !value.boxOffice.match(/^\$\d{1,3} ?\d{0,3} ?\d{0,3}M?$/)) {
+        errors["boxOffice"] = "Invalid box office amount data";
     };
 
     return errors;
