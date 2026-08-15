@@ -244,7 +244,7 @@ export default function AllMovies() {
                                 rating={movie.rating}
                                 genre={movie.genre}
                                 poster={movie.poster}
-                                position={allMovies.indexOf(movie) + 1}
+                                position={movies.indexOf(movie) + 1}
                             />
                         ))}
                         {/* {filteredMovies.map((movie) => (
