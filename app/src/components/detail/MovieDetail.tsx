@@ -117,18 +117,23 @@ function RatingBadge({ rating, large = false }: RatingBadgeProps) {
     );
 }
 
-export default function MovieDetail() {
+export default function MovieDetail() {    
     const { isAuthenticated } = useContext(UserContext);
     const oldMovie = MOVIE;
 
     const movieId = useParams().movieId;
 
-    const { data: movie } = useFetch(`/movies/${movieId}`);
+    const { data: movie } = useFetch(`/movies/${movieId}`, []);
+    
+    const genreArray = !movie || Array.isArray(movie) ? " " : movie?.genre.split(", ");
 
+    const { data: similarMoviesData } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`);
 
     if (!movie || Array.isArray(movie)) {
         return;
     };
+
+    const similarMovies = Array.isArray(similarMoviesData) ? similarMoviesData : [];
 
     return (
         <div className={styles["detail-wrapper"]}>
@@ -303,7 +308,7 @@ export default function MovieDetail() {
                     <div className={styles["sidebar-card"]}>
                         <div className={styles["sidebar-card-title"]}>Similar Films</div>
                         <div className={styles["similar-list"]}>
-                            {oldMovie.similar.map((film) => (
+                            {similarMovies.map((film) => (
                                 <SiilarFilm key={film.id} film={film} />
                             ))}
                         </div>

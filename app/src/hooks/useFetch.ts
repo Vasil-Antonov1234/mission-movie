@@ -14,13 +14,13 @@ export default function useFetch(url?: string, initialState?: Movie[] | [] | Mov
         (async () => {
             try {
                 const response = await fetch(`${BASE_URL}${url}`);
-    
+
                 if (!response.ok) {
                     return {}
                 };
-    
+
                 const result = await response.json();
-    
+
                 setData(result);
             } catch (error) {
                 if (error instanceof Error) {
@@ -50,19 +50,28 @@ export default function useFetch(url?: string, initialState?: Movie[] | [] | Mov
             }
         }
 
-        const response = await fetch(`${BASE_URL}${url}`, options);
-
-
-        if (!response.ok) {
+        try {
+            const response = await fetch(`${BASE_URL}${url}`, options);
+    
+    
+            if (!response.ok) {
+                const result = await response.json();
+                throw result;
+            }
+    
             const result = await response.json();
-            throw result;
+    
+            // setData(result);
+    
+            return result;
+        } catch (error) {
+            if (error instanceof Error) {
+                alert(error.message)
+            } else {
+                alert("An unexpected error occurr");
+            };
         }
 
-        const result = await response.json();
-
-        setData(result);
-
-        return result;
     };
 
     return { data, setData, request };

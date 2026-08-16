@@ -38,6 +38,14 @@ movieController.get("/", async (req, res) => {
         }
     };
 
+    const query = {};
+
+    Object.keys(filter.query).forEach((x) => {
+        query[x] = filter.query[x]
+    });
+
+    filter.query = query;
+
     try {
         const movies = await movieService.getAll(filter);
 
@@ -47,6 +55,34 @@ movieController.get("/", async (req, res) => {
     }
 
 });
+
+movieController.get("/similar", async (req, res) => {
+    let filter = {}
+
+    if (req.query.where) {
+        if (Array.isArray(req.query.where)) {
+            req.query.where.forEach((x) => filter[x.replaceAll('"', '').split("=")[0]] = x.replaceAll('"', '').split("=")[1]);
+        } else {
+            filter = querustring.parse(req.query.where.replaceAll('"', ''));
+        }
+    };
+
+    const query = {};
+
+    Object.keys(filter).forEach((x) => {
+        query[x] = filter[x]
+    });
+
+    filter = query;
+
+    try {
+        const similarMovies = await movieService.getSimilar(filter);
+
+        res.json(similarMovies);
+    } catch (error) {
+        res.json(getErrorMessage(error));
+    }
+})
 
 
 movieController.post("/create", isAuthMiddleware, async (req, res) => {

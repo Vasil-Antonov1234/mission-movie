@@ -8,15 +8,15 @@ export default {
     async getAll(filter) {
 
         if (filter.query.authorId) {
-            filter.query.authorId = Number(filter.authorId);
+            filter.query.authorId = Number(filter.query.authorId);
         };
 
         if (filter.query.year) {
-            filter.query.year = Number(filter.year);
+            filter.query.year = Number(filter.query.year);
         };
 
         if (filter.query.rating) {
-            filter.query.rating = Number(filter.rating);
+            filter.query.rating = Number(filter.query.rating);
         };
 
         return await movieRepository.getAll(filter);
@@ -58,5 +58,11 @@ export default {
         };
 
         return await movieRepository.updateOne(movieId, userId, parsedMovieData);
+    },
+
+    async getSimilar(filter) {
+        filter.movieId = Number(filter.movieId);
+
+        return await movieRepository.getSimilar(filter);
     }
 }

@@ -1,4 +1,4 @@
-import type { SimilarFilm } from "../../types/types";
+import type { Movie } from "../../types/types";
 import styles from "./SimilrFilm.module.css";
 
 type RatingBadgeProps = { rating: number, large?: boolean }
@@ -11,7 +11,7 @@ function RatingBadge({ rating, large = false }: RatingBadgeProps) {
     );
 }
 
-type SimilarFilmProps = { film: SimilarFilm };
+type SimilarFilmProps = { film: Movie };
 
 export default function SiilarFilm({ film }: SimilarFilmProps) {
     return (
