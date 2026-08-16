@@ -117,14 +117,14 @@ function RatingBadge({ rating, large = false }: RatingBadgeProps) {
     );
 }
 
-export default function MovieDetail() {    
+export default function MovieDetail() {
     const { isAuthenticated } = useContext(UserContext);
     const oldMovie = MOVIE;
 
     const movieId = useParams().movieId;
 
     const { data: movie } = useFetch(`/movies/${movieId}`, []);
-    
+
     const genreArray = !movie || Array.isArray(movie) ? " " : movie?.genre.split(", ");
 
     const { data: similarMoviesData } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`);
@@ -312,6 +312,9 @@ export default function MovieDetail() {
                                 <SiilarFilm key={film.id} film={film} />
                             ))}
                         </div>
+                        <Activity mode={similarMovies.length > 0 ? "hidden" : "visible"}>
+                            <span className={styles["detail-meta-item"]}>Not found any</span>
+                        </Activity>
                     </div>
 
                 </aside>
