@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import type { Movie } from "../../types/types";
 import styles from "./SimilrFilm.module.css";
 
@@ -15,8 +16,10 @@ type SimilarFilmProps = { film: Movie };
 
 export default function SiilarFilm({ film }: SimilarFilmProps) {
     return (
-        <div key={film.id} className={styles["similar-item"]}>
-            <img src={film.poster} alt={film.title} className={styles["similar-item-img"]} />
+        <div className={styles["similar-item"]}>
+            <Link to={`/catalog/${film.id}/details`}>
+                <img src={film.poster} alt={film.title} className={styles["similar-item-img"]} />
+            </Link>
             <div className={styles["similar-item-info"]}>
                 <div className={styles["similar-item-title"]}>{film.title}</div>
                 <div className={styles["similar-item-year"]}>{film.year}</div>
