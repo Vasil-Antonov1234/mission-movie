@@ -16,9 +16,9 @@ function App() {
             <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/catalog/movies" element={<AllMovies />} />
-                <Route path="/catalog/reviews" element={<AllReviews />} />
-                <Route path="/catalog/:movieId/details" element={<MovieDetail />} />
+                <Route path="/movies/catalog" element={<AllMovies />} />
+                <Route path="/reviews/catalog" element={<AllReviews />} />
+                <Route path="/movies/:movieId/details" element={<MovieDetail />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/movies/create" element={<CreateMovie />} />

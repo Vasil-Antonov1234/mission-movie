@@ -11,7 +11,7 @@ export default function MovieCard(
 ) {
 
     return (
-        <Link to={`/catalog/${movie.id}/details`} className={styles["movie-card"]}>
+        <Link to={`/movies/${movie.id}/details`} className={styles["movie-card"]}>
             <div className={styles["movie-card-img-wrapper"]}>
                 <img src={movie.poster} alt={movie.title} className={styles["movie-card-img"]} />
                 <div className={styles["movie-card-rank"]}>#{movie.position}</div>

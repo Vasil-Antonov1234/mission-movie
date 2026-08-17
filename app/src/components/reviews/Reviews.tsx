@@ -44,7 +44,7 @@ export default function Reviews() {
                     <div className={`${styles["section-label"]} ${styles["section-label--spaced"]}`}>Latest reviews</div>
                     <h2 className={styles["section-heading"]}>From our critics</h2>
                 </div>
-                <Link to="/catalog/reviews" className={`${styles["section-link"]} ${styles["section-link-top"]}`}>All reviews →</Link>
+                <Link to="/reviews/catalog" className={`${styles["section-link"]} ${styles["section-link-top"]}`}>All reviews →</Link>
             </div>
             <div className={styles["reviews-container"]}>
                 {REVIEWS.map((review: Review) => (

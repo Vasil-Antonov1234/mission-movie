@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import UserContext from "../../contexts/UserContext";
 import type { ValidateValue } from "../../types/types";
 import { validate } from "../../utils/validate";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 const currentYear = new Date().getFullYear();
 
@@ -45,6 +45,8 @@ export default function CreateMovie() {
 	const [errors, setErrors] = useState<ValidateValue>({});
 	const [touched, setTouched] = useState<ValidateValue>({});
 	const navigate = useNavigate();
+
+	console.log(useParams().movieId)
 
 	function validateHandler(event: React.BaseSyntheticEvent) {
 		setTouched((state) => ({
