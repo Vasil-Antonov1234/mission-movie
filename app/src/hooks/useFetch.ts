@@ -3,11 +3,11 @@ import type { Config, Method, Movie, Options } from "../types/types";
 
 const BASE_URL = "http://localhost:5000";
 
-export default function useFetch(url?: string, initialState?: Movie[] | [] | Movie) {
+export default function useFetch(url?: string, initialState?: Movie[] | [] | Movie, edit?: boolean) {
     const [data, setData] = useState(initialState);
 
     useEffect(() => {
-        if (!url) {
+        if (!url || !edit) {
             return;
         };
 

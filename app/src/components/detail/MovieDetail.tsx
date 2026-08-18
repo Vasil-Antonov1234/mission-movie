@@ -123,11 +123,11 @@ export default function MovieDetail() {
 
     const movieId = useParams().movieId;
 
-    const { data: movie } = useFetch(`/movies/${movieId}`, []);
+    const { data: movie } = useFetch(`/movies/${movieId}`, [], true);
 
     const genreArray = !movie || Array.isArray(movie) ? " " : movie?.genre.split(", ");
 
-    const { data: similarMoviesData } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`);
+    const { data: similarMoviesData } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`, undefined, true);
 
     if (!movie || Array.isArray(movie)) {
         return;
@@ -180,7 +180,7 @@ export default function MovieDetail() {
                         </div>
                         <Activity mode={isAuthenticated ? "visible" : "hidden"}>
                             <div className={`${styles["detail-hero-actions"]} ${styles["detail-hero-edit-delete"]}`}>
-                                <Link to="#">
+                                <Link to={`/movies/${movie.id}/edit`}>
                                     <ButtonSecondary text="Edit" addStyle="btn-gray" />
                                 </Link>
                                 <Link to="#">

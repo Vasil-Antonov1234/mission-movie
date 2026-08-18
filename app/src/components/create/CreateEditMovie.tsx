@@ -1,4 +1,4 @@
-import styles from "./CreateMovie.module.css";
+import styles from "./CreateEditMovie.module.css";
 import useForm from "../../hooks/useForm";
 import useFetch from "../../hooks/useFetch";
 import { useContext, useState } from "react";
@@ -9,7 +9,7 @@ import { useNavigate, useParams } from "react-router";
 
 const currentYear = new Date().getFullYear();
 
-const initialValues = {
+const initialValues1 = {
 	title: "",
 	year: "",
 	rating: "1.0",
@@ -38,15 +38,41 @@ function isValidUrl(url: string): boolean {
 	}
 }
 
-export default function CreateMovie() {
+export default function CreateEditMovie() {
+	const movieId = useParams().movieId;
+	const isEdit = movieId? true : false;
+	const { request, data: movie } = useFetch(`/movies/${movieId}`, undefined, isEdit);
+
+	const film = !Array.isArray(movie) ? movie : undefined;
+
+	const initialValues = {
+	title: "",
+	year: "",
+	rating: "1.0",
+	genre: "",
+	poster: "",
+	synopsis: "",
+	duration: "",
+	director: "",
+	trailerUrl: "",
+	tagline: "",
+	writtenBy: "",
+	studio: "",
+	releaseDate: "",
+	language: "",
+	country: "",
+	budget: "",
+	boxOffice: ""
+};
+
+
 	const { formInputRegister, data, setData } = useForm(initialValues)
-	const { request } = useFetch()
 	const { user, onLogout } = useContext(UserContext)
 	const [errors, setErrors] = useState<ValidateValue>({});
 	const [touched, setTouched] = useState<ValidateValue>({});
 	const navigate = useNavigate();
 
-	console.log(useParams().movieId)
+
 
 	function validateHandler(event: React.BaseSyntheticEvent) {
 		setTouched((state) => ({
@@ -103,9 +129,9 @@ export default function CreateMovie() {
 
 				{/* ─── Page header ─── */}
 				<div className={styles.pageEyebrow}>Film Management</div>
-				<h1 className={styles.pageTitle}>Add a New Movie</h1>
+				<h1 className={styles.pageTitle}>{movieId ? `Edit Movie "${film?.title}"` : "Add a New Movie"}</h1>
 				<p className={styles.pageSubtitle}>
-					Fill in the details below to add a film to the movies catalogue.
+					{movieId ? "Modify the details below to update the movie information." : "Fill in the details below to add a film to the movies catalogue."}
 				</p>
 
 				<form action={actionHandler} noValidate>

@@ -7,7 +7,7 @@ import AllReviews from "./components/catalog/AllReviews"
 import MovieDetail from "./components/detail/MovieDetail"
 import Login from "./components/login-register/Login"
 import Register from "./components/login-register/Register"
-import CreateMovie from "./components/create/CreateMovie"
+import CreateEditMovie from "./components/create/CreateEditMovie"
 
 function App() {
 
@@ -21,7 +21,8 @@ function App() {
                 <Route path="/movies/:movieId/details" element={<MovieDetail />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/movies/create" element={<CreateMovie />} />
+                <Route path="/movies/create" element={<CreateEditMovie />} />
+                <Route path="/movies/:movieId/edit" element={<CreateEditMovie />} />
             </Routes>
             <Footer />
         </>
