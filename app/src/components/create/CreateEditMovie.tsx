@@ -9,7 +9,7 @@ import { useNavigate, useParams } from "react-router";
 
 const currentYear = new Date().getFullYear();
 
-const initialValues1 = {
+const initialValues = {
 	title: "",
 	year: "",
 	rating: "1.0",
@@ -43,28 +43,27 @@ export default function CreateEditMovie() {
 	const isEdit = movieId? true : false;
 	const { request, data: movie } = useFetch(`/movies/${movieId}`, undefined, isEdit);
 
-	const film = !Array.isArray(movie) ? movie : undefined;
-
-	const initialValues = {
-	title: "",
-	year: "",
-	rating: "1.0",
-	genre: "",
-	poster: "",
-	synopsis: "",
-	duration: "",
-	director: "",
-	trailerUrl: "",
-	tagline: "",
-	writtenBy: "",
-	studio: "",
-	releaseDate: "",
-	language: "",
-	country: "",
-	budget: "",
-	boxOffice: ""
-};
-
+	const currentMovie = !Array.isArray(movie) ? movie : undefined;
+	
+	if(currentMovie) {
+		initialValues.title = currentMovie.title;
+		initialValues.boxOffice = currentMovie.boxOffice? currentMovie.boxOffice : "";
+		initialValues.budget = currentMovie.budget? currentMovie.budget : "";
+		initialValues.country = currentMovie.country? currentMovie.country : "";
+		initialValues.director = currentMovie.director? currentMovie.director : "";
+		initialValues.duration = currentMovie.duration? currentMovie.duration : "";
+		initialValues.genre = currentMovie.genre;
+		initialValues.language = currentMovie.language? currentMovie.language : "";
+		initialValues.poster = currentMovie.poster;
+		initialValues.rating = currentMovie.rating? String(currentMovie.rating) : "1.0";
+		initialValues.releaseDate = currentMovie.releaseDate? currentMovie.releaseDate : "";
+		initialValues.studio = currentMovie.studio? currentMovie.studio : "";
+		initialValues.synopsis = currentMovie.synopsis? currentMovie.synopsis : "";
+		initialValues.trailerUrl = currentMovie.trailerUrl? currentMovie.trailerUrl : "";
+		initialValues.year = currentMovie.year? String(currentMovie.year) : "";
+		initialValues.tagline = currentMovie.tagline? currentMovie.tagline : "";
+		initialValues.writtenBy = currentMovie.writtenBy? currentMovie.writtenBy : "";
+	};
 
 	const { formInputRegister, data, setData } = useForm(initialValues)
 	const { user, onLogout } = useContext(UserContext)
@@ -129,7 +128,7 @@ export default function CreateEditMovie() {
 
 				{/* ─── Page header ─── */}
 				<div className={styles.pageEyebrow}>Film Management</div>
-				<h1 className={styles.pageTitle}>{movieId ? `Edit Movie "${film?.title}"` : "Add a New Movie"}</h1>
+				<h1 className={styles.pageTitle}>{movieId ? `Edit Movie "${currentMovie?.title}"` : "Add a New Movie"}</h1>
 				<p className={styles.pageSubtitle}>
 					{movieId ? "Modify the details below to update the movie information." : "Fill in the details below to add a film to the movies catalogue."}
 				</p>
