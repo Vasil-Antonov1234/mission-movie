@@ -98,7 +98,7 @@ export type Trending = {
     trending: Movie[]
 };
 
-export type Method = "GET" | "POST" | "PUT" | "PATCH";
+export type Method = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
 export type LoginBody = {
     email: string,

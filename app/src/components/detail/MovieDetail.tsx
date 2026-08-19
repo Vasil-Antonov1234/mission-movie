@@ -6,7 +6,7 @@ import ButtonSecondary from "../buttons/ButtonSecondary";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import SiilarFilm from "./SimilarFilm";
 import useFetch from "../../hooks/useFetch";
-import { useParams, Link } from "react-router";
+import { useParams, Link, useNavigate } from "react-router";
 import { Activity, useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 
@@ -118,7 +118,8 @@ function RatingBadge({ rating, large = false }: RatingBadgeProps) {
 }
 
 export default function MovieDetail() {
-    const { isAuthenticated } = useContext(UserContext);
+    const { isAuthenticated, user } = useContext(UserContext);
+    const navigate = useNavigate();
     const oldMovie = MOVIE;
 
     const movieId = useParams().movieId;
@@ -127,13 +128,40 @@ export default function MovieDetail() {
 
     const genreArray = !movie || Array.isArray(movie) ? " " : movie?.genre.split(", ");
 
-    const { data: similarMoviesData } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`);
+    const { data: similarMoviesData, request } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`);
 
     if (!movie || Array.isArray(movie)) {
         return;
     };
 
     const similarMovies = Array.isArray(similarMoviesData) ? similarMoviesData : [];
+
+    async function deleteHandler() {
+
+        if (!movie || Array.isArray(movie)) {
+            return;
+        };
+
+        const confirmation = confirm(`Are you sure you want to delete ${movie.title}`);
+
+        if (!confirmation) {
+            return;
+        };
+
+        try {
+            await request(`/movies/${movieId}`, "DELETE", { accessToken: user.accessToken });
+
+            navigate("/movies/catalog");
+        } catch (error) {
+            if (error instanceof Error) {
+                alert(error.message);
+            } else if (typeof (error) === "string") {
+                alert(error)
+            } else {
+                alert("An unexpected error occurred");
+            };
+        };
+    }
 
     return (
         <div className={styles["detail-wrapper"]}>
@@ -183,9 +211,7 @@ export default function MovieDetail() {
                                 <Link to={`/movies/${movie.id}/edit`}>
                                     <ButtonSecondary text="Edit" addStyle="btn-gray" />
                                 </Link>
-                                <Link to="#">
-                                    <ButtonSecondary text="Delete" addStyle="btn-red" />
-                                </Link>
+                                <ButtonSecondary clickHandler={deleteHandler} text="Delete" addStyle="btn-red" />
                             </div>
                         </Activity>
                     </div>
