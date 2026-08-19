@@ -11,8 +11,9 @@ export default function useFetch(url?: string, initialState?: Movie[] | [] | Mov
         if (!url) {
             return;
         };
-
+        
         const controller = new AbortController();
+
 
         (async () => {
             try {

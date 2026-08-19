@@ -171,6 +171,15 @@
     animation: hero-state1-previous ease 1s;
 }
 
+.no-movies {
+    color: #e8e2d9a1;
+    text-align: center;
+    font-size: clamp(8px, 5vw, 29px);
+    margin: 0 auto;
+    font-weight: 100;
+    margin-bottom: 100px;
+}
+
 @keyframes hero-state1-previous {
     from {
         transform: translateX(-33.3%);

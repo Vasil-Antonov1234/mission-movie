@@ -82,7 +82,18 @@ movieController.get("/similar", async (req, res) => {
     } catch (error) {
         res.json(getErrorMessage(error));
     }
-})
+});
+
+movieController.get("/latest", async (req, res) => {
+    
+    try {
+        const latestMovies = await movieService.getLatest();
+
+        res.status(200).json(latestMovies);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+});
 
 
 movieController.post("/create", isAuthMiddleware, async (req, res) => {
@@ -137,6 +148,6 @@ movieController.patch("/:movieId", isAuthMiddleware, async (req, res) => {
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
-})
+});
 
 export default movieController;

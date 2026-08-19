@@ -64,5 +64,9 @@ export default {
         filter.movieId = Number(filter.movieId);
 
         return await movieRepository.getSimilar(filter);
+    },
+
+    async getLatest() {
+        return await movieRepository.getLatest();
     }
 }

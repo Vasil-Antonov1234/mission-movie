@@ -38,7 +38,7 @@ export default {
         });
     },
 
-    async updateOne(movieId, userId, parsedMovieData) {       
+    async updateOne(movieId, userId, parsedMovieData) {
         return await prisma.movie.update({
             where: {
                 id: movieId,
@@ -63,5 +63,15 @@ export default {
         AND genre LIKE ${pattern2}
         AND id <> ${movieId}
         LIMIT 3`;
+    },
+
+    async getLatest() {
+        return await prisma.$queryRaw`
+        SELECT
+	*
+    FROM movies
+    WHERE "rating" > 8
+    ORDER BY "createdAt" DESC
+    LIMIT 5;`;
     }
 }

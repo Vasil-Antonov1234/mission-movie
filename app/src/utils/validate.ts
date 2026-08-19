@@ -19,7 +19,7 @@ const genres = [
     "Action-Berets",
     "Superhero",
     "Marvel",
-    "TV-serries",
+    "TV-series",
     "Epic",
     "Historical"
 ];
