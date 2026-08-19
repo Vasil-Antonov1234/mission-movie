@@ -16,15 +16,15 @@ type SimilarFilmProps = { film: Movie };
 
 export default function SiilarFilm({ film }: SimilarFilmProps) {
     return (
-        <div className={styles["similar-item"]}>
-            <Link to={`/movies/${film.id}/details`}>
+        <Link className={styles["link"]} to={`/movies/${film.id}/details`}>
+            <div className={styles["similar-item"]}>
                 <img src={film.poster} alt={film.title} className={styles["similar-item-img"]} />
-            </Link>
-            <div className={styles["similar-item-info"]}>
-                <div className={styles["similar-item-title"]}>{film.title}</div>
-                <div className={styles["similar-item-year"]}>{film.year}</div>
-                <RatingBadge rating={film.rating} />
+                <div className={styles["similar-item-info"]}>
+                    <div className={styles["similar-item-title"]}>{film.title}</div>
+                    <div className={styles["similar-item-year"]}>{film.year}</div>
+                    <RatingBadge rating={film.rating} />
+                </div>
             </div>
-        </div>
+        </Link>
     );
 }

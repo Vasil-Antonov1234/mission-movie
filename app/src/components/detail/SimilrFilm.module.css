@@ -42,6 +42,10 @@
     margin-bottom: 4px;
 }
 
+.link {
+    all: unset;
+}
+
 @media(max-width: 230px) {
     .similar-item {
         flex-direction: column;
