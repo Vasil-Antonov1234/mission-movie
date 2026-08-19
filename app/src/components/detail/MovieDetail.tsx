@@ -123,11 +123,11 @@ export default function MovieDetail() {
 
     const movieId = useParams().movieId;
 
-    const { data: movie } = useFetch(`/movies/${movieId}`, [], true);
+    const { data: movie } = useFetch(`/movies/${movieId}`, []);
 
     const genreArray = !movie || Array.isArray(movie) ? " " : movie?.genre.split(", ");
 
-    const { data: similarMoviesData } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`, undefined, true);
+    const { data: similarMoviesData } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`);
 
     if (!movie || Array.isArray(movie)) {
         return;

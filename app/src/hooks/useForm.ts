@@ -1,13 +1,32 @@
-import { useState, type ChangeEvent} from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 
-export default function useForm<T extends Record<string, string>>(initialValues: T) {
-    const [data, setData] = useState(initialValues)
+export default function useForm<T extends Record<string, string>>(initialValues: T, movieId?: string) {
+    const [data, setData] = useState(initialValues);
+    const [currentMovie, setCurrentMovie] = useState(null);
+
+    useEffect(() => {
+
+        if (!movieId) {
+            setCurrentMovie(null);
+            setData(initialValues);
+            return;
+        };
+
+        (async () => {
+            const response = await fetch(`http://localhost:5000/movies/${movieId}`);
+            const result = await response.json();
+
+            setData(result);
+            setCurrentMovie(result);
+        })();
+
+    }, [initialValues, movieId]);
 
     function changeHandler(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) {
         setData((state) => ({
             ...state,
             [event.target.name]: event.target.value
-        }))
+        }));
     };
 
     function formInputRegister(name: keyof T) {
@@ -17,5 +36,5 @@ export default function useForm<T extends Record<string, string>>(initialValues:
             onChange: changeHandler
         }
     }
-    return {changeHandler, formInputRegister, data, setData}
+    return { changeHandler, formInputRegister, data, setData, currentMovie }
 }

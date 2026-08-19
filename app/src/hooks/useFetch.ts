@@ -3,11 +3,11 @@ import type { Config, Method, Movie, Options } from "../types/types";
 
 const BASE_URL = "http://localhost:5000";
 
-export default function useFetch(url?: string, initialState?: Movie[] | [] | Movie, edit?: boolean) {
+export default function useFetch(url?: string, initialState?: Movie[] | [] | Movie) {
     const [data, setData] = useState(initialState);
 
     useEffect(() => {
-        if (!url || !edit) {
+        if (!url) {
             return;
         };
 
@@ -25,8 +25,10 @@ export default function useFetch(url?: string, initialState?: Movie[] | [] | Mov
             } catch (error) {
                 if (error instanceof Error) {
                     alert(error.message)
+                } else if (typeof(error) === "string") {
+                    throw error
                 } else {
-                    alert("An unexpected error occurr");
+                    alert("An unexpected error occurred");
                 };
             }
         })()
@@ -67,6 +69,8 @@ export default function useFetch(url?: string, initialState?: Movie[] | [] | Mov
         } catch (error) {
             if (error instanceof Error) {
                 alert(error.message)
+            } else if (typeof(error) === "string") {
+                throw error;
             } else {
                 alert("An unexpected error occurr");
             };

@@ -99,11 +99,11 @@ export function validate(value: ValidateValue) {
     };
 
     // Year
-    if (value.year === "") {
+    if (String(value.year) === "") {
         errors["year"] = "Year is required";
     };
 
-    if (value.year && value.year.match(/^([0-2]{1}[0-9]{1}|3[0-1]{1})\/(1{1}[0-2]{1}|0{1}[0-9]{1})\/(\d{4})$/)) {
+    if (value.year && String(value.year).match(/^([0-2]{1}[0-9]{1}|3[0-1]{1})\/(1{1}[0-2]{1}|0{1}[0-9]{1})\/(\d{4})$/)) {
         errors["year"] = "Invalid date format";
     };
 
@@ -112,7 +112,7 @@ export function validate(value: ValidateValue) {
     };
 
     // Rating
-    if (value.rating === "") {
+    if (String(value.rating) === "") {
         errors["rating"] = "Rating is required";
     };
 
@@ -120,7 +120,7 @@ export function validate(value: ValidateValue) {
         errors["rating"] = "Rating must be an intiger between 1 and 10";
     };
 
-    if (value.rating && !value.rating.match(/^[0-9]{1}[0-9]?(\.[0-9]{1})?$/)) {
+    if (value.rating && !String(value.rating).match(/^[0-9]{1}[0-9]?(\.[0-9]{1})?$/)) {
         errors["rating"] = "Rating must be an intiger between 1 and 10";
     };
 

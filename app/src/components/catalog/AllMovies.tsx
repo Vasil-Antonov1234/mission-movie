@@ -13,7 +13,7 @@ export default function AllMovies() {
     const [activePage, setActivePage] = useState(1);
     const [activeGenre, setActiveGenre] = useState("All");
 
-    const { data } = useFetch("/movies", [], true);
+    const { data } = useFetch("/movies", []);
 
     const movies = data && Array.isArray(data) ? data : [];
 

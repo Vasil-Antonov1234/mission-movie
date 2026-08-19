@@ -9,7 +9,27 @@ import { useNavigate, useParams } from "react-router";
 
 const currentYear = new Date().getFullYear();
 
-const initialValues = {
+type InitialValues = {
+	title: string,
+	year: string,
+	rating: string,
+	genre: string,
+	poster: string,
+	synopsis: string,
+	duration: string,
+	director: string,
+	trailerUrl: string,
+	tagline: string,
+	writtenBy: string,
+	studio: string,
+	releaseDate: string,
+	language: string,
+	country: string,
+	budget: string,
+	boxOffice: string
+};
+
+const initialValues: InitialValues = {
 	title: "",
 	year: "",
 	rating: "1.0",
@@ -40,38 +60,12 @@ function isValidUrl(url: string): boolean {
 
 export default function CreateEditMovie() {
 	const movieId = useParams().movieId;
-	const isEdit = movieId? true : false;
-	const { request, data: movie } = useFetch(`/movies/${movieId}`, undefined, isEdit);
-
-	const currentMovie = !Array.isArray(movie) ? movie : undefined;
-	
-	if(currentMovie) {
-		initialValues.title = currentMovie.title;
-		initialValues.boxOffice = currentMovie.boxOffice? currentMovie.boxOffice : "";
-		initialValues.budget = currentMovie.budget? currentMovie.budget : "";
-		initialValues.country = currentMovie.country? currentMovie.country : "";
-		initialValues.director = currentMovie.director? currentMovie.director : "";
-		initialValues.duration = currentMovie.duration? currentMovie.duration : "";
-		initialValues.genre = currentMovie.genre;
-		initialValues.language = currentMovie.language? currentMovie.language : "";
-		initialValues.poster = currentMovie.poster;
-		initialValues.rating = currentMovie.rating? String(currentMovie.rating) : "1.0";
-		initialValues.releaseDate = currentMovie.releaseDate? currentMovie.releaseDate : "";
-		initialValues.studio = currentMovie.studio? currentMovie.studio : "";
-		initialValues.synopsis = currentMovie.synopsis? currentMovie.synopsis : "";
-		initialValues.trailerUrl = currentMovie.trailerUrl? currentMovie.trailerUrl : "";
-		initialValues.year = currentMovie.year? String(currentMovie.year) : "";
-		initialValues.tagline = currentMovie.tagline? currentMovie.tagline : "";
-		initialValues.writtenBy = currentMovie.writtenBy? currentMovie.writtenBy : "";
-	};
-
-	const { formInputRegister, data, setData } = useForm(initialValues)
-	const { user, onLogout } = useContext(UserContext)
+	const { formInputRegister, data, setData, currentMovie } = useForm(initialValues, movieId);
+	const { user, onLogout } = useContext(UserContext);
+	const { request } = useFetch();
 	const [errors, setErrors] = useState<ValidateValue>({});
 	const [touched, setTouched] = useState<ValidateValue>({});
 	const navigate = useNavigate();
-
-
 
 	function validateHandler(event: React.BaseSyntheticEvent) {
 		setTouched((state) => ({
@@ -93,10 +87,22 @@ export default function CreateEditMovie() {
 		};
 
 		try {
-			await request("/movies/create", "POST", { accessToken: user.accessToken }, data);
+			
+			if (movieId) {
+				// Update movie
+				await request(`/movies/${movieId}`, "PATCH", { accessToken: user.accessToken }, data);
+			} else {
+				// Create movie
+				await request("/movies/create", "POST", { accessToken: user.accessToken }, data);
+			};
+			
 			setErrors({});
 
-			navigate("/");
+			if (movieId) {
+				return navigate(`/movies/${movieId}/details`);
+			}
+
+			navigate("/movies/catalog");
 		} catch (error) {
 
 			if (error instanceof Error) {
@@ -115,9 +121,14 @@ export default function CreateEditMovie() {
 	}
 
 	const handleReset = () => {
-		setData(initialValues);
 		setTouched({});
 		setErrors({});
+
+		if (currentMovie) {
+			setData(currentMovie);
+		} else {
+			setData(initialValues);
+		};
 	};
 
 	const showPosterPreview = data.poster.trim() !== "" && isValidUrl(data.poster);
@@ -128,7 +139,7 @@ export default function CreateEditMovie() {
 
 				{/* ─── Page header ─── */}
 				<div className={styles.pageEyebrow}>Film Management</div>
-				<h1 className={styles.pageTitle}>{movieId ? `Edit Movie "${currentMovie?.title}"` : "Add a New Movie"}</h1>
+				<h1 className={styles.pageTitle}>{movieId ? `Edit Movie ${data.title}` : "Add a New Movie"}</h1>
 				<p className={styles.pageSubtitle}>
 					{movieId ? "Modify the details below to update the movie information." : "Fill in the details below to add a film to the movies catalogue."}
 				</p>
@@ -490,7 +501,7 @@ export default function CreateEditMovie() {
 							className={styles.btnPrimary}
 						// disabled={loading}
 						>
-							Add Movie
+							{movieId ? "Edit movie" : "Add Movie"}
 						</button>
 					</div>
 
