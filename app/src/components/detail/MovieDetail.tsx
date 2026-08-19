@@ -130,10 +130,11 @@ export default function MovieDetail() {
     const genreArray = !movie || Array.isArray(movie) ? " " : movie?.genre.split(", ");
 
     const { data: similarMoviesData, request } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`);
-
+    
     if (!movie || Array.isArray(movie)) {
         return;
     };
+    const isOwner = movie.author?.id === user.id;
 
     const similarMovies = Array.isArray(similarMoviesData) ? similarMoviesData : [];
 
@@ -201,7 +202,7 @@ export default function MovieDetail() {
                             <ButtonSecondary text="+ Add to Watchlist" addStyle="btn-170" />
                             <ButtonChost text="♥ Favourite" addStyle="btn-170" />
                         </div>
-                        <Activity mode={isAuthenticated ? "visible" : "hidden"}>
+                        <Activity mode={isAuthenticated && isOwner ? "visible" : "hidden"}>
                             <div className={`${styles["detail-hero-actions"]} ${styles["detail-hero-edit-delete"]}`}>
                                 <Link to={`/movies/${movie.id}/edit`}>
                                     <ButtonSecondary text="Edit" addStyle="btn-gray" />
@@ -212,7 +213,6 @@ export default function MovieDetail() {
                     </div>
                 </div>
             </div>
-
             {/* ─── BODY ─── */}
             <div className={styles["detail-body"]}>
 

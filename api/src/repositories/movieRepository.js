@@ -22,6 +22,9 @@ export default {
         return await prisma.movie.findUnique({
             where: {
                 id: movieId
+            },
+            include: {
+                author: true
             }
         });
     },
