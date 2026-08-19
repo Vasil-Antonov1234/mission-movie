@@ -8,6 +8,8 @@ import MovieDetail from "./components/detail/MovieDetail"
 import Login from "./components/login-register/Login"
 import Register from "./components/login-register/Register"
 import CreateEditMovie from "./components/create/CreateEditMovie"
+import IsAuthenticated from "./components/route-guards/isAuthenticated"
+import IsGuest from "./components/route-guards/isGuest"
 
 function App() {
 
@@ -19,10 +21,16 @@ function App() {
                 <Route path="/movies/catalog" element={<AllMovies />} />
                 <Route path="/reviews/catalog" element={<AllReviews />} />
                 <Route path="/movies/:movieId/details" element={<MovieDetail />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/movies/create" element={<CreateEditMovie />} />
-                <Route path="/movies/:movieId/edit" element={<CreateEditMovie />} />
+
+                <Route element={<IsAuthenticated />}>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                </Route>
+
+                <Route element={<IsGuest />} >
+                    <Route path="/movies/create" element={<CreateEditMovie />} />
+                    <Route path="/movies/:movieId/edit" element={<CreateEditMovie />} />
+                </Route>
             </Routes>
             <Footer />
         </>
