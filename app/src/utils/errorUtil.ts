@@ -1,9 +1,21 @@
 export function errorMessageHandler<T>(error: T) {
-    if (error instanceof Error) {
-        return error.message;
-    } else if (typeof(error) === "string") {
-        return error;
-    } else {
-        return "An unexpected error occurred";
+    let message = "An unexpected error occurred";
+
+    if ((error instanceof DOMException || error instanceof Error) && error.name === "AbortError") {
+        return;
     };
-}
+
+    if (error instanceof Error) {
+        message = error.message;
+    }
+
+    if (typeof (error) === "string") {
+        message = error;
+    };
+
+    if (message === "Invalid token") {
+        return message;
+    };
+    
+    alert(message);
+};

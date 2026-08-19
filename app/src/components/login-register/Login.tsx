@@ -59,7 +59,7 @@ export default function Login() {
             
         } catch (error) {
             setData((state) => ({ ...state, password: "" }));
-            alert(errorMessageHandler(error));
+            errorMessageHandler(error);
         }
     }
 

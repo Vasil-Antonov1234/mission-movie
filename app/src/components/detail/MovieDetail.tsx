@@ -154,7 +154,7 @@ export default function MovieDetail() {
 
             navigate("/movies/catalog");
         } catch (error) {
-            alert(errorMessageHandler(error));
+            errorMessageHandler(error);
         };
     }
 

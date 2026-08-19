@@ -107,8 +107,6 @@ export default function CreateEditMovie() {
 		} catch (error) {
 			const errorMessage = errorMessageHandler(error);
 
-			alert(errorMessage);
-
 			if (errorMessage === "Invalid token") {
 				onLogout("/login");
 			};

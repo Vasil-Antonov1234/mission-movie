@@ -21,7 +21,7 @@ export default function UserProvider({ children }: { children: React.ReactNode }
             
             await request("/users/logout", "GET", { accessToken: user.accessToken });
         } catch (error) {
-            alert(errorMessageHandler(error));
+            errorMessageHandler(error);
         } finally {
             setUser({});
             localStorage.removeItem("auth");

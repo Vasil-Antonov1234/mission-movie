@@ -117,7 +117,7 @@ export default function Register() {
                 confirmPassword: ""
             }));
 
-            alert(errorMessageHandler(error));
+            errorMessageHandler(error);
         };
     };
 

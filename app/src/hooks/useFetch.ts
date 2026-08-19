@@ -12,9 +12,11 @@ export default function useFetch(url?: string, initialState?: Movie[] | [] | Mov
             return;
         };
 
+        const controller = new AbortController();
+
         (async () => {
             try {
-                const response = await fetch(`${BASE_URL}${url}`);
+                const response = await fetch(`${BASE_URL}${url}`, { signal: controller.signal });
 
                 if (!response.ok) {
                     return {}
@@ -24,9 +26,13 @@ export default function useFetch(url?: string, initialState?: Movie[] | [] | Mov
 
                 setData(result);
             } catch (error) {
-               alert(errorMessageHandler(error));
+               errorMessageHandler(error);
             };
         })()
+
+        return () => {
+            controller.abort();
+        }
 
     }, [url]);
 
@@ -62,7 +68,7 @@ export default function useFetch(url?: string, initialState?: Movie[] | [] | Mov
     
             return result;
         } catch (error) {
-           alert(errorMessageHandler(error));
+           errorMessageHandler(error);
         };
 
     };

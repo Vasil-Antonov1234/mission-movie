@@ -12,13 +12,20 @@ export default function useForm<T extends Record<string, string>>(initialValues:
             return;
         };
 
+        const controller = new AbortController();
+        
         (async () => {
-            const response = await fetch(`http://localhost:5000/movies/${movieId}`);
+
+            const response = await fetch(`http://localhost:5000/movies/${movieId}`, { signal: controller.signal });
             const result = await response.json();
 
             setData(result);
             setCurrentMovie(result);
-        })();
+        })()
+
+        return () => {
+            controller.abort();
+        };
 
     }, [initialValues, movieId]);
 
