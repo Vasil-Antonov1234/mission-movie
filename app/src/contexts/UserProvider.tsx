@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import useFetch from "../hooks/useFetch";
 import UserContext from "./UserContext";
 import { usePersistedState } from "../hooks/usePersistedState";
+import { errorMessageHandler } from "../utils/errorUtil";
 
 export default function UserProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = usePersistedState({});
@@ -20,7 +21,7 @@ export default function UserProvider({ children }: { children: React.ReactNode }
             
             await request("/users/logout", "GET", { accessToken: user.accessToken });
         } catch (error) {
-            alert(error);
+            alert(errorMessageHandler(error));
         } finally {
             setUser({});
             localStorage.removeItem("auth");

@@ -9,6 +9,7 @@ import useFetch from "../../hooks/useFetch";
 import { useParams, Link, useNavigate } from "react-router";
 import { Activity, useContext } from "react";
 import UserContext from "../../contexts/UserContext";
+import { errorMessageHandler } from "../../utils/errorUtil";
 
 const MOVIE = {
     id: 1,
@@ -153,13 +154,7 @@ export default function MovieDetail() {
 
             navigate("/movies/catalog");
         } catch (error) {
-            if (error instanceof Error) {
-                alert(error.message);
-            } else if (typeof (error) === "string") {
-                alert(error)
-            } else {
-                alert("An unexpected error occurred");
-            };
+            alert(errorMessageHandler(error));
         };
     }
 

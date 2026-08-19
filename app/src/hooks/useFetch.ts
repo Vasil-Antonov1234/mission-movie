@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Config, Method, Movie, Options } from "../types/types";
+import { errorMessageHandler } from "../utils/errorUtil";
 
 const BASE_URL = "http://localhost:5000";
 
@@ -23,14 +24,8 @@ export default function useFetch(url?: string, initialState?: Movie[] | [] | Mov
 
                 setData(result);
             } catch (error) {
-                if (error instanceof Error) {
-                    alert(error.message)
-                } else if (typeof(error) === "string") {
-                    throw error
-                } else {
-                    alert("An unexpected error occurred");
-                };
-            }
+               alert(errorMessageHandler(error));
+            };
         })()
 
     }, [url]);
@@ -67,14 +62,8 @@ export default function useFetch(url?: string, initialState?: Movie[] | [] | Mov
     
             return result;
         } catch (error) {
-            if (error instanceof Error) {
-                alert(error.message)
-            } else if (typeof(error) === "string") {
-                throw error;
-            } else {
-                alert("An unexpected error occurr");
-            };
-        }
+           alert(errorMessageHandler(error));
+        };
 
     };
 

@@ -7,6 +7,7 @@ import Loading from "../loading/Loading";
 import { validate } from "../../utils/validate";
 import type { ValidateValue } from "../../types/types";
 import UserContext from "../../contexts/UserContext";
+import { errorMessageHandler } from "../../utils/errorUtil";
 
 type Values = {
     email: string,
@@ -56,10 +57,9 @@ export default function Login() {
 
             onLogin(result)
             
-            // console.log(result);
         } catch (error) {
             setData((state) => ({ ...state, password: "" }));
-            alert(error);
+            alert(errorMessageHandler(error));
         }
     }
 

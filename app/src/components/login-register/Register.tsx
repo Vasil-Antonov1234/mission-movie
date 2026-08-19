@@ -6,6 +6,7 @@ import useFetch from "../../hooks/useFetch";
 import type { ValidateValue } from "../../types/types";
 import { validate } from "../../utils/validate";
 import UserContext from "../../contexts/UserContext";
+import { errorMessageHandler } from "../../utils/errorUtil";
 
 const initialValues = {
     firstName: "",
@@ -116,7 +117,7 @@ export default function Register() {
                 confirmPassword: ""
             }));
 
-            alert(error);
+            alert(errorMessageHandler(error));
         };
     };
 

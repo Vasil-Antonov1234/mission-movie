@@ -6,6 +6,7 @@ import UserContext from "../../contexts/UserContext";
 import type { ValidateValue } from "../../types/types";
 import { validate } from "../../utils/validate";
 import { useNavigate, useParams } from "react-router";
+import { errorMessageHandler } from "../../utils/errorUtil";
 
 const currentYear = new Date().getFullYear();
 
@@ -87,7 +88,7 @@ export default function CreateEditMovie() {
 		};
 
 		try {
-			
+
 			if (movieId) {
 				// Update movie
 				await request(`/movies/${movieId}`, "PATCH", { accessToken: user.accessToken }, data);
@@ -95,7 +96,7 @@ export default function CreateEditMovie() {
 				// Create movie
 				await request("/movies/create", "POST", { accessToken: user.accessToken }, data);
 			};
-			
+
 			setErrors({});
 
 			if (movieId) {
@@ -104,18 +105,12 @@ export default function CreateEditMovie() {
 
 			navigate("/movies/catalog");
 		} catch (error) {
+			const errorMessage = errorMessageHandler(error);
 
-			if (error instanceof Error) {
-				alert(error.message)
-			} else if (typeof error === "string") {
-				alert(error);
+			alert(errorMessage);
 
-				if (error === "Invalid token") {
-					onLogout("/login");
-				};
-
-			} else {
-				alert("An unexpected error occurred");
+			if (errorMessage === "Invalid token") {
+				onLogout("/login");
 			};
 		};
 	}
