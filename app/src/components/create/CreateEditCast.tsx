@@ -27,7 +27,7 @@ export default function CreateEditCast() {
     const [touched, setTouched] = useState<ValidateValue>({});
 
     function actionHandler() {
-        console.log("submited")
+        console.log(data)
     };
 
     function validateHandler(event: React.BaseSyntheticEvent) {
@@ -37,6 +37,7 @@ export default function CreateEditCast() {
         }));
 
         const fieldErrors = validate(data);
+
         setErrors(fieldErrors);
     };
 
@@ -70,68 +71,68 @@ export default function CreateEditCast() {
 
                             {/* First name */}
                             <div className={`${styles.field} ${styles.colSpan2}`}>
-                                <label className={styles.label} htmlFor="title">
-                                    Title <span className={styles.required}>*</span>
+                                <label className={styles.label} htmlFor="firstName">
+                                    First name <span className={styles.required}>*</span>
                                 </label>
                                 <input
-                                    id="title"
+                                    id="firstName"
                                     {...formInputRegister("firstName")}
                                     type="text"
-                                    className={`${styles.input}${errors.title && touched.title ? ` ${styles["input--error"]}` : ""}`}
-                                    placeholder="e.g. Oppenheimer"
+                                    className={`${styles.input}${errors.firstName && touched.firstName ? ` ${styles["input--error"]}` : ""}`}
+                                    placeholder="e.g. John"
                                     autoComplete="off"
                                     onBlur={validateHandler}
                                 />
-                                {touched.title && <span className={styles.errorMsg}>{errors.title}</span>}
+                                {touched.firstName && <span className={styles.errorMsg}>{errors.firstName}</span>}
                             </div>
 
                             {/* Last name */}
                             <div className={`${styles.field} ${styles.colSpan2}`}>
-                                <label className={styles.label} htmlFor="tagline">
-                                    Tagline <span className={styles.required}>*</span>
+                                <label className={styles.label} htmlFor="lastName">
+                                    Last name <span className={styles.required}>*</span>
                                 </label>
                                 <input
-                                    id="tagline"
+                                    id="lastName"
                                     {...formInputRegister("lastName")}
                                     type="text"
-                                    className={`${styles.input}${errors.tagline && touched.tagline ? ` ${styles["input--error"]}` : ""}`}
+                                    className={`${styles.input}${errors.lastName && touched.lastName ? ` ${styles["input--error"]}` : ""}`}
                                     placeholder="e.g. A Brand New Day starts now."
                                     autoComplete="off"
                                     onBlur={validateHandler}
                                 />
-                                {touched.tagline && <span className={styles.errorMsg}>{errors.tagline}</span>}
+                                {touched.lastName && <span className={styles.errorMsg}>{errors.lastName}</span>}
                             </div>
 
                             {/* Birthday */}
                             <div className={styles.field}>
-                                <label className={styles.label} htmlFor="director">
-                                    Director <span className={styles.required}>*</span>
+                                <label className={styles.label} htmlFor="bornDate">
+                                    Birthday <span className={styles.required}>*</span>
                                 </label>
                                 <input
-                                    id="director"
+                                    id="bornDate"
                                     {...formInputRegister("bornDate")}
                                     type="text"
-                                    className={`${styles.input}${errors.director && touched.director ? ` ${styles["input--error"]}` : ""}`}
-                                    placeholder="e.g. Christopher Nolan"
+                                    className={`${styles.input}${errors.bornDate && touched.bornDate ? ` ${styles["input--error"]}` : ""}`}
+                                    placeholder="e.g. November 28, 1982"
                                     onBlur={validateHandler}
                                 />
-                                {touched.director && <span className={styles.errorMsg}>{errors.director}</span>}
+                                {touched.bornDate && <span className={styles.errorMsg}>{errors.bornDate}</span>}
                             </div>
 
                             {/* Place of born */}
                             <div className={styles.field}>
-                                <label className={styles.label} htmlFor="writtenBy">
-                                    Written by <span className={styles.required}>*</span>
+                                <label className={styles.label} htmlFor="placeOfBorn">
+                                    Place of born <span className={styles.required}>*</span>
                                 </label>
                                 <input
-                                    id="writtenBy"
+                                    id="placeOfBorn"
                                     {...formInputRegister("placeOfBorn")}
                                     type="text"
-                                    className={`${styles.input}${errors.writtenBy && touched.writtenBy ? ` ${styles["input--error"]}` : ""}`}
-                                    placeholder="e.g. Manel Santisteban"
+                                    className={`${styles.input}${errors.placeOfBorn && touched.placeOfBorn ? ` ${styles["input--error"]}` : ""}`}
+                                    placeholder="e.g. Los Angeles, USA"
                                     onBlur={validateHandler}
                                 />
-                                {touched.writtenBy && <span className={styles.errorMsg}>{errors.writtenBy}</span>}
+                                {touched.placeOfBorn && <span className={styles.errorMsg}>{errors.placeOfBorn}</span>}
                             </div>
                         </div>
                     </div>
@@ -144,18 +145,18 @@ export default function CreateEditCast() {
 
                             {/* Image URL */}
                             <div className={styles.field}>
-                                <label className={styles.label} htmlFor="posterUrl">
-                                    Poster URL <span className={styles.required}>*</span>
+                                <label className={styles.label} htmlFor="imageUrl">
+                                    Image <span className={styles.required}>*</span>
                                 </label>
                                 <input
-                                    id="posterUrl"
+                                    id="imageUrl"
                                     {...formInputRegister("imageUrl")}
                                     type="url"
-                                    className={`${styles.input}${errors.poster && touched.poster ? ` ${styles["input--error"]}` : ""}`}
+                                    className={`${styles.input}${errors.imageUrl && touched.imageUrl ? ` ${styles["input--error"]}` : ""}`}
                                     placeholder="https://…"
                                     onBlur={validateHandler}
                                 />
-                                {touched.poster && <span className={styles.errorMsg}>{errors.poster}</span>}
+                                {touched.imageUrl && <span className={styles.errorMsg}>{errors.imageUrl}</span>}
 
                                 {/* Live image preview */}
                                 <div className={styles.posterPreviewWrapper}>

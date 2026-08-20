@@ -1,21 +1,21 @@
 import type { ValidateValue } from "../types/types";
 
 const genres = [
-	"Action",
-	"Adventure",
-	"Animation",
-	"Comedy",
-	"Crime",
-	"Documentary",
-	"Drama",
-	"Fantasy",
-	"Horror",
-	"Mystery",
-	"Romance",
-	"Sci-Fi",
-	"Thriller",
-	"War",
-	"Western",
+    "Action",
+    "Adventure",
+    "Animation",
+    "Comedy",
+    "Crime",
+    "Documentary",
+    "Drama",
+    "Fantasy",
+    "Horror",
+    "Mystery",
+    "Romance",
+    "Sci-Fi",
+    "Thriller",
+    "War",
+    "Western",
     "Action-Berets",
     "Superhero",
     "Marvel",
@@ -23,6 +23,21 @@ const genres = [
     "Epic",
     "Historical"
 ];
+
+const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+]
 
 function validateGenre(text: string) {
     const tokens = text.split(", ");
@@ -85,7 +100,7 @@ export function validate(value: ValidateValue) {
 
     // Last name
     if (value.lastName === "") {
-        errors["lastName"] = "First name is required";
+        errors["lastName"] = "Last name is required";
     };
 
     if (value.lastName && !value.lastName.match(/^[A-Z]{1}[a-zA-Z]+$/)) {
@@ -248,6 +263,38 @@ export function validate(value: ValidateValue) {
 
     if (value.boxOffice && !value.boxOffice.match(/^\$\d{1,3} ?\d{0,3} ?\d{0,3}M?$/)) {
         errors["boxOffice"] = "Invalid box office amount data";
+    };
+
+    // Cast validation
+    // Birthday
+    if (value.bornDate === "") {
+        errors["bornDate"] = "The date of born is required";
+    };
+
+    if (value.bornDate && !months.includes(value.bornDate.split(" ")[0])) {
+        errors["bornDate"] = "Invalid date format";
+    };
+
+    if (value.bornDate && !value.bornDate.match(/^[A-Z]{1}[a-z]+ \d{2}, \d{4}$/)) {
+        errors["bornDate"] = "Invalid date format";
+    }
+
+    if (value.bornDate && !value.bornDate.match(/^[A-Z]{1}.+/)) {
+        errors["bornDate"] = "The date of born must starts with capital letter";
+    };
+
+    // Place of born
+    if (value.placeOfBorn === "") {
+        errors["placeOfBorn"] = "The place of born is required";
+    };
+
+    // Image
+    if (value.imageUrl === "") {
+        errors["imageUrl"] = "Image is required";
+    };
+
+    if (value.imageUrl && !value.imageUrl.match(/^https?:\/\//)) {
+        errors["imageUrl"] = "Invalid URL address";
     };
 
     return errors;
