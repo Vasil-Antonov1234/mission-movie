@@ -58,6 +58,9 @@ export default function Header() {
                     <Link to="/movies/create">
                         <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Add movie</button>
                     </Link>
+                    <Link to="/casts/create">
+                        <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Add cast</button>
+                    </Link>
                     <Link to="#">
                         <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Write review</button>
                     </Link>

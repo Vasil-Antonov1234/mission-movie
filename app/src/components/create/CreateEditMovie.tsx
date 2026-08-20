@@ -10,27 +10,7 @@ import { errorMessageHandler } from "../../utils/errorUtil";
 
 const currentYear = new Date().getFullYear();
 
-type InitialValues = {
-	title: string,
-	year: string,
-	rating: string,
-	genre: string,
-	poster: string,
-	synopsis: string,
-	duration: string,
-	director: string,
-	trailerUrl: string,
-	tagline: string,
-	writtenBy: string,
-	studio: string,
-	releaseDate: string,
-	language: string,
-	country: string,
-	budget: string,
-	boxOffice: string
-};
-
-const initialValues: InitialValues = {
+const initialValues = {
 	title: "",
 	year: "",
 	rating: "1.0",

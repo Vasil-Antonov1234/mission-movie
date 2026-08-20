@@ -64,7 +64,7 @@ model Token {
 }
 
 model Cast {
-	id				Int		@id		@default(autoincrement())
+	id				Int			@id			@default(autoincrement())
 	firstName		String
 	lastName		String
 	bornDate		String

@@ -10,6 +10,7 @@ import Register from "./components/login-register/Register"
 import CreateEditMovie from "./components/create/CreateEditMovie"
 import IsAuthenticated from "./components/route-guards/isAuthenticated"
 import IsGuest from "./components/route-guards/isGuest"
+import CreateEditCast from "./components/create/CreateEditCast"
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
                 <Route element={<IsGuest />} >
                     <Route path="/movies/create" element={<CreateEditMovie />} />
                     <Route path="/movies/:movieId/edit" element={<CreateEditMovie />} />
+                    <Route path="/casts/create" element={<CreateEditCast />} />
                 </Route>
             </Routes>
             <Footer />

@@ -144,7 +144,10 @@ export type ValidateValue = {
     language?: string,
     country?: string,
     budget?: string,
-    boxOffice?: string
+    boxOffice?: string,
+    bornDate?: string,
+    placeOfBorn?: string,
+    imageUrl?: string
 };
 
 export type UserCtx = {
