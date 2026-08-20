@@ -12,7 +12,7 @@ import useFetch from "../../hooks/useFetch";
 
 const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary", "Fantasy", "Adventure"];
 
-const featuredMovies: Featured[] = [
+const featuredMovies: Featured[] | [] = [
     {
         id: 30,
         title: "Dune: Part Two",
@@ -66,7 +66,7 @@ export default function Home() {
 
     function nextHeroHandler() {
 
-        if (heroState > 2) {
+        if (heroState > featuredMovies.length - 1) {
             return
         }
 
@@ -93,7 +93,7 @@ export default function Home() {
             <section className={styles["hero-wrapper"]}>
                 <div className={styles["slide"]}>
                     <span className={heroState === 1 ? styles["next-slide"] : `${styles["next-slide"]} ${styles["hover-slade"]}`} onClick={previousHeroHandler} onTouchEnd={(event) => touchEndHandler(event)}>{"<"}</span>
-                    <span className={heroState === 3 ? styles["previous-slide"] : `${styles["previous-slide"]} ${styles["hover-slade"]}`} onClick={nextHeroHandler} onTouchEnd={(event) => touchEndHandler(event)}>{">"}</span>
+                    <span className={heroState >= featuredMovies.length ? styles["previous-slide"] : `${styles["previous-slide"]} ${styles["hover-slade"]}`} onClick={nextHeroHandler} onTouchEnd={(event) => touchEndHandler(event)}>{">"}</span>
                     <div className={`${styles["hero-container"]} ${styles[`hero-container-state${heroState}-${moveState}`]}`}>
                         {featuredMovies.map((movie) => <Hero key={movie.id} movie={movie} />)}
                     </div>
