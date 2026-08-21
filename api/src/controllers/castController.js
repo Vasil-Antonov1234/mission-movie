@@ -4,9 +4,9 @@ import { createCastSchema } from "../schemas/castSchema.js";
 import castService from "../services/castService.js";
 import { getErrorMessage } from "../utils/errorUtil.js";
 
-const castComtroller = Router();
+const castController = Router();
 
-castComtroller.post("/create", isAuthMiddleware, async (req, res) => {
+castController.post("/create", isAuthMiddleware, async (req, res) => {
     
     try {
         const castData = await createCastSchema.parse(req.body);
@@ -20,4 +20,4 @@ castComtroller.post("/create", isAuthMiddleware, async (req, res) => {
     
 })
 
-export default castComtroller;
+export default castController;

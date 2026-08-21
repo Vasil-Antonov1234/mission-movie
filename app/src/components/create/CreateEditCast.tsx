@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import useForm from "../../hooks/useForm";
 import styles from "./CreateEditMovie.module.css";
 import type { ValidateValue } from "../../types/types";
 import { validate } from "../../utils/validate";
+import useFetch from "../../hooks/useFetch";
+import UserContext from "../../contexts/UserContext";
+import { useNavigate } from "react-router";
+import { errorMessageHandler } from "../../utils/errorUtil";
 
 const initialValues = {
     firstName: "",
@@ -25,9 +29,32 @@ export default function CreateEditCast() {
     const { data, setData, formInputRegister } = useForm(initialValues);
     const [errors, setErrors] = useState<ValidateValue>({});
     const [touched, setTouched] = useState<ValidateValue>({});
+    const { request } = useFetch();
+    const { user, onLogout } = useContext(UserContext);
+    const navigate = useNavigate();
 
-    function actionHandler() {
-        console.log(data)
+    async function actionHandler() {
+        const fieldErrors = validate(data);
+        setErrors(fieldErrors);
+        setTouched(fieldErrors);
+
+        if (Object.keys(fieldErrors).length > 0) {
+            return;
+        };
+
+        try {
+            await request("/casts/create", "POST", { accessToken: user.accessToken }, data);
+
+            setErrors({});
+
+            navigate("/");
+        } catch (error) {
+            const errorMessage = errorMessageHandler(error);
+
+            if (errorMessage === "Invalid token") {
+                onLogout("/login");
+            };
+        }
     };
 
     function validateHandler(event: React.BaseSyntheticEvent) {
