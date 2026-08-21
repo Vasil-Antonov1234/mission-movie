@@ -13,4 +13,4 @@ export const createCastSchema = z.object({
     placeOfBorn: z.string()
         .min(1, { error: "Place of born is required" }),
     imageUrl: z.httpUrl({ error: "Invalid URL format"})
-})
+});
