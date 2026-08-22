@@ -199,7 +199,7 @@ export default function CreateEditCast() {
                                     ) : (
                                         <div className={styles.posterPreviewEmpty}>
                                             <span className={styles.posterPreviewIcon}>🎬</span>
-                                            <span className={styles.posterPreviewText}>Poster preview</span>
+                                            <span className={styles.posterPreviewText}>Image preview</span>
                                         </div>
                                     )}
                                 </div>

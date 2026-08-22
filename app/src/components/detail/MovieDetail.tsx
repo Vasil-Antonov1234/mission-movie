@@ -130,7 +130,7 @@ export default function MovieDetail() {
     const genreArray = !movie || Array.isArray(movie) ? " " : movie?.genre.split(", ");
 
     const { data: similarMoviesData, request } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`);
-    
+
     if (!movie || Array.isArray(movie)) {
         return;
     };
@@ -208,6 +208,9 @@ export default function MovieDetail() {
                                     <ButtonSecondary text="Edit" addStyle="btn-gray" />
                                 </Link>
                                 <ButtonSecondary clickHandler={deleteHandler} text="Delete" addStyle="btn-red" />
+                                <Link to={`/movies/${movie.id}/attach`}>
+                                    <ButtonSecondary text="Add cast" addStyle="btn-170" />
+                                </Link>
                             </div>
                         </Activity>
                     </div>

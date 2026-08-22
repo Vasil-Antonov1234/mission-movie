@@ -288,9 +288,19 @@
   transition: background 0.2s, transform 0.1s;
   letter-spacing: 0.02em;
 }
-.btnPrimary:hover { background: #f5ca60; }
-.btnPrimary:active { transform: scale(0.99); }
-.btnPrimary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btnPrimary:hover {
+  background: #f5ca60;
+}
+
+.btnPrimary:active {
+  transform: scale(0.99);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 .btnSecondary {
   background: transparent;
@@ -305,7 +315,11 @@
   transition: border-color 0.2s, color 0.2s;
   letter-spacing: 0.02em;
 }
-.btnSecondary:hover { border-color: #555; color: #e8e2d9; }
+
+.btnSecondary:hover {
+  border-color: #555;
+  color: #e8e2d9;
+}
 
 /* ─── SUCCESS BANNER ─── */
 .successBanner {
@@ -321,7 +335,40 @@
   color: #2ecc71;
 }
 
-.successIcon { font-size: 18px; }
+.successIcon {
+  font-size: 18px;
+}
+
+/* MOVIE PREVIEW */
+.movieField {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.posterMovieWrapper {
+  margin-top: 12px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #2a2a2a;
+  background: #161616;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px
+}
+
+.posterImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.wrapp {
+  margin: 10px 10px 10px 10px;
+}
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 680px) {
