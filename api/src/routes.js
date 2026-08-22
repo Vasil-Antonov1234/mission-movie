@@ -9,6 +9,6 @@ const routes = Router();
 routes.use("/movies", movieController);
 routes.use("/reviews", reviewController);
 routes.use("/users", userController);
-routes.use("casts", castController);
+routes.use("/casts", castController);
 
 export default routes;

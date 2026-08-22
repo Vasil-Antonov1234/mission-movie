@@ -7,7 +7,7 @@ import { getErrorMessage } from "../utils/errorUtil.js";
 const castController = Router();
 
 castController.post("/create", isAuthMiddleware, async (req, res) => {
-    
+   
     try {
         const castData = await createCastSchema.parse(req.body);
 
@@ -18,6 +18,6 @@ castController.post("/create", isAuthMiddleware, async (req, res) => {
         res.status(400).json(getErrorMessage(error));
     };
     
-})
+});
 
 export default castController;

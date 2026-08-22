@@ -43,6 +43,7 @@ export default function CreateEditCast() {
         };
 
         try {
+                      
             await request("/casts/create", "POST", { accessToken: user.accessToken }, data);
 
             setErrors({});

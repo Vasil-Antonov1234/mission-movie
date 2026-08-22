@@ -275,7 +275,7 @@ export function validate(value: ValidateValue) {
         errors["bornDate"] = "Invalid date format";
     };
 
-    if (value.bornDate && !value.bornDate.match(/^[A-Z]{1}[a-z]+ \d{2}, \d{4}$/)) {
+    if (value.bornDate && !value.bornDate.match(/^[A-Z]{1}[a-z]+ \d{1,2}, \d{4}$/)) {
         errors["bornDate"] = "Invalid date format";
     }
 
