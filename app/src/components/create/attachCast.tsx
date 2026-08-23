@@ -1,6 +1,14 @@
+import { useParams } from "react-router";
+import useFetch from "../../hooks/useFetch";
 import styles from "./CreateEditMovie.module.css";
 
 export default function AttachCast() {
+    const movieId = useParams().movieId
+    const { data: movie } = useFetch(`/movies/${movieId}?select=title%3D%22true%22&select=poster%3D%22true%22`, []);
+
+    if (!movie || Array.isArray(movie)) {
+        return
+    };
 
     const showImagePreview = true;
     return (
@@ -9,7 +17,7 @@ export default function AttachCast() {
 
                 {/* ─── Page header ─── */}
                 <div className={styles.pageEyebrow}>Movie - Cast Management</div>
-                <h1 className={styles.pageTitle}>Add an actor to the "Breacing Bad" cast</h1>
+                <h1 className={styles.pageTitle}>Add an actor to the "{movie.title}" cast</h1>
                 <p className={styles.pageSubtitle}>
                     Fill in the details below to attach an actor to the cast.
                 </p>
@@ -23,7 +31,7 @@ export default function AttachCast() {
                         <div className={styles.movieField}>
                             <div className={styles.posterMovieWrapper}>
                                 <img
-                                    src="https://image.tmdb.org/t/p/original/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg"
+                                    src={movie.poster}
                                     alt="Movie title"
                                     className={styles.posterImg}
                                 />
