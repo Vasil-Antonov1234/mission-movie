@@ -67,14 +67,20 @@ export default function CreateEditMovie() {
 			return;
 		};
 
+		
 		try {
-
+			let result = "";
+			
 			if (movieId) {
 				// Update movie
-				await request(`/movies/${movieId}`, "PATCH", { accessToken: user.accessToken }, data);
+				result = await request(`/movies/${movieId}`, "PATCH", { accessToken: user.accessToken }, data);
 			} else {
 				// Create movie
-				await request("/movies/create", "POST", { accessToken: user.accessToken }, data);
+				result =await request("/movies/create", "POST", { accessToken: user.accessToken }, data);
+			};
+
+			if (result === "Invalid token" || result === "Unauthorized") {
+				onLogout("/login");
 			};
 
 			setErrors({});

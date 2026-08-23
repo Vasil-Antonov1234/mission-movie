@@ -69,7 +69,7 @@ export default function useFetch(url?: string, initialState?: Movie[] | [] | Mov
     
             return result;
         } catch (error) {
-           errorMessageHandler(error);
+           return errorMessageHandler(error);
         };
 
     };
