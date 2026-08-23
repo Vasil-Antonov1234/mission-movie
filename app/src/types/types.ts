@@ -80,6 +80,15 @@ export type Cast = {
     }
 };
 
+export type Artist = {
+    id: number,
+    firstName: string,
+    lastName: string,
+    bornDate?: string
+    placeOfBorn?: string
+    imageUrl?: string
+};
+
 export type ButtonProps = {
     text: string,
     addStyle?: string,

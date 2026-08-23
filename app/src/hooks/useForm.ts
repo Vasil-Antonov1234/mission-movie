@@ -29,7 +29,7 @@ export default function useForm<T extends Record<string, string>>(initialValues:
 
     }, [initialValues, movieId]);
 
-    function changeHandler(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) {
+    function changeHandler(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement, HTMLSelectElement>) {
         setData((state) => ({
             ...state,
             [event.target.name]: event.target.value

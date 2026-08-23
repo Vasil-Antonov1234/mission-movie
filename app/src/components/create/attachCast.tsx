@@ -1,16 +1,64 @@
 import { useParams } from "react-router";
 import useFetch from "../../hooks/useFetch";
 import styles from "./CreateEditMovie.module.css";
+import { useEffect, useState, type ChangeEvent } from "react";
+import type { Artist } from "../../types/types";
+import { errorMessageHandler } from "../../utils/errorUtil";
+// import useForm from "../../hooks/useForm";
 
 export default function AttachCast() {
     const movieId = useParams().movieId
     const { data: movie } = useFetch(`/movies/${movieId}?select=title%3D%22true%22&select=poster%3D%22true%22`, []);
+    const [cast, setCast] = useState<Artist[]>([]);
+
+    const initialValues = {
+        cast: ""
+    };
+    const [data, setData] = useState(initialValues)
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+
+        (async () => {
+            try {
+                const response = await fetch("http://localhost:5000/casts", { signal: controller.signal });
+
+                if (!response.ok) {
+                    return {}
+                };
+
+                const result = await response.json();
+
+                setCast(result);
+            } catch (error) {
+                errorMessageHandler(error);
+            };
+        })()
+
+        return () => {
+            controller.abort();
+        }
+    }, [])
+
+
+
+    function changeHandler(event: ChangeEvent<HTMLSelectElement, HTMLSelectElement>) {        
+        setData((state) => ({
+            ...state,
+            [event.target.name] : event.target.value
+        }))
+    }
+
+    // const { formInputRegister, data } = useForm(initialValues)
+
 
     if (!movie || Array.isArray(movie)) {
         return
     };
 
-    const showImagePreview = true;
+    const showImagePreview = data.cast ? true : false;
+    
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
@@ -39,16 +87,16 @@ export default function AttachCast() {
 
 
                             {/* Live image preview */}
-                            <div className={styles.posterPreviewWrapper}>
+                            <div className={`${styles.posterPreviewWrapper} ${styles.posterPreviewCastWrapper}`}>
                                 {showImagePreview ? (
                                     <img
-                                        src="https://hips.hearstapps.com/hmg-prod/images/gettyimages-1151380190.jpg?crop=1xw:1.0xh;center,top&resize=640:*"
+                                        src={cast.find((x) => x.id === Number(data.cast))?.imageUrl}
                                         alt="Image preview"
                                         className={styles.posterPreviewImg}
                                     // onBlur={validateHandler}
                                     />
                                 ) : (
-                                    <div className={styles.posterPreviewEmpty}>
+                                    <div className={`${styles.posterPreviewEmpty} ${styles.posterPreviewCastWrapper}`}>
                                         <span className={styles.posterPreviewIcon}>🎬</span>
                                         <span className={styles.posterPreviewText}>Image preview</span>
                                     </div>
@@ -57,10 +105,9 @@ export default function AttachCast() {
                             <label className={`${styles.label} ${styles.wrapp}`} htmlFor="cast">
                                 Cast <span className={styles.required}>*</span>
                             </label>
-                            <select name="cast" id="cast" className={styles.input}>
-                                <option value="1" selected>Option 1</option>
-                                <option value="2">Option 2</option>
-                                <option value="3">Option 3</option>
+                            <select name="cast" onChange={(event) => changeHandler(event)} id="cast" className={styles.input}>
+                                <option value="">----Select------</option>
+                                {cast.map((x) => <option key={x.id} value={x.id}>{`${x.firstName} ${x.lastName}`}</option>)}
                             </select>
                         </div>
 

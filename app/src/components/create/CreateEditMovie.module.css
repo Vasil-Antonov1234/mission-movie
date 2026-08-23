@@ -212,6 +212,11 @@
   letter-spacing: 0.05em;
 }
 
+.posterPreviewCastWrapper {
+  max-width: 180px;
+  min-width: 180px;
+}
+
 /* ─── RATING SLIDER ─── */
 .ratingRow {
   display: flex;
