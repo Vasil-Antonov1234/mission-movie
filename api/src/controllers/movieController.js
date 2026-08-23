@@ -85,7 +85,7 @@ movieController.get("/similar", async (req, res) => {
 });
 
 movieController.get("/latest", async (req, res) => {
-    
+
     try {
         const latestMovies = await movieService.getLatest();
 
@@ -113,8 +113,21 @@ movieController.post("/create", isAuthMiddleware, async (req, res) => {
 movieController.get("/:movieId", async (req, res) => {
     const movieId = Number(req.params.movieId);
 
+    let filter = {
+    };
+
+    if (req.query.select) {
+        if (Array.isArray(req.query.select)) {            
+            req.query.select.forEach((x) => filter[x.replaceAll('"', '').split("=")[0]] = x.replaceAll('"', '').split("=")[1]);
+        } else {
+            filter = querustring.parse(req.query.select.replaceAll('"', ''));
+        };
+    };
+
+    Object.keys(filter).forEach((x) => filter[x] = true);
+    
     try {
-        const movie = await movieService.getById(movieId);
+        const movie = await movieService.getById(movieId, filter);
 
         res.status(200).json(movie);
     } catch (error) {

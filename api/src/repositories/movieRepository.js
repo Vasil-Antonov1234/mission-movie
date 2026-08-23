@@ -18,13 +18,23 @@ export default {
         });
     },
 
-    async getById(movieId) {
+    async getById(movieId, filter) {
+
+        if (Object.keys(filter).length > 0) {
+            return await prisma.movie.findUnique({
+                where: {
+                    id: movieId
+                },
+                select: filter
+            });
+        };
+
         return await prisma.movie.findUnique({
             where: {
                 id: movieId
             },
             include: {
-                author: true
+                author: true,
             }
         });
     },

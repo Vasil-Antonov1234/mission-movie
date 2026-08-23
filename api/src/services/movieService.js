@@ -22,8 +22,8 @@ export default {
         return await movieRepository.getAll(filter);
     },
 
-    async getById(movieId) {
-        const movie = await movieRepository.getById(movieId);
+    async getById(movieId, filter) {
+        const movie = await movieRepository.getById(movieId, filter);
 
         if (!movie) {
             throw new Error("This movie does not exists in the database");
