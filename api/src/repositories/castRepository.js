@@ -5,5 +5,9 @@ export default {
         return await prisma.cast.create({
             data: castData
         });
+    },
+
+    async getAll() {
+        return await prisma.cast.findMany();
     }
 }

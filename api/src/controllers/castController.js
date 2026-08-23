@@ -20,4 +20,14 @@ castController.post("/create", isAuthMiddleware, async (req, res) => {
     
 });
 
+castController.get("/", async (req, res) => {
+    try {
+        const cast = await castService.getAll();
+
+        res.status(200).json(cast);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+})
+
 export default castController;
