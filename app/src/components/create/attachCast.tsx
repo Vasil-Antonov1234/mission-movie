@@ -2,8 +2,9 @@ import { useParams } from "react-router";
 import useFetch from "../../hooks/useFetch";
 import styles from "./CreateEditMovie.module.css";
 import { useEffect, useState, type ChangeEvent } from "react";
-import type { Artist } from "../../types/types";
+import type { Artist, ValidateValue } from "../../types/types";
 import { errorMessageHandler } from "../../utils/errorUtil";
+import { validate } from "../../utils/validate";
 // import useForm from "../../hooks/useForm";
 
 export default function AttachCast() {
@@ -12,9 +13,12 @@ export default function AttachCast() {
     const [cast, setCast] = useState<Artist[]>([]);
 
     const initialValues = {
-        cast: ""
+        cast: "",
+        nameInMovie: ""
     };
-    const [data, setData] = useState(initialValues)
+    const [data, setData] = useState(initialValues);
+    const [errors, setErrors] = useState<ValidateValue>({});
+    const [touched, setTouched] = useState<ValidateValue>({});
 
     useEffect(() => {
         const controller = new AbortController();
@@ -43,11 +47,44 @@ export default function AttachCast() {
 
 
 
-    function changeHandler(event: ChangeEvent<HTMLSelectElement, HTMLSelectElement>) {        
+    function changeHandler(event: ChangeEvent<HTMLSelectElement, HTMLSelectElement> | ChangeEvent<HTMLInputElement>) {
         setData((state) => ({
             ...state,
-            [event.target.name] : event.target.value
-        }))
+            [event.target.name]: event.target.value
+        }));
+    };
+
+    function validateHandler(event: React.BaseSyntheticEvent) {
+        setTouched((state) => ({
+            ...state,
+            [event.target.name]: true
+        }));
+
+        const fieldErrors = validate(data);
+
+        setErrors(fieldErrors);
+    };
+
+    function handleReset() {
+        setTouched({});
+        setErrors({});
+
+        setData(initialValues);
+    };
+
+    function actionHandler() { 
+        console.log(data)       
+        const fieldErrors = validate(data);
+        setErrors(fieldErrors);
+        setTouched(fieldErrors);
+
+        if (Object.keys(fieldErrors).length > 0) {
+            return;
+        }
+
+        setTouched({});
+        setErrors({});
+        console.log(data);
     }
 
     // const { formInputRegister, data } = useForm(initialValues)
@@ -58,7 +95,7 @@ export default function AttachCast() {
     };
 
     const showImagePreview = data.cast ? true : false;
-    
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
@@ -70,12 +107,12 @@ export default function AttachCast() {
                     Fill in the details below to attach an actor to the cast.
                 </p>
 
-                <form noValidate>
+                <form action={actionHandler} noValidate>
 
                     {/* ─── Card Attach ─── */}
                     <div className={styles.card}>
 
-                        {/* Image URL */}
+                        {/* Movie information */}
                         <div className={styles.movieField}>
                             <div className={styles.posterMovieWrapper}>
                                 <img
@@ -86,14 +123,13 @@ export default function AttachCast() {
                             </div>
 
 
-                            {/* Live image preview */}
+                            {/* Artist live image preview */}
                             <div className={`${styles.posterPreviewWrapper} ${styles.posterPreviewCastWrapper}`}>
                                 {showImagePreview ? (
                                     <img
                                         src={cast.find((x) => x.id === Number(data.cast))?.imageUrl}
                                         alt="Image preview"
                                         className={styles.posterPreviewImg}
-                                    // onBlur={validateHandler}
                                     />
                                 ) : (
                                     <div className={`${styles.posterPreviewEmpty} ${styles.posterPreviewCastWrapper}`}>
@@ -102,13 +138,43 @@ export default function AttachCast() {
                                     </div>
                                 )}
                             </div>
+
+                            {/* Artist selection */}
                             <label className={`${styles.label} ${styles.wrapp}`} htmlFor="cast">
-                                Cast <span className={styles.required}>*</span>
+                                {data.cast === "" ? "Cast" : 
+                                `${cast.find((x) => x.id === Number(data.cast))?.firstName} 
+                                ${cast.find((x) => x.id === Number(data.cast))?.lastName}`
+                                } 
+                                {data.cast === "" ? <span className={styles.required}>*</span> : ""} 
                             </label>
-                            <select name="cast" onChange={(event) => changeHandler(event)} id="cast" className={styles.input}>
-                                <option value="">----Select------</option>
+                            <select
+                                name="cast"
+                                onChange={(event) => changeHandler(event)}
+                                id="cast"
+                                onBlur={validateHandler}
+                                className={`${styles.input}${errors.cast && touched.cast ? ` ${styles["input--error"]}` : ""}`}>
+                                <option value="">{data.cast === "" ? "----Select an artist----" : "----Change selection----"}</option>
                                 {cast.map((x) => <option key={x.id} value={x.id}>{`${x.firstName} ${x.lastName}`}</option>)}
                             </select>
+                            {touched.cast && <span className={styles.errorMsg}>{errors.cast}</span>}
+
+                            {/* Name in movie */}
+                            <div className={styles.field}>
+                                <label className={styles.label} htmlFor="nameInMovie">
+                                    Name in movie <span className={styles.required}>*</span>
+                                </label>
+                                <input
+                                    id="nameInMovie"
+                                    name="nameInMovie"
+                                    value={data.nameInMovie}
+                                    onChange={changeHandler}
+                                    type="text"
+                                    className={`${styles.input}${errors.nameInMovie && touched.nameInMovie ? ` ${styles["input--error"]}` : ""}`}
+                                    placeholder="e.g. Aragorn"
+                                    onBlur={validateHandler}
+                                />
+                                {touched.nameInMovie && <span className={styles.errorMsg}>{errors.nameInMovie}</span>}
+                            </div>
                         </div>
 
                     </div>
@@ -118,7 +184,7 @@ export default function AttachCast() {
                         <button
                             type="button"
                             className={styles.btnSecondary}
-                        // onClick={handleReset}
+                            onClick={handleReset}
                         >
                             Cancel
                         </button>

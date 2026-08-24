@@ -297,5 +297,21 @@ export function validate(value: ValidateValue) {
         errors["imageUrl"] = "Invalid URL address";
     };
 
+    if (value.nameInMovie?.trim() === "") {
+        errors["nameInMovie"] = "Name in movie is required";
+    };
+
+    if (value.nameInMovie && value.nameInMovie.trim().length < 2) {
+        errors["nameInMovie"] = "Name in movie must be at least 2 characters long";
+    };
+
+    if (value.nameInMovie && !value.nameInMovie.match(/^[A-Z]{1}[a-z]+/)) {
+        errors["nameInMovie"] = "Name in movie must start with a capital letter";
+    };
+
+    if (value.cast === "") {
+        errors["cast"] = "Please select an actor to attach";
+    };
+
     return errors;
 }

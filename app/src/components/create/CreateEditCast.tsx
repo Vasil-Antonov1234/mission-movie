@@ -35,7 +35,6 @@ export default function CreateEditCast() {
 
     async function actionHandler() {
         const fieldErrors = validate(data);
-        setErrors(fieldErrors);
         setTouched(fieldErrors);
 
         if (Object.keys(fieldErrors).length > 0) {

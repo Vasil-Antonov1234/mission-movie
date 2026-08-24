@@ -156,7 +156,9 @@ export type ValidateValue = {
     boxOffice?: string,
     bornDate?: string,
     placeOfBorn?: string,
-    imageUrl?: string
+    imageUrl?: string,
+    cast?: string, 
+    nameInMovie?: string
 };
 
 export type UserCtx = {
