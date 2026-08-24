@@ -1,16 +1,19 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import useFetch from "../../hooks/useFetch";
 import styles from "./CreateEditMovie.module.css";
-import { useEffect, useState, type ChangeEvent } from "react";
+import { useContext, useEffect, useState, type ChangeEvent } from "react";
 import type { Artist, ValidateValue } from "../../types/types";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import { validate } from "../../utils/validate";
+import UserContext from "../../contexts/UserContext";
 // import useForm from "../../hooks/useForm";
 
 export default function AttachCast() {
     const movieId = useParams().movieId
-    const { data: movie } = useFetch(`/movies/${movieId}?select=title%3D%22true%22&select=poster%3D%22true%22`, []);
+    const { data: movie, request } = useFetch(`/movies/${movieId}?select=title%3D%22true%22&select=poster%3D%22true%22`, []);
     const [cast, setCast] = useState<Artist[]>([]);
+    const { user, onLogout } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const initialValues = {
         cast: "",
@@ -45,7 +48,7 @@ export default function AttachCast() {
         }
     }, [])
 
-
+    const selectedActor = cast.find((x) => x.id === Number(data.cast));
 
     function changeHandler(event: ChangeEvent<HTMLSelectElement, HTMLSelectElement> | ChangeEvent<HTMLInputElement>) {
         setData((state) => ({
@@ -72,19 +75,33 @@ export default function AttachCast() {
         setData(initialValues);
     };
 
-    function actionHandler() { 
-        console.log(data)       
+    async function actionHandler() {
         const fieldErrors = validate(data);
         setErrors(fieldErrors);
         setTouched(fieldErrors);
 
         if (Object.keys(fieldErrors).length > 0) {
             return;
-        }
+        };
 
         setTouched({});
         setErrors({});
-        console.log(data);
+
+        try {
+            const body = ({
+                ...data,
+                movieId
+            });
+
+            await request("/casts/attach", "POST", { accessToken: user.accessToken }, body);
+            navigate(`/movies/${movieId}/details`);
+        } catch (error) {
+            const errorMessage = errorMessageHandler(error);
+
+            if (errorMessage === "Invalid token") {
+                onLogout("/login");
+            };
+        };
     }
 
     // const { formInputRegister, data } = useForm(initialValues)
@@ -141,11 +158,10 @@ export default function AttachCast() {
 
                             {/* Artist selection */}
                             <label className={`${styles.label} ${styles.wrapp}`} htmlFor="cast">
-                                {data.cast === "" ? "Cast" : 
-                                `${cast.find((x) => x.id === Number(data.cast))?.firstName} 
-                                ${cast.find((x) => x.id === Number(data.cast))?.lastName}`
-                                } 
-                                {data.cast === "" ? <span className={styles.required}>*</span> : ""} 
+                                {data.cast === "" ? "Cast" :
+                                    `${selectedActor?.firstName} ${selectedActor?.lastName}`
+                                }
+                                {data.cast === "" ? <span className={styles.required}>*</span> : ""}
                             </label>
                             <select
                                 name="cast"

@@ -11,7 +11,7 @@ export default function useFetch(url?: string, initialState?: Movie[] | [] | Mov
         if (!url) {
             return;
         };
-        
+
         const controller = new AbortController();
 
 
@@ -27,7 +27,7 @@ export default function useFetch(url?: string, initialState?: Movie[] | [] | Mov
 
                 setData(result);
             } catch (error) {
-               errorMessageHandler(error);
+                errorMessageHandler(error);
             };
         })()
 
@@ -54,23 +54,16 @@ export default function useFetch(url?: string, initialState?: Movie[] | [] | Mov
             }
         }
 
-        try {
-            const response = await fetch(`${BASE_URL}${url}`, options);
-    
-    
-            if (!response.ok) {
-                const result = await response.json();
-                throw result;
-            }
-    
+        const response = await fetch(`${BASE_URL}${url}`, options);
+
+        if (!response.ok) {
             const result = await response.json();
-    
-            // setData(result);
-    
-            return result;
-        } catch (error) {
-           return errorMessageHandler(error);
-        };
+            throw result;
+        }
+
+        const result = await response.json();
+
+        return result;
 
     };
 
