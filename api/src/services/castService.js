@@ -6,8 +6,8 @@ export default {
         return await castRepository.createOne(castData);
     },
 
-    async getAll() {
-        return await castRepository.getAll();
+    async getAll(movieId) {
+        return await castRepository.getAll(movieId);
     },
 
     async attach(castData) {

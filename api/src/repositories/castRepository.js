@@ -7,8 +7,17 @@ export default {
         });
     },
 
-    async getAll() {
-        return await prisma.cast.findMany();
+    async getAll(movieId) {
+        return await prisma.$queryRaw`
+        SELECT
+	        *
+        FROM casts as c
+        JOIN movies_casts as mc
+        ON c.id = mc."castId"
+        WHERE mc."movieId" != ${movieId}
+        `
+
+        // return await prisma.cast.findMany();
     },
 
     async attach(parsedCastData) {

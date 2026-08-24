@@ -4,7 +4,7 @@ import { getErrorMessage } from "../utils/errorUtil.js";
 import movieService from "../services/movieService.js";
 import { isAuthMiddleware } from "../middlewares/authMiddleware.js";
 import { patrialMovieSchema } from "../schemas/partialMovieSchema.js";
-import querustring from "node:querystring";
+import querystring from "node:querystring";
 
 const movieController = Router();
 
@@ -34,7 +34,7 @@ movieController.get("/", async (req, res) => {
         if (Array.isArray(req.query.where)) {
             req.query.where.forEach((x) => filter.query[x.replaceAll('"', '').split("=")[0]] = x.replaceAll('"', '').split("=")[1]);
         } else {
-            filter.query = querustring.parse(req.query.where.replaceAll('"', ''));
+            filter.query = querystring.parse(req.query.where.replaceAll('"', ''));
         }
     };
 
@@ -63,7 +63,7 @@ movieController.get("/similar", async (req, res) => {
         if (Array.isArray(req.query.where)) {
             req.query.where.forEach((x) => filter[x.replaceAll('"', '').split("=")[0]] = x.replaceAll('"', '').split("=")[1]);
         } else {
-            filter = querustring.parse(req.query.where.replaceAll('"', ''));
+            filter = querystring.parse(req.query.where.replaceAll('"', ''));
         }
     };
 
@@ -113,14 +113,13 @@ movieController.post("/create", isAuthMiddleware, async (req, res) => {
 movieController.get("/:movieId", async (req, res) => {
     const movieId = Number(req.params.movieId);
 
-    let filter = {
-    };
+    let filter = {};
 
     if (req.query.select) {
         if (Array.isArray(req.query.select)) {            
             req.query.select.forEach((x) => filter[x.replaceAll('"', '').split("=")[0]] = x.replaceAll('"', '').split("=")[1]);
         } else {
-            filter = querustring.parse(req.query.select.replaceAll('"', ''));
+            filter = querystring.parse(req.query.select.replaceAll('"', ''));
         };
     };
 

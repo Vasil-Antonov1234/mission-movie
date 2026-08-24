@@ -29,7 +29,7 @@ export default function AttachCast() {
 
         (async () => {
             try {
-                const response = await fetch("http://localhost:5000/casts", { signal: controller.signal });
+                const response = await fetch(`http://localhost:5000/casts?where=movieId%3D%22${movieId}%22`, { signal: controller.signal });
 
                 if (!response.ok) {
                     return {}
