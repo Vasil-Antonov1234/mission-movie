@@ -35,6 +35,11 @@ export default {
             },
             include: {
                 author: true,
+                casts: {
+                    include: {
+                        cast: true
+                    }
+                }
             }
         });
     },

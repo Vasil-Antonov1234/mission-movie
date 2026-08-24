@@ -54,7 +54,8 @@ export type Movie = {
     language?: string,
     country?: string,
     budget?: string,
-    boxOffice?: string
+    boxOffice?: string,
+    casts?: Artist[]
 };
 
 export type SelectionOptions = {
@@ -72,21 +73,26 @@ export type CommentType = {
 };
 
 export type Cast = {
-    person: {
-        id: number,
-        name: string,
-        role: string,
-        photo: string
-    }
+    castId: number,
+    movieId: number,
+    nameInMovie: string,
+    cast: Artist
 };
 
 export type Artist = {
-    id: number,
-    firstName: string,
-    lastName: string,
-    bornDate?: string
-    placeOfBorn?: string
-    imageUrl?: string
+    cast: {
+        id: number,
+        firstName: string,
+        lastName: string,
+        bornDate?: string
+        placeOfBorn?: string
+        imageUrl?: string,
+        createdAt?: string,
+        updatedAt?: string
+    },
+    castId: string,
+    movieId: string,
+    nameInMovie: string
 };
 
 export type ButtonProps = {
@@ -157,7 +163,7 @@ export type ValidateValue = {
     bornDate?: string,
     placeOfBorn?: string,
     imageUrl?: string,
-    cast?: string, 
+    cast?: string,
     nameInMovie?: string
 };
 

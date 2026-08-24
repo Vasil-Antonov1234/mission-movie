@@ -10,6 +10,7 @@ import { useParams, Link, useNavigate } from "react-router";
 import { Activity, useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 import { errorMessageHandler } from "../../utils/errorUtil";
+// import type { Artist } from "../../types/types";
 
 const MOVIE = {
     id: 1,
@@ -134,6 +135,7 @@ export default function MovieDetail() {
     if (!movie || Array.isArray(movie)) {
         return;
     };
+
     const isOwner = movie.author?.id === user.id;
 
     const similarMovies = Array.isArray(similarMoviesData) ? similarMoviesData : [];
@@ -260,8 +262,8 @@ export default function MovieDetail() {
                         <div className={styles["section-label"]}>People</div>
                         <h2 className={styles["synopsis-heading"]}>Cast</h2>
                         <div className={styles["cast-grid"]}>
-                            {oldMovie.cast.map((person) => (
-                                <CastCard key={person.id} person={person} />
+                            {movie.casts?.map((person) => (
+                                <CastCard key={person.castId} person={person} />
                             ))}
                         </div>
                     </section>
