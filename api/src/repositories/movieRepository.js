@@ -34,7 +34,13 @@ export default {
                 id: movieId
             },
             include: {
-                author: true,
+                author: {
+                    select: {
+                        email: true,
+                        firstName: true,
+                        lastName: true,
+                    }
+                },
                 casts: {
                     include: {
                         cast: true

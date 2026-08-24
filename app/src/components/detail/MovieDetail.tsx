@@ -10,7 +10,6 @@ import { useParams, Link, useNavigate } from "react-router";
 import { Activity, useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 import { errorMessageHandler } from "../../utils/errorUtil";
-// import type { Artist } from "../../types/types";
 
 const MOVIE = {
     id: 1,
