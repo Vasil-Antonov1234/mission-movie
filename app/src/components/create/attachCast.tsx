@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, Link } from "react-router";
 import useFetch from "../../hooks/useFetch";
 import styles from "./CreateEditMovie.module.css";
 import { useContext, useEffect, useState, type ChangeEvent } from "react";
@@ -14,8 +14,6 @@ export default function AttachCast() {
     const [cast, setCast] = useState<Actor[]>([]);
     const { user, onLogout } = useContext(UserContext);
     const navigate = useNavigate();
-
-    console.log(cast)
 
     const initialValues = {
         cast: "",
@@ -175,6 +173,12 @@ export default function AttachCast() {
                                 {cast.map((x) => <option key={x.id} value={x.id}>{`${x.firstName} ${x.lastName}`}</option>)}
                             </select>
                             {touched.cast && <span className={styles.errorMsg}>{errors.cast}</span>}
+
+                            {/* Switch to add cast */}
+                            <p className={styles["create-switch"]} >
+                                Cannot find who are you looking for?{" "}
+                                <Link to="/casts/create" className={styles["section-link"]}>Create it  →</Link>
+                            </p>
 
                             {/* Name in movie */}
                             <div className={styles.field}>

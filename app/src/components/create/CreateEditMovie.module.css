@@ -375,6 +375,21 @@
   margin: 10px 10px 10px 10px;
 }
 
+.section-link {
+  font-size: 13px;
+  color: #e8b84b;
+  margin-left: 7px;
+  text-decoration: none;
+}
+
+.create-switch {
+  text-align: center;
+  font-size: 13px;
+  color: #555;
+  margin: 12px 0 24px 0;
+}
+
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 680px) {
   .wrapper {
