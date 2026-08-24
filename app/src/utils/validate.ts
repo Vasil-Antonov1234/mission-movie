@@ -103,7 +103,7 @@ export function validate(value: ValidateValue) {
         errors["lastName"] = "Last name is required";
     };
 
-    if (value.lastName && !value.lastName.match(/^[A-Z]{1}[a-zA-Z]+$/)) {
+    if (value.lastName && !value.lastName.match(/^[A-Z]{1}[a-zA-Z']+$/)) {
         errors.lastName = "The last name must start with a capital letter and contain only letters";
     };
 

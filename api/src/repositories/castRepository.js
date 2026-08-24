@@ -12,9 +12,9 @@ export default {
         SELECT
 	        *
         FROM casts as c
-        JOIN movies_casts as mc
+        FULL JOIN movies_casts as mc
         ON c.id = mc."castId"
-        WHERE mc."movieId" != ${movieId}
+        WHERE mc."movieId" IS NULL OR mc."movieId" != ${movieId}
         `
     },
 
