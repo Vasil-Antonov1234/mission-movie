@@ -47,6 +47,7 @@ export type Movie = {
     createdAt?: string,
     updatedAt?: string,
     author?: Author,
+    authorId?: string,
     tagline?: string,
     writtenBy?: string,
     studio?: string,
@@ -79,17 +80,19 @@ export type Cast = {
     cast: Artist
 };
 
+export type Actor = {
+    id: number,
+    firstName: string,
+    lastName: string,
+    bornDate?: string
+    placeOfBorn?: string
+    imageUrl?: string,
+    createdAt?: string,
+    updatedAt?: string
+}
+
 export type Artist = {
-    cast: {
-        id: number,
-        firstName: string,
-        lastName: string,
-        bornDate?: string
-        placeOfBorn?: string
-        imageUrl?: string,
-        createdAt?: string,
-        updatedAt?: string
-    },
+    cast: Actor,
     castId: string,
     movieId: string,
     nameInMovie: string

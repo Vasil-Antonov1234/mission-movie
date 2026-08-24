@@ -135,7 +135,7 @@ export default function MovieDetail() {
         return;
     };
 
-    const isOwner = movie.author?.id === user.id;
+    const isOwner = movie.authorId === user.id;
 
     const similarMovies = Array.isArray(similarMoviesData) ? similarMoviesData : [];
 
