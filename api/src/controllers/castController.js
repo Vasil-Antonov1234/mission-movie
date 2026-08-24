@@ -28,6 +28,19 @@ castController.get("/", async (req, res) => {
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
+});
+
+castController.post("/attach", isAuthMiddleware, async (req, res) => {
+    const castData = req.body;
+
+    try {
+        const result = await castService.attach(castData);
+    
+        res.status(201).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+
 })
 
 export default castController;

@@ -9,5 +9,15 @@ export default {
 
     async getAll() {
         return await prisma.cast.findMany();
+    },
+
+    async attach(parsedCastData) {
+        return await prisma.movieCast.create({
+            data: {
+                castId: parsedCastData.cast,
+                movieId: parsedCastData.movieId,
+                nameInMovie: parsedCastData.nameInMovie
+            }
+        });
     }
 }
