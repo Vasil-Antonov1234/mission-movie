@@ -16,8 +16,6 @@ export default {
         ON c.id = mc."castId"
         WHERE mc."movieId" != ${movieId}
         `
-
-        // return await prisma.cast.findMany();
     },
 
     async attach(parsedCastData) {

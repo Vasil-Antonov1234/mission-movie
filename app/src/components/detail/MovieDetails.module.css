@@ -498,6 +498,22 @@
     }
 }
 
+.no-cats {
+    color: #e8e2d9a1;
+    text-align: center;
+    font-size: clamp(8px, 5vw, 29px);
+    margin: 0 auto;
+    font-weight: 100;
+    margin-bottom: 100px;
+}
+
+.section-link {
+  font-size: 13px;
+  color: #e8b84b;
+  margin-left: 7px;
+  text-decoration: none;
+}
+
 @media(max-width: 240px) {
     
     .detail-body {

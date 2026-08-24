@@ -266,6 +266,13 @@ export default function MovieDetail() {
                             ))}
                         </div>
                     </section>
+                    <Activity mode={movie.casts && movie.casts.length > 0 ? "hidden" : "visible"}>
+                        <h2 className={styles["no-cats"]}>Nothing here yet.
+                            <p>
+                                <Link to={`/movies/${movieId}/attach`} className={styles["section-link"]}>Click to attach the first.</Link>
+                            </p>
+                        </h2>
+                    </Activity>
 
                     <hr className={styles["section-divider"]} />
 
