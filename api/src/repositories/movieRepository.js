@@ -20,7 +20,7 @@ export default {
 
     async getById(movieId, filter) {
 
-        if (Object.keys(filter).length > 0) {
+        if (filter && Object.keys(filter).length > 0) {
             return await prisma.movie.findUnique({
                 where: {
                     id: movieId

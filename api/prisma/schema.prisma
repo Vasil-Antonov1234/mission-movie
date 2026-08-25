@@ -84,7 +84,7 @@ model MovieCast {
 	castId			Int
 	nameInMovie		String
 
-	movie	Movie	@relation(fields: [movieId], references: [id])
+	movie	Movie	@relation(fields: [movieId], references: [id], onDelete: Cascade)
 	cast	Cast	@relation(fields: [castId], references: [id])
 
 	@@id([movieId, castId])
