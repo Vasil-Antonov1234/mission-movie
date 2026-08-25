@@ -89,7 +89,7 @@ model MovieCast {
 	nameInMovie		String
 
 	movie	Movie	@relation(fields: [movieId], references: [id], onDelete: Cascade)
-	cast	Cast	@relation(fields: [castId], references: [id])
+	cast	Cast	@relation(fields: [castId], references: [id], onDelete: Cascade)
 
 	@@id([movieId, castId])
 	@@map("movies_casts")
