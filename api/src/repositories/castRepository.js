@@ -10,7 +10,7 @@ export default {
     async getAll(movieId) {
         return await prisma.$queryRaw`
         SELECT
-	        *
+	        id, "firstName", "lastName", "imageUrl"
         FROM casts as c
         FULL JOIN movies_casts as mc
         ON c.id = mc."castId"
