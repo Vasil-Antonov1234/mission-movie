@@ -21,5 +21,9 @@ export default {
         const parsedCastData = await attachCastSchema.parseAsync(castData);
 
         return await castRepository.attach(parsedCastData);
+    },
+
+    async getById(castId) {
+        return await castRepository.getById(castId);
     }
 }

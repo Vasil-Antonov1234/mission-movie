@@ -42,5 +42,13 @@ export default {
                 nameInMovie: parsedCastData.nameInMovie
             }
         });
+    },
+
+    async getById(castId) {
+        return await prisma.cast.findUnique({
+            where: {
+                id: castId
+            }
+        });
     }
 }

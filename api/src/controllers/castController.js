@@ -21,6 +21,18 @@ castController.post("/create", isAuthMiddleware, async (req, res) => {
 
 });
 
+castController.get("/:castId", async (req, res) => {
+    const castId = Number(req.params.castId);
+
+    try {
+        const actor = await castService.getById(castId);
+
+        res.status(201).json(actor);
+    } catch (error) {
+        res.status(404).json(getErrorMessage(error));
+    };
+})
+
 castController.get("/", async (req, res) => {
     let filter = {};
 

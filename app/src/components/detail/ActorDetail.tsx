@@ -20,12 +20,7 @@ interface Award {
   won: boolean;
 }
 
-interface Costar {
-  id: number;
-  name: string;
-  photo: string;
-  filmsCount: number;
-}
+
 
 interface SocialLink {
   label: string;
@@ -46,7 +41,6 @@ interface Actor {
   bio: string[];
   filmography: Film[];
   awards: Award[];
-  costars: Costar[];
   social: SocialLink[];
 }
 
@@ -130,26 +124,6 @@ const ACTOR: Actor = {
       won: false,
     },
   ],
-  costars: [
-    {
-      id: 1,
-      name: "Emily Blunt",
-      photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80",
-      filmsCount: 1,
-    },
-    {
-      id: 2,
-      name: "Matt Damon",
-      photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80",
-      filmsCount: 1,
-    },
-    {
-      id: 3,
-      name: "Robert Downey Jr.",
-      photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
-      filmsCount: 1,
-    },
-  ],
   social: [
     { label: "IMDb Profile", icon: "🎬", url: "https://imdb.com" },
     { label: "Wikipedia", icon: "📖", url: "https://wikipedia.org" }
@@ -159,6 +133,8 @@ const ACTOR: Actor = {
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
 
 export default function ActorDetail() {
+  
+
   const actor = ACTOR;
 
   return (
