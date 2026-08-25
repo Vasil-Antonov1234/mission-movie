@@ -12,6 +12,7 @@ import IsAuthenticated from "./components/route-guards/isAuthenticated"
 import IsGuest from "./components/route-guards/isGuest"
 import CreateEditCast from "./components/create/CreateEditCast"
 import AttachCast from "./components/create/attachCast"
+import ActorDetail from "./components/detail/ActorDetail"
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/movies/catalog" element={<AllMovies />} />
                 <Route path="/reviews/catalog" element={<AllReviews />} />
                 <Route path="/movies/:movieId/details" element={<MovieDetail />} />
+                <Route path="/casts/:castId/details" element={<ActorDetail />} />
 
                 <Route element={<IsAuthenticated />}>
                     <Route path="/login" element={<Login />} />

@@ -3,11 +3,13 @@
     border: 1px solid #1e1e1e;
     border-radius: 10px;
     overflow: hidden;
+    cursor: pointer;
     width: fit-content;
-    transition: border-color 0.2s;
+    transition: transform 0.25s, border-color 0.25s;
 }
 
 .cast-card:hover {
+    transform: translateY(-4px);
     border-color: #333;
 }
 
@@ -34,6 +36,10 @@
     font-size: 11px;
     color: #555;
     font-style: italic;
+}
+
+.link {
+    all: unset;
 }
 
 @media(max-width: 827px) {
