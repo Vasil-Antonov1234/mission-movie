@@ -46,7 +46,7 @@ export default function AttachCast() {
         return () => {
             controller.abort();
         }
-    }, [])
+    }, [movieId])
 
     const selectedActor = cast.find((x) => x.id === Number(data.cast));
 

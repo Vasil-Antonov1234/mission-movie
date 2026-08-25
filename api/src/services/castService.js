@@ -10,6 +10,10 @@ export default {
         return await castRepository.getAll(movieId);
     },
 
+    async getSelected(excludedCastIds) {
+        return await castRepository.getSelected(excludedCastIds);
+    },
+
     async attach(castData) {
         castData.cast = Number(castData.cast);
         castData.movieId = Number(castData.movieId);

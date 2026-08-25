@@ -37,7 +37,11 @@ castController.get("/", async (req, res) => {
     try {
         const cast = await castService.getAll(movieId);
 
-        res.status(200).json(cast);
+        const excludedCastIds = cast.map((x) => x.id);
+
+        const filteredCast = await castService.getSelected(excludedCastIds);
+
+        res.status(200).json(filteredCast);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };

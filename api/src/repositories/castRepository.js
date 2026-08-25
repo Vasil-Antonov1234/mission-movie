@@ -10,12 +10,28 @@ export default {
     async getAll(movieId) {
         return await prisma.$queryRaw`
         SELECT
-	        id, "firstName", "lastName", "imageUrl"
+	       c.id
         FROM casts as c
         FULL JOIN movies_casts as mc
         ON c.id = mc."castId"
-        WHERE mc."movieId" IS NULL OR mc."movieId" != ${movieId}
+        WHERE mc."movieId" = ${movieId}
         `
+    },
+
+    async getSelected(excludedCastIds) {
+        return await prisma.cast.findMany({
+            select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                imageUrl: true
+            },
+            where: {
+                id: {
+                    notIn: excludedCastIds
+                }
+            }
+        })
     },
 
     async attach(parsedCastData) {
