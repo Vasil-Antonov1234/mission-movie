@@ -34,7 +34,6 @@ export default {
 
     async removeById(movieId, userId) {
         const movie = await movieRepository.getById(movieId);
-        console.log(movie)
 
         if (!movie) {
             throw new Error("Movie not found");
