@@ -1,13 +1,16 @@
 import { useEffect, useState, type ChangeEvent } from "react";
+// import type { Movie } from "../types/types";
 
-export default function useForm<T extends Record<string, string>>(initialValues: T, movieId?: string) {
+const baseUrl = "http://localhost:5000";
+
+export default function useForm<T>(initialValues: T, movieId?: string, castId?: string) {
     const [data, setData] = useState(initialValues);
-    const [currentMovie, setCurrentMovie] = useState(null);
+    const [currentData, setCurrentData] = useState(null);
 
     useEffect(() => {
 
-        if (!movieId) {
-            setCurrentMovie(null);
+        if (!movieId && !castId) {
+            setCurrentData(null);
             setData(initialValues);
             return;
         };
@@ -15,19 +18,29 @@ export default function useForm<T extends Record<string, string>>(initialValues:
         const controller = new AbortController();
         
         (async () => {
+           
+            if (movieId) {
+                const response = await fetch(`${baseUrl}/movies/${movieId}`, { signal: controller.signal });
+                
+                const result = await response.json();
+                setData(result);
+                setCurrentData(result);
+            };
 
-            const response = await fetch(`http://localhost:5000/movies/${movieId}`, { signal: controller.signal });
-            const result = await response.json();
+            if (castId) {
+                const response = await fetch(`${baseUrl}/casts/${castId}`);
 
-            setData(result);
-            setCurrentMovie(result);
+                const result = await response.json();
+                setData(result);
+                setCurrentData(result);
+            };
         })()
 
         return () => {
             controller.abort();
         };
 
-    }, [initialValues, movieId]);
+    }, [initialValues, movieId, castId]);
 
     function changeHandler(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement, HTMLSelectElement>) {
         setData((state) => ({
@@ -43,5 +56,5 @@ export default function useForm<T extends Record<string, string>>(initialValues:
             onChange: changeHandler
         }
     }
-    return { changeHandler, formInputRegister, data, setData, currentMovie }
+    return { changeHandler, formInputRegister, data, setData, currentData }
 }

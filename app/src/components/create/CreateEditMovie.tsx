@@ -41,7 +41,7 @@ function isValidUrl(url: string): boolean {
 
 export default function CreateEditMovie() {
 	const movieId = useParams().movieId;
-	const { formInputRegister, data, setData, currentMovie } = useForm(initialValues, movieId);
+	const { formInputRegister, data, setData, currentData } = useForm(initialValues, movieId);
 	const { user, onLogout } = useContext(UserContext);
 	const { request } = useFetch();
 	const [errors, setErrors] = useState<ValidateValue>({});
@@ -76,7 +76,7 @@ export default function CreateEditMovie() {
 				result = await request(`/movies/${movieId}`, "PATCH", { accessToken: user.accessToken }, data);
 			} else {
 				// Create movie
-				result =await request("/movies/create", "POST", { accessToken: user.accessToken }, data);
+				result = await request("/movies/create", "POST", { accessToken: user.accessToken }, data);
 			};
 
 			if (result === "Invalid token" || result === "Unauthorized") {
@@ -103,8 +103,8 @@ export default function CreateEditMovie() {
 		setTouched({});
 		setErrors({});
 
-		if (currentMovie) {
-			setData(currentMovie);
+		if (currentData) {
+			setData(currentData);
 		} else {
 			setData(initialValues);
 		};

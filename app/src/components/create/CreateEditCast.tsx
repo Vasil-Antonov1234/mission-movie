@@ -5,7 +5,7 @@ import type { ValidateValue } from "../../types/types";
 import { validate } from "../../utils/validate";
 import useFetch from "../../hooks/useFetch";
 import UserContext from "../../contexts/UserContext";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { errorMessageHandler } from "../../utils/errorUtil";
 
 const initialValues = {
@@ -20,6 +20,12 @@ const initialValues = {
     awards: ""
 };
 
+// const initialStateActor: Actor = {
+//         id: 0,
+//         firstName: "",
+//         lastName: ""
+//     }
+
 function isValidUrl(url: string): boolean {
     try {
         new URL(url);
@@ -30,12 +36,32 @@ function isValidUrl(url: string): boolean {
 };
 
 export default function CreateEditCast() {
-    const { data, setData, formInputRegister } = useForm(initialValues);
+    const castId = useParams().castId;
+    const { data, setData, formInputRegister, currentData: actor } = useForm(initialValues, undefined, castId);
     const [errors, setErrors] = useState<ValidateValue>({});
     const [touched, setTouched] = useState<ValidateValue>({});
     const { request } = useFetch();
     const { user, onLogout } = useContext(UserContext);
     const navigate = useNavigate();
+
+    
+    // const { data: actor } = useFetch(`/casts/${castId}`, initialStateActor);
+
+    // if (actor) {
+    //     const initialValuesEdit = {
+    //         firstName: actor.firstName,
+    //         lastName: actor.lastName,
+    //         bornDate: actor.bornDate ? actor.bornDate : "",
+    //         placeOfBorn: actor.placeOfBorn ? actor.placeOfBorn : "",
+    //         imageUrl: actor.imageUrl ? actor.imageUrl : "",
+    //         imdbProfile: actor.imdbProfile ? actor.imdbProfile : "",
+    //         wikipedia: actor.wikipedia ? actor.wikipedia : "",
+    //         biography: actor.biography ? actor.biography : "",
+    //         awards: actor.awards? actor.awards : ""
+    //     };
+
+    //     setData(initialValuesEdit)
+    // }
 
     async function actionHandler() {
         const fieldErrors = validate(data);
@@ -76,7 +102,11 @@ export default function CreateEditCast() {
         setErrors({});
         setTouched({});
 
-        setData(initialValues);
+        if (actor) {
+			setData(actor);
+		} else {
+			setData(initialValues);
+		};
     }
 
     const showImagePreview = data.imageUrl.trim() !== "" && isValidUrl(data.imageUrl);
@@ -87,9 +117,9 @@ export default function CreateEditCast() {
 
                 {/* ─── Page header ─── */}
                 <div className={styles.pageEyebrow}>Cast Management</div>
-                <h1 className={styles.pageTitle}>Add a new actor</h1>
+                <h1 className={styles.pageTitle}>{actor ? `Edit` : "Add a new actor"}</h1>
                 <p className={styles.pageSubtitle}>
-                    Fill in the details below to add an actor to the collection.
+                    {castId ? "Change the details below to edit the actor in the collection." : "Fill in the details below to add an actor to the collection."}
                 </p>
 
                 <form action={actionHandler} noValidate>
