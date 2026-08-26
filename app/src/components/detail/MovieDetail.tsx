@@ -10,6 +10,7 @@ import { useParams, Link, useNavigate } from "react-router";
 import { Activity, useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 import { errorMessageHandler } from "../../utils/errorUtil";
+import type { Movie } from "../../types/types";
 
 const MOVIE = {
     id: 1,
@@ -125,23 +126,33 @@ export default function MovieDetail() {
 
     const movieId = useParams().movieId;
 
-    const { data: movie } = useFetch(`/movies/${movieId}`, []);
+    const initialState: Movie = {
+        id: 0,
+        genre: "",
+        poster: "",
+        rating: 0,
+        title: ""
+    }
+
+    const { data: movie } = useFetch(`/movies/${movieId}`, initialState);
 
     const genreArray = !movie || Array.isArray(movie) ? " " : movie?.genre.split(", ");
 
-    const { data: similarMoviesData, request } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`);
+    const movies: Movie[] = []
 
-    if (!movie || Array.isArray(movie)) {
+    const { data: similarMoviesData, request } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`, movies);
+
+    if (!movie) {
         return;
     };
 
     const isOwner = movie.authorId === user.id;
 
-    const similarMovies = Array.isArray(similarMoviesData) ? similarMoviesData : [];
+    const similarMovies = similarMoviesData ? similarMoviesData : [];
 
     async function deleteHandler() {
 
-        if (!movie || Array.isArray(movie)) {
+        if (!movie) {
             return;
         };
 
