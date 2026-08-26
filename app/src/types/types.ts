@@ -88,7 +88,11 @@ export type Actor = {
     placeOfBorn?: string
     imageUrl?: string,
     createdAt?: string,
-    updatedAt?: string
+    updatedAt?: string,
+    awards?: string,
+    biography?: string,
+    imdbProfile?: string,
+    wikipedia?: string
 }
 
 export type Artist = {
@@ -167,7 +171,11 @@ export type ValidateValue = {
     placeOfBorn?: string,
     imageUrl?: string,
     cast?: string,
-    nameInMovie?: string
+    nameInMovie?: string,
+    imdbProfile?: string,
+    wikipedia?: string,
+    biography?: string,
+    awards?: string
 };
 
 export type UserCtx = {
@@ -195,4 +203,4 @@ export type User = {
 
 export type Config = {
     accessToken?: string
-}
+};

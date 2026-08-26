@@ -4,7 +4,7 @@ import { errorMessageHandler } from "../utils/errorUtil";
 
 const BASE_URL = "http://localhost:5000";
 
-export default function useFetch(url?: string, initialState?: Movie[] | [] | Movie) {
+export default function useFetch(url?: string, initialState?: Movie[] | [] | Movie) {    
     const [data, setData] = useState(initialState);
 
     useEffect(() => {
