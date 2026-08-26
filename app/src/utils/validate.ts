@@ -335,10 +335,6 @@ export function validate(value: ValidateValue) {
     };
 
     // Awards
-    if (value.awards && value.awards.length > 0 && !value.awards?.match(/^(?:[A-Z][\w'/.()]+;)(?:\r?\n[A-Z][\w'/.()]+;)*$/g)) {
-        errors["awards"] = "The awards must start with a capital letter and follow the pattern";
-    };
-
     if (value.awards && value.awards.length < 10) {
         errors["awards"] = "The awards must be at least 10 characters long if any";
     };

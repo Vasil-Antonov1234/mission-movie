@@ -19,6 +19,5 @@ export const createCastSchema = z.object({
         .regex(/^[A-Z]{1}[\w'/.()]+$/, { error: "The biography must start with a capital letter and not contain any special character" })
         .min(30, { error: "The biography must be at least 30 characters long if provided"}).optional(),
     awards: z.string()
-        .regex(/^(?:[A-Z][\w'/.()]+;)(?:\r?\n[A-Z][\w'/.()]+;)*$/g, { error: "The awards must start with a capital letter and follow the pattern" })
         .min(10, { error: "The awards must be at least 10 characters long if any"}).optional()
 });

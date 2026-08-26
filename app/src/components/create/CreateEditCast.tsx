@@ -306,9 +306,7 @@ export default function CreateEditCast() {
                                 id="awards"
                                 {...formInputRegister("awards")}
                                 className={`${styles.textarea}${errors.awards && touched.awards ? ` ${styles["input--error"]}` : ""}`}
-                                placeholder="Add each award separate by ';' Example: 
-                                Golden Globes - Best Actor 2024; 
-                                BAFTA — Best Actor 2010;..."
+                                placeholder="Example: Golden Globes - Best Actor 2024..."
                                 rows={5}
                                 onBlur={validateHandler}
                             />

@@ -115,14 +115,12 @@ export default function ActorDetail() {
               <div className={styles.sectionLabel}>Recognition</div>
               <h2 className={styles.sectionHeading}>Awards & Nominations</h2>
               <div className={styles.awardsList}>
-                {awards.map((x) => (
-                  x != "" ? <div key={awards.indexOf(x)} className={styles.awardItem}>
-                    <span className={styles.awardIcon}>🏆</span>
-                    <div className={styles.awardBody}>
-                      <div className={styles.awardTitle}>{x}</div>
-                    </div>
-                  </div> : ""
-                ))}
+                <div className={styles.awardItem}>
+                  <span className={styles.awardIcon}>🏆</span>
+                  <div className={styles.awardBody}>
+                    <div className={styles.awardTitle}>{data?.awards}</div>
+                  </div>
+                </div>
               </div>
             </section>
           </Activity>
