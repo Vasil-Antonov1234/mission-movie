@@ -25,6 +25,7 @@ function App() {
                 <Route path="/reviews/catalog" element={<AllReviews />} />
                 <Route path="/movies/:movieId/details" element={<MovieDetail />} />
                 <Route path="/casts/:castId/details" element={<ActorDetail />} />
+                <Route path="/casts/:castId/edit" element={<CreateEditCast />} />
 
                 <Route element={<IsAuthenticated />}>
                     <Route path="/login" element={<Login />} />
