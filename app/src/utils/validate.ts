@@ -316,17 +316,17 @@ export function validate(value: ValidateValue) {
     };
 
     // IMDb Prifile
-    if (value.imdbProfile != "" && !value.imdbProfile?.match(/^https?:\/\//)) {
+    if (value.imdbProfile && value.imdbProfile.length > 0 && !value.imdbProfile?.match(/^https?:\/\//)) {
         errors["imdbProfile"] = "Imvalid URL format";
     };
 
     // Wikipedia
-    if (value.wikipedia != "" && !value.wikipedia?.match(/^https?:\/\//)) {
+    if (value.wikipedia && value.wikipedia.length > 0 && !value.wikipedia?.match(/^https?:\/\//)) {
         errors["wikipedia"] = "Imvalid URL format";
     };
 
     // Biography
-    if (value.biography != "" && !value.biography?.match(/^[A-Z]{1}[\w'/.()]+$/)) {
+    if (value.biography && value.biography.length > 0 && !value.biography?.match(/^[A-Z]{1}[\w'/.()]+$/)) {
         errors["biography"] = "The biography must start with a capital letter and not contain any special character";
     };
 
@@ -335,14 +335,13 @@ export function validate(value: ValidateValue) {
     };
 
     // Awards
-    if (value.awards != "" && !value.awards?.match(/^(?:[A-Z][\w'/.()]+;)(?:\r?\n[A-Z][\w'/.()]+;)*$/g)) {
+    if (value.awards && value.awards.length > 0 && !value.awards?.match(/^(?:[A-Z][\w'/.()]+;)(?:\r?\n[A-Z][\w'/.()]+;)*$/g)) {
         errors["awards"] = "The awards must start with a capital letter and follow the pattern";
     };
 
     if (value.awards && value.awards.length < 10) {
         errors["awards"] = "The awards must be at least 10 characters long if any";
     };
-
 
     return errors;
 }
