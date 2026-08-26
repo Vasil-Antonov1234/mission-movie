@@ -514,6 +514,13 @@
   text-decoration: none;
 }
 
+@media(max-width: 390px) {
+    .detail-hero {
+        margin-bottom: 70px;
+        overflow: visible;
+    }
+}
+
 @media(max-width: 240px) {
     
     .detail-body {
