@@ -73,7 +73,8 @@ model Cast {
 	imageUrl		String
 	biography		String?
 	awards			String?
-	social			String?
+	imdbProfile		String?
+	wikipedia		String?
 
 	authorId		Int
 	author			User		@relation(fields: [authorId], references: [id])
