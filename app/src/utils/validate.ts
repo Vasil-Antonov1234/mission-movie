@@ -297,6 +297,7 @@ export function validate(value: ValidateValue) {
         errors["imageUrl"] = "Invalid URL address";
     };
 
+    // Name in movie
     if (value.nameInMovie?.trim() === "") {
         errors["nameInMovie"] = "Name in movie is required";
     };
@@ -309,9 +310,39 @@ export function validate(value: ValidateValue) {
         errors["nameInMovie"] = "Name in movie must start with a capital letter";
     };
 
+    // Actor id
     if (value.cast === "") {
         errors["cast"] = "Please select an actor to attach";
     };
+
+    // IMDb Prifile
+    if (value.imdbProfile != "" && !value.imdbProfile?.match(/^https?:\/\//)) {
+        errors["imdbProfile"] = "Imvalid URL format";
+    };
+
+    // Wikipedia
+    if (value.wikipedia != "" && !value.wikipedia?.match(/^https?:\/\//)) {
+        errors["wikipedia"] = "Imvalid URL format";
+    };
+
+    // Biography
+    if (value.biography != "" && !value.biography?.match(/^[A-Z]{1}[\w'/.()]+$/)) {
+        errors["biography"] = "The biography must start with a capital letter and not contain any special character";
+    };
+
+    if (value.biography && value.biography.length < 30) {
+        errors["biography"] = "The biography must be at least 30 characters long if provided";
+    };
+
+    // Awards
+    if (value.awards != "" && !value.awards?.match(/^(?:[A-Z][\w'/.()]+;)(?:\r?\n[A-Z][\w'/.()]+;)*$/g)) {
+        errors["awards"] = "The awards must start with a capital letter and follow the pattern";
+    };
+
+    if (value.awards && value.awards.length < 10) {
+        errors["awards"] = "The awards must be at least 10 characters long if any";
+    };
+
 
     return errors;
 }

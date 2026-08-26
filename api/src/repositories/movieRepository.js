@@ -18,6 +18,17 @@ export default {
         });
     },
 
+    async getFilmography(castId) {
+        return await prisma.$queryRaw`
+        SELECT 
+	        m.id, m.title, m.director, m.year, m.rating, m.poster
+        FROM movies as m
+        JOIN movies_casts as mc
+        ON m.id = mc."movieId"
+        WHERE mc."castId" = ${castId}
+        `
+    },
+
     async getById(movieId, filter) {
 
         if (filter && Object.keys(filter).length > 0) {

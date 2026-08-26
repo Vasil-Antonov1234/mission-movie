@@ -13,7 +13,11 @@ const initialValues = {
     lastName: "",
     bornDate: "",
     placeOfBorn: "",
-    imageUrl: ""
+    imageUrl: "",
+    imdbProfile: "",
+    wikipedia: "",
+    biography: "",
+    awards: ""
 };
 
 function isValidUrl(url: string): boolean {
@@ -42,7 +46,7 @@ export default function CreateEditCast() {
         };
 
         try {
-                      
+
             await request("/casts/create", "POST", { accessToken: user.accessToken }, data);
 
             setErrors({});
@@ -203,6 +207,82 @@ export default function CreateEditCast() {
                                     )}
                                 </div>
                             </div>
+
+                            <div className={styles.field}>
+                                {/* IMDb Profile */}
+                                <label className={styles.label} htmlFor="imdbProfile">
+                                    IMDb Profile <span className={styles.required}></span>
+                                </label>
+                                <input
+                                    id="imdbProfile"
+                                    {...formInputRegister("imdbProfile")}
+                                    type="url"
+                                    className={`${styles.input}${errors.imdbProfile && touched.imdbProfile ? ` ${styles["input--error"]}` : ""}`}
+                                    placeholder="https://…"
+                                    onBlur={validateHandler}
+                                />
+                                {touched.imdbProfile && <span className={styles.errorMsg}>{errors.imdbProfile}</span>}
+
+                                {/* Wikipedia */}
+                                <label className={styles.label} htmlFor="wikipedia">
+                                    IMDb Profile <span className={styles.required}></span>
+                                </label>
+                                <input
+                                    id="wikipedia"
+                                    {...formInputRegister("wikipedia")}
+                                    type="url"
+                                    className={`${styles.input}${errors.wikipedia && touched.wikipedia ? ` ${styles["input--error"]}` : ""}`}
+                                    placeholder="https://…"
+                                    onBlur={validateHandler}
+                                />
+                                {touched.wikipedia && <span className={styles.errorMsg}>{errors.wikipedia}</span>}
+                            </div>
+
+                        </div>
+                    </div>
+
+                    {/* ─── Card 4: Aditional information ─── */}
+                    <div className={styles.card}>
+                        <div className={styles.cardTitle}>Additional information</div>
+
+                        {/* Biography */}
+                        <div className={styles.field}>
+                            <label className={styles.label} htmlFor="biography">
+                                Biography
+                            </label>
+                            <textarea
+                                id="biography"
+                                {...formInputRegister("biography")}
+                                className={`${styles.textarea}${errors.biography && touched.biography ? ` ${styles["input--error"]}` : ""}`}
+                                placeholder="Write a short biography..."
+                                rows={5}
+                                onBlur={validateHandler}
+                            />
+                            {touched.biography && <span className={styles.errorMsg}>{errors.biography}</span>}
+                            <span className={styles.inputHint}>
+                                {data.biography.trim().length} characters
+                                {data.biography.trim().length > 0 && data.biography.trim().length < 30
+                                    ? ` — ${30 - data.biography.trim().length} more needed`
+                                    : ""}
+                            </span>
+                        </div>
+
+                        {/* Awards */}
+                        <div className={styles.field}>
+                            <label className={styles.label} htmlFor="awards">
+                                Awards
+                            </label>
+                            <textarea
+                                id="awards"
+                                {...formInputRegister("awards")}
+                                className={`${styles.textarea}${errors.awards && touched.awards ? ` ${styles["input--error"]}` : ""}`}
+                                placeholder="Add each award separate by ';' Example: 
+                                Golden Globes - Best Actor 2024; 
+                                BAFTA — Best Actor 2010;..."
+                                rows={5}
+                                onBlur={validateHandler}
+                            />
+                            {touched.awards && <span className={styles.errorMsg}>{errors.awards}</span>}
                         </div>
                     </div>
 

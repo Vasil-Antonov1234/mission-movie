@@ -68,5 +68,9 @@ export default {
 
     async getLatest() {
         return await movieRepository.getLatest();
+    },
+
+    async getFilmography(castId) {
+        return await movieRepository.getFilmography(castId);
     }
 }

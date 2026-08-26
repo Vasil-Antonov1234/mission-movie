@@ -8,6 +8,14 @@ import querystring from "node:querystring";
 
 const movieController = Router();
 
+movieController.get("/filmography/:castId", async (req, res) => {
+    const castId = Number(req.params.castId)
+    
+    const result = await movieService.getFilmography(castId);
+
+    res.json(result);
+})
+
 movieController.get("/", async (req, res) => {
 
     let filter = {
@@ -116,7 +124,7 @@ movieController.get("/:movieId", async (req, res) => {
     let filter = {};
 
     if (req.query.select) {
-        if (Array.isArray(req.query.select)) {            
+        if (Array.isArray(req.query.select)) {
             req.query.select.forEach((x) => filter[x.replaceAll('"', '').split("=")[0]] = x.replaceAll('"', '').split("=")[1]);
         } else {
             filter = querystring.parse(req.query.select.replaceAll('"', ''));
@@ -124,7 +132,7 @@ movieController.get("/:movieId", async (req, res) => {
     };
 
     Object.keys(filter).forEach((x) => filter[x] = true);
-    
+
     try {
         const movie = await movieService.getById(movieId, filter);
 
