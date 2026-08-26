@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import type { Config, Method, Movie, Options } from "../types/types";
+import type { Config, Method, Options } from "../types/types";
 import { errorMessageHandler } from "../utils/errorUtil";
 
 const BASE_URL = "http://localhost:5000";
 
-export default function useFetch(url?: string, initialState?: Movie[] | [] | Movie) {    
+// export default function useFetch(url?: string, initialState?: Movie[] | [] | Movie) {
+export default function useFetch<T>(url?: string, initialState?: T) {
     const [data, setData] = useState(initialState);
 
     useEffect(() => {
