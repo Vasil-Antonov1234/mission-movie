@@ -226,20 +226,22 @@ export default function ActorDetail() {
             <h2 className={styles.sectionHeading}>Filmography</h2>
             <div className={styles.filmGrid}>
               {filmography.map((x) => (
-                <div key={x.id} className={styles.filmCard}>
-                  <img
-                    src={x.poster}
-                    alt={x.title}
-                    className={styles.filmCardImg}
-                  />
-                  <div className={styles.filmCardBody}>
-                    <div className={styles.filmCardTitle}>{x.title}</div>
-                    <div className={styles.filmCardFooter}>
-                      <span className={styles.filmCardYear}>{x.year}</span>
-                      <span className={styles.ratingBadge}>★ {x.rating}</span>
+                <Link to={`/movies/${x.id}/details`} className={styles.link}>
+                  <div key={x.id} className={styles.filmCard}>
+                    <img
+                      src={x.poster}
+                      alt={x.title}
+                      className={styles.filmCardImg}
+                    />
+                    <div className={styles.filmCardBody}>
+                      <div className={styles.filmCardTitle}>{x.title}</div>
+                      <div className={styles.filmCardFooter}>
+                        <span className={styles.filmCardYear}>{x.year}</span>
+                        <span className={styles.ratingBadge}>★ {x.rating}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </section>

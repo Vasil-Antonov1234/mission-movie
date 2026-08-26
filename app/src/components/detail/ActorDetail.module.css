@@ -25,7 +25,7 @@
 .heroOverlayH {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(13,13,13,0.98) 38%, rgba(13,13,13,0.1) 100%);
+  background: linear-gradient(to right, rgba(13, 13, 13, 0.98) 38%, rgba(13, 13, 13, 0.1) 100%);
 }
 
 .heroOverlayV {
@@ -57,7 +57,7 @@
   object-position: top;
   border-radius: 10px;
   border: 1px solid #2a2a2a;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.75);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.75);
   display: block;
 }
 
@@ -99,7 +99,9 @@
   color: #a09890;
 }
 
-.metaDot { color: #3a3530; }
+.metaDot {
+  color: #3a3530;
+}
 
 .knownForTags {
   display: flex;
@@ -128,10 +130,14 @@
 }
 
 /* ─── MAIN COLUMN ─── */
-.main { min-width: 0; }
+.main {
+  min-width: 0;
+}
 
 /* ─── SECTION ─── */
-.section { margin-bottom: 52px; }
+.section {
+  margin-bottom: 52px;
+}
 
 .sectionLabel {
   font-size: 11px;
@@ -164,7 +170,9 @@
   font-weight: 300;
 }
 
-.bioText + .bioText { margin-top: 16px; }
+.bioText+.bioText {
+  margin-top: 16px;
+}
 
 /* ─── FILMOGRAPHY GRID ─── */
 .filmGrid {
@@ -181,6 +189,7 @@
   cursor: pointer;
   transition: transform 0.25s, border-color 0.25s;
 }
+
 .filmCard:hover {
   transform: translateY(-4px);
   border-color: #333;
@@ -193,7 +202,9 @@
   display: block;
 }
 
-.filmCardBody { padding: 12px 14px; }
+.filmCardBody {
+  padding: 12px 14px;
+}
 
 .filmCardTitle {
   font-family: 'Playfair Display', Georgia, serif;
@@ -217,7 +228,10 @@
   align-items: center;
 }
 
-.filmCardYear { font-size: 12px; color: #555; }
+.filmCardYear {
+  font-size: 12px;
+  color: #555;
+}
 
 .ratingBadge {
   background: #e8b84b;
@@ -246,7 +260,10 @@
   padding: 18px 20px;
   transition: border-color 0.2s;
 }
-.awardItem:hover { border-color: #2a2a2a; }
+
+.awardItem:hover {
+  border-color: #2a2a2a;
+}
 
 .awardIcon {
   font-size: 22px;
@@ -254,7 +271,9 @@
   margin-top: 2px;
 }
 
-.awardBody { min-width: 0; }
+.awardBody {
+  min-width: 0;
+}
 
 .awardTitle {
   font-size: 14px;
@@ -268,10 +287,12 @@
   color: #555;
 }
 
-.awardWon { color: #e8b84b; }
+.awardWon {
+  color: #e8b84b;
+}
 
 /* ─── SIDEBAR ─── */
-.sidebar { }
+.sidebar {}
 
 .sidebarCard {
   background: #111;
@@ -305,8 +326,15 @@
   padding: 10px 0;
   border-bottom: 1px solid #1a1a1a;
 }
-.infoItem:first-child { padding-top: 0; }
-.infoItem:last-child  { border-bottom: none; padding-bottom: 0; }
+
+.infoItem:first-child {
+  padding-top: 0;
+}
+
+.infoItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
 
 .infoLabel {
   font-size: 11px;
@@ -339,9 +367,22 @@
   transition: background 0.2s, color 0.2s;
   margin: 0 -10px;
 }
-.socialLink:hover { background: rgba(255,255,255,0.05); color: #e8e2d9; }
 
-.socialIcon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+.socialLink:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #e8e2d9;
+}
+
+.socialIcon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.link {
+  all: unset;
+}
 
 /* ─── CO-STARS ─── */
 .costarList {
@@ -360,7 +401,10 @@
   transition: background 0.2s;
   margin: 0 -8px;
 }
-.costarItem:hover { background: rgba(255,255,255,0.04); }
+
+.costarItem:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
 
 .costarPhoto {
   width: 40px;
@@ -379,7 +423,10 @@
   margin-bottom: 2px;
 }
 
-.costarFilms { font-size: 11px; color: #555; }
+.costarFilms {
+  font-size: 11px;
+  color: #555;
+}
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 900px) {
@@ -396,13 +443,20 @@
     margin-top: 8px;
   }
 
-  .sidebarCard { margin-bottom: 0; }
+  .sidebarCard {
+    margin-bottom: 0;
+  }
 
-  .filmGrid { grid-template-columns: repeat(3, 1fr); }
+  .filmGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (max-width: 680px) {
-  .hero { height: auto; min-height: 420px; }
+  .hero {
+    height: auto;
+    min-height: 420px;
+  }
 
   .heroContent {
     flex-direction: column;
@@ -411,14 +465,18 @@
     gap: 20px;
   }
 
-  .photoWrapper { bottom: 0; }
+  .photoWrapper {
+    bottom: 0;
+  }
 
   .photo {
     width: 120px;
     height: 160px;
   }
 
-  .name { font-size: 32px; }
+  .name {
+    font-size: 32px;
+  }
 
   .body {
     padding: 36px 20px 56px;
@@ -428,5 +486,7 @@
     grid-template-columns: 1fr;
   }
 
-  .filmGrid { grid-template-columns: repeat(2, 1fr); }
+  .filmGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
