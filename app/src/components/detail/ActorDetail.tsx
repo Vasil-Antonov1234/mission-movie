@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router"
 import type { Actor } from "../../types/types";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import useFetch from "../../hooks/useFetch";
+import ButtonSecondary from "../buttons/ButtonSecondary";
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 
@@ -173,6 +174,10 @@ export default function ActorDetail() {
 
   const awards = data.awards ? data.awards.split(";") : [];
 
+  async function deleteHandler() {
+    console.log("deleted")
+  }
+
 
   return (
     <div className={styles.wrapper}>
@@ -199,9 +204,16 @@ export default function ActorDetail() {
               <span className={styles.metaDot}>·</span>
               <span className={styles.metaItem}>{data.bornDate}</span>
             </div>
+            <div className={styles["detail-hero-actions"]}>
+              <Link to={`#`}>
+                <ButtonSecondary text="Edit" addStyle="btn-gray" />
+              </Link>
+              <ButtonSecondary clickHandler={deleteHandler} text="Delete" addStyle="btn-red" />
+            </div>
           </div>
         </div>
       </div>
+
 
       {/* ─── BODY ─── */}
       <div className={styles.body}>

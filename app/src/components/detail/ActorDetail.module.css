@@ -10,7 +10,7 @@
 .hero {
   position: relative;
   height: 480px;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .heroBackdrop {
@@ -428,6 +428,13 @@
   color: #555;
 }
 
+.detail-hero-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 900px) {
   .body {
@@ -488,5 +495,23 @@
 
   .filmGrid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 400px) {
+  .hero {
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 270px) {
+  .hero {
+    margin-bottom: 50px;
+  }
+}
+
+@media (max-width: 240px) {
+  .hero {
+    margin-bottom: 80px;
   }
 }
