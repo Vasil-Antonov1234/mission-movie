@@ -1,6 +1,6 @@
 import { Activity, useContext } from "react";
 import styles from "./ActorDetail.module.css";
-import { Link, useParams } from "react-router"
+import { Link, useNavigate, useParams } from "react-router"
 import type { Actor, Movie } from "../../types/types";
 import useFetch from "../../hooks/useFetch";
 import ButtonSecondary from "../buttons/ButtonSecondary";
@@ -19,16 +19,26 @@ export default function ActorDetail() {
 
   const { data: movies } = useFetch(`/movies/filmography/${castId}`, initialStateMovie);
   const { data } = useFetch(`/casts/${castId}`, initialStateActor);
-  const { user } = useContext(UserContext);
+  const { user, onLogout } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const filmography = movies ? movies : [];
 
   const isOwner = data?.authorId === user.id;
 
   async function deleteHandler() {
-    console.log("deleted")
-  }
+    
+    if (!isOwner) {
+      alert("Unauthorised");
+      onLogout("/login");
+    }
 
+    const confirmation = confirm(`Are you sure you want to delete ${data?.firstName} ${data?.lastName}`);
+
+    if (confirmation) {
+      console.log("deleted")
+    }
+  }
 
   return (
     <div className={styles.wrapper}>
