@@ -1,9 +1,10 @@
-import { Activity } from "react";
+import { Activity, useContext } from "react";
 import styles from "./ActorDetail.module.css";
 import { Link, useParams } from "react-router"
 import type { Actor, Movie } from "../../types/types";
 import useFetch from "../../hooks/useFetch";
 import ButtonSecondary from "../buttons/ButtonSecondary";
+import UserContext from "../../contexts/UserContext";
 
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
 
@@ -16,12 +17,13 @@ export default function ActorDetail() {
   };
   const initialStateMovie: Movie[] = []
 
-  const { data: movies } = useFetch(`/movies/filmography/${castId}`, initialStateMovie)
-  const { data } = useFetch(`/casts/${castId}`, initialStateActor)
+  const { data: movies } = useFetch(`/movies/filmography/${castId}`, initialStateMovie);
+  const { data } = useFetch(`/casts/${castId}`, initialStateActor);
+  const { user } = useContext(UserContext);
 
   const filmography = movies ? movies : [];
 
-  const awards = data?.awards ? data.awards.split(";") : [];
+  const isOwner = data?.authorId === user.id;
 
   async function deleteHandler() {
     console.log("deleted")
@@ -53,12 +55,14 @@ export default function ActorDetail() {
               <span className={styles.metaDot}>·</span>
               <span className={styles.metaItem}>{data?.bornDate}</span>
             </div>
-            <div className={styles["detail-hero-actions"]}>
-              <Link to={`/casts/${castId}/edit`}>
-                <ButtonSecondary text="Edit" addStyle="btn-gray" />
-              </Link>
-              <ButtonSecondary clickHandler={deleteHandler} text="Delete" addStyle="btn-red" />
-            </div>
+            <Activity mode={isOwner ? "visible": "hidden"}>
+              <div className={styles["detail-hero-actions"]}>
+                <Link to={`/casts/${castId}/edit`}>
+                  <ButtonSecondary text="Edit" addStyle="btn-gray" />
+                </Link>
+                <ButtonSecondary clickHandler={deleteHandler} text="Delete" addStyle="btn-red" />
+              </div>
+            </Activity>
           </div>
         </div>
       </div>

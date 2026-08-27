@@ -92,7 +92,8 @@ export type Actor = {
     awards?: string,
     biography?: string,
     imdbProfile?: string,
-    wikipedia?: string
+    wikipedia?: string,
+    authorId?: string
 }
 
 export type Artist = {
