@@ -326,7 +326,7 @@ export function validate(value: ValidateValue) {
     };
 
     // Biography
-    if (value.biography && value.biography.length > 0 && !value.biography?.match(/^[A-Z]{1}[\w'/.()]+$/)) {
+    if (value.biography && value.biography.length > 0 && !value.biography?.match(/^[A-Z]+[\w'/.(),0-9 -]+$/)) {
         errors["biography"] = "The biography must start with a capital letter and not contain any special character";
     };
 

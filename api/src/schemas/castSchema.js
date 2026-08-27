@@ -16,7 +16,7 @@ export const createCastSchema = z.object({
     imdbProfile: z.httpUrl({ error: "Invalid URL format"}).optional(),
     wikipedia: z.httpUrl({ error: "Invalid URL format" }).optional(),
     biography: z.string()
-        .regex(/^[A-Z]{1}[\w'/.()]+$/, { error: "The biography must start with a capital letter and not contain any special character" })
+        .regex(/^[A-Z]+[\w'/.(),0-9 -]+$/, { error: "The biography must start with a capital letter and not contain any special character" })
         .min(30, { error: "The biography must be at least 30 characters long if provided"}).optional(),
     awards: z.string()
         .min(10, { error: "The awards must be at least 10 characters long if any"}).optional()

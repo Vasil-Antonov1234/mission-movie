@@ -255,7 +255,7 @@ export default function CreateEditCast() {
 
                                 {/* Wikipedia */}
                                 <label className={styles.label} htmlFor="wikipedia">
-                                    IMDb Profile <span className={styles.required}></span>
+                                    Wikipedia Profile <span className={styles.required}></span>
                                 </label>
                                 <input
                                     id="wikipedia"
