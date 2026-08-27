@@ -71,10 +71,10 @@ model Cast {
 	bornDate		String
 	placeOfBorn		String
 	imageUrl		String
-	biography		String?
-	awards			String?
-	imdbProfile		String?
-	wikipedia		String?
+	biography		String?					@default("")
+	awards			String?					@default("")
+	imdbProfile		String?					@default("")
+	wikipedia		String?					@default("")
 
 	authorId		Int
 	author			User		@relation(fields: [authorId], references: [id])
