@@ -53,5 +53,17 @@ export default {
                 id: castId
             }
         });
+    },
+
+    async updateOne(castId, userId, parsedCastData) {
+        return await prisma.cast.update({
+            where: {
+                id: castId,
+                authorId: userId
+            },
+            data: {
+                ...parsedCastData
+            }
+        });
     }
 }

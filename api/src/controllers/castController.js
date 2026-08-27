@@ -4,6 +4,7 @@ import { createCastSchema } from "../schemas/castSchema.js";
 import castService from "../services/castService.js";
 import { getErrorMessage } from "../utils/errorUtil.js";
 import querystring from "node:querystring";
+import { editCastSchema } from "../schemas/partialCastSchema.js";
 
 const castController = Router();
 
@@ -71,6 +72,21 @@ castController.post("/attach", isAuthMiddleware, async (req, res) => {
         res.status(400).json(getErrorMessage(error));
     };
 
+});
+
+castController.patch("/:castId", isAuthMiddleware, async (req, res) => {
+    const castId = Number(req.params.castId);
+    const userId = Number(req.user.id);
+    const castData = req.body;
+
+    try {
+        const parsedCastData = await editCastSchema.parseAsync(castData);
+        const cast = await castService.updateOne(castId, userId, parsedCastData);
+
+        res.status(200).json({ cast });
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
 })
 
 export default castController;

@@ -17,7 +17,7 @@ export default {
     async attach(castData) {
         castData.cast = Number(castData.cast);
         castData.movieId = Number(castData.movieId);
-        
+
         const parsedCastData = await attachCastSchema.parseAsync(castData);
 
         return await castRepository.attach(parsedCastData);
@@ -25,5 +25,19 @@ export default {
 
     async getById(castId) {
         return await castRepository.getById(castId);
+    },
+
+    async updateOne(castId, userId, parsedCastData) {
+        const cast = await castRepository.getById(castId);
+
+        if (!cast) {
+            throw new Error("Cast not found");
+        };
+
+        if (cast.authorId !== userId) {
+            throw new Error("Unauthorized");
+        };
+
+        return await castRepository.updateOne(castId, userId, parsedCastData);
     }
 }

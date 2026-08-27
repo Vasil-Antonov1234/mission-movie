@@ -44,25 +44,6 @@ export default function CreateEditCast() {
     const { user, onLogout } = useContext(UserContext);
     const navigate = useNavigate();
 
-    
-    // const { data: actor } = useFetch(`/casts/${castId}`, initialStateActor);
-
-    // if (actor) {
-    //     const initialValuesEdit = {
-    //         firstName: actor.firstName,
-    //         lastName: actor.lastName,
-    //         bornDate: actor.bornDate ? actor.bornDate : "",
-    //         placeOfBorn: actor.placeOfBorn ? actor.placeOfBorn : "",
-    //         imageUrl: actor.imageUrl ? actor.imageUrl : "",
-    //         imdbProfile: actor.imdbProfile ? actor.imdbProfile : "",
-    //         wikipedia: actor.wikipedia ? actor.wikipedia : "",
-    //         biography: actor.biography ? actor.biography : "",
-    //         awards: actor.awards? actor.awards : ""
-    //     };
-
-    //     setData(initialValuesEdit)
-    // }
-
     async function actionHandler() {
         const fieldErrors = validate(data);
         setTouched(fieldErrors);
@@ -72,10 +53,23 @@ export default function CreateEditCast() {
         };
 
         try {
+            let result = "";
 
-            await request("/casts/create", "POST", { accessToken: user.accessToken }, data);
+            if (castId) {
+                result = await request(`/casts/${castId}`, "PATCH", { accessToken: user.accessToken }, data);
+            } else {
+                result = await request("/casts/create", "POST", { accessToken: user.accessToken }, data);
+            }
+
+            if (result === "Invalid token" || result === "Unauthorized") {
+                onLogout("/login");
+            };
 
             setErrors({});
+
+            if (castId) {
+				return navigate(`/casts/${castId}/details`);
+			}
 
             navigate("/");
         } catch (error) {
@@ -103,10 +97,10 @@ export default function CreateEditCast() {
         setTouched({});
 
         if (actor) {
-			setData(actor);
-		} else {
-			setData(initialValues);
-		};
+            setData(actor);
+        } else {
+            setData(initialValues);
+        };
     }
 
     const showImagePreview = data.imageUrl.trim() !== "" && isValidUrl(data.imageUrl);
@@ -328,7 +322,7 @@ export default function CreateEditCast() {
                             className={styles.btnPrimary}
                         // disabled={loading}
                         >
-                            Add an actor
+                            {castId ? "Edit" : "Add an actor"}
                         </button>
                     </div>
 
