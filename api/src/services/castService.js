@@ -2,8 +2,8 @@ import castRepository from "../repositories/castRepository.js"
 import { attachCastSchema } from "../schemas/attachCastSchema.js";
 
 export default {
-    async createOne(castData) {
-        return await castRepository.createOne(castData);
+    async createOne(castData, authorId) {
+        return await castRepository.createOne(castData, authorId);
     },
 
     async getAll(movieId) {

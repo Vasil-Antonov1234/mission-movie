@@ -8,11 +8,12 @@ import querystring from "node:querystring";
 const castController = Router();
 
 castController.post("/create", isAuthMiddleware, async (req, res) => {
+    const authorId = Number(req.user.id);
 
     try {
-        const castData = await createCastSchema.parse(req.body);
+        const castData = await createCastSchema.parseAsync(req.body);
 
-        const cast = await castService.createOne(castData);
+        const cast = await castService.createOne(castData, authorId);
 
         res.status(201).json(cast);
     } catch (error) {

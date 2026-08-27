@@ -1,9 +1,12 @@
 import { prisma } from "../lib/prisma.js"
 
 export default {
-    async createOne(castData) {
+    async createOne(castData, authorId) {
         return await prisma.cast.create({
-            data: castData
+            data: {
+                ...castData,
+                authorId
+            }
         });
     },
 
