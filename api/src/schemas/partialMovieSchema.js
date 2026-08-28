@@ -18,7 +18,7 @@ export const patrialMovieSchema = z.object({
     director: z.string()
         .min(1, { error: "Director is required" })
         .regex(/^[A-Z]/, { error: "The director's name must start with a capital letter" }).optional(),
-    trailerUrl: z.httpUrl({ error: "Invalid movie trailer URL format" }).optional(),
+    trailerUrl: z.httpUrl({ error: "Invalid movie trailer URL format" }).optional().or(z.literal("")),
     tagline: z.string()
         .min(1, { error: "Tagline is required" }).optional(),
     writtenBy: z.string()

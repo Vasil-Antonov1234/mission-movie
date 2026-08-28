@@ -188,11 +188,7 @@ export function validate(value: ValidateValue) {
         errors["director"] = "Director name must be at least 3 characters long";
     };
 
-    // Trailer
-    if (value.trailerUrl === "") {
-        errors["trailerUrl"] = "Trailer is required";
-    };
-
+    // Trailer    
     if (value.trailerUrl && !value.trailerUrl.match(/^https?:\/\//)) {
         errors["trailerUrl"] = "Invalid URL address";
     };
