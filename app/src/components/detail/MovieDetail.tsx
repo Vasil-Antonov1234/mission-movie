@@ -134,7 +134,7 @@ export default function MovieDetail() {
         title: ""
     }
 
-    const { data: movie } = useFetch(`/movies/${movieId}`, initialState);
+    const { data: movie, setData } = useFetch(`/movies/${movieId}`, initialState);
 
     const genreArray = !movie || Array.isArray(movie) ? " " : movie?.genre.split(", ");
 
@@ -171,16 +171,32 @@ export default function MovieDetail() {
         };
     }
 
-    async function removeFromCastHandler(castId: string) {
+    async function removeFromCastHandler(castId: string, fullName: string) {
 
         if (!isOwner) {
             onLogout("/login");
         };
 
+        const confirmation = confirm(`Are you sure you want to remove ${fullName} from the cast?`);
+
+        if (!confirmation) {
+            return;
+        };
+
         try {
             await request(`/movies/${movieId}/${castId}/unattach`, "GET", { accessToken: user.accessToken });
 
-            navigate("/movies/catalog");
+            const test = movie?.casts?.filter((x) => x.castId !== castId);
+
+            const test1 = movie
+
+            if (test1) {
+                test1.casts = test
+            }
+
+            setData(test1)
+
+            navigate(`/movies/${movieId}/details`);
         } catch (error) {
             errorMessageHandler(error);
         };
