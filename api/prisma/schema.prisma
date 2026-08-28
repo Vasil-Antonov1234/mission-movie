@@ -38,7 +38,7 @@ model Movie {
 	duration		String
 	director		String
 	writtenBy		String
-	trailerUrl		String
+	trailerUrl		String?
 	tagline			String
 	studio			String
 	releaseDate		String
