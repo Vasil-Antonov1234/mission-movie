@@ -5,6 +5,7 @@ import type { Actor, Movie } from "../../types/types";
 import useFetch from "../../hooks/useFetch";
 import ButtonSecondary from "../buttons/ButtonSecondary";
 import UserContext from "../../contexts/UserContext";
+import { errorMessageHandler } from "../../utils/errorUtil";
 
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
 
@@ -18,7 +19,7 @@ export default function ActorDetail() {
   const initialStateMovie: Movie[] = []
 
   const { data: movies } = useFetch(`/movies/filmography/${castId}`, initialStateMovie);
-  const { data } = useFetch(`/casts/${castId}`, initialStateActor);
+  const { data, request } = useFetch(`/casts/${castId}`, initialStateActor);
   const { user, onLogout } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -35,9 +36,17 @@ export default function ActorDetail() {
 
     const confirmation = confirm(`Are you sure you want to delete ${data?.firstName} ${data?.lastName}`);
 
-    if (confirmation) {
-      console.log("deleted")
-    }
+    if (!confirmation) {
+      return;
+    };
+
+    try {
+      await request(`/casts/${castId}`, "DELETE", { accessToken: user.accessToken });
+
+      navigate("/");
+    } catch (error) {
+      errorMessageHandler(error);
+    };
   }
 
   return (

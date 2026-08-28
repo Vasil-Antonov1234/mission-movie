@@ -12,9 +12,9 @@ export const editCastSchema = z.object({
         .regex(/^(January|^February|^March|^April|^May|^June|^July|^August|^September|^October|^November|^December) \d{1,2}, \d{4}$/, { error: "Ivalid date format"}).optional(),
     placeOfBorn: z.string()
         .min(1, { error: "Place of born is required" }).optional(),
-    imageUrl: z.httpUrl({ error: "Invalid URL format"}).optional(),
-    imdbProfile: z.httpUrl({ error: "Invalid URL format"}).optional(),
-    wikipedia: z.httpUrl({ error: "Invalid URL format" }).optional(),
+    imageUrl: z.httpUrl({ error: "Invalid URL format for image"}).optional(),
+    imdbProfile: z.httpUrl({ error: "Invalid URL format for IMDb profile"}).optional(),
+    wikipedia: z.httpUrl({ error: "Invalid URL format for Wikipedia profile" }).optional(),
     biography: z.string().optional(),
     awards: z.string().optional()
 });

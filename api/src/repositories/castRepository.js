@@ -65,5 +65,14 @@ export default {
                 ...parsedCastData
             }
         });
+    },
+
+    async removeById(castId, userId) {
+        return await prisma.cast.delete({
+            where: {
+                id: castId,
+                authorId: userId
+            }
+        });
     }
 }

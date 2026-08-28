@@ -39,5 +39,9 @@ export default {
         };
 
         return await castRepository.updateOne(castId, userId, parsedCastData);
+    },
+
+    async removeById(castId, userId) {
+        return await castRepository.removeById(castId, userId);
     }
 }

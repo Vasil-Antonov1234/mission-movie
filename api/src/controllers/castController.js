@@ -87,6 +87,19 @@ castController.patch("/:castId", isAuthMiddleware, async (req, res) => {
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
+});
+
+castController.delete("/:castId", isAuthMiddleware, async (req, res) => {
+    const castId = Number(req.params.castId);
+    const userId = Number(req.user.id);
+
+    try {
+        const cast = await castService.removeById(castId, userId);
+
+        res.status(200).json(`${cast.firstName} ${cast.lastName} has been deleted`);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
 })
 
 export default castController;
