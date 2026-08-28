@@ -208,9 +208,11 @@ export default function MovieDetail() {
                         </div>
 
                         <div className={styles["detail-hero-actions"]}>
-                            <Link to={movie.trailerUrl ? movie.trailerUrl : ""} target="_blank">
-                                <ButtonPrimary text="▶ Watch Trailer" addStyle="btn-170" />
-                            </Link>
+                            <Activity mode={movie.trailerUrl ? "visible" : "hidden"}>
+                                <Link to={movie.trailerUrl ? movie.trailerUrl : ""} target="_blank">
+                                    <ButtonPrimary text="▶ Watch Trailer" addStyle="btn-170" />
+                                </Link>
+                            </Activity>
                             <ButtonSecondary text="+ Add to Watchlist" addStyle="btn-170" />
                             <ButtonChost text="♥ Favourite" addStyle="btn-170" />
                         </div>
