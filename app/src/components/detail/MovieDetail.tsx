@@ -186,15 +186,15 @@ export default function MovieDetail() {
         try {
             await request(`/movies/${movieId}/${castId}/unattach`, "GET", { accessToken: user.accessToken });
 
-            const test = movie?.casts?.filter((x) => x.castId !== castId);
+            const castData = movie?.casts?.filter((x) => x.castId !== castId);
 
-            const test1 = movie
+            const movieData = movie
 
-            if (test1) {
-                test1.casts = test
-            }
+            if (movieData) {
+                movieData.casts = castData;
+            };
 
-            setData(test1)
+            setData(movieData)
 
             navigate(`/movies/${movieId}/details`);
         } catch (error) {
