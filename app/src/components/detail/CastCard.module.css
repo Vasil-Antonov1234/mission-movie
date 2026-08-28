@@ -38,9 +38,26 @@
     font-style: italic;
 }
 
+.remove-from-cast {
+    font-size: 11px;
+    color: rgb(233, 114, 137);
+    cursor: pointer;
+    margin-top: 4px;
+    transition: transform 0.5s
+}
+
+.remove-from-cast:hover {
+    color: crimson;
+    transform: translateX(14px);
+}
+
 .link {
     all: unset;
 }
+
+/* @keyframes remove-cast {
+    transform translateY
+} */
 
 @media(max-width: 827px) {
     .cast-card-img {

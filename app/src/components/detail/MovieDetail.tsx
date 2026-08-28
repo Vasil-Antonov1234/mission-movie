@@ -275,7 +275,7 @@ export default function MovieDetail() {
                         <h2 className={styles["synopsis-heading"]}>Cast</h2>
                         <div className={styles["cast-grid"]}>
                             {movie.casts?.map((person) => (
-                                <CastCard key={person.castId} person={person} />
+                                <CastCard key={person.castId} person={person} owner={isOwner}/>
                             ))}
                         </div>
                     </section>
