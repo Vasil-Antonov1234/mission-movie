@@ -5,9 +5,9 @@ import Comment from "./Comment";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import UserContext from "../../contexts/UserContext";
 
-type CommentsSectionProps = { comments: CommentType[] }
+type CommentsSectionProps = { comments: CommentType[], owner: boolean }
 
-export default function CommentsSection({ comments }: CommentsSectionProps) {
+export default function CommentsSection({ comments, owner }: CommentsSectionProps) {
     const [userRating, setUserRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
     const { isAuthenticated } = useContext(UserContext);
@@ -18,7 +18,7 @@ export default function CommentsSection({ comments }: CommentsSectionProps) {
             <h2 className={styles["synopsis-heading"]}>Comments</h2>
 
             {/* Rate this film */}
-            <Activity mode={isAuthenticated ? "visible" : "hidden"}>
+            <Activity mode={isAuthenticated && !owner ? "visible" : "hidden"}>
                 <div className={styles["rate-film-container"]}>
                     <span className={styles["rate-film-label"]}>Rate this film:</span>
                     <div className={styles["stars-container"]}>

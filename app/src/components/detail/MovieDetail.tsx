@@ -304,7 +304,7 @@ export default function MovieDetail() {
 
                     <hr className={styles["section-divider"]} />
 
-                    <CommentsSection comments={oldMovie.reviews} />
+                    <CommentsSection comments={oldMovie.reviews} owner={isOwner} />
 
                 </main>
 
