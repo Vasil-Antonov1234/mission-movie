@@ -120,7 +120,7 @@ function RatingBadge({ rating, large = false }: RatingBadgeProps) {
 }
 
 export default function MovieDetail() {
-    const { isAuthenticated, user } = useContext(UserContext);
+    const { isAuthenticated, user, onLogout } = useContext(UserContext);
     const navigate = useNavigate();
     const oldMovie = MOVIE;
 
@@ -164,6 +164,21 @@ export default function MovieDetail() {
 
         try {
             await request(`/movies/${movieId}`, "DELETE", { accessToken: user.accessToken });
+
+            navigate("/movies/catalog");
+        } catch (error) {
+            errorMessageHandler(error);
+        };
+    }
+
+    async function removeFromCastHandler(castId: string) {
+
+        if (!isOwner) {
+            onLogout("/login");
+        };
+
+        try {
+            await request(`/movies/${movieId}/${castId}/unattach`, "GET", { accessToken: user.accessToken });
 
             navigate("/movies/catalog");
         } catch (error) {
@@ -275,7 +290,7 @@ export default function MovieDetail() {
                         <h2 className={styles["synopsis-heading"]}>Cast</h2>
                         <div className={styles["cast-grid"]}>
                             {movie.casts?.map((person) => (
-                                <CastCard key={person.castId} person={person} owner={isOwner}/>
+                                <CastCard key={person.castId} person={person} owner={isOwner} onRemoveCast={removeFromCastHandler} />
                             ))}
                         </div>
                     </section>

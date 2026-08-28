@@ -10,7 +10,7 @@ const movieController = Router();
 
 movieController.get("/filmography/:castId", async (req, res) => {
     const castId = Number(req.params.castId)
-    
+
     const result = await movieService.getFilmography(castId);
 
     res.json(result);
@@ -159,7 +159,7 @@ movieController.patch("/:movieId", isAuthMiddleware, async (req, res) => {
     const movieId = Number(req.params.movieId);
     const userId = Number(req.user.id);
     const movieData = req.body;
-    
+
     try {
         const parsedMovieData = await patrialMovieSchema.parseAsync(movieData);
         const movie = await movieService.updateOne(movieId, userId, parsedMovieData);
@@ -169,5 +169,19 @@ movieController.patch("/:movieId", isAuthMiddleware, async (req, res) => {
         res.status(400).json(getErrorMessage(error));
     };
 });
+
+movieController.get("/:movieId/:castId/unattach", isAuthMiddleware, async (req, res) => {
+    const castId = Number(req.params.castId);
+    const movieId = Number(req.params.movieId);
+    const userId = Number(req.user.id);
+
+    try {
+        const movie = await movieService.unAttach(castId, movieId, userId);
+
+        res.status(200).json({ movie });
+    } catch (error) {
+        res.status(401).json(getErrorMessage(error));
+    };
+})
 
 export default movieController;

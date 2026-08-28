@@ -5,10 +5,13 @@ import { Activity } from "react";
 
 type castProps = {
     person: Artist,
-    owner: boolean
+    owner: boolean,
+    onRemoveCast: (castId: string) => Promise<void>
 }
 
 export default function CastCard(person: castProps) {
+    const castId = person.person.castId;
+
     return (
         <div>
             <Link to={`/casts/${person.person.castId}/details`} className={styles["link"]}>
@@ -21,7 +24,7 @@ export default function CastCard(person: castProps) {
                 </div>
             </Link>
             <Activity mode={person.owner ? "visible" : "hidden"}>
-                <p className={styles["remove-from-cast"]}>Remove from the cast</p>
+                <p className={styles["remove-from-cast"]} onClick={() => person.onRemoveCast(castId)}>Remove from the cast</p>
             </Activity>
         </div>
 

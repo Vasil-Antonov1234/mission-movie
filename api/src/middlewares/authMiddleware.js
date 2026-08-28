@@ -11,7 +11,7 @@ export async function AuthMiddleware(req, res, next) {
 
     try {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-        
+
         await accessTokenUtil.check(token);
 
         req.user = decodedToken;
@@ -23,6 +23,7 @@ export async function AuthMiddleware(req, res, next) {
 }
 
 export function isAuthMiddleware(req, res, next) {
+
 
     if (!req.user) {
         return res.status(401).json("Unauthirized")

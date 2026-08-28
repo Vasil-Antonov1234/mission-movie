@@ -105,5 +105,20 @@ export default {
     WHERE "rating" > 8
     ORDER BY "createdAt" DESC
     LIMIT 5;`;
+    },
+
+    async unAttach(castId, movieId) {
+        const movieId_castId = `${movieId}_${castId}`;
+
+        return await prisma.movieCast.delete({
+            where: {
+                castId: castId,
+                movieId: movieId,
+                movieId_castId: {
+                    movieId,
+                    castId
+                }
+            }
+        });
     }
 }

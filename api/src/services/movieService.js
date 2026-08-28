@@ -72,5 +72,15 @@ export default {
 
     async getFilmography(castId) {
         return await movieRepository.getFilmography(castId);
+    },
+
+    async unAttach(castId, movieId, userId) {
+        const movie = await movieRepository.getById(movieId);
+
+        if (movie.authorId !== userId) {
+            throw ("Unauthorised");
+        };
+        
+        return await movieRepository.unAttach(castId, movieId);
     }
 }

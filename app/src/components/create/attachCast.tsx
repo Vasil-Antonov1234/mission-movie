@@ -2,15 +2,22 @@ import { useNavigate, useParams, Link } from "react-router";
 import useFetch from "../../hooks/useFetch";
 import styles from "./CreateEditMovie.module.css";
 import { useContext, useEffect, useState, type ChangeEvent } from "react";
-import type { Actor, ValidateValue } from "../../types/types";
+import type { Actor, Movie, ValidateValue } from "../../types/types";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import { validate } from "../../utils/validate";
 import UserContext from "../../contexts/UserContext";
 // import useForm from "../../hooks/useForm";
 
+const initialStateMovie: Movie = {
+    genre: "",
+    poster: "",
+    rating: 0,
+    title: ""
+}
+
 export default function AttachCast() {
     const movieId = useParams().movieId
-    const { data: movie, request } = useFetch(`/movies/${movieId}?select=title%3D%22true%22&select=poster%3D%22true%22`, []);
+    const { data: movie, request } = useFetch(`/movies/${movieId}?select=title%3D%22true%22&select=poster%3D%22true%22`, initialStateMovie);
     const [cast, setCast] = useState<Actor[]>([]);
     const { user, onLogout } = useContext(UserContext);
     const navigate = useNavigate();
@@ -104,10 +111,7 @@ export default function AttachCast() {
         };
     }
 
-    // const { formInputRegister, data } = useForm(initialValues)
-
-
-    if (!movie || Array.isArray(movie)) {
+    if (!movie) {
         return
     };
 
