@@ -136,11 +136,15 @@ export default function MovieDetail() {
 
     const { data: movie, setData } = useFetch(`/movies/${movieId}`, initialState);
 
-    const genreArray = !movie || Array.isArray(movie) ? " " : movie?.genre.split(", ");
+    const genreArray = !movie ? " " : movie?.genre.split(", ");
 
     const movies: Movie[] = []
 
     const { data: similarMoviesData, request } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`, movies);
+
+    const actorsData = movie  && movie.casts ? movie.casts : [];
+
+    console.log(actorsData)
 
     if (!movie) {
         return;
@@ -194,9 +198,8 @@ export default function MovieDetail() {
                 movieData.casts = castData;
             };
 
-            setData(movieData)
+            setData((state) => state ? ({...state, casts: castData}) : initialState)
 
-            navigate(`/movies/${movieId}/details`);
         } catch (error) {
             errorMessageHandler(error);
         };
