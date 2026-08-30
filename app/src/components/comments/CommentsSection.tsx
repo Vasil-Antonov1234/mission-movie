@@ -4,10 +4,11 @@ import type { CommentType } from "../../types/types";
 import Comment from "./Comment";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import UserContext from "../../contexts/UserContext";
+import ButtonSecondary from "../buttons/ButtonSecondary";
 
-type CommentsSectionProps = { comments: CommentType[], owner: boolean }
+type CommentsSectionProps = { comments: CommentType[], owner: boolean, onComment: () => void }
 
-export default function CommentsSection({ comments, owner }: CommentsSectionProps) {
+export default function CommentsSection({ comments, owner, onComment }: CommentsSectionProps) {
     const [userRating, setUserRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
     const { isAuthenticated } = useContext(UserContext);
@@ -19,29 +20,34 @@ export default function CommentsSection({ comments, owner }: CommentsSectionProp
 
             {/* Rate this film */}
             <Activity mode={isAuthenticated && !owner ? "visible" : "hidden"}>
-                <div className={styles["rate-film-container"]}>
-                    <span className={styles["rate-film-label"]}>Rate this film:</span>
-                    <div className={styles["stars-container"]}>
-                        {[1, 2, 3, 4, 5].map((star) => (
-                            <span
-                                key={star}
-                                onClick={() => setUserRating(star)}
-                                onMouseEnter={() => setHoverRating(star)}
-                                onMouseLeave={() => setHoverRating(0)}
-                                className={star <= (hoverRating || userRating) ? `${styles["star"]} ${styles["star-gold"]}` : styles["star"]}
-                            >
-                                ★
+                <form className={styles["rate-film-container"]} action={onComment}>
+                    <div className={styles["rate-wrapper"]}>
+                        <span className={styles["rate-film-label"]}>Rate this film:</span>
+                        <div className={styles["stars-container"]}>
+                            {[1, 2, 3, 4, 5].map((star) => (
+                                <span
+                                    key={star}
+                                    onClick={() => setUserRating(star)}
+                                    onMouseEnter={() => setHoverRating(star)}
+                                    onMouseLeave={() => setHoverRating(0)}
+                                    className={star <= (hoverRating || userRating) ? `${styles["star"]} ${styles["star-gold"]}` : styles["star"]}
+                                >
+                                    ★
+                                </span>
+                            ))}
+                        </div>
+                        {userRating > 0 && (
+                            <span className={styles["user-rating"]}>
+                                {["", "Poor", "Fair", "Good", "Great", "Masterpiece"][userRating]}
                             </span>
-                        ))}
+                        )}
+                        <ButtonPrimary text="Rate" />
                     </div>
-                    {userRating > 0 && (
-                        <span className={styles["user-rating"]}>
-                            {["", "Poor", "Fair", "Good", "Great", "Masterpiece"][userRating]}
-                        </span>
-                    )}
-                    <textarea className={styles["comment-item"]} placeholder="Write a comment..."></textarea>
-                    <ButtonPrimary text="Submit" />
-                </div>
+                    <div className={styles["rate-wrapper"]}>
+                        <textarea className={styles["comment-item"]} placeholder="Write a comment..."></textarea>
+                        <ButtonPrimary text="Submit" />
+                    </div>
+                </form>
             </Activity>
 
             <div className={styles["comments-list"]}>

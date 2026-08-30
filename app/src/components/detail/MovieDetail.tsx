@@ -142,7 +142,7 @@ export default function MovieDetail() {
 
     const { data: similarMoviesData, request } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`, movies);
 
-    const actorsData = movie  && movie.casts ? movie.casts : [];
+    const actorsData = movie && movie.casts ? movie.casts : [];
 
     console.log(actorsData)
 
@@ -173,7 +173,7 @@ export default function MovieDetail() {
         } catch (error) {
             errorMessageHandler(error);
         };
-    }
+    };
 
     async function removeFromCastHandler(castId: string, fullName: string) {
 
@@ -198,11 +198,15 @@ export default function MovieDetail() {
                 movieData.casts = castData;
             };
 
-            setData((state) => state ? ({...state, casts: castData}) : initialState)
+            setData((state) => state ? ({ ...state, casts: castData }) : initialState)
 
         } catch (error) {
             errorMessageHandler(error);
         };
+    };
+
+    async function commentsHandler() {
+        console.log("comment")
     }
 
     return (
@@ -323,7 +327,8 @@ export default function MovieDetail() {
 
                     <hr className={styles["section-divider"]} />
 
-                    <CommentsSection comments={oldMovie.reviews} owner={isOwner} />
+                    {/* COMMENTS AND RATE SECTION */}
+                    <CommentsSection comments={oldMovie.reviews} owner={isOwner} onComment={commentsHandler} />
 
                 </main>
 
