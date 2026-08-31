@@ -24,6 +24,18 @@ commentController.post("/create", isAuthMiddleware, async (req, res) => {
    } catch (error) {
     res.status(400).json(getErrorMessage(error));
    };
+});
+
+commentController.get("/:movieId", async (req, res) => {
+    const movieId = Number(req.params.movieId);
+
+    try {
+        const comments = await commentService.getAll(movieId);
+
+        res.status(200).json(comments);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
 })
 
 export default commentController;

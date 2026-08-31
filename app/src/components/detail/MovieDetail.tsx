@@ -135,7 +135,6 @@ export default function MovieDetail() {
     }
 
     const { data: movie, setData } = useFetch(`/movies/${movieId}`, initialState);
-
     const genreArray = !movie ? " " : movie?.genre.split(", ");
 
     const movies: Movie[] = []

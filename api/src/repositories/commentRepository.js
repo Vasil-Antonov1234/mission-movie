@@ -9,5 +9,22 @@ export default {
                 movieId
             }
         })
+    },
+
+    async getAll(movieId) {
+        return await prisma.comment.findMany({
+            where: {
+                movieId
+            },
+            include: {
+                user: {
+                    select: {
+                        firstName: true,
+                        lastName: true,
+                        email: true
+                    }
+                }
+            }
+        });
     }
 }

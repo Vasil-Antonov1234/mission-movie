@@ -1,16 +1,55 @@
-import { Activity, useContext, useState } from "react";
+import { Activity, useContext, useEffect, useReducer, useState } from "react";
 import styles from "./CommentsSection.module.css";
-import type { CommentType } from "../../types/types";
+import type { CommentData, CommentType } from "../../types/types";
 import Comment from "./Comment";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import UserContext from "../../contexts/UserContext";
+import { useParams } from "react-router";
+import { errorMessageHandler } from "../../utils/errorUtil";
+import useFetch from "../../hooks/useFetch";
 
 type CommentsSectionProps = { comments: CommentType[], owner: boolean, onComment: (formData: FormData) => Promise<void> }
+
+type Action = {
+    type: string,
+    payload: CommentData[]
+};
+
+function commentReducer(state: CommentData[], action: Action): CommentData[] {
+    switch(action.type) {
+        case "GET_ALL":
+            return action.payload;
+        default:
+            return state;
+    }
+}
 
 export default function CommentsSection({ comments, owner, onComment }: CommentsSectionProps) {
     const [userRating, setUserRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
     const { isAuthenticated } = useContext(UserContext);
+    const [commentsData, dispatch] = useReducer(commentReducer, []);
+    const { request } = useFetch();
+
+    // console.log(commentsData)
+
+    const movieId = useParams().movieId
+
+    useEffect(() => {
+        (async () => {
+
+            try {
+                const result = await request(`/comments/${movieId}`, "GET");
+
+                dispatch({
+                    type: "GET_ALL",
+                    payload: result
+                });
+            } catch (error) {
+                errorMessageHandler(error);
+            };
+        })()
+    }, [])
 
     return (
         <section className={styles["comments-section"]}>
@@ -50,7 +89,7 @@ export default function CommentsSection({ comments, owner, onComment }: Comments
             </Activity>
 
             <div className={styles["comments-list"]}>
-                {comments.map((comment) => (
+                {commentsData.map((comment) => (
                     <Comment key={comment.id} comment={comment} />
                 ))}
             </div>
