@@ -4,9 +4,8 @@ import type { CommentType } from "../../types/types";
 import Comment from "./Comment";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import UserContext from "../../contexts/UserContext";
-import ButtonSecondary from "../buttons/ButtonSecondary";
 
-type CommentsSectionProps = { comments: CommentType[], owner: boolean, onComment: () => void }
+type CommentsSectionProps = { comments: CommentType[], owner: boolean, onComment: (formData: FormData) => Promise<void> }
 
 export default function CommentsSection({ comments, owner, onComment }: CommentsSectionProps) {
     const [userRating, setUserRating] = useState(0);
@@ -44,7 +43,7 @@ export default function CommentsSection({ comments, owner, onComment }: Comments
                         <ButtonPrimary text="Rate" />
                     </div>
                     <div className={styles["rate-wrapper"]}>
-                        <textarea className={styles["comment-item"]} placeholder="Write a comment..."></textarea>
+                        <textarea className={styles["comment-item"]} placeholder="Write a comment..." name="content"></textarea>
                         <ButtonPrimary text="Submit" />
                     </div>
                 </form>

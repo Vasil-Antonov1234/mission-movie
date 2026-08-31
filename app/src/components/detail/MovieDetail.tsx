@@ -142,9 +142,7 @@ export default function MovieDetail() {
 
     const { data: similarMoviesData, request } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`, movies);
 
-    const actorsData = movie && movie.casts ? movie.casts : [];
-
-    console.log(actorsData)
+    // const actorsData = movie && movie.casts ? movie.casts : [];
 
     if (!movie) {
         return;
@@ -205,8 +203,23 @@ export default function MovieDetail() {
         };
     };
 
-    async function commentsHandler() {
-        console.log("comment")
+    async function commentsHandler(formData: FormData) {
+        const content: string | null | File = formData.get("content");
+
+        if (!content || (content && typeof(content) === "string" && !content.trim())) {
+            return;
+        };
+
+        const commentData = {
+            content,
+            movieId
+        }
+
+        try {
+            await request("/comments/create", "POST", { accessToken: user.accessToken }, commentData);
+        } catch (error) {
+            errorMessageHandler(error);
+        };
     }
 
     return (
