@@ -1,4 +1,4 @@
-import type { CommentData, CommentType } from "../../types/types";
+import type { CommentData } from "../../types/types";
 import styles from "./Comment.module.css";
 
 type StarRatingProps = { rating: number }
@@ -19,7 +19,7 @@ export default function Comment({ comment }: CommentProps) {
         <div className={styles["comment-item"]}>
             <div className={styles["comment-item-header"]}>
                 <div>
-                    <div className={styles["comment-item-author"]}>{`${comment.user.firstName} ${comment.user.lastName}`}</div>
+                    <div className={styles["comment-item-author"]}>{`${comment?.user?.firstName} ${comment?.user?.lastName}`}</div>
                     <div className={styles["comment-item-date"]}>{comment.createdAt}</div>
                 </div>
                 <StarRating rating={4} />

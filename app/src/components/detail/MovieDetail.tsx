@@ -141,8 +141,6 @@ export default function MovieDetail() {
 
     const { data: similarMoviesData, request } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`, movies);
 
-    // const actorsData = movie && movie.casts ? movie.casts : [];
-
     if (!movie) {
         return;
     };
@@ -150,7 +148,7 @@ export default function MovieDetail() {
     const isOwner = movie.authorId === user.id;
 
     const similarMovies = similarMoviesData ? similarMoviesData : [];
-
+    
     async function deleteHandler() {
 
         if (!movie) {
@@ -201,25 +199,6 @@ export default function MovieDetail() {
             errorMessageHandler(error);
         };
     };
-
-    async function commentsHandler(formData: FormData) {
-        const content: string | null | File = formData.get("content");
-
-        if (!content || (content && typeof(content) === "string" && !content.trim())) {
-            return;
-        };
-
-        const commentData = {
-            content,
-            movieId
-        }
-
-        try {
-            await request("/comments/create", "POST", { accessToken: user.accessToken }, commentData);
-        } catch (error) {
-            errorMessageHandler(error);
-        };
-    }
 
     return (
         <div className={styles["detail-wrapper"]}>
@@ -340,7 +319,7 @@ export default function MovieDetail() {
                     <hr className={styles["section-divider"]} />
 
                     {/* COMMENTS AND RATE SECTION */}
-                    <CommentsSection comments={oldMovie.reviews} owner={isOwner} onComment={commentsHandler} />
+                    <CommentsSection owner={isOwner} />
 
                 </main>
 

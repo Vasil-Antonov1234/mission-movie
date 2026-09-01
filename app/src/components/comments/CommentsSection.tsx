@@ -1,6 +1,6 @@
 import { Activity, useContext, useEffect, useReducer, useState } from "react";
 import styles from "./CommentsSection.module.css";
-import type { CommentData, CommentType } from "../../types/types";
+import type { CommentData } from "../../types/types";
 import Comment from "./Comment";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import UserContext from "../../contexts/UserContext";
@@ -8,7 +8,7 @@ import { useParams } from "react-router";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import useFetch from "../../hooks/useFetch";
 
-type CommentsSectionProps = { comments: CommentType[], owner: boolean, onComment: (formData: FormData) => Promise<void> }
+type CommentsSectionProps = { owner: boolean }
 
 type Action = {
     type: string,
@@ -16,30 +16,66 @@ type Action = {
 };
 
 function commentReducer(state: CommentData[], action: Action): CommentData[] {
-    switch(action.type) {
+    switch (action.type) {
         case "GET_ALL":
             return action.payload;
+        case "ADD_COMMENT":
+            function test(state: CommentData[]): CommentData[] {
+                return [...state, action.payload[0]]
+            }
+            return test(state)
         default:
             return state;
     }
 }
 
-export default function CommentsSection({ comments, owner, onComment }: CommentsSectionProps) {
+export default function CommentsSection({ owner }: CommentsSectionProps) {
     const [userRating, setUserRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
     const { isAuthenticated } = useContext(UserContext);
     const [commentsData, dispatch] = useReducer(commentReducer, []);
     const { request } = useFetch();
-
-    // console.log(commentsData)
+    const { user } = useContext(UserContext)
 
     const movieId = useParams().movieId
+
+    async function commentHandler(formData: FormData) {
+        const content: string | null | File = formData.get("content");
+
+        if (!content || (content && typeof (content) === "string" && !content.trim())) {
+            return;
+        };
+
+        const commentData = {
+            content,
+            movieId
+        }
+
+        try {
+            const newComment = await request("/comments/create", "POST", { accessToken: user.accessToken }, commentData);
+            const newCommentData: CommentData = {
+                ...newComment,
+                user: {
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email
+                }
+            }
+
+            dispatch({
+                type: "ADD_COMMENT",
+                payload: [newCommentData]
+            });
+        } catch (error) {
+            errorMessageHandler(error);
+        };
+    }
 
     useEffect(() => {
         (async () => {
 
             try {
-                const result = await request(`/comments/${movieId}`, "GET");
+                const result: CommentData[] = await request(`/comments/${movieId}`, "GET");
 
                 dispatch({
                     type: "GET_ALL",
@@ -49,7 +85,7 @@ export default function CommentsSection({ comments, owner, onComment }: Comments
                 errorMessageHandler(error);
             };
         })()
-    }, [])
+    }, []);
 
     return (
         <section className={styles["comments-section"]}>
@@ -58,7 +94,7 @@ export default function CommentsSection({ comments, owner, onComment }: Comments
 
             {/* Rate this film */}
             <Activity mode={isAuthenticated && !owner ? "visible" : "hidden"}>
-                <form className={styles["rate-film-container"]} action={onComment}>
+                <form className={styles["rate-film-container"]} action={commentHandler}>
                     <div className={styles["rate-wrapper"]}>
                         <span className={styles["rate-film-label"]}>Rate this film:</span>
                         <div className={styles["stars-container"]}>
