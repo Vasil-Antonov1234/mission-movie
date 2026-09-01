@@ -1,4 +1,5 @@
 import type { CommentData } from "../../types/types";
+import { convertDate } from "../../utils/convertDate";
 import styles from "./Comment.module.css";
 
 type StarRatingProps = { rating: number }
@@ -15,12 +16,14 @@ function StarRating({ rating }: StarRatingProps) {
 type CommentProps = { comment: CommentData };
 
 export default function Comment({ comment }: CommentProps) {
+    const createdAt = convertDate(comment.createdAt);
+
     return (
         <div className={styles["comment-item"]}>
             <div className={styles["comment-item-header"]}>
                 <div>
                     <div className={styles["comment-item-author"]}>{`${comment?.user?.firstName} ${comment?.user?.lastName}`}</div>
-                    <div className={styles["comment-item-date"]}>{comment.createdAt}</div>
+                    <div className={styles["comment-item-date"]}>{createdAt}</div>
                 </div>
                 <StarRating rating={4} />
             </div>
