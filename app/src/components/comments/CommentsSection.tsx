@@ -87,6 +87,15 @@ export default function CommentsSection({ owner }: CommentsSectionProps) {
         })()
     }, []);
 
+    async function rateHandler() {
+        try {
+            await request(`/rate/${movieId}`, "POST", { accessToken: user.accessToken }, userRating);
+            
+        } catch (error) {
+            errorMessageHandler(error);
+        };
+    }
+
     return (
         <section className={styles["comments-section"]}>
             <div className={styles["section-label"]}>Community</div>
@@ -98,7 +107,7 @@ export default function CommentsSection({ owner }: CommentsSectionProps) {
                     <div className={styles["rate-wrapper"]}>
                         <span className={styles["rate-film-label"]}>Rate this film:</span>
                         <div className={styles["stars-container"]}>
-                            {[1, 2, 3, 4, 5].map((star) => (
+                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((star) => (
                                 <span
                                     key={star}
                                     onClick={() => setUserRating(star)}
@@ -112,10 +121,10 @@ export default function CommentsSection({ owner }: CommentsSectionProps) {
                         </div>
                         {userRating > 0 && (
                             <span className={styles["user-rating"]}>
-                                {["", "Poor", "Fair", "Good", "Great", "Masterpiece"][userRating]}
+                                {["", "Poor", "Poor", "Fair", "Fair", "Fair", "Good", "Good", "Great", "Great", "Masterpiece"][userRating]}
                             </span>
                         )}
-                        <ButtonPrimary text="Rate" />
+                        <ButtonPrimary text="Rate" clickHandler={rateHandler}/>
                     </div>
                     <div className={styles["rate-wrapper"]}>
                         <textarea className={styles["comment-item"]} placeholder="Write a comment..." name="content"></textarea>
