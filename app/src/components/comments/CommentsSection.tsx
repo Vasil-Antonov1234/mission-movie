@@ -89,7 +89,7 @@ export default function CommentsSection({ owner }: CommentsSectionProps) {
 
     async function rateHandler() {
         try {
-            await request(`/rate/${movieId}`, "POST", { accessToken: user.accessToken }, userRating);
+            await request(`/rates/${movieId}`, "POST", { accessToken: user.accessToken }, { userRating });
             
         } catch (error) {
             errorMessageHandler(error);

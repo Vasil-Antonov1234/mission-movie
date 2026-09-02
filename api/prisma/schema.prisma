@@ -24,6 +24,7 @@ model User {
 	movies 		Movie[]
 	casts 		Cast[]
 	comments	Comment[]
+	rates		Rate[]
 
 	@@map("users")
 }
@@ -33,6 +34,7 @@ model Movie {
 	title			String
 	year			Int
 	rating			Float
+	totalRating		Float		@default(0)
 	genre			String
 	poster			String
 	synopsis		String
@@ -55,6 +57,7 @@ model Movie {
 
 	casts			MovieCast[]
 	comments		Comment[]
+	rates			Rate[]
 	
 	@@map("movies")
 }
@@ -114,4 +117,18 @@ model Comment {
 	user		User		@relation(fields: [userId], references: [id], onDelete: Cascade)
 
 	@@map("comments")
+}
+
+model Rate {
+	movieId		Int
+	userId		Int
+	currentRate	Int
+	createdAt	DateTime	@default(now())
+	updatedAt	DateTime	@updatedAt
+
+	movie		Movie		@relation(fields: [movieId], references: [id])
+	user		User		@relation(fields: [userId], references: [id])
+
+	@@id([movieId, userId])
+	@@map("rates")
 }
