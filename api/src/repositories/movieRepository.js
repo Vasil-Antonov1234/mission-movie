@@ -77,7 +77,23 @@ export default {
                 authorId: userId
             },
             data: {
-                ...parsedMovieData
+                boxOffice: parsedMovieData.boxOffice,
+                budget: parsedMovieData.budget,
+                casts: parsedMovieData.cast,
+                country: parsedMovieData.country,
+                director: parsedMovieData.director,
+                duration: parsedMovieData.duration,
+                genre: parsedMovieData.genre,
+                language: parsedMovieData.language,
+                poster: parsedMovieData.poster,
+                releaseDate: parsedMovieData.releaseDate,
+                studio: parsedMovieData.studio,
+                synopsis: parsedMovieData.synopsis,
+                tagline: parsedMovieData.tagline,
+                title: parsedMovieData.title,
+                trailerUrl: parsedMovieData.trailerUrl,
+                writtenBy: parsedMovieData.writtenBy,
+                year: parsedMovieData.year
             }
         });
     },

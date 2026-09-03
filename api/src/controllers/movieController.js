@@ -162,6 +162,14 @@ movieController.patch("/:movieId", isAuthMiddleware, async (req, res) => {
 
     try {
         const parsedMovieData = await patrialMovieSchema.parseAsync(movieData);
+        // const completedMovieData = {};
+        // Object.keys(parsedMovieData).forEach((x) => {
+        //     if (x != "rating") {
+        //         completedMovieData.x = parsedMovieData.x
+        //     };
+        // });
+
+        // console.log(completedMovieData)
         const movie = await movieService.updateOne(movieId, userId, parsedMovieData);
 
         res.status(200).json({ movie });

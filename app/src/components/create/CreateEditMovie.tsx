@@ -1,9 +1,9 @@
 import styles from "./CreateEditMovie.module.css";
 import useForm from "../../hooks/useForm";
 import useFetch from "../../hooks/useFetch";
-import { useContext, useState } from "react";
+import { Activity, useContext, useState } from "react";
 import UserContext from "../../contexts/UserContext";
-import type { ValidateValue } from "../../types/types";
+import type { Movie, ValidateValue } from "../../types/types";
 import { validate } from "../../utils/validate";
 import { useNavigate, useParams } from "react-router";
 import { errorMessageHandler } from "../../utils/errorUtil";
@@ -14,6 +14,7 @@ const initialValues = {
 	title: "",
 	year: "",
 	rating: "1.0",
+	totalRating: "0",
 	genre: "",
 	poster: "",
 	synopsis: "",
@@ -67,16 +68,32 @@ export default function CreateEditMovie() {
 			return;
 		};
 
-		
+		let completedData: Movie = {
+			genre: "",
+			poster: "",
+			title: ""
+		};
+
+		if (!movieId) {
+			completedData = {
+				...data,
+				totalRating: data.rating
+			}
+		} else {
+			completedData = data
+		}
+
+
+
 		try {
 			let result = "";
-			
+
 			if (movieId) {
 				// Update movie
-				result = await request(`/movies/${movieId}`, "PATCH", { accessToken: user.accessToken }, data);
+				result = await request(`/movies/${movieId}`, "PATCH", { accessToken: user.accessToken }, completedData);
 			} else {
 				// Create movie
-				result = await request("/movies/create", "POST", { accessToken: user.accessToken }, data);
+				result = await request("/movies/create", "POST", { accessToken: user.accessToken }, completedData);
 			};
 
 			if (result === "Invalid token" || result === "Unauthorized") {
@@ -355,25 +372,27 @@ export default function CreateEditMovie() {
 							</div>
 
 							{/* Rating */}
-							<div className={styles.field}>
-								<label className={styles.label} htmlFor="rating">
-									Rating
-								</label>
-								<div className={styles.ratingRow}>
-									<input
-										id="rating"
-										{...formInputRegister("rating")}
-										type="range"
-										min={1}
-										max={10}
-										step={0.1}
-										className={styles.ratingSlider}
-										onBlur={validateHandler}
-									/>
-									<span className={styles.ratingBadge}>★ {Number(data.rating).toFixed(1)}</span>
+							<Activity mode={movieId ? "hidden" : "visible"}>
+								<div className={styles.field}>
+									<label className={styles.label} htmlFor="rating">
+										Rating
+									</label>
+									<div className={styles.ratingRow}>
+										<input
+											id="rating"
+											{...formInputRegister("rating")}
+											type="range"
+											min={1}
+											max={10}
+											step={0.1}
+											className={styles.ratingSlider}
+											onBlur={validateHandler}
+										/>
+										<span className={styles.ratingBadge}>★ {Number(data.rating).toFixed(1)}</span>
+									</div>
+									{touched.rating && <span className={styles.errorMsg}>{errors.rating}</span>}
 								</div>
-								{touched.rating && <span className={styles.errorMsg}>{errors.rating}</span>}
-							</div>
+							</Activity>
 
 						</div>
 					</div>
