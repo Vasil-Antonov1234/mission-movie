@@ -8,6 +8,9 @@ export const patrialMovieSchema = z.object({
     rating: z.coerce.number({ error: "Rating must be integer" })
         .min(1, { error: "Rating must be at least 1" })
         .max(10, { error: "Rating cannot be bigger than 10" }).optional(),
+    totalRating: z.coerce.number({ error: "Total rating must be integer" })
+        .min(0, { error: "Totl rating must be at least 0" })
+        .max(10, { error: "Total rating must be at most 10" }).optional(),
     genre: z.string()
         .regex(/^[A-Za-z \,]/, { error: "Invalid genre" }).optional(),
     poster: z.httpUrl({ error: "Invalid movie poster URL format" }).optional(),

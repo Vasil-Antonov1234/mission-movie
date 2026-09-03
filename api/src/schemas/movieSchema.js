@@ -8,6 +8,9 @@ export const createMovieSchema = z.object({
     rating: z.coerce.number({ error: "Rating must be integer" })
         .min(1, { error: "Rating must be at least 1" })
         .max(10, { error: "Rating cannot be bigger than 10"}),
+    totalRating: z.coerce.number({ error: "Total rating must be integer" })
+        .min(0, { error: "Totl rating must be at least 0"})
+        .max(10, { error: "Total rating must be at most 10"}),
     genre: z.string()
         .regex(/^[A-Za-z \,]/, { error: "Invalid genre" }),
     poster: z.httpUrl({ error: "Invalid movie poster URL format" }),

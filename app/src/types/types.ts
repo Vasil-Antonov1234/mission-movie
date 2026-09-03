@@ -37,6 +37,7 @@ export type Movie = {
     title: string,
     year?: number,
     rating: number,
+    totalRating?: number,
     genre: string,
     poster: string,
     position?: number
