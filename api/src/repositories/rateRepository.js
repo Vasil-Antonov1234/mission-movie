@@ -9,5 +9,14 @@ export default {
                 userId
             }
         })
+    },
+
+    async getRatesCount(movieId) {
+        return await prisma.$queryRaw`
+        SELECT
+	        COUNT("userId")
+        FROM rates
+        WHERE ${movieId} = 2;
+        `
     }
 }
