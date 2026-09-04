@@ -4,7 +4,7 @@ import reviewController from "./controllers/reviewController.js";
 import userController from "./controllers/userController.js";
 import castController from "./controllers/castController.js";
 import commentController from "./controllers/commentController.js";
-import ratingController from "./controllers/ratingController.js";
+import rateController from "./controllers/rateController.js";
 
 const routes = Router();
 
@@ -13,6 +13,6 @@ routes.use("/reviews", reviewController);
 routes.use("/users", userController);
 routes.use("/casts", castController);
 routes.use("/comments", commentController);
-routes.use("/rates", ratingController);
+routes.use("/rates", rateController);
 
 export default routes;
