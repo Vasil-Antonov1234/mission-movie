@@ -109,7 +109,7 @@ const MOVIE = {
     ],
 };
 
-type RatingBadgeProps = { rating: number, large?: boolean }
+type RatingBadgeProps = { rating?: string, large?: boolean }
 
 function RatingBadge({ rating, large = false }: RatingBadgeProps) {
     return (
@@ -130,7 +130,7 @@ export default function MovieDetail() {
         id: 0,
         genre: "",
         poster: "",
-        rating: 0,
+        rating: "0",
         title: ""
     }
 
@@ -199,6 +199,16 @@ export default function MovieDetail() {
             errorMessageHandler(error);
         };
     };
+
+    async function rateHandler(userRating: number) {
+        try {
+            const newMovieData: Movie = await request(`/rates/${movieId}`, "POST", { accessToken: user.accessToken }, { userRating });
+            
+            setData(newMovieData);
+        } catch (error) {
+            errorMessageHandler(error);
+        };
+    }
 
     return (
         <div className={styles["detail-wrapper"]}>
@@ -319,7 +329,7 @@ export default function MovieDetail() {
                     <hr className={styles["section-divider"]} />
 
                     {/* COMMENTS AND RATE SECTION */}
-                    <CommentsSection owner={isOwner} />
+                    <CommentsSection owner={isOwner} onRate={rateHandler}/>
 
                 </main>
 

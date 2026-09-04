@@ -16,7 +16,7 @@ export default {
         SELECT
 	        COUNT("userId")
         FROM rates
-        WHERE ${movieId} = 2;
+        WHERE "movieId" = ${movieId};
         `
     }
 }

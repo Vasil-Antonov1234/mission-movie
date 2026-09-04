@@ -8,7 +8,10 @@ import { useParams } from "react-router";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import useFetch from "../../hooks/useFetch";
 
-type CommentsSectionProps = { owner: boolean }
+type CommentsSectionProps = { 
+    owner: boolean,
+    onRate: (userRating: number) => Promise<void>
+}
 
 type Action = {
     type: string,
@@ -29,7 +32,7 @@ function commentReducer(state: CommentData[], action: Action): CommentData[] {
     }
 }
 
-export default function CommentsSection({ owner }: CommentsSectionProps) {
+export default function CommentsSection({ owner, onRate }: CommentsSectionProps) {
     const [userRating, setUserRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
     const { isAuthenticated } = useContext(UserContext);
@@ -87,14 +90,14 @@ export default function CommentsSection({ owner }: CommentsSectionProps) {
         })()
     }, []);
 
-    async function rateHandler() {
-        try {
-            await request(`/rates/${movieId}`, "POST", { accessToken: user.accessToken }, { userRating });
+    // async function rateHandler() {
+    //     try {
+    //         const newMovieData = await request(`/rates/${movieId}`, "POST", { accessToken: user.accessToken }, { userRating });
             
-        } catch (error) {
-            errorMessageHandler(error);
-        };
-    }
+    //     } catch (error) {
+    //         errorMessageHandler(error);
+    //     };
+    // }
 
     return (
         <section className={styles["comments-section"]}>
@@ -124,7 +127,7 @@ export default function CommentsSection({ owner }: CommentsSectionProps) {
                                 {["", "Poor", "Poor", "Fair", "Fair", "Fair", "Good", "Good", "Great", "Great", "Masterpiece"][userRating]}
                             </span>
                         )}
-                        <ButtonPrimary text="Rate" clickHandler={rateHandler}/>
+                        <ButtonPrimary text="Rate" clickHandler={() => onRate(userRating)}/>
                     </div>
                     <div className={styles["rate-wrapper"]}>
                         <textarea className={styles["comment-item"]} placeholder="Write a comment..." name="content"></textarea>
