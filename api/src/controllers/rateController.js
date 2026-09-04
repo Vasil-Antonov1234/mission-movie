@@ -12,9 +12,9 @@ rateController.post("/:movieId", isAuthMiddleware, async (req, res) => {
 
     try {
         
-        await rateService.rateMovie(rating, movieId, userId)
+        const updatedMovie = await rateService.rateMovie(rating, movieId, userId);
 
-        res.end()
+        res.status(200).json(updatedMovie);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };

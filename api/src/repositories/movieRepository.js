@@ -136,5 +136,17 @@ export default {
                 }
             }
         });
+    },
+
+    async updateRating(movieId, newMovieRating, newTotalRating) {
+        return await prisma.movie.update({
+            data: {
+                rating: newMovieRating,
+                totalRating: newTotalRating
+            },
+            where: {
+                id: movieId
+            }
+        });
     }
 }
