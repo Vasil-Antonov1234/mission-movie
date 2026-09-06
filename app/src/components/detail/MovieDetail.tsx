@@ -148,7 +148,7 @@ export default function MovieDetail() {
     const isOwner = movie.authorId === user.id;
 
     const similarMovies = similarMoviesData ? similarMoviesData : [];
-    
+
     async function deleteHandler() {
 
         if (!movie) {
@@ -203,7 +203,7 @@ export default function MovieDetail() {
     async function rateHandler(userRating: number) {
         try {
             const newMovieData: Movie = await request(`/rates/${movieId}`, "POST", { accessToken: user.accessToken }, { userRating });
-            
+
             setData(newMovieData);
         } catch (error) {
             errorMessageHandler(error);
@@ -320,16 +320,18 @@ export default function MovieDetail() {
                     </section>
                     <Activity mode={movie.casts && movie.casts.length > 0 ? "hidden" : "visible"}>
                         <h2 className={styles["no-cats"]}>Nothing here yet.
-                            <p>
-                                <Link to={`/movies/${movieId}/attach`} className={styles["section-link"]}>Click to attach the first.</Link>
-                            </p>
+                            <Activity mode={isOwner ? "visible" : "hidden"}>
+                                <p>
+                                    <Link to={`/movies/${movieId}/attach`} className={styles["section-link"]}>Click to attach the first.</Link>
+                                </p>
+                            </Activity>
                         </h2>
                     </Activity>
 
                     <hr className={styles["section-divider"]} />
 
                     {/* COMMENTS AND RATE SECTION */}
-                    <CommentsSection owner={isOwner} onRate={rateHandler}/>
+                    <CommentsSection owner={isOwner} onRate={rateHandler} />
 
                 </main>
 
