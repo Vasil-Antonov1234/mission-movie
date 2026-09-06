@@ -7,10 +7,10 @@ import ButtonPrimary from "../buttons/ButtonPrimary";
 import SiilarFilm from "./SimilarFilm";
 import useFetch from "../../hooks/useFetch";
 import { useParams, Link, useNavigate } from "react-router";
-import { Activity, useContext } from "react";
+import { Activity, useContext, useEffect, useState } from "react";
 import UserContext from "../../contexts/UserContext";
 import { errorMessageHandler } from "../../utils/errorUtil";
-import type { Movie } from "../../types/types";
+import type { Movie, Options } from "../../types/types";
 
 const MOVIE = {
     id: 1,
@@ -140,6 +140,39 @@ export default function MovieDetail() {
     const movies: Movie[] = []
 
     const { data: similarMoviesData, request } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`, movies);
+    const [hasRated, setHasRated] = useState<boolean>(false);
+
+    useEffect(() => {
+
+        if (!user.accessToken) {
+            return;
+        };
+
+        const controller = new AbortController();
+
+        (async () => {
+            // const hasRated = await request(`/rates/${movieId}`, "GET", { accessToken: user.accessToken });
+
+            const options: Options = {
+                method: "GET",
+                headers: {
+                    "content-type": "application/json",
+                    authorization: user.accessToken
+                },
+                signal: controller.signal
+            }
+
+            const response = await fetch(`http://localhost:5000/rates/${movieId}`, options );
+
+            const result: boolean = await response.json();
+
+            setHasRated(result);
+
+            return () => {
+                controller.abort();
+            }
+        })()
+    }, [movieId, user.accessToken])
 
     if (!movie) {
         return;
@@ -205,6 +238,7 @@ export default function MovieDetail() {
             const newMovieData: Movie = await request(`/rates/${movieId}`, "POST", { accessToken: user.accessToken }, { userRating });
 
             setData(newMovieData);
+            setHasRated(true);
         } catch (error) {
             errorMessageHandler(error);
         };
@@ -331,7 +365,7 @@ export default function MovieDetail() {
                     <hr className={styles["section-divider"]} />
 
                     {/* COMMENTS AND RATE SECTION */}
-                    <CommentsSection owner={isOwner} onRate={rateHandler} />
+                    <CommentsSection owner={isOwner} onRate={rateHandler} hasRated={hasRated} />
 
                 </main>
 

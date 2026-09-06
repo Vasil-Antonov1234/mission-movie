@@ -157,7 +157,8 @@ export type Options = {
         "X-admin"?: string,
         "authorization"?: string
     },
-    body?: string
+    body?: string,
+    signal?: AbortSignal | null | undefined
 };
 
 export type ValidateValue = {

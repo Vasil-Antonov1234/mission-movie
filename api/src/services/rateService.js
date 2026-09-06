@@ -25,5 +25,9 @@ export default {
         const newTotalRating = movie.totalRating + rating;
 
         return await movieRepository.updateRating(movieId, newMovieRating, newTotalRating);
+    },
+
+    async getHasRated(userId, movieId) {
+        return await rateRepository.getHasRated(userId, movieId);
     }
 }

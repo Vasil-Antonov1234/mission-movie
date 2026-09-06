@@ -18,6 +18,20 @@ rateController.post("/:movieId", isAuthMiddleware, async (req, res) => {
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
+});
+
+rateController.get(`/:movieId`, async (req, res) => {
+    const movieId = Number(req.params.movieId);
+    const userId = Number(req.user?.id);
+    
+    try {
+      const result = await rateService.getHasRated(userId, movieId);
+      const hasRated = result ? true : false;
+
+      res.status(200).json(hasRated);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
 })
 
 export default rateController;

@@ -10,7 +10,8 @@ import useFetch from "../../hooks/useFetch";
 
 type CommentsSectionProps = {
     owner: boolean,
-    onRate: (userRating: number) => Promise<void>
+    onRate: (userRating: number) => Promise<void>,
+    hasRated: boolean
 }
 
 type Action = {
@@ -23,13 +24,13 @@ function commentReducer(state: CommentData[], action: Action): CommentData[] {
         case "GET_ALL":
             return action.payload;
         case "ADD_COMMENT":
-           return [...state, action.payload[0]]
+            return [...state, action.payload[0]]
         default:
             return state;
     }
 }
 
-export default function CommentsSection({ owner, onRate }: CommentsSectionProps) {
+export default function CommentsSection({ owner, onRate, hasRated }: CommentsSectionProps) {
     const [userRating, setUserRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
     const { isAuthenticated } = useContext(UserContext);
@@ -72,10 +73,23 @@ export default function CommentsSection({ owner, onRate }: CommentsSectionProps)
     }
 
     useEffect(() => {
+        const controller = new AbortController();
+
         (async () => {
 
             try {
-                const result: CommentData[] = await request(`/comments/${movieId}`, "GET");
+                // const result: CommentData[] = await request(`/comments/${movieId}`, "GET");
+                const response = await fetch(`http://localhost:5000/comments/${movieId}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            "content-type": "application/json"
+                        },
+                        signal: controller.signal
+                    }
+                );
+
+                const result: CommentData[] = await response.json();
 
                 dispatch({
                     type: "GET_ALL",
@@ -85,7 +99,11 @@ export default function CommentsSection({ owner, onRate }: CommentsSectionProps)
                 errorMessageHandler(error);
             };
         })()
-    }, [request, movieId]);
+
+        return () => {
+            controller.abort();
+        }
+    }, [movieId]);
 
     return (
         <section className={styles["comments-section"]}>
@@ -95,28 +113,30 @@ export default function CommentsSection({ owner, onRate }: CommentsSectionProps)
             {/* Rate this film */}
             <Activity mode={isAuthenticated && !owner ? "visible" : "hidden"}>
                 <form className={styles["rate-film-container"]} action={commentHandler}>
-                    <div className={styles["rate-wrapper"]}>
-                        <span className={styles["rate-film-label"]}>Rate this film:</span>
-                        <div className={styles["stars-container"]}>
-                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((star) => (
-                                <span
-                                    key={star}
-                                    onClick={() => setUserRating(star)}
-                                    onMouseEnter={() => setHoverRating(star)}
-                                    onMouseLeave={() => setHoverRating(0)}
-                                    className={star <= (hoverRating || userRating) ? `${styles["star"]} ${styles["star-gold"]}` : styles["star"]}
-                                >
-                                    ★
+                    <Activity mode={hasRated ? "hidden" : "visible"}>
+                        <div className={styles["rate-wrapper"]}>
+                            <span className={styles["rate-film-label"]}>Rate this film:</span>
+                            <div className={styles["stars-container"]}>
+                                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((star) => (
+                                    <span
+                                        key={star}
+                                        onClick={() => setUserRating(star)}
+                                        onMouseEnter={() => setHoverRating(star)}
+                                        onMouseLeave={() => setHoverRating(0)}
+                                        className={star <= (hoverRating || userRating) ? `${styles["star"]} ${styles["star-gold"]}` : styles["star"]}
+                                    >
+                                        ★
+                                    </span>
+                                ))}
+                            </div>
+                            {userRating > 0 && (
+                                <span className={styles["user-rating"]}>
+                                    {["", "Poor", "Poor", "Fair", "Fair", "Fair", "Good", "Good", "Great", "Great", "Masterpiece"][userRating]}
                                 </span>
-                            ))}
+                            )}
+                            <ButtonPrimary text="Rate" clickHandler={() => onRate(userRating)} />
                         </div>
-                        {userRating > 0 && (
-                            <span className={styles["user-rating"]}>
-                                {["", "Poor", "Poor", "Fair", "Fair", "Fair", "Good", "Good", "Great", "Great", "Masterpiece"][userRating]}
-                            </span>
-                        )}
-                        <ButtonPrimary text="Rate" clickHandler={() => onRate(userRating)} />
-                    </div>
+                    </Activity>
                     <div className={styles["rate-wrapper"]}>
                         <textarea className={styles["comment-item"]} placeholder="Write a comment..." name="content"></textarea>
                         <ButtonPrimary text="Submit" />
