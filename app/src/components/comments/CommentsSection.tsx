@@ -8,7 +8,7 @@ import { useParams } from "react-router";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import useFetch from "../../hooks/useFetch";
 
-type CommentsSectionProps = { 
+type CommentsSectionProps = {
     owner: boolean,
     onRate: (userRating: number) => Promise<void>
 }
@@ -23,10 +23,7 @@ function commentReducer(state: CommentData[], action: Action): CommentData[] {
         case "GET_ALL":
             return action.payload;
         case "ADD_COMMENT":
-            function test(state: CommentData[]): CommentData[] {
-                return [...state, action.payload[0]]
-            }
-            return test(state)
+           return [...state, action.payload[0]]
         default:
             return state;
     }
@@ -88,16 +85,7 @@ export default function CommentsSection({ owner, onRate }: CommentsSectionProps)
                 errorMessageHandler(error);
             };
         })()
-    }, []);
-
-    // async function rateHandler() {
-    //     try {
-    //         const newMovieData = await request(`/rates/${movieId}`, "POST", { accessToken: user.accessToken }, { userRating });
-            
-    //     } catch (error) {
-    //         errorMessageHandler(error);
-    //     };
-    // }
+    }, [request, movieId]);
 
     return (
         <section className={styles["comments-section"]}>
@@ -127,7 +115,7 @@ export default function CommentsSection({ owner, onRate }: CommentsSectionProps)
                                 {["", "Poor", "Poor", "Fair", "Fair", "Fair", "Good", "Good", "Great", "Great", "Masterpiece"][userRating]}
                             </span>
                         )}
-                        <ButtonPrimary text="Rate" clickHandler={() => onRate(userRating)}/>
+                        <ButtonPrimary text="Rate" clickHandler={() => onRate(userRating)} />
                     </div>
                     <div className={styles["rate-wrapper"]}>
                         <textarea className={styles["comment-item"]} placeholder="Write a comment..." name="content"></textarea>

@@ -18,5 +18,16 @@ export default {
         FROM rates
         WHERE "movieId" = ${movieId};
         `
+    },
+
+    async getHasRated(userId, movieId) {
+        return await prisma.rate.findUnique({
+            where: {
+                movieId_userId: {
+                    movieId,
+                    userId
+                }
+            }
+        });
     }
 }
