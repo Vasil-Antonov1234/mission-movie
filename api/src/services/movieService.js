@@ -19,6 +19,18 @@ export default {
             filter.query.rating = Number(filter.query.rating);
         };
 
+        if (filter.query.id) {
+            filter.query.id = Number(filter.query.id);
+        };
+
+        if (filter.query.activePage) {
+            filter.query.activePage = Number(filter.query.activePage);
+        };
+
+        if (!filter.query.activePage) {
+            filter.query.activePage = 1;
+        };
+        
         return await movieRepository.getAll(filter);
     },
 

@@ -11,15 +11,28 @@ export default {
     },
 
     async getAll(filter) {
-
-        return await prisma.movie.findMany({
-            where: filter.query,
-            select: filter.select,
-            orderBy: {
-                title: "asc"
-            }
-        });
+        const offset = (filter.query.activePage -1) * 20;
+        
+        return await prisma.$queryRaw`
+        SELECT
+	        *
+        FROM movies
+        ORDER BY title
+        OFFSET ${offset}
+        LIMIT 20
+        `
     },
+
+    // async getAll(filter) {
+
+    //     return await prisma.movie.findMany({
+    //         where: filter.query,
+    //         select: filter.select,
+    //         orderBy: {
+    //             title: "asc"
+    //         }
+    //     });
+    // },
 
     async getFilmography(castId) {
         return await prisma.$queryRaw`

@@ -16,13 +16,13 @@ export default function AllMovies() {
     const [activePage, setActivePage] = useState(1);
     const [activeGenre, setActiveGenre] = useState("All");
 
-    const { data } = useFetch("/movies", initialState);
+    const { data } = useFetch(`/movies?where=activePage%3D%22${activePage}%22`, initialState);
 
     const movies = data ? data : [];
 
-    let filteredMovies = filterRecordsHandler.filterByGenre(movies, activeGenre);
+    const filteredMovies = filterRecordsHandler.filterByGenre(movies, activeGenre);
 
-    filteredMovies = filterRecordsHandler.filterMoviesByPage(filteredMovies, activePage);
+    // filteredMovies = filterRecordsHandler.filterMoviesByPage(filteredMovies, activePage);
 
     function pageNumberHandler(page: number | string) {
 

@@ -183,6 +183,8 @@ movieController.get("/", async (req, res) => {
 
     filter.query = query;
 
+    console.log(filter)
+
     try {
         const movies = await movieService.getAll(filter);
 
