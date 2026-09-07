@@ -148,5 +148,15 @@ export default {
                 id: movieId
             }
         });
+    },
+
+    async getFeatured() {
+        return await prisma.$queryRaw`
+        SELECT
+	        *
+        FROM movies
+        ORDER BY rating DESC
+        LIMIT 3
+        `
     }
 }

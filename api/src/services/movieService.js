@@ -82,5 +82,9 @@ export default {
         };
         
         return await movieRepository.unAttach(castId, movieId);
+    },
+
+    async getFeatured() {
+        return await movieRepository.getFeatured();
     }
 }

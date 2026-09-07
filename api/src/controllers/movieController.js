@@ -16,54 +16,6 @@ movieController.get("/filmography/:castId", async (req, res) => {
     res.json(result);
 })
 
-movieController.get("/", async (req, res) => {
-
-    let filter = {
-        query: {},
-        select: {
-            poster: true,
-            title: true,
-            genre: true,
-            year: true,
-            rating: true,
-            id: true,
-            authorId: false,
-            synopsis: false,
-            duration: false,
-            director: false,
-            trailerUrl: false,
-            createdAt: false,
-            updatedAt: false,
-            author: false
-        }
-    };
-
-    if (req.query.where) {
-        if (Array.isArray(req.query.where)) {
-            req.query.where.forEach((x) => filter.query[x.replaceAll('"', '').split("=")[0]] = x.replaceAll('"', '').split("=")[1]);
-        } else {
-            filter.query = querystring.parse(req.query.where.replaceAll('"', ''));
-        }
-    };
-
-    const query = {};
-
-    Object.keys(filter.query).forEach((x) => {
-        query[x] = filter.query[x]
-    });
-
-    filter.query = query;
-
-    try {
-        const movies = await movieService.getAll(filter);
-
-        res.json(movies);
-    } catch (error) {
-        res.json(getErrorMessage(error));
-    }
-
-});
-
 movieController.get("/similar", async (req, res) => {
     let filter = {}
 
@@ -103,6 +55,15 @@ movieController.get("/latest", async (req, res) => {
     };
 });
 
+movieController.get("/featured", async (req, res) => {
+    try {
+      const featuredMovies = await movieService.getFeatured();
+      
+      res.status(200).json(featuredMovies);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+})
 
 movieController.post("/create", isAuthMiddleware, async (req, res) => {
 
@@ -182,6 +143,54 @@ movieController.get("/:movieId/:castId/unattach", isAuthMiddleware, async (req, 
     } catch (error) {
         res.status(401).json(getErrorMessage(error));
     };
-})
+});
+
+movieController.get("/", async (req, res) => {
+
+    let filter = {
+        query: {},
+        select: {
+            poster: true,
+            title: true,
+            genre: true,
+            year: true,
+            rating: true,
+            id: true,
+            authorId: false,
+            synopsis: false,
+            duration: false,
+            director: false,
+            trailerUrl: false,
+            createdAt: false,
+            updatedAt: false,
+            author: false
+        }
+    };
+
+    if (req.query.where) {
+        if (Array.isArray(req.query.where)) {
+            req.query.where.forEach((x) => filter.query[x.replaceAll('"', '').split("=")[0]] = x.replaceAll('"', '').split("=")[1]);
+        } else {
+            filter.query = querystring.parse(req.query.where.replaceAll('"', ''));
+        }
+    };
+
+    const query = {};
+
+    Object.keys(filter.query).forEach((x) => {
+        query[x] = filter.query[x]
+    });
+
+    filter.query = query;
+
+    try {
+        const movies = await movieService.getAll(filter);
+
+        res.json(movies);
+    } catch (error) {
+        res.json(getErrorMessage(error));
+    }
+
+});
 
 export default movieController;
