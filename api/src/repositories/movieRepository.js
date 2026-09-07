@@ -14,7 +14,10 @@ export default {
 
         return await prisma.movie.findMany({
             where: filter.query,
-            select: filter.select
+            select: filter.select,
+            orderBy: {
+                title: "asc"
+            }
         });
     },
 

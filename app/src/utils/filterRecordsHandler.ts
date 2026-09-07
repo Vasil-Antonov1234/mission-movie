@@ -2,9 +2,11 @@ import type { Movie, Review } from "../types/types";
 
 export default {
     filterMoviesByPage(allMovies: Movie[], currentPage: number) {
-        let filteredMovies = allMovies.sort((a, b) => {
-            return b.rating - a.rating
-        });
+        // let filteredMovies = allMovies.sort((a, b) => {
+        //     return b.rating - a.rating
+        // });
+
+        let filteredMovies = allMovies
         
         filteredMovies = allMovies.filter((x) => allMovies.indexOf(x) < currentPage * 20 && allMovies.indexOf(x) >= (currentPage * 20) - 20);
     

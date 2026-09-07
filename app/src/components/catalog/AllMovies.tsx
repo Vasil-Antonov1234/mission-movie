@@ -18,7 +18,7 @@ export default function AllMovies() {
 
     const { data } = useFetch("/movies", initialState);
 
-    const movies = data && Array.isArray(data) ? data : [];
+    const movies = data ? data : [];
 
     let filteredMovies = filterRecordsHandler.filterByGenre(movies, activeGenre);
 
