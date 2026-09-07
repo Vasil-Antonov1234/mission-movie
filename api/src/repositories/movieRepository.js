@@ -23,17 +23,6 @@ export default {
         `
     },
 
-    // async getAll(filter) {
-
-    //     return await prisma.movie.findMany({
-    //         where: filter.query,
-    //         select: filter.select,
-    //         orderBy: {
-    //             title: "asc"
-    //         }
-    //     });
-    // },
-
     async getFilmography(castId) {
         return await prisma.$queryRaw`
         SELECT 
@@ -174,5 +163,14 @@ export default {
         ORDER BY rating DESC
         LIMIT 3
         `
+    },
+
+    async getAllCount() {
+        const test = await prisma.$queryRaw`
+        SELECT
+	        COUNT(id)
+        FROM movies
+        `
+        return Number(test[0].count)
     }
 }

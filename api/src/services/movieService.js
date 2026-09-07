@@ -98,5 +98,9 @@ export default {
 
     async getFeatured() {
         return await movieRepository.getFeatured();
+    },
+
+    async getAllCount() {
+        return await movieRepository.getAllCount();
     }
 }

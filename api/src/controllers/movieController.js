@@ -183,8 +183,6 @@ movieController.get("/", async (req, res) => {
 
     filter.query = query;
 
-    console.log(filter)
-
     try {
         const movies = await movieService.getAll(filter);
 
@@ -194,5 +192,15 @@ movieController.get("/", async (req, res) => {
     }
 
 });
+
+movieController.get("/all/count", async (req, res) => {
+    try {
+      const moviesCount = await movieService.getAllCount();
+
+      res.status(200).json(moviesCount);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+})
 
 export default movieController;
