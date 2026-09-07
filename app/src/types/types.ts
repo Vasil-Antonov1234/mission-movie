@@ -3,19 +3,19 @@ export type Featured = {
     title: string,
     year: number,
     genre: string[],
-    rating: number,
+    rating: string,
     description: string,
     backdrop: string,
     director: string,
     duration: string
 };
 
-export type Rating = { rating: number };
+export type Rating = { rating?: string };
 
 export type Review = {
     id: number,
     title: string,
-    rating: number,
+    rating: string,
     excerpt: string,
     author: string,
     date: string,

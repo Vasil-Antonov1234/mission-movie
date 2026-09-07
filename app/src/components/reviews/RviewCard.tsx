@@ -2,11 +2,11 @@ import type { Rating, Review } from "../../types/types";
 import styles from "./ReviewCard.module.css";
 
 function StarRating({ rating }: Rating) {
-    const filled = Math.round((rating / 5) * 5);
+    const filled = Math.round((Number(rating)));
     return (
         <span className={styles["star-rating"]}>
             {"★".repeat(filled)}
-            {"☆".repeat(5 - filled)}
+            {"☆".repeat(10 - filled)}
         </span>
     );
 }

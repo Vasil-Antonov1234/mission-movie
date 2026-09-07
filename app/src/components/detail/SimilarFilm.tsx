@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import type { Movie } from "../../types/types";
 import styles from "./SimilrFilm.module.css";
 
-type RatingBadgeProps = { rating: number, large?: boolean }
+type RatingBadgeProps = { rating?: string, large?: boolean }
 
 function RatingBadge({ rating, large = false }: RatingBadgeProps) {
     return (

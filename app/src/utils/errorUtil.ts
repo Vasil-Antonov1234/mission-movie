@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 export function errorMessageHandler<T>(error: T) {
     let message = "An unexpected error occurred";
 
@@ -17,5 +19,5 @@ export function errorMessageHandler<T>(error: T) {
         return message;
     };
     
-    alert(message);
+    toast.error(message);
 };

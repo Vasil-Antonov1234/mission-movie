@@ -13,11 +13,15 @@ import IsGuest from "./components/route-guards/isGuest"
 import CreateEditCast from "./components/create/CreateEditCast"
 import AttachCast from "./components/create/attachCast"
 import ActorDetail from "./components/detail/ActorDetail"
+import { ToastContainer } from "react-toastify"
 
 function App() {
 
     return (
         <>
+
+            <ToastContainer />
+
             <Header />
             <Routes>
                 <Route path="/" element={<Home />} />

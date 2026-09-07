@@ -5,15 +5,18 @@ import styles from "./AllMovies.module.css";
 import { Activity, useState } from "react";
 import filterRecordsHandler from "../../utils/filterRecordsHandler";
 import useFetch from "../../hooks/useFetch";
+import type { Movie } from "../../types/types";
 
 const paginationCount = [1, 2, 3];
 const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary"];
+
+const initialState: Movie[] = []
 
 export default function AllMovies() {
     const [activePage, setActivePage] = useState(1);
     const [activeGenre, setActiveGenre] = useState("All");
 
-    const { data } = useFetch("/movies", []);
+    const { data } = useFetch("/movies", initialState);
 
     const movies = data && Array.isArray(data) ? data : [];
 

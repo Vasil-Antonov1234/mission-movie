@@ -6,12 +6,11 @@ import type { Actor, Movie, ValidateValue } from "../../types/types";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import { validate } from "../../utils/validate";
 import UserContext from "../../contexts/UserContext";
-// import useForm from "../../hooks/useForm";
 
 const initialStateMovie: Movie = {
     genre: "",
     poster: "",
-    rating: 0,
+    rating: "0",
     title: ""
 }
 
@@ -219,7 +218,7 @@ export default function AttachCast() {
                             className={styles.btnPrimary}
                         // disabled={loading}
                         >
-                            Add an actor to the cast
+                            Add selected actor to the cast
                         </button>
                     </div>
 

@@ -9,7 +9,7 @@ const allReviews: Review[] = [
     {
         id: 1,
         title: "Anatomy of a Fall",
-        rating: 4.5,
+        rating: "4.5",
         excerpt:
             "A masterclass in ambiguity. Triet's courtroom drama buries its audience under layers of doubt, never letting them breathe until the final frame. A devastating and brilliant piece of cinema.",
         author: "Elena Marsh",
@@ -19,7 +19,7 @@ const allReviews: Review[] = [
     {
         id: 2,
         title: "American Fiction",
-        rating: 4.0,
+        rating: "4.0",
         excerpt:
             "Cord Jefferson's debut is a razor-sharp satire that dares to bite the hand that feeds it. Jeffrey Wright is magnetic in every single scene — this is the role of his career.",
         author: "James Okafor",
@@ -29,7 +29,7 @@ const allReviews: Review[] = [
     {
         id: 3,
         title: "Society of the Snow",
-        rating: 4.2,
+        rating: "4.2",
         excerpt:
             "Bayona crafts a survival story with immense restraint and humanity. The film never exploits its true story — instead, it honors it. A gruelling, tender watch.",
         author: "Sofia Navarro",
@@ -39,7 +39,7 @@ const allReviews: Review[] = [
     {
         id: 4,
         title: "Is God Is",
-        rating: 4.4,
+        rating: "4.4",
         excerpt:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat error laboriosam aliquam aperiam obcaecati recusandae ab accusantium vel blanditiis delectus optio tempore ipsum esse perspiciatis, quaerat quibusdam beatae magnam dolorum quo illum non! Consectetur magni, alias beatae earum rerum odio.",
         author: "Sofia Navarro",
@@ -49,7 +49,7 @@ const allReviews: Review[] = [
     {
         id: 5,
         title: "Obsession",
-        rating: 4.1,
+        rating: "4.1",
         excerpt:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat error laboriosam aliquam aperiam obcaecati recusandae ab accusantium vel blanditiis delectus optio tempore ipsum esse perspiciatis, quaerat quibusdam beatae magnam dolorum quo illum non! Consectetur magni, alias beatae earum rerum odio.",
         author: "James Okafor",
@@ -59,7 +59,7 @@ const allReviews: Review[] = [
     {
         id: 6,
         title: "Obsession",
-        rating: 4.1,
+        rating: "4.1",
         excerpt:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat error laboriosam aliquam aperiam obcaecati recusandae ab accusantium vel blanditiis delectus optio tempore ipsum esse perspiciatis, quaerat quibusdam beatae magnam dolorum quo illum non! Consectetur magni, alias beatae earum rerum odio.",
         author: "James Okafor",
@@ -69,7 +69,7 @@ const allReviews: Review[] = [
     {
         id: 7,
         title: "Obsession",
-        rating: 4.1,
+        rating: "4.1",
         excerpt:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat error laboriosam aliquam aperiam obcaecati recusandae ab accusantium vel blanditiis delectus optio tempore ipsum esse perspiciatis, quaerat quibusdam beatae magnam dolorum quo illum non! Consectetur magni, alias beatae earum rerum odio.",
         author: "James Okafor",

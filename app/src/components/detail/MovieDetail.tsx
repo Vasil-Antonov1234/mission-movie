@@ -11,6 +11,7 @@ import { Activity, useContext, useEffect, useState } from "react";
 import UserContext from "../../contexts/UserContext";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import type { Movie, Options } from "../../types/types";
+import { toast } from "react-toastify";
 
 const MOVIE = {
     id: 1,
@@ -227,6 +228,7 @@ export default function MovieDetail() {
             };
 
             setData((state) => state ? ({ ...state, casts: castData }) : initialState)
+            toast(`${fullName} has beed removed from the cast`);
 
         } catch (error) {
             errorMessageHandler(error);
@@ -239,6 +241,7 @@ export default function MovieDetail() {
 
             setData(newMovieData);
             setHasRated(true);
+            toast(`You have rated ${movie?.title} with ${userRating} stars`);
         } catch (error) {
             errorMessageHandler(error);
         };
