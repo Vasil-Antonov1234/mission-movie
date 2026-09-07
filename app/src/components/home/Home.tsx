@@ -9,6 +9,7 @@ import type { Featured, Movie } from "../../types/types";
 import filterRecordsHandler from "../../utils/filterRecordsHandler";
 import UserContext from "../../contexts/UserContext";
 import useFetch from "../../hooks/useFetch";
+import { Link } from "react-router";
 
 const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary", "Fantasy", "Adventure"];
 
@@ -60,7 +61,7 @@ export default function Home() {
                     <span className={heroState === 1 ? styles["next-slide"] : `${styles["next-slide"]} ${styles["hover-slade"]}`} onClick={previousHeroHandler} onTouchEnd={(event) => touchEndHandler(event)}>{"<"}</span>
                     <span className={featuredMovies && heroState >= featuredMovies.length ? styles["previous-slide"] : `${styles["previous-slide"]} ${styles["hover-slade"]}`} onClick={nextHeroHandler} onTouchEnd={(event) => touchEndHandler(event)}>{">"}</span>
                     <div className={`${styles["hero-container"]} ${styles[`hero-container-state${heroState}-${moveState}`]}`}>
-                        {featuredMovies?.map((movie) => <Hero key={movie.id} movie={movie} position={featuredMovies.indexOf(movie)}/>)}
+                        {featuredMovies?.map((movie) => <Hero key={movie.id} movie={movie} position={featuredMovies.indexOf(movie)} />)}
                     </div>
                 </div>
             </section>
@@ -80,7 +81,9 @@ export default function Home() {
                         Write reviews, build lists, discover new films, and connect with other cinephiles who share
                         your taste.
                     </p>
-                    <ButtonPrimary text="Create your free account" addStyle="cta-btn--large" />
+                    <Link to="/register">
+                        <ButtonPrimary text="Create your free account" addStyle="cta-btn--large" />
+                    </Link>
                 </section>
             </Activity>
             <Reviews />

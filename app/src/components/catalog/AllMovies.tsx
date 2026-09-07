@@ -54,23 +54,13 @@ export default function AllMovies() {
                                 position={movies.indexOf(movie) + 1}
                             />
                         ))}
-                        {/* {filteredMovies.map((movie) => (
-                        <MovieCard
-                            key={movie.id}
-                            id={movie.id}
-                            title={movie.title}
-                            year={movie.year}
-                            rating={movie.rating}
-                            genre={movie.genre}
-                            poster={movie.poster}
-                            position={allMovies.indexOf(movie) + 1}
-                        />
-                    ))} */}
                     </div>
                 </section>
             </Activity>
             <Activity mode={filteredMovies && filteredMovies.length > 0 ? "hidden" : "visible"}>
-                <h2 className={styles["no-movies"]}>Nothing here yet</h2>
+                <section className={styles["trending-wrapper"]}>
+                    <h2 className={styles["no-movies"]}>Nothing here yet</h2>
+                </section>
             </Activity>
             <PaginationContainer count={paginationCount} onPageNumber={pageNumberHandler} />
         </section>
