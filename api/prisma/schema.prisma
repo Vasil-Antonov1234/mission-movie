@@ -126,7 +126,7 @@ model Rate {
 	createdAt	DateTime	@default(now())
 	updatedAt	DateTime	@updatedAt
 
-	movie		Movie		@relation(fields: [movieId], references: [id])
+	movie		Movie		@relation(fields: [movieId], references: [id], onDelete: Cascade)
 	user		User		@relation(fields: [userId], references: [id])
 
 	@@id([movieId, userId])
