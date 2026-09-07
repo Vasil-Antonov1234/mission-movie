@@ -8,7 +8,7 @@ function RatingBadge({ rating }: Rating) {
     return <span className={styles["rating-badge"]}>★ {rating}</span>;
 }
 
-type HeroProps = { movie: Featured }
+type HeroProps = { movie: Featured, position: number }
 
 export default function Hero(movie: HeroProps) {
     return (
@@ -17,7 +17,7 @@ export default function Hero(movie: HeroProps) {
             <div className={styles["hero-overlay-h"]} />
             <div className={styles["hero-overlay-v"]} />
             <div className={styles["hero-content"]}>
-                <div className={styles["section-label"]}>✦ Featured film</div>
+                <div className={styles["section-label"]}>#{movie.position + 1} ✦ Featured film</div>
                 <h1 className={styles["hero-title"]}>{movie.movie.title}</h1>
                 <div className={styles["hero-meta"]}>
                     <span>{movie.movie.year}</span>

@@ -8,7 +8,7 @@ export type Featured = {
     poster: string,
     director: string,
     duration: string
-    trailerUrl?: string
+    trailerUrl?: string,
 };
 
 export type Rating = { rating?: string };

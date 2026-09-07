@@ -60,7 +60,7 @@ export default function Home() {
                     <span className={heroState === 1 ? styles["next-slide"] : `${styles["next-slide"]} ${styles["hover-slade"]}`} onClick={previousHeroHandler} onTouchEnd={(event) => touchEndHandler(event)}>{"<"}</span>
                     <span className={featuredMovies && heroState >= featuredMovies.length ? styles["previous-slide"] : `${styles["previous-slide"]} ${styles["hover-slade"]}`} onClick={nextHeroHandler} onTouchEnd={(event) => touchEndHandler(event)}>{">"}</span>
                     <div className={`${styles["hero-container"]} ${styles[`hero-container-state${heroState}-${moveState}`]}`}>
-                        {featuredMovies?.map((movie) => <Hero key={movie.id} movie={movie} />)}
+                        {featuredMovies?.map((movie) => <Hero key={movie.id} movie={movie} position={featuredMovies.indexOf(movie)}/>)}
                     </div>
                 </div>
             </section>
