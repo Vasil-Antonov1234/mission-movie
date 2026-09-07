@@ -2,12 +2,13 @@ export type Featured = {
     id: number,
     title: string,
     year: number,
-    genre: string[],
+    genre: string,
     rating: string,
     description: string,
-    backdrop: string,
+    poster: string,
     director: string,
     duration: string
+    trailerUrl?: string
 };
 
 export type Rating = { rating?: string };

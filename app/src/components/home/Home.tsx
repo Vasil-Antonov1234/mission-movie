@@ -5,58 +5,62 @@ import Reviews from "../reviews/Reviews";
 import SelectionFilter from "../trending/SelectionFilter";
 import Trending from "../trending/Trending";
 import styles from "./Home.module.css";
-import type { Featured } from "../../types/types";
+import type { Featured, Movie } from "../../types/types";
 import filterRecordsHandler from "../../utils/filterRecordsHandler";
 import UserContext from "../../contexts/UserContext";
 import useFetch from "../../hooks/useFetch";
 
 const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary", "Fantasy", "Adventure"];
 
-const featuredMovies: Featured[] | [] = [
-    {
-        id: 30,
-        title: "Dune: Part Two",
-        year: 2024,
-        genre: ["Sci-Fi", "Adventure"],
-        rating: "8.8",
-        description:
-            "Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe.",
-        backdrop: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=80",
-        director: "Denis Villeneuve",
-        duration: "2h 46m"
-    },
-    {
-        id: 31,
-        title: "The End of Oak Street",
-        year: 2026,
-        genre: ["Action", "Sci-Fi", "Adventure", "Mistery"],
-        rating: "9.1",
-        description:
-            "The Platt family bands together to navigate their new surroundings after a cosmic event transports their suburban neighborhood to someplace unknown.",
-        backdrop: "https://m.media-amazon.com/images/M/MV5BYjU5MTBkOTMtMzg2MC00N2Y0LTk1MmUtMjhmNmZhZjgxZGZlXkEyXkFqcGc@._V1_.jpg",
-        director: "David Robert Mitchell",
-        duration: "1h 50m"
-    },
-    {
-        id: 32,
-        title: "House of the Dragon: Season 3",
-        year: 2026,
-        genre: ["Action", "Adventure", "Fantasy"],
-        rating: "8.3",
-        description:
-            "An internal succession war within House Targaryen at the height of its power, 172 years before the birth of Daenerys Targaryen.",
-        backdrop: "https://pbs.twimg.com/media/GbAeMfFXIAAiMlK.jpg",
-        director: "Ryan J. Condal",
-        duration: "1h"
-    }
-]
+// const featuredMovies: Featured[] | [] = [
+//     {
+//         id: 30,
+//         title: "Dune: Part Two",
+//         year: 2024,
+//         genre: ["Sci-Fi", "Adventure"],
+//         rating: "8.8",
+//         description:
+//             "Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe.",
+//         backdrop: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=80",
+//         director: "Denis Villeneuve",
+//         duration: "2h 46m"
+//     },
+//     {
+//         id: 31,
+//         title: "The End of Oak Street",
+//         year: 2026,
+//         genre: ["Action", "Sci-Fi", "Adventure", "Mistery"],
+//         rating: "9.1",
+//         description:
+//             "The Platt family bands together to navigate their new surroundings after a cosmic event transports their suburban neighborhood to someplace unknown.",
+//         backdrop: "https://m.media-amazon.com/images/M/MV5BYjU5MTBkOTMtMzg2MC00N2Y0LTk1MmUtMjhmNmZhZjgxZGZlXkEyXkFqcGc@._V1_.jpg",
+//         director: "David Robert Mitchell",
+//         duration: "1h 50m"
+//     },
+//     {
+//         id: 32,
+//         title: "House of the Dragon: Season 3",
+//         year: 2026,
+//         genre: ["Action", "Adventure", "Fantasy"],
+//         rating: "8.3",
+//         description:
+//             "An internal succession war within House Targaryen at the height of its power, 172 years before the birth of Daenerys Targaryen.",
+//         backdrop: "https://pbs.twimg.com/media/GbAeMfFXIAAiMlK.jpg",
+//         director: "Ryan J. Condal",
+//         duration: "1h"
+//     }
+// ]
+
+const initialStateFeatuted: Featured[] = [];
+const initialStateTrending: Movie[] = [];
 
 export default function Home() {
     const [heroState, setHeroState] = useState(1);
     const [moveState, SetMoveState] = useState("next");
     const [activeGenre, setActiveGenre] = useState("All");
     const { isAuthenticated } = useContext(UserContext);
-    const { data: trending } = useFetch("/movies/latest", []);
+    const { data: trending } = useFetch("/movies/latest", initialStateTrending);
+    const { data: featuredMovies } = useFetch("/movies/featured", initialStateFeatuted);
 
     if (!Array.isArray(trending)) {
         return;
@@ -66,9 +70,9 @@ export default function Home() {
 
     function nextHeroHandler() {
 
-        if (heroState > featuredMovies.length - 1) {
-            return
-        }
+        if (!featuredMovies || heroState > featuredMovies.length - 1) {
+            return;
+        };
 
         setHeroState((state) => state + 1);
         SetMoveState("next");
@@ -93,9 +97,9 @@ export default function Home() {
             <section className={styles["hero-wrapper"]}>
                 <div className={styles["slide"]}>
                     <span className={heroState === 1 ? styles["next-slide"] : `${styles["next-slide"]} ${styles["hover-slade"]}`} onClick={previousHeroHandler} onTouchEnd={(event) => touchEndHandler(event)}>{"<"}</span>
-                    <span className={heroState >= featuredMovies.length ? styles["previous-slide"] : `${styles["previous-slide"]} ${styles["hover-slade"]}`} onClick={nextHeroHandler} onTouchEnd={(event) => touchEndHandler(event)}>{">"}</span>
+                    <span className={featuredMovies && heroState >= featuredMovies.length ? styles["previous-slide"] : `${styles["previous-slide"]} ${styles["hover-slade"]}`} onClick={nextHeroHandler} onTouchEnd={(event) => touchEndHandler(event)}>{">"}</span>
                     <div className={`${styles["hero-container"]} ${styles[`hero-container-state${heroState}-${moveState}`]}`}>
-                        {featuredMovies.map((movie) => <Hero key={movie.id} movie={movie} />)}
+                        {featuredMovies?.map((movie) => <Hero key={movie.id} movie={movie} />)}
                     </div>
                 </div>
             </section>

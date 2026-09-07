@@ -153,7 +153,7 @@ export default {
     async getFeatured() {
         return await prisma.$queryRaw`
         SELECT
-	        *
+	        id, title, year, genre, rating, synopsis, poster, director, duration, "trailerUrl"
         FROM movies
         ORDER BY rating DESC
         LIMIT 3
