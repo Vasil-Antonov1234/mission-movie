@@ -2,6 +2,7 @@ import express, { json } from "express";
 import routes from "./routes.js";
 import cors from "cors";
 import { AuthMiddleware } from "./middlewares/authMiddleware.js";
+import passport from "./config/passport.js";
 
 const app = express()
 
@@ -13,6 +14,9 @@ app.use(express.json())
 
 // Add Auth Middleware
 app.use(AuthMiddleware);
+
+// Initialize Passport
+app.use(passport.initialize());
 
 app.get("/", (req, res) => {
     res.send("Hello from the backend")
