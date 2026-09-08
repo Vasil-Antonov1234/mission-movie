@@ -5,6 +5,7 @@ import userController from "./controllers/userController.js";
 import castController from "./controllers/castController.js";
 import commentController from "./controllers/commentController.js";
 import rateController from "./controllers/rateController.js";
+import authController from "./controllers/authController.js";
 
 const routes = Router();
 
@@ -14,5 +15,6 @@ routes.use("/users", userController);
 routes.use("/casts", castController);
 routes.use("/comments", commentController);
 routes.use("/rates", rateController);
+routes.use("/auth", authController);
 
 export default routes;
