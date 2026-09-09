@@ -34,4 +34,17 @@ rateController.get(`/:movieId`, async (req, res) => {
     };
 })
 
+rateController.get("/count/:movieId", async (req, res) => {
+    const movieId = Number(req.params.movieId);
+
+    try {
+        const result = await rateService.getRatesCount(movieId);
+        const ratesCount = Number(result[0].count) + 1;
+
+        res.status(200).json(ratesCount);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+})
+
 export default rateController;

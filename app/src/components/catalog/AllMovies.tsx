@@ -42,7 +42,7 @@ export default function AllMovies() {
                 activeState={activeGenre}
             />
             <div>
-                <h1 className={styles["section-heading-title"]}>Whatch new titles</h1>
+                <h1 className={styles["section-heading-title"]}>Watch new titles</h1>
             </div>
             <Activity mode={filteredMovies && filteredMovies.length > 0 ? "visible" : "hidden"}>
                 <section className={styles["trending-wrapper"]}>

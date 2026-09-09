@@ -29,5 +29,9 @@ export default {
 
     async getHasRated(userId, movieId) {
         return await rateRepository.getHasRated(userId, movieId);
+    },
+
+    async getRatesCount(movieId) {
+        return await rateRepository.getRatesCount(movieId);
     }
 }
