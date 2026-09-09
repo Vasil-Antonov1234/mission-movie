@@ -20,7 +20,7 @@ export default function AllMovies() {
     const { data } = useFetch(`/movies?where=activePage%3D%22${activePage}%22`, initialState);
     const { data: moviesCount } = useFetch("/movies/all/count", "0");
 
-    const paginationCount = moviesCount ? countPages(moviesCount) : 0;
+    const paginationCount = moviesCount ? countPages(moviesCount) : [];
 
 
     const movies = data ? data : [];
