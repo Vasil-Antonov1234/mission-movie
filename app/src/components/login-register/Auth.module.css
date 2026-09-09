@@ -419,6 +419,10 @@
   animation: loading 3s linear infinite;
 }
 
+.reset {
+  all: unset;
+}
+
 @keyframes loading {
   0% {
     background-color: rgba(232, 185, 75, 0.925);

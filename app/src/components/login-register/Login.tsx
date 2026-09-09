@@ -37,7 +37,7 @@ export default function Login() {
         setErrors(fieldErrors);
     }
 
-    async function actionHandler() {        
+    async function actionHandler() {
         const fieldErrors = validate(data);
         setErrors(fieldErrors);
         setTouched(fieldErrors);
@@ -56,7 +56,7 @@ export default function Login() {
             setData(initialValues);
 
             onLogin(result)
-            
+
         } catch (error) {
             setData((state) => ({ ...state, password: "" }));
             errorMessageHandler(error);
@@ -84,12 +84,11 @@ export default function Login() {
 
                 {/* Social */}
                 <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "24px" }}>
-                    <button className={styles["auth-social-btn"]}>
-                        <span className={styles["auth-social-icon"]}>G</span> Continue with Google
-                    </button>
-                    <button className={styles["auth-social-btn"]}>
-                        <span className={styles["auth-social-icon"]}>⌘</span> Continue with Apple
-                    </button>
+                    <Link className={styles["reset"]} to="http://localhost:5000/auth/google">
+                        <button className={styles["auth-social-btn"]}>
+                            <span className={styles["auth-social-icon"]}>G</span> Continue with Google
+                        </button>
+                    </Link>
                 </div>
 
                 {/* Divider */}

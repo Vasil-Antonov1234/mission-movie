@@ -107,7 +107,7 @@ export default function Register() {
 
         try {
             const result = await request("/users/register", "POST", {}, data);
-            
+
             setErrors({});
             onLogin(result);
         } catch (error) {
@@ -142,12 +142,11 @@ export default function Register() {
 
                 {/* Social */}
                 <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "24px" }}>
-                    <button className={styles["auth-social-btn"]}>
-                        <span className={styles["auth-social-icon"]}>G</span> Continue with Google
-                    </button>
-                    <button className={styles["auth-social-btn"]}>
-                        <span className={styles["auth-social-icon"]}>⌘</span> Continue with Apple
-                    </button>
+                    <Link className={styles["reset"]} to="http://localhost:5000/auth/google">
+                        <button className={styles["auth-social-btn"]}>
+                            <span className={styles["auth-social-icon"]}>G</span> Continue with Google
+                        </button>
+                    </Link>
                 </div>
 
                 {/* Divider */}

@@ -19,8 +19,8 @@ app.use(AuthMiddleware);
 app.use(passport.initialize());
 
 app.get("/", (req, res) => {
-    res.send("Hello from the backend")
-})
+    res.send("Hello from the backend");
+});
 
 app.use(routes);
 
