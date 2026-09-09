@@ -142,6 +142,7 @@ export default function MovieDetail() {
 
     const { data: similarMoviesData, request } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`, movies);
     const [hasRated, setHasRated] = useState<boolean>(false);
+    const { data: ratesCount } = useFetch(`/rates/count/${movieId}`, "1");
 
     useEffect(() => {
 
@@ -332,7 +333,7 @@ export default function MovieDetail() {
                             </div>
                             <div className={styles["score-card"]}>
                                 <div className={styles["score-card-label"]}>From</div>
-                                <div className={styles["score-card-value"]}>{oldMovie.metascore}</div>
+                                <div className={styles["score-card-value"]}>{ratesCount}</div>
                                 <div className={styles["score-card-sub"]}>Users</div>
                             </div>
                             <div className={styles["score-card"]}>
