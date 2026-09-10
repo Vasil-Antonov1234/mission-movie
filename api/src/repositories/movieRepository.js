@@ -11,16 +11,45 @@ export default {
     },
 
     async getAll(filter) {
-        const offset = (filter.query.activePage -1) * 20;
+
+        if (filter.query.activePage) {
+            const offset = (filter.query.activePage - 1) * 5;
+            return await prisma.$queryRaw`
+            SELECT
+                poster, 
+                title, 
+                genre, 
+                year, 
+                rating, 
+                id, 
+                "authorId", 
+                synopsis, 
+                duration:, 
+                director, 
+                "trailerUrl", 
+                "createdAt", 
+                "updatedAt", 
+                author
+            FROM movies
+            ORDER BY title
+            OFFSET ${offset}
+            LIMIT 5
+            `
+        };
+
+        console.log(filter)
+
+        const filterGenre = filter.query.genre
+
+        return await prisma.movie.findMany({
+            where: {
+                genre: {
+                    contains: filterGenre
+                }
+            },
+            select: filter.select
+        })
         
-        return await prisma.$queryRaw`
-        SELECT
-	        *
-        FROM movies
-        ORDER BY title
-        OFFSET ${offset}
-        LIMIT 20
-        `
     },
 
     async getFilmography(castId) {
