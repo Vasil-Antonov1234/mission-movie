@@ -133,14 +133,16 @@ export default {
         LIMIT 3`;
     },
 
-    async getLatest() {
+    async getLatest(filter) {
+        const genre = `%${filter.genre}%`;
+
         return await prisma.$queryRaw`
         SELECT
-	*
-    FROM movies
-    WHERE "rating" > 8
-    ORDER BY "createdAt" DESC
-    LIMIT 5;`;
+	        id, title, year, genre, rating, poster
+        FROM movies
+        WHERE "rating" > 8 AND genre ILIKE ${genre}
+        ORDER BY "createdAt" DESC
+        LIMIT 5;`;
     },
 
     async unAttach(castId, movieId) {

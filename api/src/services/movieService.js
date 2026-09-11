@@ -82,8 +82,13 @@ export default {
         return await movieRepository.getSimilar(filter);
     },
 
-    async getLatest() {
-        return await movieRepository.getLatest();
+    async getLatest(filter) {
+        
+        if (!filter.genre || filter.genre === "All") {
+            filter.genre = "";
+        };
+        
+        return await movieRepository.getLatest(filter);
     },
 
     async getFilmography(castId) {

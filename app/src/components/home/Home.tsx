@@ -21,7 +21,7 @@ export default function Home() {
     const [moveState, SetMoveState] = useState("next");
     const [activeGenre, setActiveGenre] = useState("All");
     const { isAuthenticated } = useContext(UserContext);
-    const { data: trending } = useFetch("/movies/latest", initialStateTrending);
+    const { data: trending } = useFetch(`/movies/latest?where=genre%3D%22${activeGenre}%22`, initialStateTrending);
     const { data: featuredMovies } = useFetch("/movies/featured", initialStateFeatuted);
 
     if (!Array.isArray(trending)) {

@@ -45,9 +45,18 @@ movieController.get("/similar", async (req, res) => {
 });
 
 movieController.get("/latest", async (req, res) => {
+    let filter = {};
+
+    if (req.query.where) {
+        if (Array.isArray(req.query.where)) {
+            req.query.where.forEach((x) => filter[x.replaceAll('"', '').split("=")[0]] = x.replaceAll('"', '').split("=")[1]);
+        } else {
+            filter = querystring.parse(req.query.where.replaceAll('"', ''));
+        }
+    };
 
     try {
-        const latestMovies = await movieService.getLatest();
+        const latestMovies = await movieService.getLatest(filter);
 
         res.status(200).json(latestMovies);
     } catch (error) {
