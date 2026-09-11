@@ -52,7 +52,7 @@ export default function MovieDetail() {
         try {
 
             (async () => {
-                
+
             })()
 
             if (!user.accessToken) {
@@ -249,8 +249,8 @@ export default function MovieDetail() {
                                 <div className={styles["score-card-sub"]}>Users</div>
                             </div>
                             <div className={styles["score-card"]}>
-                                <div className={styles["score-card-label"]}>Reviews</div>
-                                <div className={styles["score-card-value"]}>{movie.reviwesCont}</div>
+                                <div className={styles["score-card-label"]}>Views</div>
+                                <div className={styles["score-card-value"]}>{movie.reviewsCount}</div>
                                 <div className={styles["score-card-sub"]}>Counter</div>
                             </div>
                         </div>

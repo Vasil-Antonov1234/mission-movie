@@ -59,7 +59,7 @@ export type Movie = {
     budget?: string,
     boxOffice?: string,
     casts?: Artist[]
-    reviwesCont?: number,
+    reviewsCount?: number,
 };
 
 export type SelectionOptions = {

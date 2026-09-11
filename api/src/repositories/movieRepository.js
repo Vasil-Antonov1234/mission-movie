@@ -14,7 +14,7 @@ export default {
 
         const offset = (filter.query.activePage - 1) * 20;
         const filterGenre = `%${filter.query.genre}%`;
-                
+
         return await prisma.$queryRaw`
             SELECT
                 poster, 
@@ -60,6 +60,17 @@ export default {
             });
         };
 
+        await prisma.movie.update({
+            where: {
+                id: movieId
+            },
+            data: {
+                reviewsCount: {
+                    increment: 1
+                }
+            }
+        });
+
         return await prisma.movie.findUnique({
             where: {
                 id: movieId
@@ -76,24 +87,6 @@ export default {
                     include: {
                         cast: true
                     }
-                }
-            }
-        });
-    },
-
-    async incremetnViews(movieId) {
-        // const movie = await prisma.movie.findUnique({
-        //     where: {
-        //         id: movieId
-        //     }
-        // });
-        await prisma.movie.update({
-            where: {
-                id: movieId
-            },
-            data: {
-                reviewsCount: {
-                    increment: 1
                 }
             }
         });
