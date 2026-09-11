@@ -6,7 +6,7 @@ import SelectionFilter from "../trending/SelectionFilter";
 import Trending from "../trending/Trending";
 import styles from "./Home.module.css";
 import type { Featured, Movie } from "../../types/types";
-import filterRecordsHandler from "../../utils/filterRecordsHandler";
+// import filterRecordsHandler from "../../utils/filterRecordsHandler";
 import UserContext from "../../contexts/UserContext";
 import useFetch from "../../hooks/useFetch";
 import { Link } from "react-router";
@@ -28,7 +28,7 @@ export default function Home() {
         return;
     };
 
-    const filteredTrending = filterRecordsHandler.filterByGenre(trending, activeGenre);
+    // const filteredTrending = filterRecordsHandler.filterByGenre(trending, activeGenre);
 
     function nextHeroHandler() {
 
@@ -69,8 +69,8 @@ export default function Home() {
                 options={options}
                 setSortBy={setActiveGenre}
                 activeState={activeGenre} />
-            <Trending trending={filteredTrending} />
-            <Activity mode={filteredTrending.length < 1 ? "visible" : "hidden"}>
+            <Trending trending={trending} />
+            <Activity mode={trending.length < 1 ? "visible" : "hidden"}>
                 <h2 className={styles["no-movies"]}>Nothing here yet</h2>
             </Activity>
             <Activity mode={isAuthenticated ? "hidden" : "visible"}>
