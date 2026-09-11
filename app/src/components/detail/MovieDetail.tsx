@@ -42,27 +42,35 @@ export default function MovieDetail() {
 
     const movies: Movie[] = []
 
-    const { data: similarMoviesData, request } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`, movies);
+    const { data: similarMoviesData, request, BASE_URL } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`, movies);
     const [hasRated, setHasRated] = useState<boolean>(false);
     const { data: ratesCount } = useFetch(`/rates/count/${movieId}`, "1");
 
+    useEffect(() => {
+        const controller = new AbortController();
+        
+        (async () => {
+            try {
+                await fetch(`${BASE_URL}/movies/${movieId}/increment-views`, { method: "PATCH", signal: controller.signal });
+            } catch (error) {
+                errorMessageHandler(error);
+            };
+        })();
+
+        return () => {
+            controller.abort();
+        };
+    }, [movieId, BASE_URL]);
 
     useEffect(() => {
+        if (!user.accessToken) {
+            return;
+        };
 
-        try {
+        const controller = new AbortController();
 
-            (async () => {
-
-            })()
-
-            if (!user.accessToken) {
-                return;
-            };
-
-            const controller = new AbortController();
-
-            (async () => {
-
+        (async () => {
+            try {
                 const options: Options = {
                     method: "GET",
                     headers: {
@@ -72,21 +80,21 @@ export default function MovieDetail() {
                     signal: controller.signal
                 }
 
-                const response = await fetch(`http://localhost:5000/rates/${movieId}`, options);
+                const response = await fetch(`${BASE_URL}/rates/${movieId}`, options);
 
                 const result: boolean = await response.json();
 
                 setHasRated(result);
 
-                return () => {
-                    controller.abort();
-                }
-            })()
-        } catch (error) {
-            errorMessageHandler(error);
-        }
+            } catch (error) {
+                errorMessageHandler(error);
+            }
+        })();
 
-    }, [movieId, user.accessToken])
+        return () => {
+            controller.abort();
+        }
+    }, [movieId, user.accessToken, BASE_URL]);
 
     if (!movie) {
         return;

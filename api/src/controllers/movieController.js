@@ -88,7 +88,7 @@ movieController.post("/create", isAuthMiddleware, async (req, res) => {
     };
 });
 
-movieController.patch("/increment-views/:movieId", async (req, res) => {
+movieController.patch("/:movieId/increment-views", async (req, res) => {
     const movieId = Number(req.params.movieId);
 
     try {

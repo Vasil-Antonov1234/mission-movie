@@ -68,5 +68,5 @@ export default function useFetch<T>(url?: string, initialState?: T) {
 
     };
 
-    return { data, setData, request };
+    return { data, setData, request, BASE_URL };
 };
