@@ -153,9 +153,9 @@ export default {
         SELECT
 	        id, title, year, genre, rating, poster
         FROM movies
-        WHERE "rating" > 8 AND genre ILIKE ${genre}
-        ORDER BY "createdAt" DESC
-        LIMIT 5;`;
+        WHERE genre ILIKE ${genre}
+        ORDER BY "reviewsCount" DESC
+        LIMIT 5`;
     },
 
     async unAttach(castId, movieId) {
