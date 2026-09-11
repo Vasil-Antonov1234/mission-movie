@@ -60,17 +60,6 @@ export default {
             });
         };
 
-        await prisma.movie.update({
-            where: {
-                id: movieId
-            },
-            data: {
-                reviewsCount: {
-                    increment: 1
-                }
-            }
-        });
-
         return await prisma.movie.findUnique({
             where: {
                 id: movieId
@@ -87,6 +76,19 @@ export default {
                     include: {
                         cast: true
                     }
+                }
+            }
+        });
+    },
+
+    async incrementViews(movieId) {
+        await prisma.movie.update({
+            where: {
+                id: movieId
+            },
+            data: {
+                reviewsCount: {
+                    increment: 1
                 }
             }
         });

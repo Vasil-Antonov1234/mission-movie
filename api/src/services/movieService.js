@@ -40,8 +40,6 @@ export default {
 
     async getById(movieId, filter) {
 
-        // await movieRepository.incremetnViews(movieId);
-
         const movie = await movieRepository.getById(movieId, filter);
 
         if (!movie) {
@@ -49,6 +47,10 @@ export default {
         };
 
         return movie;
+    },
+
+    async incrementViews(movieId) {
+        return await movieRepository.incrementViews(movieId);
     },
 
     async removeById(movieId, userId) {
