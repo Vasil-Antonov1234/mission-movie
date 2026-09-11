@@ -13,103 +13,6 @@ import { errorMessageHandler } from "../../utils/errorUtil";
 import type { Movie, Options } from "../../types/types";
 import { toast } from "react-toastify";
 
-const MOVIE = {
-    id: 1,
-    title: "Oppenheimer",
-    tagline: "The world forever changes.",
-    year: 2023,
-    duration: "3h 0m",
-    rating: 8.9,
-    ratingsCount: "642K",
-    metascore: 88,
-    rottenTomatoes: 93,
-    director: "Christopher Nolan",
-    writers: ["Christopher Nolan"],
-    studio: "Universal Pictures",
-    budget: "$100M",
-    boxOffice: "$952M",
-    language: "English",
-    country: "United States",
-    releaseDate: "July 21, 2023",
-    genres: ["Drama", "History", "Thriller"],
-    backdrop: "https://m.media-amazon.com/images/I/91L+jiIFA3L.jpg",
-    poster: "https://m.media-amazon.com/images/I/91L+jiIFA3L.jpg",
-    synopsis:
-        "The story of J. Robert Oppenheimer and his role in the development of the atomic bomb during World War II. Tasked by General Leslie Groves to lead the Manhattan Project, Oppenheimer assembles a team of the world's brightest minds at a secret laboratory in Los Alamos, New Mexico. The film chronicles not only the scientific achievement but also the profound moral reckoning that followed — a man who both saved and damned the world in the same breath. Intercut with a 1954 security hearing that threatens to strip him of his reputation, the film is as much a psychological portrait as it is a historical epic.",
-    cast: [
-        {
-            id: 1,
-            name: "Cillian Murphy",
-            role: "J. Robert Oppenheimer",
-            photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-nMx32JMWKq1YWId_yvkG-DTpRcrMZw5brTeIwI6ag1Z4sC8TvBBOC9Zw-ie6pMarbxG1luhB0stDor6tdt7SghnZUTKpLjSuri9qF2g&s=10",
-        },
-        {
-            id: 2,
-            name: "Emily Blunt",
-            role: "Katherine Oppenheimer",
-            photo: "https://s.yimg.com/os/en/mandatory_995/770b9ee1b5583034feb5e8748fc641a4",
-        },
-        {
-            id: 3,
-            name: "Matt Damon",
-            role: "Gen. Leslie Groves",
-            photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM4aq1mki4ROCo_-GZPHdOTyHyT2HkgYXRONZxxd-UjOpstfMQzEi4PxGa5T2w7euPyt3qZHa3upuZ0v2dhVhsAk-mZddpcayg8FcuHBQ&s=10",
-        },
-        {
-            id: 4,
-            name: "Robert Downey Jr.",
-            role: "Lewis Strauss",
-            photo: "https://variety.com/wp-content/uploads/2024/01/GettyImages-1431200396-e1704401442760.jpg?w=681&h=383&crop=1",
-        },
-    ],
-    reviews: [
-        {
-            id: 1,
-            author: "Elena Marsh",
-            date: "Aug 3, 2023",
-            rating: 5,
-            text: "Nolan has never been more controlled or more explosive. Oppenheimer is a film that refuses to let you look away — from the science, from the politics, from the man himself. Cillian Murphy gives the performance of his generation.",
-        },
-        {
-            id: 2,
-            author: "James Okafor",
-            date: "Aug 10, 2023",
-            rating: 4,
-            text: "A towering achievement of form and substance. The Trinity sequence alone is worth the price of admission — Nolan renders the unknowable tangible. If it stumbles anywhere, it's in the courtroom sequences, which pale against the volcanic first two acts.",
-        },
-        {
-            id: 3,
-            author: "Sofia Navarro",
-            date: "Sep 1, 2023",
-            rating: 5,
-            text: "Three hours that feel like thirty minutes. Dense, demanding, devastating. The kind of film that demands you sit with it for days after — and then watch it again.",
-        },
-    ],
-    similar: [
-        {
-            id: 2,
-            title: "Dunkirk",
-            year: 2017,
-            rating: 7.8,
-            poster: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=200&q=80",
-        },
-        {
-            id: 3,
-            title: "The Imitation Game",
-            year: 2014,
-            rating: 8.0,
-            poster: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=200&q=80",
-        },
-        {
-            id: 4,
-            title: "Darkest Hour",
-            year: 2017,
-            rating: 7.4,
-            poster: "https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=200&q=80",
-        },
-    ],
-};
-
 type RatingBadgeProps = { rating?: string, large?: boolean }
 
 function RatingBadge({ rating, large = false }: RatingBadgeProps) {
@@ -123,7 +26,6 @@ function RatingBadge({ rating, large = false }: RatingBadgeProps) {
 export default function MovieDetail() {
     const { isAuthenticated, user, onLogout } = useContext(UserContext);
     const navigate = useNavigate();
-    const oldMovie = MOVIE;
 
     const movieId = useParams().movieId;
 
@@ -144,36 +46,46 @@ export default function MovieDetail() {
     const [hasRated, setHasRated] = useState<boolean>(false);
     const { data: ratesCount } = useFetch(`/rates/count/${movieId}`, "1");
 
+
     useEffect(() => {
 
-        if (!user.accessToken) {
-            return;
-        };
+        try {
 
-        const controller = new AbortController();
+            (async () => {
+                
+            })()
 
-        (async () => {
-            // const hasRated = await request(`/rates/${movieId}`, "GET", { accessToken: user.accessToken });
+            if (!user.accessToken) {
+                return;
+            };
 
-            const options: Options = {
-                method: "GET",
-                headers: {
-                    "content-type": "application/json",
-                    authorization: user.accessToken
-                },
-                signal: controller.signal
-            }
+            const controller = new AbortController();
 
-            const response = await fetch(`http://localhost:5000/rates/${movieId}`, options );
+            (async () => {
 
-            const result: boolean = await response.json();
+                const options: Options = {
+                    method: "GET",
+                    headers: {
+                        "content-type": "application/json",
+                        authorization: user.accessToken
+                    },
+                    signal: controller.signal
+                }
 
-            setHasRated(result);
+                const response = await fetch(`http://localhost:5000/rates/${movieId}`, options);
 
-            return () => {
-                controller.abort();
-            }
-        })()
+                const result: boolean = await response.json();
+
+                setHasRated(result);
+
+                return () => {
+                    controller.abort();
+                }
+            })()
+        } catch (error) {
+            errorMessageHandler(error);
+        }
+
     }, [movieId, user.accessToken])
 
     if (!movie) {
@@ -338,7 +250,7 @@ export default function MovieDetail() {
                             </div>
                             <div className={styles["score-card"]}>
                                 <div className={styles["score-card-label"]}>Reviews</div>
-                                <div className={styles["score-card-value"]}>{oldMovie.rottenTomatoes}</div>
+                                <div className={styles["score-card-value"]}>{movie.reviwesCont}</div>
                                 <div className={styles["score-card-sub"]}>Counter</div>
                             </div>
                         </div>

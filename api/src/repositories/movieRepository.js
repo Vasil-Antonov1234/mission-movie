@@ -81,6 +81,24 @@ export default {
         });
     },
 
+    async incremetnViews(movieId) {
+        // const movie = await prisma.movie.findUnique({
+        //     where: {
+        //         id: movieId
+        //     }
+        // });
+        await prisma.movie.update({
+            where: {
+                id: movieId
+            },
+            data: {
+                reviewsCount: {
+                    increment: 1
+                }
+            }
+        });
+    },
+
     async removeById(movieId, userId) {
         return await prisma.movie.delete({
             where: {

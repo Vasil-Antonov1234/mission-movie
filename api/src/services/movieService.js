@@ -39,6 +39,9 @@ export default {
     },
 
     async getById(movieId, filter) {
+
+        await movieRepository.incremetnViews(movieId);
+
         const movie = await movieRepository.getById(movieId, filter);
 
         if (!movie) {
