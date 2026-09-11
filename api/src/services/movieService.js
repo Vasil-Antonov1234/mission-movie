@@ -27,9 +27,13 @@ export default {
             filter.query.activePage = Number(filter.query.activePage);
         };
 
-        // if (!filter.query.activePage) {
-        //     filter.query.activePage = 1;
-        // };
+        if (!filter.query.activePage) {
+            filter.query.activePage = 1;
+        };
+
+        if (!filter.query.genre || filter.query.genre === "All") {
+            filter.query.genre = "";
+        };
         
         return await movieRepository.getAll(filter);
     },

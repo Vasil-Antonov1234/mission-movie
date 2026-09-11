@@ -12,9 +12,10 @@ export default {
 
     async getAll(filter) {
 
-        if (filter.query.activePage) {
-            const offset = (filter.query.activePage - 1) * 5;
-            return await prisma.$queryRaw`
+        const offset = (filter.query.activePage - 1) * 20;
+        const filterGenre = `%${filter.query.genre}%`;
+                
+        return await prisma.$queryRaw`
             SELECT
                 poster, 
                 title, 
@@ -24,32 +25,17 @@ export default {
                 id, 
                 "authorId", 
                 synopsis, 
-                duration:, 
+                duration, 
                 director, 
                 "trailerUrl", 
                 "createdAt", 
-                "updatedAt", 
-                author
+                "updatedAt"
             FROM movies
+            WHERE genre ILIKE ${filterGenre}
             ORDER BY title
             OFFSET ${offset}
-            LIMIT 5
+            LIMIT 20
             `
-        };
-
-        console.log(filter)
-
-        const filterGenre = filter.query.genre
-
-        return await prisma.movie.findMany({
-            where: {
-                genre: {
-                    contains: filterGenre
-                }
-            },
-            select: filter.select
-        })
-        
     },
 
     async getFilmography(castId) {

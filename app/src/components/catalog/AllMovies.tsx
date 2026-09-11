@@ -3,7 +3,7 @@ import SelectionFilter from "../trending/SelectionFilter";
 import MovieCard from "../trending/MovieCard";
 import styles from "./AllMovies.module.css";
 import { Activity, useState } from "react";
-import filterRecordsHandler from "../../utils/filterRecordsHandler";
+// import filterRecordsHandler from "../../utils/filterRecordsHandler";
 import useFetch from "../../hooks/useFetch";
 import type { Movie } from "../../types/types";
 import { countPages } from "../../utils/pagesCounter";
@@ -17,15 +17,15 @@ export default function AllMovies() {
     const [activePage, setActivePage] = useState(1);
     const [activeGenre, setActiveGenre] = useState("All");
 
-    const { data } = useFetch(`/movies?where=activePage%3D%22${activePage}%22`, initialState);
+    const { data } = useFetch(`/movies?where=activePage%3D%22${activePage}%22&where=genre%3D%22${activeGenre}%22`, initialState);
     const { data: moviesCount } = useFetch("/movies/all/count", "0");
 
     const paginationCount = moviesCount ? countPages(moviesCount) : [];
 
-
     const movies = data ? data : [];
 
-    const filteredMovies = filterRecordsHandler.filterByGenre(movies, activeGenre);
+    const filteredMovies = movies;
+    // const filteredMovies = filterRecordsHandler.filterByGenre(movies, activeGenre);
 
     // filteredMovies = filterRecordsHandler.filterMoviesByPage(filteredMovies, activePage);
 
