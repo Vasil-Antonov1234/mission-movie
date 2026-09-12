@@ -202,5 +202,13 @@ export default {
         FROM movies
         `
         return Number(test[0].count)
+    },
+
+    async getAddedFilmsCount(userID) {
+        return await prisma.movie.count({
+            where: {
+                authorId: userID
+            }
+        });
     }
 }

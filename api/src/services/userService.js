@@ -1,6 +1,7 @@
 import userRepository from "../repositories/userRepository.js"
 import bcrypt from "bcrypt";
 import accessTokenUtil from "../utils/accessTokenUtil.js";
+import movieRepository from "../repositories/movieRepository.js";
 
 export default {
     async register(userData) {
@@ -28,5 +29,9 @@ export default {
         const token = accessTokenUtil.generate(user);
 
         return { user, token };
+    },
+
+    async getAddedFilmsCount(userId) {
+        return await movieRepository.getAddedFilmsCount(userId);
     }
 }

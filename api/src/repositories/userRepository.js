@@ -10,13 +10,13 @@ export default {
 
             return user;
         } catch (error) {
-            throw error;            
+            throw error;
         };
 
     },
 
     async fondByEmail(email) {
-        
+
         try {
             return await prisma.user.findUnique({
                 where: { email }
@@ -24,6 +24,6 @@ export default {
         } catch (error) {
             throw error
         }
-        
+
     }
 }

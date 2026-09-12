@@ -2,6 +2,7 @@ import { useState, ChangeEvent, FormEvent, useContext, Activity } from "react";
 import styles from "./UserProfile.module.css";
 import UserContext from "../../contexts/UserContext";
 import { convertDate } from "../../utils/convertDate";
+import useFetch from "../../hooks/useFetch";
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 
@@ -41,20 +42,6 @@ type PasswordErrors = {
   confirmPassword?: string;
 }
 
-// ─── TEST USER ────────────────────────────────────────────────────────────────
-
-const TestUser: User = {
-  id: 1,
-  firstName: "Vasil",
-  lastName: "Georgiev",
-  email: "vasil@example.com",
-  isGoogleUser: false,
-  createdAt: "January 2024",
-  moviesAdded: 14,
-  reviews: 3,
-  favourites: 10,
-};
-
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 
 function getInitials(firstName: string | undefined, lastName: string | undefined): string {
@@ -93,9 +80,8 @@ function validatePassword(form: PasswordForm): PasswordErrors {
 
 export default function UserProfile() {
   const { user: user } = useContext(UserContext);
-
-  // const user = TestUser;
-
+  const { data } = useFetch();
+  
   // ── Profile edit state ──
   const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [profileForm, setProfileForm] = useState<ProfileForm>({
