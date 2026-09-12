@@ -15,6 +15,7 @@ import AttachCast from "./components/create/attachCast"
 import ActorDetail from "./components/detail/ActorDetail"
 import { ToastContainer } from "react-toastify"
 import AuthCallback from "./components/login-register/AuthCallback"
+import UserProfile from "./components/user/UserProfile"
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/movies/:movieId/details" element={<MovieDetail />} />
                 <Route path="/casts/:castId/details" element={<ActorDetail />} />
                 <Route path="/casts/:castId/edit" element={<CreateEditCast />} />
+                <Route path="/users/profile" element={<UserProfile />} />
 
                 <Route path="/auth/callback" element={<AuthCallback />} />
 

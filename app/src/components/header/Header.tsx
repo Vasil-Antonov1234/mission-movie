@@ -15,6 +15,8 @@ export default function Header() {
         setMobileNavOpen((state) => !state);
     };
 
+    const { user } = useContext(UserContext);
+
     return (
         <nav className={mobileNavOpen ? `${styles["navbar"]} ${styles["logo-hamburger-menu-wrapper-open"]}` : `${styles["navbar"]} ${styles["logo-hamburger-menu-wrapper-close"]}`}>
             <div className={mobileNavOpen ? styles["navbar-left"] : `${styles["navbar-left"]} ${styles["small"]}`}>
@@ -66,7 +68,7 @@ export default function Header() {
                     </Link>
                     <ButtonSecondary text="Logout" clickHandler={onLogout} />
                 </Activity>
-
+                <Link to="/users/profile" className={styles["nav-link"]}>{user.firstName} {user.lastName}</Link>
             </div>
         </nav>
     );

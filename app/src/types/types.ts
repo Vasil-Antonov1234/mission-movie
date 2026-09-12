@@ -203,7 +203,8 @@ export type UserCtx = {
         accessToken?: string,
         firstName?: string,
         lastName?: string,
-        email?: string
+        email?: string,
+        isGoogleUser?: boolean
     }
     onLogin: (user: User) => void,
     onLogout: (navigateTo?: string) => void,
