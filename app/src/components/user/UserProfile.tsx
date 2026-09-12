@@ -17,9 +17,9 @@ type User = {
 }
 
 type ProfileForm = {
-  firstName: string;
-  lastName: string;
-  email: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
 }
 
 type PasswordForm = {
@@ -56,17 +56,17 @@ const TestUser: User = {
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 
-function getInitials(firstName: string, lastName: string): string {
-  return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+function getInitials(firstName: string | undefined, lastName: string | undefined): string {
+  return `${(firstName || "").charAt(0)}${(lastName || "").charAt(0)}`.toUpperCase();
 }
 
 function validateProfile(form: ProfileForm): ProfileErrors {
   const errors: ProfileErrors = {};
-  if (!form.firstName.trim()) errors.firstName = "First name is required.";
-  if (!form.lastName.trim()) errors.lastName = "Last name is required.";
-  if (!form.email.trim()) {
+  if (form.firstName && !form.firstName.trim()) errors.firstName = "First name is required.";
+  if (form.lastName && !form.lastName.trim()) errors.lastName = "Last name is required.";
+  if (form.email && !form.email.trim()) {
     errors.email = "Email is required.";
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+  } else if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
     errors.email = "Please enter a valid email.";
   }
   return errors;
@@ -91,11 +91,9 @@ function validatePassword(form: PasswordForm): PasswordErrors {
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
 
 export default function UserProfile() {
-  const { user: user1 } = useContext(UserContext);
+  const { user: user } = useContext(UserContext);
 
-  console.log(user1)
-
-  const user = TestUser;
+  // const user = TestUser;
 
   // ── Profile edit state ──
   const [isEditingProfile, setIsEditingProfile] = useState(false);
@@ -220,15 +218,15 @@ export default function UserProfile() {
         {/* ─── Stats ─── */}
         <div className={styles.statsRow}>
           <div className={styles.statCard}>
-            <div className={styles.statValue}>{user.moviesAdded}</div>
+            <div className={styles.statValue}>14</div>
             <div className={styles.statLabel}>Films added</div>
           </div>
           <div className={styles.statCard}>
-            <div className={styles.statValue}>{user.reviews}</div>
+            <div className={styles.statValue}>3</div>
             <div className={styles.statLabel}>Reviews</div>
           </div>
           <div className={styles.statCard}>
-            <div className={styles.statValue}>{user.favourites}</div>
+            <div className={styles.statValue}>9</div>
             <div className={styles.statLabel}>Favourites</div>
           </div>
           <div className={styles.statCard}>

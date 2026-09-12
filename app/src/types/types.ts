@@ -204,7 +204,8 @@ export type UserCtx = {
         firstName?: string,
         lastName?: string,
         email?: string,
-        isGoogleUser?: boolean
+        isGoogleUser?: boolean,
+        createdAt?: string
     }
     onLogin: (user: User) => void,
     onLogout: (navigateTo?: string) => void,
