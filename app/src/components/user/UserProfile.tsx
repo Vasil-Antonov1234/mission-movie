@@ -1,6 +1,7 @@
 import { useState, ChangeEvent, FormEvent, useContext, Activity } from "react";
 import styles from "./UserProfile.module.css";
 import UserContext from "../../contexts/UserContext";
+import { convertDate } from "../../utils/convertDate";
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 
@@ -205,7 +206,7 @@ export default function UserProfile() {
             </div>
             <div className={styles.profileEmail}>{user.email}</div>
             <div className={styles.profileBadges}>
-              <span className={styles.badge}>Member since {user.createdAt}</span>
+              <span className={styles.badge}>Member since {convertDate(user.createdAt)}</span>
               {user.isGoogleUser && (
                 <span className={`${styles.badge} ${styles.badgeGoogle}`}>
                   Google account
@@ -455,7 +456,7 @@ export default function UserProfile() {
               <div className={styles.infoList}>
                 <div className={styles.infoItem}>
                   <span className={styles.infoLabel}>Member since</span>
-                  <span className={styles.infoValue}>{user.createdAt}</span>
+                  <span className={styles.infoValue}>{convertDate(user.createdAt)}</span>
                 </div>
                 <div className={styles.infoItem}>
                   <span className={styles.infoLabel}>Sign-in method</span>
