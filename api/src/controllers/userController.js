@@ -3,7 +3,6 @@ import { createUserSchema } from "../schemas/userSchema.js";
 import userService from "../services/userService.js";
 import { getErrorMessage } from "../utils/errorUtil.js";
 import accessTokenUtil from "../utils/accessTokenUtil.js";
-import { isAuthMiddleware } from "../middlewares/authMiddleware.js";
 
 const userController = Router();
 
@@ -63,7 +62,7 @@ userController.post("/login", async (req, res) => {
     }
 });
 
-userController.get("/added-films-count/:userId", isAuthMiddleware, async (req, res) => {
+userController.get("/added-films-count/:userId", async (req, res) => {
     const userId = Number(req.params.userId);
     
     try {

@@ -78,9 +78,11 @@ function validatePassword(form: PasswordForm): PasswordErrors {
 
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
 
+const initialMovieCount = { count: "0" };
+
 export default function UserProfile() {
   const { user: user } = useContext(UserContext);
-  const { data } = useFetch();
+  const { data: addedFilmsCount } = useFetch(`/users/added-films-count/${user.id}`, initialMovieCount);
   
   // ── Profile edit state ──
   const [isEditingProfile, setIsEditingProfile] = useState(false);
@@ -205,7 +207,7 @@ export default function UserProfile() {
         {/* ─── Stats ─── */}
         <div className={styles.statsRow}>
           <div className={styles.statCard}>
-            <div className={styles.statValue}>14</div>
+            <div className={styles.statValue}>{addedFilmsCount?.count}</div>
             <div className={styles.statLabel}>Films added</div>
           </div>
           <div className={styles.statCard}>
