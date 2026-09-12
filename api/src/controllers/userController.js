@@ -18,6 +18,7 @@ userController.post("/register", async (req, res) => {
             email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
+            isuserGoogleUser: false,
             accessToken: token
         });
     } catch (error) {
@@ -51,7 +52,8 @@ userController.post("/login", async (req, res) => {
             email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
-            accessToken: token
+            accessToken: token,
+            isGoogleUser: false
         });
     } catch (error) {
         res.status(400).json(error.message);

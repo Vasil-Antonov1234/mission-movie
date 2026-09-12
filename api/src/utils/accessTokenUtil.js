@@ -3,10 +3,13 @@ import { prisma } from "../lib/prisma.js";
 
 export default {
     generate(user) {
+
+        const isGoogleUser = user.password === null;
     
         const payload = {
             id: user.id,
-            email: user.email
+            email: user.email,
+            isGoogleUser
         };
     
         return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" })

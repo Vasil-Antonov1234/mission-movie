@@ -4,16 +4,16 @@ import accessTokenUtil from "../utils/accessTokenUtil.js";
 
 export async function AuthMiddleware(req, res, next) {
     const token = req.headers["authorization"];
-
+    
     if (!token) {
         return next();
     };
-
+    
     try {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-
+        
         await accessTokenUtil.check(token);
-
+        
         req.user = decodedToken;
         next();
 
