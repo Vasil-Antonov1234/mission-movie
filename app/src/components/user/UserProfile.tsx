@@ -93,6 +93,8 @@ function validatePassword(form: PasswordForm): PasswordErrors {
 export default function UserProfile() {
   const { user: user1 } = useContext(UserContext);
 
+  console.log(user1)
+
   const user = TestUser;
 
   // ── Profile edit state ──

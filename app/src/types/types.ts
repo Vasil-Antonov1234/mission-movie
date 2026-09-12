@@ -219,7 +219,8 @@ export type User = {
     email?: string,
     password?: string,
     confirmPassword?: string,
-    isGoogleUser?: boolean
+    isGoogleUser?: boolean,
+    createdAt?: string
 };
 
 export type Config = {

@@ -19,7 +19,8 @@ userController.post("/register", async (req, res) => {
             firstName: user.firstName,
             lastName: user.lastName,
             isuserGoogleUser: false,
-            accessToken: token
+            accessToken: token,
+            createdAt: user.createdAt
         });
     } catch (error) {
         res.status(400).json({ error: getErrorMessage(error) });
@@ -53,7 +54,8 @@ userController.post("/login", async (req, res) => {
             firstName: user.firstName,
             lastName: user.lastName,
             accessToken: token,
-            isGoogleUser: false
+            isGoogleUser: false,
+            createdAt: user.createdAt
         });
     } catch (error) {
         res.status(400).json(error.message);
