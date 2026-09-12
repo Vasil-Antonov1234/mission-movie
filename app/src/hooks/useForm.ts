@@ -28,7 +28,7 @@ export default function useForm<T>(initialValues: T, movieId?: string, castId?: 
             };
 
             if (castId) {
-                const response = await fetch(`${baseUrl}/casts/${castId}`);
+                const response = await fetch(`${baseUrl}/casts/${castId}`, { signal: controller.signal });
 
                 const result = await response.json();
                 setData(result);

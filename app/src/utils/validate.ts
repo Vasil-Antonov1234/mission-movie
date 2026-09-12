@@ -89,6 +89,14 @@ export function validate(value: ValidateValue) {
         errors["password"] = "Password must be at least 8 characters long";
     };
 
+    if (value.currentPassword === "") {
+        errors["currentPassword"] = "Current password is required";
+    };
+
+    if (value.currentPassword && value.currentPassword.length < 8) {
+        errors["currentPassword"] = "Current password must be at least 8 characters long";
+    };
+
     // First name
     if (value.firstName === "") {
         errors["firstName"] = "First name is required";

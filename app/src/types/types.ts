@@ -194,7 +194,8 @@ export type ValidateValue = {
     imdbProfile?: string,
     wikipedia?: string,
     biography?: string,
-    awards?: string
+    awards?: string,
+    currentPassword?: string
 };
 
 export type UserCtx = {
