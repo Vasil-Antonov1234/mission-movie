@@ -83,7 +83,16 @@ const changePasswordInitialValues = {
     currentPassword: "",
     password: "",
     confirmPassword: ""
-}
+};
+
+const initialValues = {
+    currentPassword: "",
+    password: "",
+    confirmPassword: "",
+    firstName: "",
+    lastName: "",
+    email: ""
+};
 
 
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
@@ -94,7 +103,8 @@ export default function UserProfile() {
     const { user: user } = useContext(UserContext);
     const { data: addedFilmsCount } = useFetch(`/users/added-films-count/${user.id}`, initialMovieCount);
 
-    const { data, formInputRegister, setData } = useForm(changePasswordInitialValues);
+
+    const { data, formInputRegister, setData } = useForm(initialValues);
     const [errors, setErrors] = useState<ValidateValue>({});
     const [touched, setTouched] = useState<ValidateValue>({});
 
@@ -118,6 +128,18 @@ export default function UserProfile() {
     const [profileErrors, setProfileErrors] = useState<ProfileErrors>({});
     const [profileLoading, setProfileLoading] = useState(false);
     const [profileSuccess, setProfileSuccess] = useState(false);
+
+    function openEditProfileHandler() {
+        setIsEditingProfile(true);
+        setData({
+            email: user.email || "",
+            firstName: user.firstName || "",
+            lastName: user.lastName || "",
+            currentPassword: "",
+            password: "",
+            confirmPassword: ""
+        })
+    }
 
     // ── Password change state ──
     const [isEditingPassword, setIsEditingPassword] = useState(false);
@@ -159,9 +181,12 @@ export default function UserProfile() {
     };
 
     const handleProfileCancel = () => {
-        setProfileForm({ firstName: user.firstName, lastName: user.lastName, email: user.email ?? "" });
-        setProfileErrors({});
+        // setProfileForm({ firstName: user.firstName, lastName: user.lastName, email: user.email ?? "" });
+        // setProfileErrors({});
         setIsEditingProfile(false);
+        setData(initialValues);
+        setErrors({});
+        setTouched({});
     };
 
     // ── Handlers: password ──
@@ -194,7 +219,7 @@ export default function UserProfile() {
         // setPasswordForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
         // setPasswordErrors({});
         setIsEditingPassword(false);
-        setData(changePasswordInitialValues);
+        setData(initialValues);
         setErrors({});
         setTouched({});
     };
@@ -278,7 +303,8 @@ export default function UserProfile() {
                                 </div>
                                 <button
                                     className={`${styles.editBtn}${isEditingProfile ? ` ${styles.editBtnActive}` : ""}`}
-                                    onClick={() => isEditingProfile ? handleProfileCancel() : setIsEditingProfile(true)}
+                                    // onClick={() => isEditingProfile ? handleProfileCancel() : setIsEditingProfile(true)}
+                                    onClick={() => isEditingProfile ? handleProfileCancel() : openEditProfileHandler()}
                                 >
                                     {isEditingProfile ? "Cancel" : "Edit"}
                                 </button>
@@ -292,42 +318,39 @@ export default function UserProfile() {
                                         <div className={styles.field}>
                                             <label className={styles.label} htmlFor="firstName">First name</label>
                                             <input
+                                                {...formInputRegister("firstName")}
                                                 id="firstName"
-                                                name="firstName"
                                                 type="text"
-                                                className={`${styles.input}${profileErrors.firstName ? ` ${styles["input--error"]}` : ""}`}
-                                                value={profileForm.firstName}
-                                                onChange={handleProfileChange}
+                                                className={`${styles.input} ${touched.firstName && errors.firstName ? ` ${styles["input--error"]}` : ""}`}
+                                                onBlur={validateHandler}
                                             />
-                                            {profileErrors.firstName && <span className={styles.errorMsg}>{profileErrors.firstName}</span>}
+                                            {touched.firstName && <span className={styles.errorMsg}>{errors.firstName}</span>}
                                         </div>
 
                                         {/* Last name */}
                                         <div className={styles.field}>
                                             <label className={styles.label} htmlFor="lastName">Last name</label>
                                             <input
+                                                {...formInputRegister("lastName")}
                                                 id="lastName"
-                                                name="lastName"
                                                 type="text"
-                                                className={`${styles.input}${profileErrors.lastName ? ` ${styles["input--error"]}` : ""}`}
-                                                value={profileForm.lastName}
-                                                onChange={handleProfileChange}
+                                                className={`${styles.input} ${touched.lastName && errors.lastName ? ` ${styles["input--error"]}` : ""}`}
+                                                onBlur={validateHandler}
                                             />
-                                            {profileErrors.lastName && <span className={styles.errorMsg}>{profileErrors.lastName}</span>}
+                                            {touched.lastName && <span className={styles.errorMsg}>{errors.lastName}</span>}
                                         </div>
 
                                         {/* Email */}
                                         <div className={`${styles.field} ${styles.colSpan2}`}>
                                             <label className={styles.label} htmlFor="email">Email</label>
                                             <input
+                                                {...formInputRegister("email")}
                                                 id="email"
-                                                name="email"
                                                 type="email"
-                                                className={`${styles.input}${profileErrors.email ? ` ${styles["input--error"]}` : ""}`}
-                                                value={profileForm.email}
-                                                onChange={handleProfileChange}
+                                                className={`${styles.input} ${touched.email && errors.email ? ` ${styles["input--error"]}` : ""}`}
+                                                onBlur={validateHandler}
                                             />
-                                            {profileErrors.email && <span className={styles.errorMsg}>{profileErrors.email}</span>}
+                                            {touched.email && <span className={styles.errorMsg}>{errors.email}</span>}
                                         </div>
                                     </div>
 
