@@ -32,7 +32,6 @@ function App() {
                 <Route path="/movies/:movieId/details" element={<MovieDetail />} />
                 <Route path="/casts/:castId/details" element={<ActorDetail />} />
                 <Route path="/casts/:castId/edit" element={<CreateEditCast />} />
-                <Route path="/users/profile" element={<UserProfile />} />
 
                 <Route path="/auth/callback" element={<AuthCallback />} />
 
@@ -46,6 +45,7 @@ function App() {
                     <Route path="/movies/:movieId/edit" element={<CreateEditMovie />} />
                     <Route path="/casts/create" element={<CreateEditCast />} />
                     <Route path="/movies/:movieId/attach" element={<AttachCast />} />
+                    <Route path="/users/profile" element={<UserProfile />} />
                 </Route>
             </Routes>
             <Footer />
