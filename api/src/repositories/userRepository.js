@@ -24,6 +24,14 @@ export default {
         } catch (error) {
             throw error
         }
+    },
 
+    async edit(userId, data) {
+        return await prisma.user.update({
+            data,
+            where: {
+                id: userId
+            }
+        });
     }
 }

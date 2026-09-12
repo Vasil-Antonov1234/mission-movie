@@ -33,5 +33,9 @@ export default {
 
     async getAddedFilmsCount(userId) {
         return await movieRepository.getAddedFilmsCount(userId);
+    },
+
+    async edit(userId, data) {
+        return userRepository.edit(userId, data);
     }
 }

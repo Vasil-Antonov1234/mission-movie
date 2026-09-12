@@ -210,7 +210,8 @@ export type UserCtx = {
     }
     onLogin: (user: User) => void,
     onLogout: (navigateTo?: string) => void,
-    isAuthenticated: boolean
+    isAuthenticated: boolean,
+    onUpdateCtxUser: (user: User) => void
 };
 
 export type User = {

@@ -6,6 +6,8 @@ import useFetch from "../../hooks/useFetch";
 import useForm from "../../hooks/useForm";
 import type { ValidateValue } from "../../types/types";
 import { validate } from "../../utils/validate";
+import { errorMessageHandler } from "../../utils/errorUtil";
+import { useNavigate } from "react-router";
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 
@@ -79,19 +81,16 @@ function validatePassword(form: PasswordForm): PasswordErrors {
     return errors;
 }
 
-const changePasswordInitialValues = {
-    currentPassword: "",
-    password: "",
-    confirmPassword: ""
-};
-
-const initialValues = {
-    currentPassword: "",
-    password: "",
-    confirmPassword: "",
+const initialValuesProfile = {
     firstName: "",
     lastName: "",
     email: ""
+};
+
+const initialValuesPassword = {
+    currentPassword: "",
+    password: "",
+    confirmPassword: ""
 };
 
 
@@ -100,15 +99,17 @@ const initialValues = {
 const initialMovieCount = { count: "0" };
 
 export default function UserProfile() {
-    const { user: user } = useContext(UserContext);
-    const { data: addedFilmsCount } = useFetch(`/users/added-films-count/${user.id}`, initialMovieCount);
+    const { user: user, onUpdateCtxUser } = useContext(UserContext);
+    const { data: addedFilmsCount, request } = useFetch(`/users/added-films-count/${user.id}`, initialMovieCount);
 
-
-    const { data, formInputRegister, setData } = useForm(initialValues);
+    const { data, formInputRegister, setData } = useForm(initialValuesProfile);
+    const { data: passwordData, formInputRegister: passwordFormInputRegister, setData: setPasswordData } = useForm(initialValuesPassword);
     const [errors, setErrors] = useState<ValidateValue>({});
     const [touched, setTouched] = useState<ValidateValue>({});
 
-    function validateHandler(event: React.BaseSyntheticEvent) {
+    const navigate = useNavigate();
+
+    function validateProfileHandler(event: React.BaseSyntheticEvent) {
         setTouched((state) => ({
             ...state,
             [event.target.name]: true
@@ -116,7 +117,17 @@ export default function UserProfile() {
 
         const fieldErrors = validate(data);
         setErrors(fieldErrors);
-    }
+    };
+
+    function validatePasswordHandler(event: React.BaseSyntheticEvent) {
+        setTouched((state) => ({
+            ...state,
+            [event.target.name]: true
+        }));
+
+        const fieldErrors = validate(passwordData);
+        setErrors(fieldErrors);
+    };
 
     // ── Profile edit state ──
     const [isEditingProfile, setIsEditingProfile] = useState(false);
@@ -134,10 +145,7 @@ export default function UserProfile() {
         setData({
             email: user.email || "",
             firstName: user.firstName || "",
-            lastName: user.lastName || "",
-            currentPassword: "",
-            password: "",
-            confirmPassword: ""
+            lastName: user.lastName || ""
         })
     }
 
@@ -157,13 +165,13 @@ export default function UserProfile() {
 
     // ── Handlers: profile ──
 
-    const handleProfileChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setProfileForm((prev) => ({ ...prev, [name]: value }));
-        if (profileErrors[name as keyof ProfileErrors]) {
-            setProfileErrors((prev) => ({ ...prev, [name]: undefined }));
-        }
-    };
+    // const handleProfileChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    //     const { name, value } = e.target;
+    //     setProfileForm((prev) => ({ ...prev, [name]: value }));
+    //     if (profileErrors[name as keyof ProfileErrors]) {
+    //         setProfileErrors((prev) => ({ ...prev, [name]: undefined }));
+    //     }
+    // };
 
     const handleProfileSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -180,11 +188,35 @@ export default function UserProfile() {
         setTimeout(() => setProfileSuccess(false), 4000);
     };
 
+    async function actionProfileHandler() {
+        const fieldErrors = validate(data);
+        setErrors(fieldErrors);
+        setTouched(fieldErrors);
+
+        if (Object.keys(fieldErrors).length > 0) {
+            return;
+        }
+
+        try {
+            const result = await request(`/users/edit-profile`, "PATCH", { accessToken: user.accessToken }, data);
+
+            console.log(result);
+
+            onUpdateCtxUser(result);
+
+            navigate(`/users/profile`);
+            setProfileSuccess(true);
+        } catch (error) {
+            errorMessageHandler(error);
+        };
+
+    }
+
     const handleProfileCancel = () => {
         // setProfileForm({ firstName: user.firstName, lastName: user.lastName, email: user.email ?? "" });
         // setProfileErrors({});
         setIsEditingProfile(false);
-        setData(initialValues);
+        setData(initialValuesProfile);
         setErrors({});
         setTouched({});
     };
@@ -219,7 +251,7 @@ export default function UserProfile() {
         // setPasswordForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
         // setPasswordErrors({});
         setIsEditingPassword(false);
-        setData(initialValues);
+        setPasswordData(initialValuesPassword);
         setErrors({});
         setTouched({});
     };
@@ -311,7 +343,7 @@ export default function UserProfile() {
                             </div>
 
                             {isEditingProfile ? (
-                                <form onSubmit={handleProfileSubmit} noValidate>
+                                <form action={actionProfileHandler} noValidate>
                                     <div className={styles.formGrid}>
 
                                         {/* First name */}
@@ -322,7 +354,7 @@ export default function UserProfile() {
                                                 id="firstName"
                                                 type="text"
                                                 className={`${styles.input} ${touched.firstName && errors.firstName ? ` ${styles["input--error"]}` : ""}`}
-                                                onBlur={validateHandler}
+                                                onBlur={validateProfileHandler}
                                             />
                                             {touched.firstName && <span className={styles.errorMsg}>{errors.firstName}</span>}
                                         </div>
@@ -335,7 +367,7 @@ export default function UserProfile() {
                                                 id="lastName"
                                                 type="text"
                                                 className={`${styles.input} ${touched.lastName && errors.lastName ? ` ${styles["input--error"]}` : ""}`}
-                                                onBlur={validateHandler}
+                                                onBlur={validateProfileHandler}
                                             />
                                             {touched.lastName && <span className={styles.errorMsg}>{errors.lastName}</span>}
                                         </div>
@@ -348,7 +380,7 @@ export default function UserProfile() {
                                                 id="email"
                                                 type="email"
                                                 className={`${styles.input} ${touched.email && errors.email ? ` ${styles["input--error"]}` : ""}`}
-                                                onBlur={validateHandler}
+                                                onBlur={validateProfileHandler}
                                             />
                                             {touched.email && <span className={styles.errorMsg}>{errors.email}</span>}
                                         </div>
@@ -406,13 +438,13 @@ export default function UserProfile() {
                                                 <label className={styles.label} htmlFor="currentPassword">Current password</label>
                                                 <div className={styles.inputWrapper}>
                                                     <input
-                                                        {...formInputRegister("currentPassword")}
+                                                        {...passwordFormInputRegister("currentPassword")}
                                                         id="currentPassword"
                                                         type={showCurrent ? "text" : "password"}
                                                         className={`${styles.input} ${styles.inputWithIcon} ${errors.currentPassword && touched.currentPassword ? ` ${styles["input--error"]}` : ""}`}
                                                         placeholder="••••••••"
                                                         autoComplete="current-password"
-                                                        onBlur={validateHandler}
+                                                        onBlur={validatePasswordHandler}
                                                     />
                                                     <span className={styles.inputIcon} onClick={() => setShowCurrent(v => !v)}>
                                                         {showCurrent ? "🙈" : "👁"}
@@ -426,13 +458,13 @@ export default function UserProfile() {
                                                 <label className={styles.label} htmlFor="password">New password</label>
                                                 <div className={styles.inputWrapper}>
                                                     <input
-                                                        {...formInputRegister("password")}
+                                                        {...passwordFormInputRegister("password")}
                                                         id="password"
                                                         type={showNew ? "text" : "password"}
                                                         className={`${styles.input} ${styles.inputWithIcon}${errors.password && touched.password ? ` ${styles["input--error"]}` : ""}`}
                                                         placeholder="Min. 8 characters"
                                                         autoComplete="new-password"
-                                                        onBlur={validateHandler}
+                                                        onBlur={validatePasswordHandler}
                                                     />
                                                     <span className={styles.inputIcon} onClick={() => setShowNew(v => !v)}>
                                                         {showNew ? "🙈" : "👁"}
@@ -446,13 +478,13 @@ export default function UserProfile() {
                                                 <label className={styles.label} htmlFor="confirmPassword">Confirm new password</label>
                                                 <div className={styles.inputWrapper}>
                                                     <input
-                                                        {...formInputRegister("confirmPassword")}
+                                                        {...passwordFormInputRegister("confirmPassword")}
                                                         id="confirmPassword"
                                                         type={showConfirm ? "text" : "password"}
                                                         className={`${styles.input} ${styles.inputWithIcon} ${errors.confirmPassword && touched.confirmPassword ? ` ${styles["input--error"]}` : ""}`}
                                                         placeholder="Repeat new password"
                                                         autoComplete="new-password"
-                                                        onBlur={validateHandler}
+                                                        onBlur={validatePasswordHandler}
                                                     />
                                                     <span className={styles.inputIcon} onClick={() => setShowConfirm(v => !v)}>
                                                         {showConfirm ? "🙈" : "👁"}

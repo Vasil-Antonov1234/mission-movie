@@ -13,7 +13,8 @@ const UserContext = createContext<UserCtx>({
     },
     onLogin() {},
     onLogout() {},
-    isAuthenticated: false
+    isAuthenticated: false,
+    onUpdateCtxUser() {},
 });
 
 export default UserContext;

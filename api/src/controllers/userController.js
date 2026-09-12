@@ -3,6 +3,7 @@ import { createUserSchema } from "../schemas/userSchema.js";
 import userService from "../services/userService.js";
 import { getErrorMessage } from "../utils/errorUtil.js";
 import accessTokenUtil from "../utils/accessTokenUtil.js";
+import { isAuthMiddleware } from "../middlewares/authMiddleware.js";
 
 const userController = Router();
 
@@ -68,6 +69,19 @@ userController.get("/added-films-count/:userId", async (req, res) => {
     try {
         const count = await userService.getAddedFilmsCount(userId);
         res.status(200).json({ count });
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+});
+
+userController.patch("/edit-profile", isAuthMiddleware, async (req, res) => {
+    const userId = Number(req.user.id);
+    const data = req.body;
+
+    try {
+        const result = await userService.edit(userId, data);
+
+        res.status(200).json(result);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };

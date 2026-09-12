@@ -16,6 +16,15 @@ export default function UserProvider({ children }: { children: React.ReactNode }
         navigate("/");
     };
 
+    function updateUserCtx(user: User) {
+        setUser((state: User) => ({
+            ...state,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email
+        }));
+    };
+
     async function logoutHandler(navigateTo?: string) {
         try {
             
@@ -41,7 +50,8 @@ export default function UserProvider({ children }: { children: React.ReactNode }
         user,
         onLogin: loginHandler,
         onLogout: logoutHandler,
-        isAuthenticated
+        isAuthenticated,
+        onUpdateCtxUser: updateUserCtx
     }
 
     return (
