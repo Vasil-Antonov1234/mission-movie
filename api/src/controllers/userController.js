@@ -4,6 +4,7 @@ import userService from "../services/userService.js";
 import { getErrorMessage } from "../utils/errorUtil.js";
 import accessTokenUtil from "../utils/accessTokenUtil.js";
 import { isAuthMiddleware } from "../middlewares/authMiddleware.js";
+import { changePasswordSchema } from "../schemas/passwordSchema.js";
 
 const userController = Router();
 
@@ -32,13 +33,13 @@ userController.post("/register", async (req, res) => {
 userController.get("/logout", async (req, res) => {
 
     const token = req.headers["authorization"];
-    
+
     try {
-        
+
         await accessTokenUtil.invalidate(token);
         res.json({ message: "Logout successful" });
     } catch (error) {
-        res.status(400).json({ error: getErrorMessage(error)} )         
+        res.status(400).json({ error: getErrorMessage(error) })
     }
 
 })
@@ -65,7 +66,7 @@ userController.post("/login", async (req, res) => {
 
 userController.get("/added-films-count/:userId", async (req, res) => {
     const userId = Number(req.params.userId);
-    
+
     try {
         const count = await userService.getAddedFilmsCount(userId);
         res.status(200).json({ count });
@@ -82,6 +83,20 @@ userController.patch("/edit-profile", isAuthMiddleware, async (req, res) => {
         const result = await userService.edit(userId, data);
 
         res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+});
+
+userController.patch("/change-password", isAuthMiddleware, async (req, res) => {
+    const userId = Number(req.user.id);
+    const newHashedPassword = await (await changePasswordSchema.parseAsync(req.body)).password;
+    const oldPassword = req.body.currentPassword;
+    const email = req.user.email;
+
+    try {
+        await userService.changePassword(userId, newHashedPassword, oldPassword, email);
+        res.status(200).json("Password updated successfully")
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };

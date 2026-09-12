@@ -13,6 +13,18 @@ export default {
         return { user, token };
     },
 
+    async changePassword(userId, newHashedPassword, oldPassword, email) {
+        const user = await userRepository.fondByEmail(email);
+        
+        const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
+
+        if (!isPasswordValid) {
+            throw new Error("Invalid user or password");
+        };
+
+        return await userRepository.changePassword(userId, newHashedPassword);
+    },
+
     async login(email, password) {
         const user = await userRepository.fondByEmail(email);
 

@@ -33,5 +33,16 @@ export default {
                 id: userId
             }
         });
+    },
+
+    async changePassword(userId, newHashedPassword) {
+        return await prisma.user.update({
+            data: {
+                password: newHashedPassword
+            },
+            where: {
+                id: userId
+            }
+        });
     }
 }

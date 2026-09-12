@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent, useContext, Activity } from "react";
+import { useState, useContext, Activity } from "react";
 import styles from "./UserProfile.module.css";
 import UserContext from "../../contexts/UserContext";
 import { convertDate } from "../../utils/convertDate";
@@ -9,76 +9,10 @@ import { validate } from "../../utils/validate";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import { useNavigate } from "react-router";
 
-// ─── TYPES ────────────────────────────────────────────────────────────────────
-
-// type User = {
-//     id: number;
-//     firstName: string;
-//     lastName: string;
-//     email: string;
-//     isGoogleUser: boolean;
-//     createdAt: string;
-//     moviesAdded: number;
-//     reviews: number;
-//     favourites: number;
-// }
-
-type ProfileForm = {
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-}
-
-type PasswordForm = {
-    currentPassword: string;
-    newPassword: string;
-    confirmPassword: string;
-}
-
-type ProfileErrors = {
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-}
-
-type PasswordErrors = {
-    currentPassword?: string;
-    password?: string;
-    confirmPassword?: string;
-}
-
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 
 function getInitials(firstName: string | undefined, lastName: string | undefined): string {
     return `${(firstName || "").charAt(0)}${(lastName || "").charAt(0)}`.toUpperCase();
-}
-
-function validateProfile(form: ProfileForm): ProfileErrors {
-    const errors: ProfileErrors = {};
-    if (form.firstName && !form.firstName.trim()) errors.firstName = "First name is required.";
-    if (form.lastName && !form.lastName.trim()) errors.lastName = "Last name is required.";
-    if (form.email && !form.email.trim()) {
-        errors.email = "Email is required.";
-    } else if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-        errors.email = "Please enter a valid email.";
-    }
-    return errors;
-}
-
-function validatePassword(form: PasswordForm): PasswordErrors {
-    const errors: PasswordErrors = {};
-    if (!form.currentPassword) errors.currentPassword = "Current password is required.";
-    if (!form.newPassword) {
-        errors.password = "New password is required.";
-    } else if (form.newPassword.length < 8) {
-        errors.password = "Password must be at least 8 characters.";
-    }
-    if (!form.confirmPassword) {
-        errors.confirmPassword = "Please confirm your new password.";
-    } else if (form.newPassword !== form.confirmPassword) {
-        errors.confirmPassword = "Passwords do not match.";
-    }
-    return errors;
 }
 
 const initialValuesProfile = {
@@ -131,12 +65,6 @@ export default function UserProfile() {
 
     // ── Profile edit state ──
     const [isEditingProfile, setIsEditingProfile] = useState(false);
-    const [profileForm, setProfileForm] = useState<ProfileForm>({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email
-    });
-    const [profileErrors, setProfileErrors] = useState<ProfileErrors>({});
     const [profileLoading, setProfileLoading] = useState(false);
     const [profileSuccess, setProfileSuccess] = useState(false);
 
@@ -151,12 +79,6 @@ export default function UserProfile() {
 
     // ── Password change state ──
     const [isEditingPassword, setIsEditingPassword] = useState(false);
-    const [passwordForm, setPasswordForm] = useState<PasswordForm>({
-        currentPassword: "",
-        newPassword: "",
-        confirmPassword: "",
-    });
-    const [passwordErrors, setPasswordErrors] = useState<PasswordErrors>({});
     const [passwordLoading, setPasswordLoading] = useState(false);
     const [passwordSuccess, setPasswordSuccess] = useState(false);
     const [showCurrent, setShowCurrent] = useState(false);
@@ -164,31 +86,8 @@ export default function UserProfile() {
     const [showConfirm, setShowConfirm] = useState(false);
 
     // ── Handlers: profile ──
-
-    // const handleProfileChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    //     const { name, value } = e.target;
-    //     setProfileForm((prev) => ({ ...prev, [name]: value }));
-    //     if (profileErrors[name as keyof ProfileErrors]) {
-    //         setProfileErrors((prev) => ({ ...prev, [name]: undefined }));
-    //     }
-    // };
-
-    const handleProfileSubmit = async (e: FormEvent) => {
-        e.preventDefault();
-        const errors = validateProfile(profileForm);
-        if (Object.keys(errors).length > 0) { setProfileErrors(errors); return; }
-        setProfileLoading(true);
-
-        // TODO real API call:
-
-        await new Promise((r) => setTimeout(r, 1000));
-        setProfileLoading(false);
-        setProfileSuccess(true);
-        setIsEditingProfile(false);
-        setTimeout(() => setProfileSuccess(false), 4000);
-    };
-
     async function actionProfileHandler() {
+        setProfileLoading(true);
         const fieldErrors = validate(data);
         setErrors(fieldErrors);
         setTouched(fieldErrors);
@@ -198,58 +97,49 @@ export default function UserProfile() {
         }
 
         try {
-            const result = await request(`/users/edit-profile`, "PATCH", { accessToken: user.accessToken }, data);
-
-            console.log(result);
+            const result = await request("/users/edit-profile", "PATCH", { accessToken: user.accessToken }, data);
 
             onUpdateCtxUser(result);
 
+            setProfileLoading(false);
+            setIsEditingProfile(false);
             navigate(`/users/profile`);
             setProfileSuccess(true);
         } catch (error) {
             errorMessageHandler(error);
         };
+    };
 
+    async function actionChangePasswordHandler() {
+        setPasswordLoading(true);
+        const fieldErrors = validate(passwordData);
+        setErrors(fieldErrors);
+        setTouched(fieldErrors);
+
+        if (Object.keys(fieldErrors).length > 0) {
+            return;
+        };
+
+        try {
+            await request("/users/change-password", "PATCH", { accessToken: user.accessToken }, passwordData);
+
+            setPasswordSuccess(true);
+            setIsEditingPassword(false);
+            setPasswordData(initialValuesPassword);
+            setPasswordLoading(false);
+        } catch (error) {
+            errorMessageHandler(error);
+        };
     }
 
     const handleProfileCancel = () => {
-        // setProfileForm({ firstName: user.firstName, lastName: user.lastName, email: user.email ?? "" });
-        // setProfileErrors({});
         setIsEditingProfile(false);
         setData(initialValuesProfile);
         setErrors({});
         setTouched({});
     };
 
-    // ── Handlers: password ──
-
-    // const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    //     const { name, value } = e.target;
-    //     setPasswordForm((prev) => ({ ...prev, [name]: value }));
-    //     if (passwordErrors[name as keyof PasswordErrors]) {
-    //         setPasswordErrors((prev) => ({ ...prev, [name]: undefined }));
-    //     }
-    // };
-
-    const handlePasswordSubmit = async (e: FormEvent) => {
-        e.preventDefault();
-        const errors = validatePassword(passwordForm);
-        if (Object.keys(errors).length > 0) { setPasswordErrors(errors); return; }
-        setPasswordLoading(true);
-
-        // TODO: API call:
-
-        await new Promise((r) => setTimeout(r, 1000));
-        setPasswordLoading(false);
-        setPasswordSuccess(true);
-        setIsEditingPassword(false);
-        setPasswordForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
-        setTimeout(() => setPasswordSuccess(false), 4000);
-    };
-
     const handlePasswordCancel = () => {
-        // setPasswordForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
-        // setPasswordErrors({});
         setIsEditingPassword(false);
         setPasswordData(initialValuesPassword);
         setErrors({});
@@ -430,7 +320,7 @@ export default function UserProfile() {
                                 </div>
 
                                 <Activity mode={isEditingPassword ? "visible" : "hidden"}>
-                                    <form onSubmit={handlePasswordSubmit} noValidate>
+                                    <form action={actionChangePasswordHandler} noValidate>
                                         <div className={styles.formGrid}>
 
                                             {/* Current password */}
