@@ -44,5 +44,13 @@ export default {
                 id: userId
             }
         });
+    },
+
+    async remove(userId) {
+        return await prisma.user.delete({
+            where: {
+                id: userId
+            }
+        });
     }
 }

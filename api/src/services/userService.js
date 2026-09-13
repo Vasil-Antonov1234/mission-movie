@@ -49,5 +49,9 @@ export default {
 
     async edit(userId, data) {
         return userRepository.edit(userId, data);
+    },
+
+    async remove(userId) {
+        return await userRepository.remove(userId);
     }
 }

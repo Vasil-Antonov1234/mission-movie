@@ -100,6 +100,18 @@ userController.patch("/change-password", isAuthMiddleware, async (req, res) => {
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
+});
+
+userController.delete("/:userId/delete", isAuthMiddleware, async (req, res) => {
+    const userId = Number(req.params.userId);
+
+    try {
+        const result = await userService.remove(userId);
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(404).json(getErrorMessage(error));
+    };
 })
 
 export default userController;

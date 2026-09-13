@@ -8,6 +8,7 @@ import type { ValidateValue } from "../../types/types";
 import { validate } from "../../utils/validate";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 
@@ -33,7 +34,7 @@ const initialValuesPassword = {
 const initialMovieCount = { count: "0" };
 
 export default function UserProfile() {
-    const { user: user, onUpdateCtxUser } = useContext(UserContext);
+    const { user: user, onUpdateCtxUser, onLogout } = useContext(UserContext);
     const { data: addedFilmsCount, request } = useFetch(`/users/added-films-count/${user.id}`, initialMovieCount);
 
     const { data, formInputRegister, setData } = useForm(initialValuesProfile);
@@ -85,7 +86,7 @@ export default function UserProfile() {
     const [showNew, setShowNew] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
 
-    // ── Handlers: profile ──
+    // ── Handlers ──
     async function actionProfileHandler() {
         setProfileLoading(true);
         const fieldErrors = validate(data);
@@ -130,7 +131,25 @@ export default function UserProfile() {
         } catch (error) {
             errorMessageHandler(error);
         };
-    }
+    };
+
+    async function deleteProfileHandler() {
+
+        const deleteProfile = confirm(`Are you sure you want to delete your frofile? This action is irreversible!`);
+
+        if (deleteProfile) {
+            
+            try {
+                await request(`/users/${user.id}/delete`, "DELETE", { accessToken: user.accessToken })
+                toast.dark(`Profile: ${user.email} has been deleted!`);
+                
+                onLogout("/");
+            } catch (error) {
+                toast.error(errorMessageHandler(error));
+            };
+        };
+
+    };
 
     const handleProfileCancel = () => {
         setIsEditingProfile(false);
@@ -432,7 +451,7 @@ export default function UserProfile() {
                             <p className={styles.dangerText}>
                                 Permanently delete your account and all associated data. This action cannot be undone.
                             </p>
-                            <button className={styles.btnDanger}>
+                            <button className={styles.btnDanger} onClick={deleteProfileHandler}>
                                 Delete account
                             </button>
                         </div>
