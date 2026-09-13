@@ -78,12 +78,12 @@ export type CommentType = {
 
 export type CommentData = {
     id: number,
-    userId: number,
-    movieId: number,
-    content: string,
-    createdAt: string
-    updatedAt: string
-    user: {
+    userId?: number,
+    movieId?: number,
+    content?: string,
+    createdAt?: string
+    updatedAt?: string
+    user?: {
         email: string,
         firstName: string,
         lastName: string

@@ -1,4 +1,4 @@
-import { Activity, useContext, useEffect, useReducer, useState } from "react";
+import { Activity, useContext, useState } from "react";
 import styles from "./CommentsSection.module.css";
 import type { CommentData } from "../../types/types";
 import Comment from "./Comment";
@@ -7,6 +7,7 @@ import UserContext from "../../contexts/UserContext";
 import { useParams } from "react-router";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import useFetch from "../../hooks/useFetch";
+import useReduceState from "../../hooks/useReduceState";
 
 type CommentsSectionProps = {
     owner: boolean,
@@ -14,31 +15,16 @@ type CommentsSectionProps = {
     hasRated: boolean
 }
 
-type Action = {
-    type: string,
-    payload: CommentData[]
-};
-
-function commentReducer(state: CommentData[], action: Action): CommentData[] {
-    switch (action.type) {
-        case "GET_ALL":
-            return action.payload;
-        case "ADD_COMMENT":
-            return [...state, action.payload[0]]
-        default:
-            return state;
-    }
-}
-
 export default function CommentsSection({ owner, onRate, hasRated }: CommentsSectionProps) {
     const [userRating, setUserRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
     const { isAuthenticated } = useContext(UserContext);
-    const [commentsData, dispatch] = useReducer(commentReducer, []);
     const { request } = useFetch();
-    const { user } = useContext(UserContext)
-
+    const { user } = useContext(UserContext);
+    
     const movieId = useParams().movieId
+    const { data: commentsData, dispatch } = useReduceState(`comments/${movieId}`, [])
+
 
     async function commentHandler(formData: FormData) {
         const content: string | null | File = formData.get("content");
@@ -64,46 +50,13 @@ export default function CommentsSection({ owner, onRate, hasRated }: CommentsSec
             }
 
             dispatch({
-                type: "ADD_COMMENT",
+                type: "ADD",
                 payload: [newCommentData]
             });
         } catch (error) {
             errorMessageHandler(error);
         };
     }
-
-    useEffect(() => {
-        const controller = new AbortController();
-
-        (async () => {
-
-            try {
-                // const result: CommentData[] = await request(`/comments/${movieId}`, "GET");
-                const response = await fetch(`http://localhost:5000/comments/${movieId}`,
-                    {
-                        method: "GET",
-                        headers: {
-                            "content-type": "application/json"
-                        },
-                        signal: controller.signal
-                    }
-                );
-
-                const result: CommentData[] = await response.json();
-
-                dispatch({
-                    type: "GET_ALL",
-                    payload: result
-                });
-            } catch (error) {
-                errorMessageHandler(error);
-            };
-        })()
-
-        return () => {
-            controller.abort();
-        }
-    }, [movieId]);
 
     return (
         <section className={styles["comments-section"]}>
