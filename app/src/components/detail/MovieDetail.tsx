@@ -80,11 +80,13 @@ export default function MovieDetail() {
                     signal: controller.signal
                 }
 
-                const response = await fetch(`${BASE_URL}/rates/${movieId}`, options);
+                const ratesResponse = await fetch(`${BASE_URL}/rates/${movieId}`, options);
+                // const favouritesResponse = await fetch(`${BASE_URL}/favourites/:movieId`);
 
-                const result: boolean = await response.json();
+                // const favouriteResult: boolean 
+                const rateReault: boolean = await ratesResponse.json();
 
-                setHasRated(result);
+                setHasRated(rateReault);
 
             } catch (error) {
                 errorMessageHandler(error);
@@ -166,6 +168,15 @@ export default function MovieDetail() {
         } catch (error) {
             errorMessageHandler(error);
         };
+    };
+
+    async function addToFavourites() {
+
+        try {
+          await request(`/movies/favourites`, "POST", { accessToken: user.accessToken }, { movieId }); 
+        } catch (error) {
+            toast.error(errorMessageHandler(error));
+        };
     }
 
     return (
@@ -211,7 +222,7 @@ export default function MovieDetail() {
                                 </Link>
                             </Activity>
                             <ButtonSecondary text="+ Add to Watchlist" addStyle="btn-170" />
-                            <ButtonChost text="♥ Favourite" addStyle="btn-170" />
+                            <ButtonChost text="♥ Favourite" addStyle="btn-170" clickHandler={addToFavourites} />
                         </div>
                         <Activity mode={isAuthenticated && isOwner ? "visible" : "hidden"}>
                             <div className={`${styles["detail-hero-actions"]} ${styles["detail-hero-edit-delete"]}`}>

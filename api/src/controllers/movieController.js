@@ -224,4 +224,17 @@ movieController.get("/all/count", async (req, res) => {
     };
 });
 
+movieController.post("/favourites", isAuthMiddleware, async (req, res) => {
+    const movieId = Number(req.body.movieId);
+    const userId = Number(req.user.id);
+
+    try {
+      const result = await movieService.addToFavourites(movieId, userId);
+
+      res.status(201).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+})
+
 export default movieController;

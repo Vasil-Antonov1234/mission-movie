@@ -116,5 +116,9 @@ export default {
 
     async getAllCount() {
         return await movieRepository.getAllCount();
+    },
+
+    async addToFavourites(movieId, userId) {
+        return await movieRepository.addToFavourites(movieId, userId);
     }
 }

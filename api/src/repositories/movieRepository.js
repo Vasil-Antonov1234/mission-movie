@@ -210,5 +210,14 @@ export default {
                 authorId: userID
             }
         });
+    },
+
+    async addToFavourites(movieId, userId) {
+        return await prisma.favorites.create({
+            data: {
+                movieId,
+                userId
+            }
+        });
     }
 }
