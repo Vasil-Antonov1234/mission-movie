@@ -137,7 +137,6 @@ model Rate {
 }
 
 model Favorites {
-	id	Int		@id			@default(autoincrement())
 	createdAt	DateTime	@default(now())
 	updatedAt	DateTime	@updatedAt
 
@@ -147,5 +146,6 @@ model Favorites {
 	user		User		@relation(fields: [userId], references: [id], onDelete: Cascade)
 	movie		Movie		@relation(fields: [movieId], references: [id], onDelete: Cascade)
 
+	@@id([movieId, userId])
 	@@map("favorites")
 }

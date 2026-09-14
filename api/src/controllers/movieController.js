@@ -222,6 +222,6 @@ movieController.get("/all/count", async (req, res) => {
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
-})
+});
 
 export default movieController;
