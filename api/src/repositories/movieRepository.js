@@ -219,5 +219,16 @@ export default {
                 userId
             }
         });
+    },
+
+    async getIsFavourite(movieId, userId) {
+        return await prisma.favorites.findUnique({
+            where: {
+                movieId_userId: {
+                    movieId,
+                    userId
+                }
+            }
+        });
     }
 }

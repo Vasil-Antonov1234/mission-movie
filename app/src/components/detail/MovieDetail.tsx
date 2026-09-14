@@ -81,10 +81,12 @@ export default function MovieDetail() {
                 }
 
                 const ratesResponse = await fetch(`${BASE_URL}/rates/${movieId}`, options);
-                // const favouritesResponse = await fetch(`${BASE_URL}/favourites/:movieId`);
+                const favouritesResponse = await fetch(`${BASE_URL}/movies/favourites/${movieId}`, options);
 
-                // const favouriteResult: boolean 
+                const favouriteResult: boolean =  await favouritesResponse.json();
                 const rateReault: boolean = await ratesResponse.json();
+
+                console.log(favouriteResult)
 
                 setHasRated(rateReault);
 

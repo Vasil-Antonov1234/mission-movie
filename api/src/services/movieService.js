@@ -120,5 +120,9 @@ export default {
 
     async addToFavourites(movieId, userId) {
         return await movieRepository.addToFavourites(movieId, userId);
+    },
+
+    async getIsFavourite(movieId, userId) {
+        return await movieRepository.getIsFavourite(movieId, userId);
     }
 }
