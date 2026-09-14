@@ -519,6 +519,11 @@
     font-size: 14px;
 }
 
+.watchlist {
+    color: #e8e2d9a1;
+    font-size: 14px;
+}
+
 @media(max-width: 390px) {
     .detail-hero {
         margin-bottom: 70px;

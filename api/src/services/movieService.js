@@ -124,5 +124,13 @@ export default {
 
     async getIsFavourite(movieId, userId) {
         return await movieRepository.getIsFavourite(movieId, userId);
+    },
+
+    async addToWatchlist(movieId, userId) {
+        return await movieRepository.addToWatchlist(movieId, userId);
+    },
+
+    async getIsInWatchlist(movieId, userId) {
+        return await movieRepository.getIsInWatchlist(movieId, userId);
     }
 }

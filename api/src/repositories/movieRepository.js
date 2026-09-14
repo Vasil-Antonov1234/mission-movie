@@ -230,5 +230,25 @@ export default {
                 }
             }
         });
+    },
+
+    async addToWatchlist(movieId, userId) {
+        return await prisma.watchlist.create({
+            data: {
+                movieId,
+                userId
+            }
+        });
+    },
+
+    async getIsInWatchlist(movieId, userId) {
+        return await prisma.watchlist.findUnique({
+            where: {
+                movieId_userId: {
+                    movieId,
+                    userId
+                }
+            }
+        });
     }
 }

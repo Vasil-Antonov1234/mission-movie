@@ -45,6 +45,7 @@ export default function MovieDetail() {
     const { data: similarMoviesData, request, BASE_URL } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`, movies);
     const [hasRated, setHasRated] = useState<boolean>(false);
     const [isFavourite, setIsFavourite] = useState<boolean>(false);
+    const [isAddedToWatchlist, setIsAddedToWatchlist] = useState<boolean>(false);
     const { data: ratesCount } = useFetch(`/rates/count/${movieId}`, "1");
 
     useEffect(() => {
@@ -83,12 +84,15 @@ export default function MovieDetail() {
 
                 const ratesResponse = await fetch(`${BASE_URL}/rates/${movieId}`, options);
                 const favouritesResponse = await fetch(`${BASE_URL}/movies/favourites/${movieId}`, options);
+                const watchlistResponse = await fetch(`${BASE_URL}/movies/watchlist/${movieId}`, options);
 
-                const favouriteResult: boolean =  await favouritesResponse.json();
-                const rateReault: boolean = await ratesResponse.json();
+                const favouriteResult: boolean = await favouritesResponse.json();
+                const watchlistResult: boolean = await watchlistResponse.json();
+                const rateResult: boolean = await ratesResponse.json();
 
-                setHasRated(rateReault);
+                setHasRated(rateResult);
                 setIsFavourite(favouriteResult);
+                setIsAddedToWatchlist(watchlistResult);
             } catch (error) {
                 errorMessageHandler(error);
             }
@@ -180,6 +184,17 @@ export default function MovieDetail() {
         } catch (error) {
             toast.error(errorMessageHandler(error));
         };
+    };
+
+    async function addToWatchlist() {
+        
+        try {
+            await request("/movies/watchlist", "POST", { accessToken: user.accessToken }, { movieId });
+
+            setIsAddedToWatchlist(true);
+        } catch (error) {
+            toast.error(errorMessageHandler(error));   
+        };
     }
 
     return (
@@ -224,8 +239,8 @@ export default function MovieDetail() {
                                     <ButtonPrimary text="▶ Watch Trailer" addStyle="btn-170" />
                                 </Link>
                             </Activity>
-                            <ButtonSecondary text="+ Add to Watchlist" addStyle="btn-170" />
-                            {isFavourite ? <span className={styles["is-favourite"]}>Favourite movie ♥</span> : <ButtonChost text="♥ Favourite" addStyle="btn-170" clickHandler={addToFavourites} />}
+                            {isAddedToWatchlist ? <span className={styles["watchlist"]}>✓ In Your Watchlist</span> : <ButtonSecondary text="+ Add to Watchlist" addStyle="btn-170" clickHandler={addToWatchlist} />}
+                            {isFavourite ? <span className={styles["is-favourite"]}>Favourite Movie ♥</span> : <ButtonChost text="♥ Favourite" addStyle="btn-170" clickHandler={addToFavourites} />}
                         </div>
                         <Activity mode={isAuthenticated && isOwner ? "visible" : "hidden"}>
                             <div className={`${styles["detail-hero-actions"]} ${styles["detail-hero-edit-delete"]}`}>

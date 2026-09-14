@@ -237,6 +237,19 @@ movieController.post("/favourites", isAuthMiddleware, async (req, res) => {
     };
 });
 
+movieController.post("/watchlist", isAuthMiddleware, async (req, res) => {
+    const movieId = Number(req.body.movieId);
+    const userId = Number(req.user.id);
+
+    try {
+        const result = await movieService.addToWatchlist(movieId, userId);
+
+        res.status(201).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+});
+
 movieController.get("/favourites/:movieId", isAuthMiddleware, async (req, res) => {
     const movieId = Number(req.params.movieId);
     const userId = Number(req.user.id);
@@ -248,6 +261,20 @@ movieController.get("/favourites/:movieId", isAuthMiddleware, async (req, res) =
         res.status(200).json(isFavourite);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
+    };
+});
+
+movieController.get("/watchlist/:movieId", isAuthMiddleware, async (req, res) => {
+    const movieId = Number(req.params.movieId);
+    const userId = Number(req.user.id);
+
+    try {
+      const result = await movieService.getIsInWatchlist(movieId, userId);
+      
+      const isInWatchlist = result ? true : false;     
+      res.status(200).json(isInWatchlist);
+    } catch (error) {
+        res.status(200).json(getErrorMessage(error));
     };
 })
 
