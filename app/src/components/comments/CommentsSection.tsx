@@ -22,7 +22,7 @@ export default function CommentsSection({ owner, onRate, hasRated }: CommentsSec
     const { request } = useFetch();
     
     const movieId = useParams().movieId
-    const { data: commentsData, dispatch } = useReduceState(`comments/${movieId}`, [])
+    const { data: commentsData, dispatch } = useReduceState(`comments/${movieId}`, "GET", {}, [])
 
 
     async function commentHandler(formData: FormData) {

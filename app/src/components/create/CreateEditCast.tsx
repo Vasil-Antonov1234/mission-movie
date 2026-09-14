@@ -151,7 +151,7 @@ export default function CreateEditCast() {
                                     {...formInputRegister("lastName")}
                                     type="text"
                                     className={`${styles.input}${errors.lastName && touched.lastName ? ` ${styles["input--error"]}` : ""}`}
-                                    placeholder="e.g. A Brand New Day starts now."
+                                    placeholder="e.g. Doe"
                                     autoComplete="off"
                                     onBlur={validateHandler}
                                 />

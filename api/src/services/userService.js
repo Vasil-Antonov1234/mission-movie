@@ -53,5 +53,9 @@ export default {
 
     async remove(userId) {
         return await userRepository.remove(userId);
+    },
+
+    async getFavoriteMovies(userId) {
+        return await userRepository.getFavoriteMovies(userId);
     }
 }

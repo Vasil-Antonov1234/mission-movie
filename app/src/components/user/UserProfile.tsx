@@ -9,6 +9,7 @@ import { validate } from "../../utils/validate";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import useReduceState from "../../hooks/useReduceState";
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 
@@ -36,6 +37,7 @@ const initialMovieCount = { count: "0" };
 export default function UserProfile() {
     const { user: user, onUpdateCtxUser, onLogout } = useContext(UserContext);
     const { data: addedFilmsCount, request } = useFetch(`/users/added-films-count/${user.id}`, initialMovieCount);
+    const { data: favoriteMovies } = useReduceState("users/favorite-movies", "GET", { accessToken: user.accessToken}, []);
 
     const { data, formInputRegister, setData } = useForm(initialValuesProfile);
     const { data: passwordData, formInputRegister: passwordFormInputRegister, setData: setPasswordData } = useForm(initialValuesPassword);
@@ -208,7 +210,7 @@ export default function UserProfile() {
                         <div className={styles.statLabel}>Reviews</div>
                     </div>
                     <div className={styles.statCard}>
-                        <div className={styles.statValue}>9</div>
+                        <div className={styles.statValue}>{favoriteMovies.length}</div>
                         <div className={styles.statLabel}>Favourites</div>
                     </div>
                     <div className={styles.statCard}>

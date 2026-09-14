@@ -52,5 +52,21 @@ export default {
                 id: userId
             }
         });
+    }, 
+
+    async getFavoriteMovies(userId) {
+        return await prisma.favorites.findMany({
+            where: {
+                userId
+            },
+            include: {
+                movie: {
+                    select: {
+                        id: true,
+                        title: true
+                    }
+                }
+            }
+        });
     }
 }
