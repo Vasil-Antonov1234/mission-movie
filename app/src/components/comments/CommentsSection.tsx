@@ -18,9 +18,8 @@ type CommentsSectionProps = {
 export default function CommentsSection({ owner, onRate, hasRated }: CommentsSectionProps) {
     const [userRating, setUserRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
-    const { isAuthenticated } = useContext(UserContext);
+    const { isAuthenticated, user } = useContext(UserContext);
     const { request } = useFetch();
-    const { user } = useContext(UserContext);
     
     const movieId = useParams().movieId
     const { data: commentsData, dispatch } = useReduceState(`comments/${movieId}`, [])
