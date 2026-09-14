@@ -50,7 +50,7 @@ export default function MovieDetail() {
 
     useEffect(() => {
         const controller = new AbortController();
-        
+
         (async () => {
             try {
                 await fetch(`${BASE_URL}/movies/${movieId}/increment-views`, { method: "PATCH", signal: controller.signal });
@@ -178,22 +178,22 @@ export default function MovieDetail() {
     async function addToFavourites() {
 
         try {
-          await request(`/movies/favourites`, "POST", { accessToken: user.accessToken }, { movieId });
+            await request(`/movies/favourites`, "POST", { accessToken: user.accessToken }, { movieId });
 
-          setIsFavourite(true);
+            setIsFavourite(true);
         } catch (error) {
             toast.error(errorMessageHandler(error));
         };
     };
 
     async function addToWatchlist() {
-        
+
         try {
             await request("/movies/watchlist", "POST", { accessToken: user.accessToken }, { movieId });
 
             setIsAddedToWatchlist(true);
         } catch (error) {
-            toast.error(errorMessageHandler(error));   
+            toast.error(errorMessageHandler(error));
         };
     }
 
@@ -239,8 +239,10 @@ export default function MovieDetail() {
                                     <ButtonPrimary text="▶ Watch Trailer" addStyle="btn-170" />
                                 </Link>
                             </Activity>
-                            {isAddedToWatchlist ? <span className={styles["watchlist"]}>✓ In Your Watchlist</span> : <ButtonSecondary text="+ Add to Watchlist" addStyle="btn-170" clickHandler={addToWatchlist} />}
-                            {isFavourite ? <span className={styles["is-favourite"]}>Favourite Movie ♥</span> : <ButtonChost text="♥ Favourite" addStyle="btn-170" clickHandler={addToFavourites} />}
+                            <Activity mode={isAuthenticated ? "visible" : "hidden"}>
+                                {isAddedToWatchlist ? <span className={styles["watchlist"]}>✓ In Your Watchlist</span> : <ButtonSecondary text="+ Add to Watchlist" addStyle="btn-170" clickHandler={addToWatchlist} />}
+                                {isFavourite ? <span className={styles["is-favourite"]}>Favourite Movie ♥</span> : <ButtonChost text="♥ Favourite" addStyle="btn-170" clickHandler={addToFavourites} />}
+                            </Activity>
                         </div>
                         <Activity mode={isAuthenticated && isOwner ? "visible" : "hidden"}>
                             <div className={`${styles["detail-hero-actions"]} ${styles["detail-hero-edit-delete"]}`}>
