@@ -514,6 +514,11 @@
   text-decoration: none;
 }
 
+.is-favourite {
+    color: #e8b84b;
+    font-size: 14px;
+}
+
 @media(max-width: 390px) {
     .detail-hero {
         margin-bottom: 70px;

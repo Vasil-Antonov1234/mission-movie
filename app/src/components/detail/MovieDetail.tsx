@@ -44,6 +44,7 @@ export default function MovieDetail() {
 
     const { data: similarMoviesData, request, BASE_URL } = useFetch(`/movies/similar?where=genre%3D%22${genreArray[0]}%22&where=genre1%3D%22${genreArray[1]}%22&where=movieId%3D%22${movieId}%22`, movies);
     const [hasRated, setHasRated] = useState<boolean>(false);
+    const [isFavourite, setIsFavourite] = useState<boolean>(false);
     const { data: ratesCount } = useFetch(`/rates/count/${movieId}`, "1");
 
     useEffect(() => {
@@ -86,10 +87,8 @@ export default function MovieDetail() {
                 const favouriteResult: boolean =  await favouritesResponse.json();
                 const rateReault: boolean = await ratesResponse.json();
 
-                console.log(favouriteResult)
-
                 setHasRated(rateReault);
-
+                setIsFavourite(favouriteResult);
             } catch (error) {
                 errorMessageHandler(error);
             }
@@ -175,7 +174,9 @@ export default function MovieDetail() {
     async function addToFavourites() {
 
         try {
-          await request(`/movies/favourites`, "POST", { accessToken: user.accessToken }, { movieId }); 
+          await request(`/movies/favourites`, "POST", { accessToken: user.accessToken }, { movieId });
+
+          setIsFavourite(true);
         } catch (error) {
             toast.error(errorMessageHandler(error));
         };
@@ -224,7 +225,7 @@ export default function MovieDetail() {
                                 </Link>
                             </Activity>
                             <ButtonSecondary text="+ Add to Watchlist" addStyle="btn-170" />
-                            <ButtonChost text="♥ Favourite" addStyle="btn-170" clickHandler={addToFavourites} />
+                            {isFavourite ? <span className={styles["is-favourite"]}>Favourite movie ♥</span> : <ButtonChost text="♥ Favourite" addStyle="btn-170" clickHandler={addToFavourites} />}
                         </div>
                         <Activity mode={isAuthenticated && isOwner ? "visible" : "hidden"}>
                             <div className={`${styles["detail-hero-actions"]} ${styles["detail-hero-edit-delete"]}`}>
