@@ -52,7 +52,7 @@ export default {
                 id: userId
             }
         });
-    }, 
+    },
 
     async getFavoriteMovies(userId) {
         return await prisma.favorites.findMany({
@@ -65,6 +65,17 @@ export default {
                         id: true,
                         title: true
                     }
+                }
+            }
+        });
+    },
+
+    async removeFromFavorite(movieId, userId) {
+        return await prisma.favorites.delete({
+            where: {
+                movieId_userId: {
+                    movieId,
+                    userId
                 }
             }
         });

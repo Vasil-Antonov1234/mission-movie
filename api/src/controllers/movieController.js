@@ -66,9 +66,9 @@ movieController.get("/latest", async (req, res) => {
 
 movieController.get("/featured", async (req, res) => {
     try {
-      const featuredMovies = await movieService.getFeatured();
-      
-      res.status(200).json(featuredMovies);
+        const featuredMovies = await movieService.getFeatured();
+
+        res.status(200).json(featuredMovies);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
@@ -171,9 +171,9 @@ movieController.delete("/favorites/:movieId/remove", isAuthMiddleware, async (re
     const userId = Number(req.user.id);
 
     try {
-      const result = await movieService.removeFromFavorites(movieId, userId);
+        const result = await movieService.removeFromFavorites(movieId, userId);
 
-      res.status(200).json(result);
+        res.status(200).json(result);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
@@ -229,9 +229,9 @@ movieController.get("/", async (req, res) => {
 
 movieController.get("/all/count", async (req, res) => {
     try {
-      const moviesCount = await movieService.getAllCount();
+        const moviesCount = await movieService.getAllCount();
 
-      res.status(200).json(moviesCount);
+        res.status(200).json(moviesCount);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
@@ -242,9 +242,9 @@ movieController.post("/favourites", isAuthMiddleware, async (req, res) => {
     const userId = Number(req.user.id);
 
     try {
-      const result = await movieService.addToFavourites(movieId, userId);
+        const result = await movieService.addToFavourites(movieId, userId);
 
-      res.status(201).json(result);
+        res.status(201).json(result);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
@@ -282,10 +282,10 @@ movieController.get("/watchlist/:movieId", isAuthMiddleware, async (req, res) =>
     const userId = Number(req.user.id);
 
     try {
-      const result = await movieService.getIsInWatchlist(movieId, userId);
-      
-      const isInWatchlist = result ? true : false;     
-      res.status(200).json(isInWatchlist);
+        const result = await movieService.getIsInWatchlist(movieId, userId);
+
+        const isInWatchlist = result ? true : false;
+        res.status(200).json(isInWatchlist);
     } catch (error) {
         res.status(200).json(getErrorMessage(error));
     };
