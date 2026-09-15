@@ -79,5 +79,13 @@ export default {
                 }
             }
         });
+    },
+
+    async getWatchlist(userId) {
+        return await prisma.watchlist.findMany({
+            where: {
+                userId
+            }
+        });
     }
 }

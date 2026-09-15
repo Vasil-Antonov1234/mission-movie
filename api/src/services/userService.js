@@ -61,5 +61,9 @@ export default {
 
     async removeFromFavorites(movieId, userId) {
         return await userRepository.removeFromFavorite(movieId, userId);
+    },
+
+    async getWatchlist(userId) {
+        return await userRepository.getWatchlist(userId);
     }
 }

@@ -1,4 +1,4 @@
-import { useState, useContext, Activity, type MouseEventHandler } from "react";
+import { useState, useContext, Activity } from "react";
 import styles from "./UserProfile.module.css";
 import UserContext from "../../contexts/UserContext";
 import { convertDate } from "../../utils/convertDate";
@@ -38,6 +38,7 @@ export default function UserProfile() {
     const { user: user, onUpdateCtxUser, onLogout } = useContext(UserContext);
     const { data: addedFilmsCount, request } = useFetch(`/users/added-films-count/${user.id}`, initialMovieCount);
     const { data: favoriteMovies, dispatch: dispatchFavorite } = useReduceState("users/favorite-movies", "GET", { accessToken: user.accessToken }, []);
+    const { data: watchlistData } = useReduceState("users/watchlist", "GET", { accessToken: user.accessToken }, []);
 
     const { data, formInputRegister, setData } = useForm(initialValuesProfile);
     const { data: passwordData, formInputRegister: passwordFormInputRegister, setData: setPasswordData } = useForm(initialValuesPassword);
@@ -158,7 +159,7 @@ export default function UserProfile() {
     async function removeFavouriteMovie(movieId?: number) {
 
         try {
-            const removedFavoriteMovie = await request(`/movies/favorites/${movieId}/remove`, "DELETE", { accessToken: user.accessToken });
+            const removedFavoriteMovie = await request(`/users/favorites/${movieId}/remove`, "DELETE", { accessToken: user.accessToken });
 
             dispatchFavorite({payload: favoriteMovies, type: "REMOVE", recordId: Number(removedFavoriteMovie.movieId)});
         } catch (error) {
@@ -229,7 +230,7 @@ export default function UserProfile() {
                         <div className={styles.statLabel}>Favourites</div>
                     </div>
                     <div className={styles.statCard}>
-                        <div className={styles.statValue}>0</div>
+                        <div className={styles.statValue}>{watchlistData.length}</div>
                         <div className={styles.statLabel}>Watch list</div>
                     </div>
                 </div>
@@ -469,7 +470,7 @@ export default function UserProfile() {
                                 <div className={styles.infoItem}>
                                     {/* <span className={styles.infoLabel}>Member since</span> */}
                                     {favoriteMovies.map((x) =>
-                                        <p className={styles["favourites-wrapper"]}>
+                                        <p className={styles["favourites-wrapper"]} key={x.id}>
                                             <Link className={styles["favorites-title"]} to={`/movies/${x.movie?.id}/details`}>{x.movie?.title}</Link>
                                             <span className={styles.remove} onClick={() => removeFavouriteMovie(x.movie?.id)}>remove</span>
                                         </p>)}
