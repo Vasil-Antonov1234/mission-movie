@@ -13,11 +13,17 @@ type R = {
         email: string,
         firstName: string;
         lastName: string;
+    },
+    movie?: {
+        id: number,
+        title: string
     }
 }
 
+type Type = "GET_ALL" | "ADD" | "REMOVE"
+
 type Action = {
-    type: string,
+    type: Type,
     payload: R[],
     recordId?: number
 };
@@ -29,7 +35,7 @@ function stateReducer(state: R[], action: Action): R[] {
         case "ADD":
             return [...state, action.payload[0]];
         case "REMOVE":
-            return state.filter((x) => x.id !== action.payload[0].id);
+            return state.filter((x) => x.movieId !== action.recordId);
         default:
             return state;
     }

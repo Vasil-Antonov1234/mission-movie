@@ -166,6 +166,19 @@ movieController.get("/:movieId/:castId/unattach", isAuthMiddleware, async (req, 
     };
 });
 
+movieController.delete("/favorites/:movieId/remove", isAuthMiddleware, async (req, res) => {
+    const movieId = Number(req.params.movieId);
+    const userId = Number(req.user.id);
+
+    try {
+      const result = await movieService.removeFromFavorites(movieId, userId);
+
+      res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+})
+
 movieController.get("/", async (req, res) => {
 
     let filter = {
@@ -276,6 +289,6 @@ movieController.get("/watchlist/:movieId", isAuthMiddleware, async (req, res) =>
     } catch (error) {
         res.status(200).json(getErrorMessage(error));
     };
-})
+});
 
 export default movieController;

@@ -250,5 +250,16 @@ export default {
                 }
             }
         });
+    },
+
+    async removeFromFavorite(movieId, userId) {
+        return await prisma.favorites.delete({
+            where: {
+                movieId_userId: {
+                    movieId,
+                    userId
+                }
+            }
+        });
     }
 }

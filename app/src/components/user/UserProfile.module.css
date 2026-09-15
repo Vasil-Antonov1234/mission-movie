@@ -424,6 +424,38 @@
   margin-bottom: 16px;
 }
 
+.favorites {
+  background-color: #e8b84b;
+}
+
+.favorites-title {
+  color: black;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.favorites-title:hover {
+  color: #7a7068;
+}
+
+.favourites-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.remove {
+    font-size: 11px;
+    color: rgb(233, 114, 137);
+    cursor: pointer;
+    margin-top: 4px;
+    transition: transform 0.5s
+}
+
+.remove:hover {
+    color: crimson;
+    transform: translateX(14px);
+}
+
 /* ─── DANGER ZONE ─── */
 .dangerCard {
   background: rgba(192, 57, 43, 0.04);

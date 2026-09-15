@@ -132,5 +132,9 @@ export default {
 
     async getIsInWatchlist(movieId, userId) {
         return await movieRepository.getIsInWatchlist(movieId, userId);
+    },
+
+    async removeFromFavorites(movieId, userId) {
+        return await movieRepository.removeFromFavorite(movieId, userId);
     }
 }
