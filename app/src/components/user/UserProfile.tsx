@@ -482,9 +482,9 @@ export default function UserProfile() {
                             <div className={styles.sidebarCardTitle}>Favourite movies</div>
                             <div className={styles.infoList}>
                                 <div className={styles.infoItem}>
-                                    {favoriteMovies.map((x) =>
+                                    {watchlistData.map((x) =>
                                         <p className={styles["favourites-wrapper"]} key={x.id}>
-                                            <Link className={styles["watchlist-title"]} to="#">Test</Link>
+                                            <Link className={styles["watchlist-title"]} to={`/movies/${x.movie?.id}/details`}>{x.movie?.title}</Link>
                                             <span className={styles.remove} onClick={() => removeFavouriteMovie(x.movie?.id)}>remove</span>
                                         </p>)}
                                 </div>

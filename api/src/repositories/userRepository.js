@@ -85,6 +85,14 @@ export default {
         return await prisma.watchlist.findMany({
             where: {
                 userId
+            },
+            include: {
+                movie: {
+                    select: {
+                        id: true,
+                        title: true
+                    }
+                }
             }
         });
     }
