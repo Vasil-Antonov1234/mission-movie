@@ -438,6 +438,16 @@
   color: #7a7068;
 }
 
+.watchlist-title {
+  color: #c8c0b8;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.watchlist-title:hover {
+  color: white;
+}
+
 .favourites-wrapper {
   display: flex;
   justify-content: space-between;
