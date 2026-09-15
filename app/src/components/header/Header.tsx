@@ -63,7 +63,7 @@ export default function Header() {
                     <Link to="/casts/create">
                         <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Add cast</button>
                     </Link>
-                    <Link to="#">
+                    <Link to="/reviews/create">
                         <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Write review</button>
                     </Link>
                     <ButtonSecondary text="Logout" clickHandler={onLogout} />

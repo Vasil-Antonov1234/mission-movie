@@ -492,7 +492,7 @@ export default function UserProfile() {
 
                         {/* Watchlist */}
                         <div className={`${styles.sidebarCard}`}>
-                            <div className={styles.sidebarCardTitle}>Favourite movies</div>
+                            <div className={styles.sidebarCardTitle}>Watchlist</div>
                             <div className={styles.infoList}>
                                 <div className={styles.infoItem}>
                                     {watchlistData.map((x) =>

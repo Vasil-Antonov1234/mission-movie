@@ -16,6 +16,7 @@ import ActorDetail from "./components/detail/ActorDetail"
 import { ToastContainer } from "react-toastify"
 import AuthCallback from "./components/login-register/AuthCallback"
 import UserProfile from "./components/user/UserProfile"
+import CreateReview from "./components/create/CreateReview"
 
 function App() {
 
@@ -31,11 +32,10 @@ function App() {
                 <Route path="/reviews/catalog" element={<AllReviews />} />
                 <Route path="/movies/:movieId/details" element={<MovieDetail />} />
                 <Route path="/casts/:castId/details" element={<ActorDetail />} />
-                <Route path="/casts/:castId/edit" element={<CreateEditCast />} />
 
-                <Route path="/auth/callback" element={<AuthCallback />} />
 
                 <Route element={<IsAuthenticated />}>
+                    <Route path="/auth/callback" element={<AuthCallback />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                 </Route>
@@ -46,6 +46,8 @@ function App() {
                     <Route path="/casts/create" element={<CreateEditCast />} />
                     <Route path="/movies/:movieId/attach" element={<AttachCast />} />
                     <Route path="/users/profile" element={<UserProfile />} />
+                    <Route path="/casts/:castId/edit" element={<CreateEditCast />} />
+                    <Route path="/reviews/create" element={<CreateReview />} />
                 </Route>
             </Routes>
             <Footer />
