@@ -149,6 +149,19 @@ userController.get("/watchlist", isAuthMiddleware, async (req, res) => {
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
+});
+
+userController.delete("/watchlist/:movieId/remove", isAuthMiddleware, async (req, res) => {
+    const movieId = Number(req.params.movieId);
+    const userId = Number(req.user.id);
+
+    try {
+        const result = await userService.removeFromWatchlist(movieId, userId);
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
 })
 
 export default userController;

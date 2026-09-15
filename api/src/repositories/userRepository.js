@@ -95,5 +95,16 @@ export default {
                 }
             }
         });
+    },
+
+    async removeFromWatchlist(movieId, userId) {
+        return await prisma.watchlist.delete({
+            where: {
+                movieId_userId: {
+                    movieId,
+                    userId
+                }
+            }
+        });
     }
 }

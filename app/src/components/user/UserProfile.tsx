@@ -38,7 +38,7 @@ export default function UserProfile() {
     const { user: user, onUpdateCtxUser, onLogout } = useContext(UserContext);
     const { data: addedFilmsCount, request } = useFetch(`/users/added-films-count/${user.id}`, initialMovieCount);
     const { data: favoriteMovies, dispatch: dispatchFavorite } = useReduceState("users/favorite-movies", "GET", { accessToken: user.accessToken }, []);
-    const { data: watchlistData } = useReduceState("users/watchlist", "GET", { accessToken: user.accessToken }, []);
+    const { data: watchlistData, dispatch: dispatchWatchlist } = useReduceState("users/watchlist", "GET", { accessToken: user.accessToken }, []);
 
     const { data, formInputRegister, setData } = useForm(initialValuesProfile);
     const { data: passwordData, formInputRegister: passwordFormInputRegister, setData: setPasswordData } = useForm(initialValuesPassword);
@@ -168,6 +168,19 @@ export default function UserProfile() {
             }
         };
     };
+
+    async function removeFromWatchlist(movieId?: number) {
+
+        try {
+            const removedWatchlistMovie = await request(`/users/watchlist/${movieId}/remove`, "DELETE", { accessToken: user.accessToken });
+
+            dispatchWatchlist({payload: watchlistData, type: "REMOVE", recordId: Number(removedWatchlistMovie.movieId)});
+        } catch (error) {
+            if (errorMessageHandler(error)) {
+                onLogout()
+            };
+        };
+    }
 
     const handleProfileCancel = () => {
         setIsEditingProfile(false);
@@ -485,7 +498,7 @@ export default function UserProfile() {
                                     {watchlistData.map((x) =>
                                         <p className={styles["favourites-wrapper"]} key={x.id}>
                                             <Link className={styles["watchlist-title"]} to={`/movies/${x.movie?.id}/details`}>{x.movie?.title}</Link>
-                                            <span className={styles.remove} onClick={() => removeFavouriteMovie(x.movie?.id)}>remove</span>
+                                            <span className={styles.remove} onClick={() => removeFromWatchlist(x.movie?.id)}>remove</span>
                                         </p>)}
                                 </div>
                             </div>

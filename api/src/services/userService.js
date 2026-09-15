@@ -65,5 +65,9 @@ export default {
 
     async getWatchlist(userId) {
         return await userRepository.getWatchlist(userId);
+    },
+
+    async removeFromWatchlist(movieId, userId) {
+        return await userRepository.removeFromWatchlist(movieId, userId);
     }
 }
