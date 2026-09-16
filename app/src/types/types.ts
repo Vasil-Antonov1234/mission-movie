@@ -195,7 +195,8 @@ export type ValidateValue = {
     wikipedia?: string,
     biography?: string,
     awards?: string,
-    currentPassword?: string
+    currentPassword?: string,
+    content?: string
 };
 
 export type UserCtx = {

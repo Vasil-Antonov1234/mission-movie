@@ -343,5 +343,14 @@ export function validate(value: ValidateValue) {
         errors["awards"] = "The awards must be at least 10 characters long if any";
     };
 
+    // Review
+    if (value.content === "") {
+        errors["content"] = "A review is required";
+    };
+
+    if (value.content && value.content.length < 70) {
+        errors["content"] = "A review must be at least 70 characters long";
+    };
+
     return errors;
 }

@@ -2,17 +2,13 @@ import { useState } from "react"
 import styles from "./CreateEditMovie.module.css"
 import useForm from "../../hooks/useForm"
 import useFetch from "../../hooks/useFetch"
+import type { ValidateValue } from "../../types/types"
+import { validate } from "../../utils/validate"
 
 type Movie = {
     id: number,
     title: string,
     poster: string
-}
-
-const initialState: Movie = {
-    id: 0,
-    poster: "",
-    title: ""
 }
 
 const initialValues = {
@@ -23,9 +19,28 @@ const initialValues = {
 const initialStateMovies: Movie[] = []
 
 export default function CreateReview() {
-    const [movie, setMovie] = useState(initialState);
-    const { data: movies } = useFetch("/movies?where=activePage%3D%22null%22&select=id%3D%22true%22&select=title%3D%22true%22&select=poster%3D%22true%22", initialStateMovies)
-    const { data, formInputRegister } = useForm(initialValues)
+    const { data: movies } = useFetch("/movies?where=activePage%3D%22null%22&select=id%3D%22true%22&select=title%3D%22true%22&select=poster%3D%22true%22", initialStateMovies);
+    const { data, formInputRegister, setData } = useForm(initialValues);
+    const [errors, setErrors] = useState<ValidateValue>({});
+    const [touched, setTouched] = useState<ValidateValue>({});
+
+    function validateHandler(event: React.BaseSyntheticEvent) {
+        setTouched((state) => ({
+            ...state,
+            [event.target.name]: true
+        }));
+
+        const fieldErrors = validate(data);
+        setErrors(fieldErrors);
+    }
+
+    function onReset () {
+        setData(initialValues);
+    };
+
+    function submitAction() {
+
+    }
 
     return (
         <div className={styles.wrapper}>
@@ -59,7 +74,7 @@ export default function CreateReview() {
                         <div className={styles.movieField}>
 
                             {/* Live image preview */}
-                            <div className={`${styles.posterMovieWrapper} ${styles.posterMovieWrapperBig} ${movie.poster ? "" : styles.posterPreviewIconBig}`}>
+                            <div className={`${styles.posterMovieWrapper} ${styles.posterMovieWrapperBig} ${data.movieId ? "" : styles.posterPreviewIconBig}`}>
                                 {data.movieId ?
                                     <img
                                         src={movies?.find((x) => x.id === Number(data.movieId))?.poster}
@@ -73,7 +88,7 @@ export default function CreateReview() {
                                     </div>
                                 }
                             </div>
-                            <p className={styles.label}>{movie.title}</p>
+                            <p className={styles.label}>{movies?.find((x) => x.id === Number(data.movieId))?.title}</p>
                         </div>
                     </div>
 
@@ -86,11 +101,12 @@ export default function CreateReview() {
                             <textarea
                                 {...formInputRegister("content")}
                                 id="content"
-                                className={styles.textarea}
+                                className={`${styles.textarea} ${errors.content && touched.content ? `${styles["input--error"]}` : ""}`}
                                 placeholder="Write here..."
                                 rows={5}
-
+                                onBlur={validateHandler}
                             />
+                            {touched.content && <span className={styles.errorMsg}>{errors.content}</span>}
                             <span className={styles.inputHint}>
                                 {data.content.trim().length} characters
                                 {data.content.trim().length > 0 && data.content.trim().length < 70
@@ -105,6 +121,7 @@ export default function CreateReview() {
                         <button
                             type="button"
                             className={styles.btnSecondary}
+                            onClick={onReset}
                         >
                             Reset
                         </button>
