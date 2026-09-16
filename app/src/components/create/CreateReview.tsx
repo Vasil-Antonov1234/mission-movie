@@ -1,6 +1,7 @@
 import { useState } from "react"
 import styles from "./CreateEditMovie.module.css"
 import useForm from "../../hooks/useForm"
+import useFetch from "../../hooks/useFetch"
 
 type Movie = {
     id: number,
@@ -14,14 +15,17 @@ const initialState: Movie = {
     title: ""
 }
 
-const initialVCalues = {
+const initialValues = {
     content: "",
-    movie: "0"
-}
+    movieId: ""
+};
+
+const initialStateMovies: Movie[] = []
 
 export default function CreateReview() {
     const [movie, setMovie] = useState(initialState);
-    const { data, formInputRegister } = useForm(initialVCalues)
+    const { data: movies } = useFetch("/movies?where=activePage%3D%22null%22&select=id%3D%22true%22&select=title%3D%22true%22&select=poster%3D%22true%22", initialStateMovies)
+    const { data, formInputRegister } = useForm(initialValues)
 
     return (
         <div className={styles.wrapper}>
@@ -37,14 +41,14 @@ export default function CreateReview() {
                 <form noValidate>
 
                     <div className={styles.card}>
-                        <label className={`${styles.label} ${styles.wrapp}`} htmlFor="movie">
+                        <label className={`${styles.label} ${styles.wrapp}`} htmlFor="movieId">
                         </label>
                         <select
-                            {...formInputRegister("movie")}
-                            id="movie"
+                            {...formInputRegister("movieId")}
+                            id="movieId"
                             className={styles.input}>
                             <option value="">----Select a movie----</option>
-
+                            {movies?.map((x) => <option key={x.id} value={x.id}>{x.title}</option>)}
                         </select>
                     </div>
 
@@ -55,11 +59,11 @@ export default function CreateReview() {
                         <div className={styles.movieField}>
 
                             {/* Live image preview */}
-                            <div className={`${styles.posterMovieWrapper} ${movie.poster ? "" : styles.posterPreviewIconBig}`}>
-                                {movie.poster ?
+                            <div className={`${styles.posterMovieWrapper} ${styles.posterMovieWrapperBig} ${movie.poster ? "" : styles.posterPreviewIconBig}`}>
+                                {data.movieId ?
                                     <img
-                                        src={movie.poster}
-                                        alt={movie.title}
+                                        src={movies?.find((x) => x.id === Number(data.movieId))?.poster}
+                                        alt="poster"
                                         className={styles.posterImg}
                                     />
                                     :

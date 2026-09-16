@@ -368,6 +368,11 @@
   margin-bottom: 40px
 }
 
+.posterMovieWrapperBig {
+  height: 540px;
+  width: 340px;
+}
+
 .posterImg {
   width: 100%;
   height: 100%;
