@@ -1,9 +1,12 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import styles from "./CreateEditMovie.module.css"
 import useForm from "../../hooks/useForm"
 import useFetch from "../../hooks/useFetch"
 import type { ValidateValue } from "../../types/types"
 import { validate } from "../../utils/validate"
+import UserContext from "../../contexts/UserContext"
+import { errorMessageHandler } from "../../utils/errorUtil"
+import { useNavigate } from "react-router"
 
 type Movie = {
     id: number,
@@ -19,10 +22,12 @@ const initialValues = {
 const initialStateMovies: Movie[] = []
 
 export default function CreateReview() {
-    const { data: movies } = useFetch("/movies?where=activePage%3D%22null%22&select=id%3D%22true%22&select=title%3D%22true%22&select=poster%3D%22true%22", initialStateMovies);
+    const { data: movies, request } = useFetch("/movies?where=activePage%3D%22null%22&select=id%3D%22true%22&select=title%3D%22true%22&select=poster%3D%22true%22", initialStateMovies);
     const { data, formInputRegister, setData } = useForm(initialValues);
     const [errors, setErrors] = useState<ValidateValue>({});
     const [touched, setTouched] = useState<ValidateValue>({});
+    const { user, onLogout } = useContext(UserContext);
+    const navigate = useNavigate();
 
     function validateHandler(event: React.BaseSyntheticEvent) {
         setTouched((state) => ({
@@ -36,10 +41,30 @@ export default function CreateReview() {
 
     function onReset () {
         setData(initialValues);
+        setTouched({})
+        setErrors({});
     };
 
-    function submitAction() {
+    async function actionHandler() {
+        const fieldErrors = validate(data);
+        setErrors(fieldErrors);
+        setTouched(fieldErrors);
 
+        if (Object.keys(fieldErrors).length > 0) {
+            return;
+        };
+
+        try {
+            const result = await request(`/reviews/create`, "POST", { accessToken: user.accessToken }, data);
+
+            navigate("/");
+        } catch (error) {
+            const errorMessage = errorMessageHandler(error);
+
+            if (errorMessage === "Invalid token") {
+				onLogout("/login");
+			};
+        };
     }
 
     return (
@@ -53,7 +78,7 @@ export default function CreateReview() {
                     Select a movie and share your opinion about it.
                 </p>
 
-                <form noValidate>
+                <form action={actionHandler} noValidate>
 
                     <div className={styles.card}>
                         <label className={`${styles.label} ${styles.wrapp}`} htmlFor="movieId">

@@ -1,4 +1,8 @@
 import { Router } from "express"; 
+import { isAuthMiddleware } from "../middlewares/authMiddleware.js";
+import { getErrorMessage } from "../utils/errorUtil.js";
+import reviewService from "../services/reviewService.js";
+import { createReviewSchema } from "../schemas/reviewSchema.js";
 
 const reviewController = Router();
 
@@ -6,6 +10,21 @@ reviewController.get("/", (req, res) => {
     
     // get all
     res.json([]);
+});
+
+reviewController.post("/create", isAuthMiddleware, async (req, res) => {
+
+    const movieId = Number(req.body.movieId);
+    const userId = Number(req.user.id);
+    const content = await createReviewSchema.parseAsync(req.body.content);
+
+    try {
+        const result = await reviewService.create(movieId, userId, content);
+
+        res.status(201).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));   
+    };
 })
 
 export default reviewController;
