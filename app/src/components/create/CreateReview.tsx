@@ -1,5 +1,6 @@
 import { useState } from "react"
 import styles from "./CreateEditMovie.module.css"
+import useForm from "../../hooks/useForm"
 
 type Movie = {
     id: number,
@@ -13,8 +14,14 @@ const initialState: Movie = {
     title: ""
 }
 
+const initialVCalues = {
+    content: "",
+    movie: "0"
+}
+
 export default function CreateReview() {
     const [movie, setMovie] = useState(initialState);
+    const { data, formInputRegister } = useForm(initialVCalues)
 
     return (
         <div className={styles.wrapper}>
@@ -33,7 +40,7 @@ export default function CreateReview() {
                         <label className={`${styles.label} ${styles.wrapp}`} htmlFor="movie">
                         </label>
                         <select
-                            name="movie"
+                            {...formInputRegister("movie")}
                             id="movie"
                             className={styles.input}>
                             <option value="">----Select a movie----</option>
@@ -62,22 +69,30 @@ export default function CreateReview() {
                                     </div>
                                 }
                             </div>
-                                <p className={styles.label}>{movie.title}</p>
+                            <p className={styles.label}>{movie.title}</p>
                         </div>
                     </div>
 
                     {/* Review */}
                     <div className={styles.card}>
                         <div className={styles.field}>
-                            <label className={styles.label} htmlFor="review">
+                            <label className={styles.label} htmlFor="content">
                                 Your review
                             </label>
                             <textarea
-                                id="review"
+                                {...formInputRegister("content")}
+                                id="content"
                                 className={styles.textarea}
                                 placeholder="Write here..."
                                 rows={5}
+
                             />
+                            <span className={styles.inputHint}>
+                                {data.content.trim().length} characters
+                                {data.content.trim().length > 0 && data.content.trim().length < 70
+                                    ? ` — ${70 - data.content.trim().length} more needed`
+                                    : ""}
+                            </span>
                         </div>
                     </div>
 
