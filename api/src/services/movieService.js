@@ -7,31 +7,32 @@ export default {
 
     async getAll(filter) {
 
+        // /movies?where=activePage%3D%22${activePage}%22&where=genre%3D%22${activeGenre}%22
         if (filter.query.authorId) {
             filter.query.authorId = Number(filter.query.authorId);
         };
-
+        
         if (filter.query.year) {
             filter.query.year = Number(filter.query.year);
         };
-
+        
         if (filter.query.rating) {
             filter.query.rating = Number(filter.query.rating);
         };
-
+        
         if (filter.query.id) {
             filter.query.id = Number(filter.query.id);
         };
-
-        if (filter.query.activePage) {
+        
+        if (filter.query.activePage && filter.query.activePage !== "null") {
             filter.query.activePage = Number(filter.query.activePage);
         };
-
-        if (!filter.query.activePage) {
+        
+        if (!filter.query.activePage && filter.query.activePage !== "null") {
             filter.query.activePage = 1;
         };
-
-        if (!filter.query.genre || filter.query.genre === "All") {
+        
+        if (!filter.query.genre || (filter.query.genre).toLowerCase() === "all") {
             filter.query.genre = "";
         };
         

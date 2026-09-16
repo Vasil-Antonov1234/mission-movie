@@ -207,15 +207,27 @@ movieController.get("/", async (req, res) => {
         } else {
             filter.query = querystring.parse(req.query.where.replaceAll('"', ''));
         }
+
+        const query = {};
+
+        Object.keys(filter.query).forEach((x) => {
+            query[x] = filter.query[x]
+        });
+
+        filter.query = query;
     };
 
-    const query = {};
+    if (req.query.select) {
+        const select = {}
 
-    Object.keys(filter.query).forEach((x) => {
-        query[x] = filter.query[x]
-    });
+        if(Array.isArray(Object.keys(req.query.select))) {
+            req.query.select.forEach((x) => select[x.replaceAll('"', '').split("=")[0]] = true);
+        } else {
+            filter.select = querystring.parse(req.query.select.replaceAll('"', ''));
+        }
 
-    filter.query = query;
+        filter.select = select;
+    };
 
     try {
         const movies = await movieService.getAll(filter);

@@ -11,10 +11,16 @@ export default {
     },
 
     async getAll(filter) {
+        
+        if(filter.query.activePage === "null") {
+            return await prisma.movie.findMany({
+                select: filter.select
+            });
+        };
 
         const offset = (filter.query.activePage - 1) * 20;
         const filterGenre = `%${filter.query.genre}%`;
-
+        
         return await prisma.$queryRaw`
             SELECT
                 poster, 
