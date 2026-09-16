@@ -28,7 +28,7 @@ export default {
             filter.query.activePage = Number(filter.query.activePage);
         };
         
-        if (!filter.query.activePage && filter.query.activePage !== "null") {
+        if (!filter.query.activePage || filter.query.activePage !== "null") {
             filter.query.activePage = 1;
         };
         

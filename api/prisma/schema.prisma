@@ -27,6 +27,7 @@ model User {
 	rates		Rate[]
 	favorites	Favorites[]
 	watchlist	Watchlist[]
+	review		Review[]
 
 	@@map("users")
 }
@@ -63,6 +64,7 @@ model Movie {
 	rates			Rate[]
 	favorites		Favorites[]
 	watchlist		Watchlist[]
+	review			Review[]
 	
 	@@map("movies")
 }
@@ -164,4 +166,19 @@ model Watchlist {
 
 	@@id([movieId, userId])
 	@@map("watchlists")
+}
+
+model Review {
+	createdAt	DateTime	@default(now())
+	updatedAt	DateTime	@updatedAt
+	review		String
+
+	userId		Int
+	movieId		Int
+
+	user		User		@relation(fields: [userId], references: [id], onDelete: Cascade)
+	movie		Movie		@relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+	@@id([movieId, userId])
+	@@map("reviews")
 }
