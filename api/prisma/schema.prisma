@@ -169,9 +169,14 @@ model Watchlist {
 }
 
 model Review {
-	createdAt	DateTime	@default(now())
-	updatedAt	DateTime	@updatedAt
-	review		String
+	createdAt				DateTime	@default(now())
+	updatedAt				DateTime	@updatedAt
+	review					String
+	directorScore			Int
+	performanceScore		Int
+	screenplayScore			Int
+	cinematographyScore		Int
+	likes					Int			@default(0)
 
 	userId		Int
 	movieId		Int

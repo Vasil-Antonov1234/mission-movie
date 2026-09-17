@@ -290,12 +290,6 @@ export default function MovieReview() {
                 >
                   ♥ <span className={styles.reactionCount}>{likeCount}</span>
                 </button>
-                <button className={styles.reactionBtn}>
-                  🎬 <span className={styles.reactionCount}>Watched it</span>
-                </button>
-                <button className={styles.reactionBtn}>
-                  ↗ Share
-                </button>
               </div>
             </div>
 
