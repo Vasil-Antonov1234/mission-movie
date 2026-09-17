@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import type { Config, Method, Options } from "../types/types";
 import { errorMessageHandler } from "../utils/errorUtil";
+import UserContext from "../contexts/UserContext";
 
 const BASE_URL = "http://localhost:5000";
 
-// export default function useFetch(url?: string, initialState?: Movie[] | [] | Movie) {
 export default function useFetch<T>(url?: string, initialState?: T) {
     const [data, setData] = useState(initialState);
+    const { onLogout } = useContext(UserContext);
 
     useEffect(() => {
         if (!url) {
@@ -21,14 +22,19 @@ export default function useFetch<T>(url?: string, initialState?: T) {
                 const response = await fetch(`${BASE_URL}${url}`, { signal: controller.signal });
 
                 if (!response.ok) {
-                    return {}
+                    if (response.status === 401) {
+                        onLogout("/login");
+                    }
+                    return {};
                 };
 
                 const result = await response.json();
 
                 setData(result);
             } catch (error) {
-                errorMessageHandler(error);
+                if(errorMessageHandler(error) === "Invalid token") {
+                    onLogout("/login")
+                }
             };
         })()
 

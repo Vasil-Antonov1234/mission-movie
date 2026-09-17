@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useReducer } from "react";
+import { useContext, useEffect, useMemo, useReducer } from "react";
 import { errorMessageHandler } from "../utils/errorUtil";
 import type { Config, Method, Options } from "../types/types";
+import UserContext from "../contexts/UserContext";
 
 type R = {
     id: number,
@@ -43,6 +44,7 @@ function stateReducer(state: R[], action: Action): R[] {
 export default function useReduceState<T>(url: string, method: Method = "GET", config: Config = {}, initialState: R[], body?: T) {
 
     const [data, dispatch] = useReducer(stateReducer, initialState);
+    const { onLogout } = useContext(UserContext)
 
     const options = useMemo(() => {
         const options: Options = { method }
@@ -73,6 +75,13 @@ export default function useReduceState<T>(url: string, method: Method = "GET", c
             try {
                 const response = await fetch(`http://localhost:5000/${url}`, options);
 
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        onLogout("/login");
+                    }
+                    return [];
+                };
+
                 const result: R[] = await response.json();
 
                 dispatch({
@@ -80,14 +89,16 @@ export default function useReduceState<T>(url: string, method: Method = "GET", c
                     payload: result
                 });
             } catch (error) {
-                errorMessageHandler(error);
+                if(errorMessageHandler(error) === "Invalid token") {
+                    onLogout("/login")
+                }
             };
         })()
 
         return () => {
             controller.abort();
         }
-    }, [url, options]);
+    }, [url, options, onLogout]);
 
     return { data, dispatch };
 };
