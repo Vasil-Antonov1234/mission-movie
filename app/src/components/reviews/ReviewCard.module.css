@@ -11,6 +11,7 @@
     transition: all 0.3s ease;
     text-decoration: none;
     color: unset;
+    max-width: 500px;
 }
 
 .review-card:hover {

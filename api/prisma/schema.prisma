@@ -177,6 +177,7 @@ model Review {
 	screenplayScore			Int
 	cinematographyScore		Int
 	likes					Int			@default(0)
+	id						Int			@unique				@default(autoincrement())
 
 	userId		Int
 	movieId		Int

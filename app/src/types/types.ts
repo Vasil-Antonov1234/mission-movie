@@ -14,13 +14,27 @@ export type Featured = {
 export type Rating = { rating?: string };
 
 export type Review = {
-    id: number,
-    title: string,
-    rating: string,
-    excerpt: string,
-    author: string,
-    date: string,
-    poster: string
+    cinematographyScore: string,
+    createdAt: string,
+    directorScore: string,
+    likes: string,
+    movieId: string,
+    performanceScore: string,
+    review: string,
+    screenplayScore: string,
+    userId: string,
+    id: string,
+    user: {
+        id: string,
+        email: string,
+        firstName: string,
+        lastName: string
+    }
+    movie: {
+        id: string,
+        poster: string,
+        title: string
+    }
 };
 
 export type Author = {

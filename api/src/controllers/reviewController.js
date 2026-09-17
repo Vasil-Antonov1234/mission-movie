@@ -6,10 +6,15 @@ import { createReviewSchema } from "../schemas/reviewSchema.js";
 
 const reviewController = Router();
 
-reviewController.get("/", (req, res) => {
-    
-    // get all
-    res.json([]);
+reviewController.get("/", async (req, res) => {
+
+    try {
+        const result = await reviewService.getAll();
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
 });
 
 reviewController.post("/create", isAuthMiddleware, async (req, res) => {

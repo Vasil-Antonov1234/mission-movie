@@ -18,25 +18,25 @@ export default {
 
         if (sortBy === "All") {
             filteredReviews = allReviews.sort((a, b) => {
-                return a.id - b.id;
+                return Number(a.id) - Number(b.id);
             });
         };
 
         if (sortBy === "Latest by year") {
             filteredReviews = allReviews.sort((a, b) => {
-                return new Date(b.date).getTime() - new Date(a.date).getTime();
+                return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
             });
         };
 
         if (sortBy === "Oldest by year") {
             filteredReviews = allReviews.sort((a, b) => {
-                return new Date(a.date).getTime() - new Date(b.date).getTime();
+                return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
             });
         };
 
         if (sortBy === "Alphabetically") {
             filteredReviews = allReviews.sort((a, b) => {
-                return a.title.localeCompare(b.title);
+                return a.movie.title.localeCompare(b.movie.title);
             });
         };
         
