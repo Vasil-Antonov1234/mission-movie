@@ -196,7 +196,12 @@ export type ValidateValue = {
     biography?: string,
     awards?: string,
     currentPassword?: string,
-    content?: string
+    content?: string,
+    directorScore?: string,
+    performanceScore?: string,
+    screenplayScore?: string,
+    cinematographyScore?: string,
+    movieId?: string
 };
 
 export type UserCtx = {

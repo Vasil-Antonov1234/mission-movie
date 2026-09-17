@@ -352,5 +352,9 @@ export function validate(value: ValidateValue) {
         errors["content"] = "A review must be at least 70 characters long";
     };
 
+    if (value.movieId === "") {
+        errors["movieId"] = "A movie is required"
+    }
+
     return errors;
 }

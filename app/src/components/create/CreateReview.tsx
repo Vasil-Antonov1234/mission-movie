@@ -16,7 +16,11 @@ type Movie = {
 
 const initialValues = {
     content: "",
-    movieId: ""
+    movieId: "",
+    directorScore: "0",
+    performanceScore: "0",
+    screenplayScore: "0",
+    cinematographyScore: "0"
 };
 
 const initialStateMovies: Movie[] = []
@@ -39,7 +43,7 @@ export default function CreateReview() {
         setErrors(fieldErrors);
     }
 
-    function onReset () {
+    function onReset() {
         setData(initialValues);
         setTouched({})
         setErrors({});
@@ -62,8 +66,8 @@ export default function CreateReview() {
             const errorMessage = errorMessageHandler(error);
 
             if (errorMessage === "Invalid token") {
-				onLogout("/login");
-			};
+                onLogout("/login");
+            };
         };
     }
 
@@ -86,10 +90,12 @@ export default function CreateReview() {
                         <select
                             {...formInputRegister("movieId")}
                             id="movieId"
-                            className={styles.input}>
+                            onBlur={validateHandler}
+                            className={`${styles.input} ${errors.movieId ? `${styles["input--error"]}` : ""}`}>
                             <option value="">----Select a movie----</option>
                             {movies?.map((x) => <option key={x.id} value={x.id}>{x.title}</option>)}
                         </select>
+                        {errors.movieId && <span className={styles.errorMsg}>{errors.movieId}</span>}
                     </div>
 
                     {/* Media */}
@@ -117,6 +123,7 @@ export default function CreateReview() {
                         </div>
                     </div>
 
+
                     {/* Review */}
                     <div className={styles.card}>
                         <div className={styles.field}>
@@ -138,6 +145,83 @@ export default function CreateReview() {
                                     ? ` — ${70 - data.content.trim().length} more needed`
                                     : ""}
                             </span>
+                        </div>
+                    </div>
+
+                    {/* Rates */}
+                    {/* Director */}
+                    <div className={styles.field}>
+                        <label className={styles.label} htmlFor="directorScore">
+                            Director Rating
+                        </label>
+                        <div className={styles.ratingRow}>
+                            <input
+                                id="directorScore"
+                                {...formInputRegister("directorScore")}
+                                type="range"
+                                min={1}
+                                max={10}
+                                step={1}
+                                className={styles.ratingSlider}
+                            />
+                            <span className={styles.ratingBadge}>★ {Number(data.directorScore).toFixed(1)}</span>
+                        </div>
+                    </div>
+
+                    {/* Performance */}
+                    <div className={styles.field}>
+                        <label className={styles.label} htmlFor="performanceScore">
+                            Performance Rating
+                        </label>
+                        <div className={styles.ratingRow}>
+                            <input
+                                id="performanceScore"
+                                {...formInputRegister("performanceScore")}
+                                type="range"
+                                min={1}
+                                max={10}
+                                step={1}
+                                className={styles.ratingSlider}
+                            />
+                            <span className={styles.ratingBadge}>★ {Number(data.performanceScore).toFixed(1)}</span>
+                        </div>
+                    </div>
+
+                    {/* Screenplay */}
+                    <div className={styles.field}>
+                        <label className={styles.label} htmlFor="screenplayScore">
+                            Screenplay Rating
+                        </label>
+                        <div className={styles.ratingRow}>
+                            <input
+                                id="screenplayScore"
+                                {...formInputRegister("screenplayScore")}
+                                type="range"
+                                min={1}
+                                max={10}
+                                step={1}
+                                className={styles.ratingSlider}
+                            />
+                            <span className={styles.ratingBadge}>★ {Number(data.screenplayScore).toFixed(1)}</span>
+                        </div>
+                    </div>
+
+                    {/* Cinamatography */}
+                    <div className={styles.field}>
+                        <label className={styles.label} htmlFor="cinematographyScore">
+                            Cinematography Rating
+                        </label>
+                        <div className={styles.ratingRow}>
+                            <input
+                                id="cinematographyScore"
+                                {...formInputRegister("cinematographyScore")}
+                                type="range"
+                                min={1}
+                                max={10}
+                                step={1}
+                                className={styles.ratingSlider}
+                            />
+                            <span className={styles.ratingBadge}>★ {Number(data.cinematographyScore).toFixed(1)}</span>
                         </div>
                     </div>
 
