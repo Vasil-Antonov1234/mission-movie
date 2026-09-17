@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import type { Rating, Review } from "../../types/types";
 import styles from "./ReviewCard.module.css";
 
@@ -15,7 +16,7 @@ export default function ReviewCard(
     review: Review
 ) {
     return (
-        <div className={styles["review-card"]}>
+        <Link to="/review" className={styles["review-card"]}>
             <div className={styles["review-card-header"]}>
                 <img src={review.poster} alt={review.title} className={styles["review-card-poster"]} />
                 <div>
@@ -31,6 +32,6 @@ export default function ReviewCard(
                 <span className={styles["review-card-author"]}>— {review.author}</span>
                 <span className={styles["review-card-date"]}>{review.date}</span>
             </div>
-        </div>
+        </Link>
     )
 }

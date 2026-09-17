@@ -11,12 +11,13 @@ import CreateEditMovie from "./components/create/CreateEditMovie"
 import IsAuthenticated from "./components/route-guards/isAuthenticated"
 import IsGuest from "./components/route-guards/isGuest"
 import CreateEditCast from "./components/create/CreateEditCast"
-import AttachCast from "./components/create/attachCast"
+import AttachCast from "./components/create/AttachCast"
 import ActorDetail from "./components/detail/ActorDetail"
 import { ToastContainer } from "react-toastify"
 import AuthCallback from "./components/login-register/AuthCallback"
 import UserProfile from "./components/user/UserProfile"
 import CreateReview from "./components/create/CreateReview"
+import MovieReview from "./components/reviews/MovieReview"
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/reviews/catalog" element={<AllReviews />} />
                 <Route path="/movies/:movieId/details" element={<MovieDetail />} />
                 <Route path="/casts/:castId/details" element={<ActorDetail />} />
+                <Route path="/review" element={<MovieReview />} />
 
 
                 <Route element={<IsAuthenticated />}>

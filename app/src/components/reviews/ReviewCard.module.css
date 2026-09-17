@@ -9,6 +9,8 @@
     flex-direction: column;
     justify-content: space-between;
     transition: all 0.3s ease;
+    text-decoration: none;
+    color: unset;
 }
 
 .review-card:hover {
