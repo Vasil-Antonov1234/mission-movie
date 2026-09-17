@@ -16,14 +16,14 @@ reviewController.post("/create", isAuthMiddleware, async (req, res) => {
 
     const movieId = Number(req.body.movieId);
     const userId = Number(req.user.id);
-    const content = await createReviewSchema.parseAsync(req.body.content);
+    const parsedData = await createReviewSchema.parseAsync(req.body);
 
     try {
-        const result = await reviewService.create(movieId, userId, content);
+        const result = await reviewService.create(movieId, userId, parsedData);
 
         res.status(201).json(result);
     } catch (error) {
-        res.status(400).json(getErrorMessage(error));   
+        res.status(400).json(getErrorMessage(error));
     };
 })
 
