@@ -39,6 +39,10 @@ export default {
         return await movieRepository.getAll(filter);
     },
 
+    async getAllExcludingReviewed(userId) {
+        return await movieRepository.getAllExcludingReviewed(userId);
+    },
+
     async getById(movieId, filter) {
 
         const movie = await movieRepository.getById(movieId, filter);

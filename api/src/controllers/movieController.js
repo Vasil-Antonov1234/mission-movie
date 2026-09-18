@@ -14,7 +14,7 @@ movieController.get("/filmography/:castId", async (req, res) => {
     const result = await movieService.getFilmography(castId);
 
     res.json(result);
-})
+});
 
 movieController.get("/similar", async (req, res) => {
     let filter = {}
@@ -220,7 +220,7 @@ movieController.get("/", async (req, res) => {
     if (req.query.select) {
         const select = {}
 
-        if(Array.isArray(Object.keys(req.query.select))) {
+        if (Array.isArray(Object.keys(req.query.select))) {
             req.query.select.forEach((x) => select[x.replaceAll('"', '').split("=")[0]] = true);
         } else {
             filter.select = querystring.parse(req.query.select.replaceAll('"', ''));
@@ -237,6 +237,18 @@ movieController.get("/", async (req, res) => {
         res.json(getErrorMessage(error));
     }
 
+});
+
+movieController.get("/exclude/reviewed", isAuthMiddleware, async (req, res) => {
+    const userId = Number(req.user.id);
+
+    try {
+        const result = await movieService.getAllExcludingReviewed(userId);
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
 });
 
 movieController.get("/all/count", async (req, res) => {

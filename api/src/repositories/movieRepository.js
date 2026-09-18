@@ -44,6 +44,22 @@ export default {
             `
     },
 
+    async getAllExcludingReviewed(userId) {
+        return await prisma.movie.findMany({
+            include: {
+                review: {
+                    where: {
+                        userId: {
+                            not: {
+                                equals: userId
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    },
+
     async getFilmography(castId) {
         return await prisma.$queryRaw`
         SELECT 

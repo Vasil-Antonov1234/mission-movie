@@ -184,11 +184,11 @@ export default function MovieReview() {
 
     // Logged-in user
     // const { user } = useContext(UserContext);
-    const currentUser = { firstName: "Vasil", lastName: "Georgiev" };
+    // const currentUser = { firstName: "Vasil", lastName: "Georgiev" };
 
     const [liked, setLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(Number(review?.likes));
-    const [comment, setComment] = useState("");
+    // const [comment, setComment] = useState("");
     // const [comments, setComments] = useState<Comment[]>([]);
     // const [submitting, setSubmitting] = useState(false);
 

@@ -5,7 +5,7 @@ import UserContext from "../contexts/UserContext";
 
 const BASE_URL = "http://localhost:5000";
 
-export default function useFetch<T>(url?: string, initialState?: T) {
+export default function useFetch<T>(url?: string, initialState?: T, config?: Config) {
     const [data, setData] = useState(initialState);
     const { onLogout } = useContext(UserContext);
 
@@ -19,7 +19,15 @@ export default function useFetch<T>(url?: string, initialState?: T) {
 
         (async () => {
             try {
-                const response = await fetch(`${BASE_URL}${url}`, { signal: controller.signal });
+                const options: Options = { method: "GET", signal: controller.signal };
+
+                if (config) {
+                    options.headers = {
+                        "authorization": config.accessToken
+                    };
+                };
+
+                const response = await fetch(`${BASE_URL}${url}`, options);
 
                 if (!response.ok) {
                     if (response.status === 401) {
