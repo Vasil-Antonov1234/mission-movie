@@ -54,8 +54,6 @@ export default function CreateReview() {
     // const { data: movies, request } = useFetch("/movies?where=activePage%3D%22null%22&select=id%3D%22true%22&select=title%3D%22true%22&select=poster%3D%22true%22", initialStateMovies);
     const { user, onLogout } = useContext(UserContext);
     const { data: movies, request } = useFetch("/movies/exclude/reviewed", initialStateMovies, { accessToken: user.accessToken });
-    // const { request } = useFetch()
-    // const [movies, setMovies] = useState(initialStateMovies);
     const { data, formInputRegister, setData } = useForm(initialValues);
     const [errors, setErrors] = useState<ValidateValue>({});
     const [touched, setTouched] = useState<ValidateValue>({});
@@ -63,14 +61,6 @@ export default function CreateReview() {
 
     const id = reviewId ? reviewId : 0;
     const { data: currentReview } = useFetch(`/reviews/${id}`, initialStateReview);
-
-    // useEffect(() => {
-    //     (async () => {
-    //         const allMovies = await request("/movies/exclude/reviewed", "GET", { accessToken: user.accessToken });
-
-    //         setMovies(allMovies);
-    //     })()
-    // }, [request, user.accessToken])
 
     function validateHandler(event: React.BaseSyntheticEvent) {
         setTouched((state) => ({

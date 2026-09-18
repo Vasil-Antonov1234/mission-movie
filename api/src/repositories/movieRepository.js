@@ -11,8 +11,8 @@ export default {
     },
 
     async getAll(filter) {
-        
-        if(filter.query.activePage === "null") {
+
+        if (filter.query.activePage === "null") {
             return await prisma.movie.findMany({
                 select: filter.select
             });
@@ -20,7 +20,7 @@ export default {
 
         const offset = (filter.query.activePage - 1) * 20;
         const filterGenre = `%${filter.query.genre}%`;
-        
+
         return await prisma.$queryRaw`
             SELECT
                 poster, 
@@ -45,19 +45,22 @@ export default {
     },
 
     async getAllExcludingReviewed(userId) {
-        return await prisma.movie.findMany({
-            include: {
-                review: {
-                    where: {
-                        userId: {
-                            not: {
-                                equals: userId
-                            }
-                        }
-                    }
-                }
-            }
-        })
+
+        console.log(userId)
+
+        return await prisma.$queryRaw`
+        SELECT
+	        *
+        FROM movies
+        WHERE id NOT IN (
+	    SELECT
+	    	r."movieId"
+	    FROM movies as m
+	    LEFT JOIN reviews as r
+	    ON m.id = r."movieId"
+	    WHERE r."userId" = ${userId}
+        );
+        `
     },
 
     async getFilmography(castId) {
