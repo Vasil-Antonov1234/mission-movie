@@ -33,7 +33,12 @@ export type Review = {
     movie: {
         id: string,
         poster: string,
-        title: string
+        title: string,
+        year?: string,
+        rating? :string,
+        genre? :string,
+        duration?: string,
+        director?: string
     }
 };
 

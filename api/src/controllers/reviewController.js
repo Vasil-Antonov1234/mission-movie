@@ -30,6 +30,18 @@ reviewController.post("/create", isAuthMiddleware, async (req, res) => {
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
+});
+
+reviewController.get("/:reviewId", async (req, res) => {
+    const reviewId = Number(req.params.reviewId);
+
+    try {
+      const result = await reviewService.getById(reviewId);
+
+      res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
 })
 
 export default reviewController;

@@ -2,11 +2,11 @@ import { useContext, useState } from "react"
 import styles from "./CreateEditMovie.module.css"
 import useForm from "../../hooks/useForm"
 import useFetch from "../../hooks/useFetch"
-import type { ValidateValue } from "../../types/types"
+import type { Review, ValidateValue } from "../../types/types"
 import { validate } from "../../utils/validate"
 import UserContext from "../../contexts/UserContext"
 import { errorMessageHandler } from "../../utils/errorUtil"
-import { useNavigate } from "react-router"
+import { useNavigate, useParams } from "react-router"
 
 type Movie = {
     id: number,
@@ -23,15 +23,43 @@ const initialValues = {
     cinematographyScore: "0"
 };
 
-const initialStateMovies: Movie[] = []
+const initialStateMovies: Movie[] = [];
+const initialStateReview: Review = {
+    cinematographyScore: "",
+    createdAt: "",
+    directorScore: "",
+    id: "0",
+    likes: "0",
+    movieId: "0",
+    performanceScore: "",
+    review: "",
+    screenplayScore: "",
+    userId: "",
+    movie: {
+        id: "0",
+        poster: "",
+        title: "",
+    },
+    user: {
+        id: "0",
+        email: "",
+        firstName: "",
+        lastName: ""
+    }
+}
 
 export default function CreateReview() {
+    const { reviewId } = useParams();
+
     const { data: movies, request } = useFetch("/movies?where=activePage%3D%22null%22&select=id%3D%22true%22&select=title%3D%22true%22&select=poster%3D%22true%22", initialStateMovies);
     const { data, formInputRegister, setData } = useForm(initialValues);
     const [errors, setErrors] = useState<ValidateValue>({});
     const [touched, setTouched] = useState<ValidateValue>({});
     const { user, onLogout } = useContext(UserContext);
     const navigate = useNavigate();
+
+    const id = reviewId ? reviewId : 0;
+    const { data: currentReview } = useFetch(`/reviews/${id}`, initialStateReview);
 
     function validateHandler(event: React.BaseSyntheticEvent) {
         setTouched((state) => ({
@@ -50,6 +78,11 @@ export default function CreateReview() {
     };
 
     async function actionHandler() {
+        
+        if (reviewId && currentReview) {
+            data.movieId = currentReview.movieId
+        }
+
         const fieldErrors = validate(data);
         setErrors(fieldErrors);
         setTouched(fieldErrors);
@@ -91,11 +124,11 @@ export default function CreateReview() {
                             {...formInputRegister("movieId")}
                             id="movieId"
                             onBlur={validateHandler}
-                            className={`${styles.input} ${errors.movieId ? `${styles["input--error"]}` : ""}`}>
-                            <option value="">----Select a movie----</option>
-                            {movies?.map((x) => <option key={x.id} value={x.id}>{x.title}</option>)}
+                            className={`${styles.input} ${errors.movieId && !reviewId ? `${styles["input--error"]}` : ""}`}>
+                            {reviewId ? <option value={currentReview?.movie.id}>{currentReview?.movie.title}</option> : <option value="">----Select a movie----</option>}
+                            {reviewId ? "" : movies?.map((x) => <option key={x.id} value={x.id}>{x.title}</option>)}
                         </select>
-                        {errors.movieId && <span className={styles.errorMsg}>{errors.movieId}</span>}
+                        {errors.movieId && !reviewId && <span className={styles.errorMsg}>{errors.movieId}</span>}
                     </div>
 
                     {/* Media */}
@@ -109,6 +142,12 @@ export default function CreateReview() {
                                 {data.movieId ?
                                     <img
                                         src={movies?.find((x) => x.id === Number(data.movieId))?.poster}
+                                        alt="poster"
+                                        className={styles.posterImg}
+                                    />
+                                    : reviewId ? 
+                                    <img
+                                        src={currentReview?.movie.poster}
                                         alt="poster"
                                         className={styles.posterImg}
                                     />

@@ -42,7 +42,7 @@ export default function useFetch<T>(url?: string, initialState?: T) {
             controller.abort();
         }
 
-    }, [url]);
+    }, [url, onLogout]);
 
     async function request<T>(url: string, method: Method, config: Config = {}, body?: T) {
         const options: Options = { method: method };

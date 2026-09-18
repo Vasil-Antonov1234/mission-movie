@@ -16,7 +16,7 @@ export default function ReviewCard(
     review: Review
 ) {
     return (
-        <Link to="/review" className={styles["review-card"]}>
+        <Link to={`/review/${review.id}`} className={styles["review-card"]}>
             <div className={styles["review-card-header"]}>
                 <img src={review.movie.poster} alt={review.movie.title} className={styles["review-card-poster"]} />
                 <div>

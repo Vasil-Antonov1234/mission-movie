@@ -33,7 +33,7 @@ function App() {
                 <Route path="/reviews/catalog" element={<AllReviews />} />
                 <Route path="/movies/:movieId/details" element={<MovieDetail />} />
                 <Route path="/casts/:castId/details" element={<ActorDetail />} />
-                <Route path="/review" element={<MovieReview />} />
+                <Route path="/review/:reviewId" element={<MovieReview />} />
 
 
                 <Route element={<IsAuthenticated />}>
@@ -50,6 +50,7 @@ function App() {
                     <Route path="/users/profile" element={<UserProfile />} />
                     <Route path="/casts/:castId/edit" element={<CreateEditCast />} />
                     <Route path="/reviews/create" element={<CreateReview />} />
+                    <Route path="/reviews/:reviewId/create" element={<CreateReview />} />
                 </Route>
             </Routes>
             <Footer />

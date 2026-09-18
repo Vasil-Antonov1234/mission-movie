@@ -7,5 +7,9 @@ export default {
 
     async getAll() {
         return await reviewRepository.getAll();
+    },
+
+    async getById(reviewId) {
+        return await reviewRepository.getById(reviewId);
     }
 }

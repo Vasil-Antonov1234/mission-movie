@@ -35,5 +35,24 @@ export default {
                 }
             }
         });
+    },
+
+    async getById(reviewId) {
+        return await prisma.review.findUnique({
+            where: {
+                id: reviewId
+            },
+            include: {
+                movie: true,
+                user: {
+                    select: {
+                        firstName: true,
+                        lastName: true,
+                        id: true,
+                        email: true
+                    }
+                }
+            }
+        });
     }
 }
