@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import styles from "./CreateEditMovie.module.css"
 import useForm from "../../hooks/useForm"
 import useFetch from "../../hooks/useFetch"
-import type { Review, ValidateValue } from "../../types/types"
+import type { ValidateValue } from "../../types/types"
 import { validate } from "../../utils/validate"
 import UserContext from "../../contexts/UserContext"
 import { errorMessageHandler } from "../../utils/errorUtil"
@@ -65,7 +65,7 @@ export default function CreateReview() {
     const movieId = useParams().movieId;
 
     // const { data: movies, request } = useFetch("/movies?where=activePage%3D%22null%22&select=id%3D%22true%22&select=title%3D%22true%22&select=poster%3D%22true%22", initialStateMovies);
-    const { user, onLogout } = useContext(UserContext);
+    const { user, onLogout, isAuthenticated } = useContext(UserContext);
     const { data: movies, request } = useFetch("/movies/exclude/reviewed", initialStateMovies, { accessToken: user.accessToken });
     const { data, formInputRegister, setData } = useForm(initialValues);
     const [errors, setErrors] = useState<ValidateValue>({});
@@ -95,6 +95,10 @@ export default function CreateReview() {
     };
 
     async function actionHandler() {
+
+        if (!isAuthenticated) {
+            return;
+        };
         
         if (movieId && currentMovie) {
             data.movieId = movieId

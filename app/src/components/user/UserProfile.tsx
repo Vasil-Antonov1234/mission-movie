@@ -7,7 +7,7 @@ import useForm from "../../hooks/useForm";
 import type { ValidateValue } from "../../types/types";
 import { validate } from "../../utils/validate";
 import { errorMessageHandler } from "../../utils/errorUtil";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import { toast } from "react-toastify";
 import useReduceState from "../../hooks/useReduceState";
 
@@ -44,8 +44,6 @@ export default function UserProfile() {
     const { data: passwordData, formInputRegister: passwordFormInputRegister, setData: setPasswordData } = useForm(initialValuesPassword);
     const [errors, setErrors] = useState<ValidateValue>({});
     const [touched, setTouched] = useState<ValidateValue>({});
-
-    const navigate = useNavigate();
 
     function validateProfileHandler(event: React.BaseSyntheticEvent) {
         setTouched((state) => ({
@@ -107,7 +105,6 @@ export default function UserProfile() {
 
             setProfileLoading(false);
             setIsEditingProfile(false);
-            navigate(`/users/profile`);
             setProfileSuccess(true);
         } catch (error) {
             errorMessageHandler(error);
