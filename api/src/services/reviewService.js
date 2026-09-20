@@ -15,5 +15,11 @@ export default {
 
     async getLatest() {
         return await reviewRepository.getLatest();
+    },
+
+    async getHasWrittenReview(movieId, userId) {
+        const response = await reviewRepository.getHasWrittenReview(movieId, userId);
+
+        return response ? true : false;
     }
 }

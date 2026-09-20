@@ -80,5 +80,16 @@ export default {
                 createdAt: "desc"
             }
        });
+    },
+
+    async getHasWrittenReview(movieId, userId) {
+        return await prisma.review.findUnique({
+            where: {
+                movieId_userId: {
+                    movieId,
+                    userId
+                }
+            }
+        });
     }
 }

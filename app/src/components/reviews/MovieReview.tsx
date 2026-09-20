@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { Activity, useContext, useEffect, useState } from "react";
 import styles from "./MovieReview.module.css";
 import { Link, useParams } from "react-router";
 import useFetch from "../../hooks/useFetch";
-import type { Review } from "../../types/types";
+import type { Options, Review } from "../../types/types";
+import UserContext from "../../contexts/UserContext";
+import { errorMessageHandler } from "../../utils/errorUtil";
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 
@@ -179,8 +181,43 @@ const initialState: Review = {
 
 export default function MovieReview() {
     // const review = MOCK_REVIEW;
+    const { user, isAuthenticated } = useContext(UserContext);
     const { reviewId } = useParams();
-    const { data: review } = useFetch(`/reviews/${reviewId}`, initialState);
+    const { data: review, BASE_URL } = useFetch(`/reviews/${reviewId}`, initialState);
+    const [hasWrittenReview, setHaswrittenReview] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            return;
+        };
+
+        const controller = new AbortController();
+        (async () => {
+            try {
+                const options: Options = {
+                    method: "GET",
+                    headers: {
+                        "content-type": "application/json",
+                        authorization: user.accessToken
+                    },
+                    signal: controller.signal
+                };
+
+                const hasWrittenReviewResponse = await fetch(`${BASE_URL}/reviews/${review?.movie.id}/hasWrittenReview`, options);
+
+                const hasWrittenReview: boolean = await hasWrittenReviewResponse.json();
+                setHaswrittenReview(hasWrittenReview);
+            } catch (error) {
+                errorMessageHandler(error);
+            };
+        })();
+
+        return () => {
+            controller.abort();
+        }
+
+    }, [isAuthenticated, BASE_URL, review?.movie.id, user.accessToken])
+
 
     // Logged-in user
     // const { user } = useContext(UserContext);
@@ -334,12 +371,12 @@ export default function MovieReview() {
 
                         {/* ─── Comments card ─── */}
                         {/* <div className={styles.card}> */}
-                            {/* <div className={styles.cardTitle}>
+                        {/* <div className={styles.cardTitle}>
                                 Discussion · {comments.length} comment{comments.length !== 1 ? "s" : ""}
                             </div> */}
 
-                            {/* Comments list */}
-                            {/* {comments.length > 0 && (
+                        {/* Comments list */}
+                        {/* {comments.length > 0 && (
                                 <div className={styles.commentsList}>
                                     {comments.map((c) => (
                                         <div key={c.id} className={styles.commentItem}>
@@ -363,8 +400,8 @@ export default function MovieReview() {
                                 </div>
                             )} */}
 
-                            {/* Comment form */}
-                            {/* <form className={styles.commentForm} onSubmit={handleCommentSubmit}>
+                        {/* Comment form */}
+                        {/* <form className={styles.commentForm} onSubmit={handleCommentSubmit}>
                                 <div className={styles.commentFormAvatar}>
                                     {getInitials(currentUser.firstName, currentUser.lastName)}
                                 </div>
@@ -395,16 +432,18 @@ export default function MovieReview() {
                     <aside className={styles.sidebar}>
 
                         {/* Write your own review CTA */}
-                        <div className={styles.writeReviewCta}>
-                            <div className={styles.writeReviewCtaText}>
-                                Have you seen <strong>{review?.movie.title}</strong>? Share your own take.
+                        <Activity mode={hasWrittenReview ? "hidden" : "visible"}>
+                            <div className={styles.writeReviewCta}>
+                                <div className={styles.writeReviewCtaText}>
+                                    Have you seen <strong>{review?.movie.title}</strong>? Share your own take.
+                                </div>
+                                <Link to={`/reviews/${review?.movie.id}/create`}>
+                                    <button className={styles.btnSecondary}>
+                                        ✍ Write a review
+                                    </button>
+                                </Link>
                             </div>
-                            <Link to={`/reviews/${review?.movie.id}/create`}>
-                                <button className={styles.btnSecondary}>
-                                    ✍ Write a review
-                                </button>
-                            </Link>
-                        </div>
+                        </Activity>
 
                         {/* Score breakdown */}
                         <div className={styles.sidebarCard}>

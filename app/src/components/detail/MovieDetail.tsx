@@ -46,6 +46,7 @@ export default function MovieDetail() {
     const [hasRated, setHasRated] = useState<boolean>(false);
     const [isFavourite, setIsFavourite] = useState<boolean>(false);
     const [isAddedToWatchlist, setIsAddedToWatchlist] = useState<boolean>(false);
+    const [hasWrittenReview, setHasWrittenReview] = useState<boolean>(false);
     const { data: ratesCount } = useFetch(`/rates/count/${movieId}`, "1");
 
     useEffect(() => {
@@ -65,7 +66,7 @@ export default function MovieDetail() {
     }, [movieId, BASE_URL]);
 
     useEffect(() => {
-        if (!user.accessToken) {
+        if (!isAuthenticated) {
             return;
         };
 
@@ -85,14 +86,17 @@ export default function MovieDetail() {
                 const ratesResponse = await fetch(`${BASE_URL}/rates/${movieId}`, options);
                 const favouritesResponse = await fetch(`${BASE_URL}/movies/favourites/${movieId}`, options);
                 const watchlistResponse = await fetch(`${BASE_URL}/movies/watchlist/${movieId}`, options);
+                const hasWrittenReviewResponse = await fetch(`${BASE_URL}/reviews/${movieId}/hasWrittenReview`, options)
 
                 const favouriteResult: boolean = await favouritesResponse.json();
                 const watchlistResult: boolean = await watchlistResponse.json();
                 const rateResult: boolean = await ratesResponse.json();
+                const hasWrittenReview: boolean = await hasWrittenReviewResponse.json();
 
                 setHasRated(rateResult);
                 setIsFavourite(favouriteResult);
                 setIsAddedToWatchlist(watchlistResult);
+                setHasWrittenReview(hasWrittenReview);
             } catch (error) {
                 errorMessageHandler(error);
             }
@@ -101,7 +105,7 @@ export default function MovieDetail() {
         return () => {
             controller.abort();
         }
-    }, [movieId, user.accessToken, BASE_URL]);
+    }, [movieId, user.accessToken, BASE_URL, isAuthenticated]);
 
     if (!movie) {
         return;
@@ -381,16 +385,18 @@ export default function MovieDetail() {
                     </div>
 
                     {/* Write your own review CTA */}
-                    <div className={styles.writeReviewCta}>
-                        <div className={styles.writeReviewCtaText}>
-                            Have you seen <strong>{movie.title}</strong>? Share your own take.
+                    <Activity mode={hasWrittenReview ? "hidden" : "visible"}>
+                        <div className={styles.writeReviewCta}>
+                            <div className={styles.writeReviewCtaText}>
+                                Have you seen <strong>{movie.title}</strong>? Share your own take.
+                            </div>
+                            <Link to={`/reviews/${movie.id}/create`}>
+                                <button className={styles.btnSecondary}>
+                                    ✍ Write a review
+                                </button>
+                            </Link>
                         </div>
-                        <Link to={`/reviews/${movie.id}/create`}>
-                            <button className={styles.btnSecondary}>
-                                ✍ Write a review
-                            </button>
-                        </Link>
-                    </div>
+                    </Activity>
 
                     {/* Similar films */}
                     <div className={styles["sidebar-card"]}>

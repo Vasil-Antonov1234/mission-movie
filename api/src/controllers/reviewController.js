@@ -43,6 +43,19 @@ reviewController.get("/:reviewId", async (req, res) => {
     };
 });
 
+reviewController.get("/:mivieId/hasWrittenReview", isAuthMiddleware, async (req, res) => {
+    const movieId = Number(req.params.mivieId);
+    const userId = Number(req.user.id);
+
+    try {
+        const hasWrittenRewiew = await reviewService.getHasWrittenReview(movieId, userId);
+
+        res.status(200).json(hasWrittenRewiew);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));   
+    };
+})
+
 reviewController.get("/", async (req, res) => {
 
     try {
