@@ -399,7 +399,7 @@ export default function MovieReview() {
                             <div className={styles.writeReviewCtaText}>
                                 Have you seen <strong>{review?.movie.title}</strong>? Share your own take.
                             </div>
-                            <Link to={`/reviews/${reviewId}/create`}>
+                            <Link to={`/reviews/${review?.movie.id}/create`}>
                                 <button className={styles.btnSecondary}>
                                     ✍ Write a review
                                 </button>

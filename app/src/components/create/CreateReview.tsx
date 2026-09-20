@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import styles from "./CreateEditMovie.module.css"
 import useForm from "../../hooks/useForm"
 import useFetch from "../../hooks/useFetch"
@@ -24,33 +24,46 @@ const initialValues = {
 };
 
 const initialStateMovies: Movie[] = [];
-const initialStateReview: Review = {
-    cinematographyScore: "",
-    createdAt: "",
-    directorScore: "",
+// const initialStateReview: Review = {
+//     cinematographyScore: "",
+//     createdAt: "",
+//     directorScore: "",
+//     id: "0",
+//     likes: "0",
+//     movieId: "0",
+//     performanceScore: "",
+//     review: "",
+//     screenplayScore: "",
+//     userId: "",
+//     movie: {
+//         id: "0",
+//         poster: "",
+//         title: "",
+//     },
+//     user: {
+//         id: "0",
+//         email: "",
+//         firstName: "",
+//         lastName: ""
+//     }
+// }
+
+type CurrentMovie = {
+    id: string,
+    title: string,
+    poster: string
+}
+
+const initialStateMovie: CurrentMovie = {
     id: "0",
-    likes: "0",
-    movieId: "0",
-    performanceScore: "",
-    review: "",
-    screenplayScore: "",
-    userId: "",
-    movie: {
-        id: "0",
-        poster: "",
-        title: "",
-    },
-    user: {
-        id: "0",
-        email: "",
-        firstName: "",
-        lastName: ""
-    }
+    title: "",
+    poster: ""
 }
 
 export default function CreateReview() {
-    const { reviewId } = useParams();
-    
+    // const { reviewId } = useParams();
+    const movieId = useParams().movieId;
+
     // const { data: movies, request } = useFetch("/movies?where=activePage%3D%22null%22&select=id%3D%22true%22&select=title%3D%22true%22&select=poster%3D%22true%22", initialStateMovies);
     const { user, onLogout } = useContext(UserContext);
     const { data: movies, request } = useFetch("/movies/exclude/reviewed", initialStateMovies, { accessToken: user.accessToken });
@@ -59,8 +72,11 @@ export default function CreateReview() {
     const [touched, setTouched] = useState<ValidateValue>({});
     const navigate = useNavigate();
 
-    const id = reviewId ? reviewId : 0;
-    const { data: currentReview } = useFetch(`/reviews/${id}`, initialStateReview);
+    // const id = reviewId ? reviewId : 0;
+    // const { data: currentReview } = useFetch(`/reviews/${id}`, initialStateReview);
+
+    const id = movieId ? movieId : 0;
+    const { data: currentMovie } = useFetch(`/movies/${id}`, initialStateMovie);
 
     function validateHandler(event: React.BaseSyntheticEvent) {
         setTouched((state) => ({
@@ -80,8 +96,8 @@ export default function CreateReview() {
 
     async function actionHandler() {
         
-        if (reviewId && currentReview) {
-            data.movieId = currentReview.movieId
+        if (movieId && currentMovie) {
+            data.movieId = movieId
         }
 
         const fieldErrors = validate(data);
@@ -125,11 +141,11 @@ export default function CreateReview() {
                             {...formInputRegister("movieId")}
                             id="movieId"
                             onBlur={validateHandler}
-                            className={`${styles.input} ${errors.movieId && !reviewId ? `${styles["input--error"]}` : ""}`}>
-                            {reviewId ? <option value={currentReview?.movie.id}>{currentReview?.movie.title}</option> : <option value="">----Select a movie----</option>}
-                            {reviewId ? "" : movies?.map((x) => <option key={x.id} value={x.id}>{x.title}</option>)}
+                            className={`${styles.input} ${errors.movieId && !movieId ? `${styles["input--error"]}` : ""}`}>
+                            {movieId ? <option value={movieId}>{currentMovie?.title}</option> : <option value="">----Select a movie----</option>}
+                            {movieId ? "" : movies?.map((x) => <option key={x.id} value={x.id}>{x.title}</option>)}
                         </select>
-                        {errors.movieId && !reviewId && <span className={styles.errorMsg}>{errors.movieId}</span>}
+                        {errors.movieId && !movieId && <span className={styles.errorMsg}>{errors.movieId}</span>}
                     </div>
 
                     {/* Media */}
@@ -146,9 +162,9 @@ export default function CreateReview() {
                                         alt="poster"
                                         className={styles.posterImg}
                                     />
-                                    : reviewId ? 
+                                    : movieId ? 
                                     <img
-                                        src={currentReview?.movie.poster}
+                                        src={currentMovie?.poster}
                                         alt="poster"
                                         className={styles.posterImg}
                                     />
