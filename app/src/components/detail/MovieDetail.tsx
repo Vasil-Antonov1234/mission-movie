@@ -380,6 +380,18 @@ export default function MovieDetail() {
                         </div>
                     </div>
 
+                    {/* Write your own review CTA */}
+                    <div className={styles.writeReviewCta}>
+                        <div className={styles.writeReviewCtaText}>
+                            Have you seen <strong>{movie.title}</strong>? Share your own take.
+                        </div>
+                        <Link to={`/reviews/${movie.id}/create`}>
+                            <button className={styles.btnSecondary}>
+                                ✍ Write a review
+                            </button>
+                        </Link>
+                    </div>
+
                     {/* Similar films */}
                     <div className={styles["sidebar-card"]}>
                         <div className={styles["sidebar-card-title"]}>Similar Films</div>

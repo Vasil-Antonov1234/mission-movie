@@ -524,6 +524,40 @@
     font-size: 14px;
 }
 
+/* ─── WRITE REVIEW CTA (for logged-in users on movie detail) ─── */
+.writeReviewCta {
+  background: rgba(232, 184, 75, 0.05);
+  border: 1px dashed rgba(232, 184, 75, 0.2);
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.writeReviewCtaText {
+  font-size: 13px;
+  color: #7a7068;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.btnSecondary {
+  background: transparent;
+  color: #e8b84b;
+  border: 1px solid rgba(232, 184, 75, 0.3);
+  border-radius: 8px;
+  padding: 9px 20px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  letter-spacing: 0.02em;
+}
+.btnSecondary:hover {
+  border-color: #e8b84b;
+  background: rgba(232, 184, 75, 0.06);
+}
+
 @media(max-width: 390px) {
     .detail-hero {
         margin-bottom: 70px;
