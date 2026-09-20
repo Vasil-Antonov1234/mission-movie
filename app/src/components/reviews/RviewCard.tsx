@@ -1,16 +1,16 @@
 import { Link } from "react-router";
-import type { Rating, Review } from "../../types/types";
+import type { Review } from "../../types/types";
 import styles from "./ReviewCard.module.css";
 
-function StarRating({ rating }: Rating) {
-    const filled = Math.round((Number(rating)));
-    return (
-        <span className={styles["star-rating"]}>
-            {"★".repeat(filled)}
-            {"☆".repeat(10 - filled)}
-        </span>
-    );
-}
+// function StarRating({ rating }: Rating) {
+//     const filled = Math.round((Number(rating)));
+//     return (
+//         <span className={styles["star-rating"]}>
+//             {"★".repeat(filled)}
+//             {"☆".repeat(10 - filled)}
+//         </span>
+//     );
+// }
 
 export default function ReviewCard(
     review: Review

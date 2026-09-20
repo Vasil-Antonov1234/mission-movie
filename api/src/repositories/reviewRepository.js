@@ -54,5 +54,31 @@ export default {
                 }
             }
         });
+    },
+
+    async getLatest() {
+       return await prisma.review.findMany({
+        include: {
+                movie: {
+                    select: {
+                        id: true,
+                        title: true,
+                        poster: true
+                    }
+                },
+                user: {
+                    select: {
+                        firstName: true,
+                        lastName: true,
+                        id: true,
+                        email: true
+                    }
+                }
+            },
+            take: 3,
+            orderBy: {
+                createdAt: "desc"
+            }
+       });
     }
 }

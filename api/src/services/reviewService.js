@@ -11,5 +11,9 @@ export default {
 
     async getById(reviewId) {
         return await reviewRepository.getById(reviewId);
+    },
+
+    async getLatest() {
+        return await reviewRepository.getLatest();
     }
 }

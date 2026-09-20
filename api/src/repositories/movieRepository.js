@@ -45,12 +45,9 @@ export default {
     },
 
     async getAllExcludingReviewed(userId) {
-
-        console.log(userId)
-
         return await prisma.$queryRaw`
         SELECT
-	        *
+	        id, title, poster
         FROM movies
         WHERE id NOT IN (
 	    SELECT
