@@ -82,13 +82,14 @@ export default {
        });
     },
 
-    async getHasWrittenReview(movieId, userId) {
+    async getHasWrittenReview(movieId, userId, reviewId) {
         return await prisma.review.findUnique({
             where: {
                 movieId_userId: {
                     movieId,
                     userId
-                }
+                },
+                id: reviewId
             }
         });
     },

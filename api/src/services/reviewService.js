@@ -17,8 +17,8 @@ export default {
         return await reviewRepository.getLatest();
     },
 
-    async getHasWrittenReview(movieId, userId) {
-        const response = await reviewRepository.getHasWrittenReview(movieId, userId);
+    async getHasWrittenReview(movieId, userId, reviewId) {
+        const response = await reviewRepository.getHasWrittenReview(movieId, userId, reviewId);
 
         return response ? true : false;
     },

@@ -204,7 +204,7 @@ export default function MovieReview() {
                     signal: controller.signal
                 };
 
-                const hasWrittenReviewResponse = await fetch(`${BASE_URL}/reviews/${review?.movie.id}/hasWrittenReview`, options);
+                const hasWrittenReviewResponse = await fetch(`${BASE_URL}/reviews/${review?.movie.id}/${reviewId}/hasWrittenReview`, options);
 
                 const hasWrittenReview: boolean = await hasWrittenReviewResponse.json();
                 setHaswrittenReview(hasWrittenReview);
@@ -370,9 +370,11 @@ export default function MovieReview() {
                             </div>
                         </div>
 
-                        <Link to={`/reviews/${reviewId}/edit`}>
-                            <ButtonSecondary text="Edit" />
-                        </Link>
+                        <Activity mode={hasWrittenReview ? "visible" : "hidden"}>
+                            <Link to={`/reviews/${reviewId}/edit`}>
+                                <ButtonSecondary text="Edit" />
+                            </Link>
+                        </Activity>
 
                         {/* ─── Comments card ─── */}
                         {/* <div className={styles.card}> */}

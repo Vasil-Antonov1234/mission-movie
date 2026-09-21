@@ -55,12 +55,13 @@ reviewController.get("/:reviewId", async (req, res) => {
     };
 });
 
-reviewController.get("/:movieId/hasWrittenReview", isAuthMiddleware, async (req, res) => {
+reviewController.get("/:movieId/:reviewId/hasWrittenReview", isAuthMiddleware, async (req, res) => {
     const movieId = Number(req.params.movieId);
+    const reviewId = Number(req.params.reviewId);
     const userId = Number(req.user.id);
 
     try {
-        const hasWrittenRewiew = await reviewService.getHasWrittenReview(movieId, userId);
+        const hasWrittenRewiew = await reviewService.getHasWrittenReview(movieId, userId, reviewId);
 
         res.status(200).json(hasWrittenRewiew);
     } catch (error) {
@@ -89,7 +90,7 @@ reviewController.patch("/edit/:reviewId", isAuthMiddleware, async (req, res) => 
         const review = await reviewService.getById(reviewId);
 
         if (review.userId !== userId) {
-            res.status(401).json("Unauthorised");
+            throw new Error("Unauthorised");
         };
         
         const result = await reviewService.updateOne(userId, movieId, req.body);
