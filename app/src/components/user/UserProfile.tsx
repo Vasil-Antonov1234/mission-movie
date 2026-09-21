@@ -239,7 +239,7 @@ export default function UserProfile() {
                         <div className={styles.statLabel}>Films added</div>
                     </div>
                     <div className={styles.statCard}>
-                        <div className={styles.statValue}>3</div>
+                        <div className={styles.statValue}>{writtenReviews?.length}</div>
                         <div className={styles.statLabel}>Reviews</div>
                     </div>
                     <div className={styles.statCard}>

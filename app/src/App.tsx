@@ -51,6 +51,7 @@ function App() {
                     <Route path="/casts/:castId/edit" element={<CreateEditCast />} />
                     <Route path="/reviews/create" element={<CreateReview />} />
                     <Route path="/reviews/:movieId/create" element={<CreateReview />} />
+                    <Route path="/reviews/:reviewId/edit" element={<CreateReview />} />
                 </Route>
             </Routes>
             <Footer />

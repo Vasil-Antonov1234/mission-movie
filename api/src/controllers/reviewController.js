@@ -79,11 +79,19 @@ reviewController.get("/", async (req, res) => {
     };
 });
 
-reviewController.patch("/edit", isAuthMiddleware, async (req, res) => {
+reviewController.patch("/edit/:reviewId", isAuthMiddleware, async (req, res) => {
     const userId = Number(req.user.id);
     const movieId = Number(req.body.movieId);
+    const reviewId = Number(req.params.reviewId);
 
+    
     try {
+        const review = await reviewService.getById(reviewId);
+
+        if (review.userId !== userId) {
+            res.status(401).json("Unauthorised");
+        };
+        
         const result = await reviewService.updateOne(userId, movieId, req.body);
         
         res.status(200).json(result);

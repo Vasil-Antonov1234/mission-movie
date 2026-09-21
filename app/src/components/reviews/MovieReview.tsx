@@ -5,6 +5,7 @@ import useFetch from "../../hooks/useFetch";
 import type { Options, Review } from "../../types/types";
 import UserContext from "../../contexts/UserContext";
 import { errorMessageHandler } from "../../utils/errorUtil";
+import ButtonSecondary from "../buttons/ButtonSecondary";
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 
@@ -368,6 +369,10 @@ export default function MovieReview() {
                                 </button>
                             </div>
                         </div>
+
+                        <Link to={`/reviews/${reviewId}/edit`}>
+                            <ButtonSecondary text="Edit" />
+                        </Link>
 
                         {/* ─── Comments card ─── */}
                         {/* <div className={styles.card}> */}
