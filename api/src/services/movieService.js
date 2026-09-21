@@ -47,9 +47,9 @@ export default {
 
         const movie = await movieRepository.getById(movieId, filter);
 
-        if (!movie) {
-            throw new Error("This movie does not exists in the database");
-        };
+        // if (!movie) {
+        //     throw new Error("This movie does not exists in the database");
+        // };
 
         return movie;
     },
