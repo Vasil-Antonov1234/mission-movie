@@ -79,4 +79,17 @@ reviewController.get("/", async (req, res) => {
     };
 });
 
+reviewController.patch("/edit", isAuthMiddleware, async (req, res) => {
+    const userId = Number(req.user.id);
+    const movieId = Number(req.body.movieId);
+
+    try {
+        const result = await reviewService.updateOne(userId, movieId, req.body);
+        
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+})
+
 export default reviewController;

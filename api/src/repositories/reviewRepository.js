@@ -106,5 +106,23 @@ export default {
                 }
             }
         });
+    },
+
+    async updateOne(userId, movieId, data) {
+        return await prisma.review.update({
+            where: {
+                movieId_userId: {
+                    userId, 
+                    movieId
+                }
+            },
+            data: {
+                cinematographyScore: data.cinematographyScore,
+                directorScore: data.cinematographyScore,
+                performanceScore: data.performanceScore,
+                screenplayScore: data.screenplayScore,
+                review: data.content
+            }
+        });
     }
 }
