@@ -29,6 +29,12 @@ const initialValuesPassword = {
     confirmPassword: ""
 };
 
+type YourReview = {
+    id: string,
+    movie: {
+        title: string
+    }
+}
 
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
 
@@ -39,6 +45,7 @@ export default function UserProfile() {
     const { data: addedFilmsCount, request } = useFetch(`/users/added-films-count/${user.id}`, initialMovieCount);
     const { data: favoriteMovies, dispatch: dispatchFavorite } = useReduceState("users/favorite-movies", "GET", { accessToken: user.accessToken }, []);
     const { data: watchlistData, dispatch: dispatchWatchlist } = useReduceState("users/watchlist", "GET", { accessToken: user.accessToken }, []);
+    const { data: writtenReviews } = useFetch<YourReview[]>("/reviews/yours", [], { accessToken: user.accessToken });
 
     const { data, formInputRegister, setData } = useForm(initialValuesProfile);
     const { data: passwordData, formInputRegister: passwordFormInputRegister, setData: setPasswordData } = useForm(initialValuesPassword);
@@ -158,7 +165,7 @@ export default function UserProfile() {
         try {
             const removedFavoriteMovie = await request(`/users/favorites/${movieId}/remove`, "DELETE", { accessToken: user.accessToken });
 
-            dispatchFavorite({payload: favoriteMovies, type: "REMOVE", recordId: Number(removedFavoriteMovie.movieId)});
+            dispatchFavorite({ payload: favoriteMovies, type: "REMOVE", recordId: Number(removedFavoriteMovie.movieId) });
         } catch (error) {
             if (errorMessageHandler(error)) {
                 onLogout()
@@ -171,7 +178,7 @@ export default function UserProfile() {
         try {
             const removedWatchlistMovie = await request(`/users/watchlist/${movieId}/remove`, "DELETE", { accessToken: user.accessToken });
 
-            dispatchWatchlist({payload: watchlistData, type: "REMOVE", recordId: Number(removedWatchlistMovie.movieId)});
+            dispatchWatchlist({ payload: watchlistData, type: "REMOVE", recordId: Number(removedWatchlistMovie.movieId) });
         } catch (error) {
             if (errorMessageHandler(error)) {
                 onLogout()
@@ -496,6 +503,19 @@ export default function UserProfile() {
                                         <p className={styles["favourites-wrapper"]} key={x.id}>
                                             <Link className={styles["watchlist-title"]} to={`/movies/${x.movie?.id}/details`}>{x.movie?.title}</Link>
                                             <span className={styles.remove} onClick={() => removeFromWatchlist(x.movie?.id)}>remove</span>
+                                        </p>)}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Written reviews */}
+                        <div className={`${styles.sidebarCard}`}>
+                            <div className={styles.sidebarCardTitle}>Your reviews</div>
+                            <div className={styles.infoList}>
+                                <div className={styles.infoItem}>
+                                    {writtenReviews?.map((x) =>
+                                        <p className={styles["favourites-wrapper"]} key={x.id}>
+                                            <Link className={styles["watchlist-title"]} to={`/review/${x.id}`}>{x.movie.title}</Link>
                                         </p>)}
                                 </div>
                             </div>

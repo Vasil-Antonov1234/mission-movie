@@ -91,5 +91,20 @@ export default {
                 }
             }
         });
+    },
+
+    async getYours(userId) {
+        return await prisma.review.findMany({
+            where: {
+                userId
+            },
+            include: {
+                movie: {
+                    select: {
+                        title: true
+                    }
+                }
+            }
+        });
     }
 }

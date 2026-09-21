@@ -6,6 +6,18 @@ import { createReviewSchema } from "../schemas/reviewSchema.js";
 
 const reviewController = Router();
 
+reviewController.get("/yours", isAuthMiddleware, async (req, res) => {
+    const userId = Number(req.user.id);
+
+    try {
+        const result = await reviewService.getYours(userId);
+
+        res.status(201).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+})
+
 reviewController.post("/create", isAuthMiddleware, async (req, res) => {
 
     const movieId = Number(req.body.movieId);
@@ -43,8 +55,8 @@ reviewController.get("/:reviewId", async (req, res) => {
     };
 });
 
-reviewController.get("/:mivieId/hasWrittenReview", isAuthMiddleware, async (req, res) => {
-    const movieId = Number(req.params.mivieId);
+reviewController.get("/:movieId/hasWrittenReview", isAuthMiddleware, async (req, res) => {
+    const movieId = Number(req.params.movieId);
     const userId = Number(req.user.id);
 
     try {
@@ -52,9 +64,9 @@ reviewController.get("/:mivieId/hasWrittenReview", isAuthMiddleware, async (req,
 
         res.status(200).json(hasWrittenRewiew);
     } catch (error) {
-        res.status(400).json(getErrorMessage(error));   
+        res.status(400).json(getErrorMessage(error));
     };
-})
+});
 
 reviewController.get("/", async (req, res) => {
 

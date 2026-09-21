@@ -21,5 +21,9 @@ export default {
         const response = await reviewRepository.getHasWrittenReview(movieId, userId);
 
         return response ? true : false;
+    },
+
+    async getYours(userId) {
+        return await reviewRepository.getYours(userId);
     }
 }
