@@ -61,21 +61,17 @@ const initialStateMovie: CurrentMovie = {
 }
 
 export default function CreateReview() {
-    // const { reviewId } = useParams();
     const movieId = useParams().movieId;
+    const reviewId = useParams().reviewId;
 
-    // const { data: movies, request } = useFetch("/movies?where=activePage%3D%22null%22&select=id%3D%22true%22&select=title%3D%22true%22&select=poster%3D%22true%22", initialStateMovies);
     const { user, onLogout, isAuthenticated } = useContext(UserContext);
     const { data: movies, request } = useFetch("/movies/exclude/reviewed", initialStateMovies, { accessToken: user.accessToken });
-    const { data, formInputRegister, setData } = useForm(initialValues);
+    const { data, formInputRegister, setData } = useForm(initialValues, undefined, undefined, reviewId);
     const [errors, setErrors] = useState<ValidateValue>({});
     const [touched, setTouched] = useState<ValidateValue>({});
     const navigate = useNavigate();
 
-    // const id = reviewId ? reviewId : 0;
-    // const { data: currentReview } = useFetch(`/reviews/${id}`, initialStateReview);
-
-    const id = movieId ? movieId : 0;
+    const id = movieId ? movieId : reviewId ? data.movieId : 0;
     const { data: currentMovie } = useFetch(`/movies/${id}`, initialStateMovie);
 
     function validateHandler(event: React.BaseSyntheticEvent) {
@@ -113,9 +109,17 @@ export default function CreateReview() {
         };
 
         try {
-            const result = await request(`/reviews/create`, "POST", { accessToken: user.accessToken }, data);
 
-            navigate("/");
+            if (reviewId) {
+                // Update review
+                await request(`/reviews/edit/${reviewId}`, "PATCH", { accessToken: user.accessToken }, data);
+                navigate(`/review/${reviewId}`);
+            } else {
+                // Create review
+                await request(`/reviews/create`, "POST", { accessToken: user.accessToken }, data);
+                navigate("/");
+            }
+
         } catch (error) {
             const errorMessage = errorMessageHandler(error);
 
@@ -146,8 +150,8 @@ export default function CreateReview() {
                             id="movieId"
                             onBlur={validateHandler}
                             className={`${styles.input} ${errors.movieId && !movieId ? `${styles["input--error"]}` : ""}`}>
-                            {movieId ? <option value={movieId}>{currentMovie?.title}</option> : <option value="">----Select a movie----</option>}
-                            {movieId ? "" : movies?.map((x) => <option key={x.id} value={x.id}>{x.title}</option>)}
+                            {movieId ? <option value={movieId}>{currentMovie?.title}</option> : reviewId ? <option value={data.movieId}>{currentMovie?.title}</option> : <option value="">----Select a movie----</option>}
+                            {movieId || reviewId ? "" : movies?.map((x) => <option key={x.id} value={x.id}>{x.title}</option>)}
                         </select>
                         {errors.movieId && !movieId && <span className={styles.errorMsg}>{errors.movieId}</span>}
                     </div>
@@ -162,7 +166,7 @@ export default function CreateReview() {
                             <div className={`${styles.posterMovieWrapper} ${styles.posterMovieWrapperBig} ${data.movieId ? "" : styles.posterPreviewIconBig}`}>
                                 {data.movieId ?
                                     <img
-                                        src={movies?.find((x) => x.id === Number(data.movieId))?.poster}
+                                        src={reviewId ? currentMovie?.poster : movies?.find((x) => x.id === Number(data.movieId))?.poster}
                                         alt="poster"
                                         className={styles.posterImg}
                                     />
