@@ -186,6 +186,7 @@ export default function MovieReview() {
     const { reviewId } = useParams();
     const { data: review, BASE_URL } = useFetch(`/reviews/${reviewId}`, initialState);
     const [hasWrittenReview, setHaswrittenReview] = useState<boolean>(false);
+    const [hasOwner, setHasOwner] = useState<boolean>(false);
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -204,10 +205,13 @@ export default function MovieReview() {
                     signal: controller.signal
                 };
 
-                const hasWrittenReviewResponse = await fetch(`${BASE_URL}/reviews/${review?.movie.id}/${reviewId}/hasWrittenReview`, options);
+                const hasOwnerResponse = await fetch(`${BASE_URL}/reviews/${review?.movie.id}/${reviewId}/hasOwner`, options);
+                const hasWrittenReviewResponse = await fetch(`${BASE_URL}/reviews/${review?.movie.id}/hasWrittenReview`, options);
 
                 const hasWrittenReview: boolean = await hasWrittenReviewResponse.json();
+                const hasOwner: boolean = await hasOwnerResponse.json();
                 setHaswrittenReview(hasWrittenReview);
+                setHasOwner(hasOwner);
             } catch (error) {
                 errorMessageHandler(error);
             };
@@ -217,7 +221,7 @@ export default function MovieReview() {
             controller.abort();
         }
 
-    }, [isAuthenticated, BASE_URL, review?.movie.id, user.accessToken])
+    }, [isAuthenticated, BASE_URL, review?.movie.id, user.accessToken, reviewId])
 
 
     // Logged-in user
@@ -370,7 +374,7 @@ export default function MovieReview() {
                             </div>
                         </div>
 
-                        <Activity mode={hasWrittenReview ? "visible" : "hidden"}>
+                        <Activity mode={hasOwner ? "visible" : "hidden"}>
                             <Link to={`/reviews/${reviewId}/edit`}>
                                 <ButtonSecondary text="Edit" />
                             </Link>

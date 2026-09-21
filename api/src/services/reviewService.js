@@ -17,8 +17,14 @@ export default {
         return await reviewRepository.getLatest();
     },
 
-    async getHasWrittenReview(movieId, userId, reviewId) {
-        const response = await reviewRepository.getHasWrittenReview(movieId, userId, reviewId);
+    async getHasWrittenReview(movieId, userId) {
+        const response = await reviewRepository.getHasWrittenReview(movieId, userId);
+
+        return response ? true : false;
+    },
+
+    async hasOwner(movieId, userId, reviewId) {
+        const response = await reviewRepository.hasOwner(movieId, userId, reviewId);
 
         return response ? true : false;
     },

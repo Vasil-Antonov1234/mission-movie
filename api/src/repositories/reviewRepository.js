@@ -57,8 +57,8 @@ export default {
     },
 
     async getLatest() {
-       return await prisma.review.findMany({
-        include: {
+        return await prisma.review.findMany({
+            include: {
                 movie: {
                     select: {
                         id: true,
@@ -79,10 +79,21 @@ export default {
             orderBy: {
                 createdAt: "desc"
             }
-       });
+        });
     },
 
-    async getHasWrittenReview(movieId, userId, reviewId) {
+    async getHasWrittenReview(movieId, userId) {
+        return await prisma.review.findUnique({
+            where: {
+                movieId_userId: {
+                    movieId,
+                    userId
+                }
+            }
+        });
+    },
+
+    async hasOwner(movieId, userId, reviewId) {
         return await prisma.review.findUnique({
             where: {
                 movieId_userId: {
@@ -113,7 +124,7 @@ export default {
         return await prisma.review.update({
             where: {
                 movieId_userId: {
-                    userId, 
+                    userId,
                     movieId
                 }
             },

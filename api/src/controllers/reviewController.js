@@ -55,15 +55,28 @@ reviewController.get("/:reviewId", async (req, res) => {
     };
 });
 
-reviewController.get("/:movieId/:reviewId/hasWrittenReview", isAuthMiddleware, async (req, res) => {
+reviewController.get("/:movieId/hasWrittenReview", isAuthMiddleware, async (req, res) => {
+    const movieId = Number(req.params.movieId);
+    const userId = Number(req.user.id);
+
+    try {
+        const hasWrittenRewiew = await reviewService.getHasWrittenReview(movieId, userId);
+
+        res.status(200).json(hasWrittenRewiew);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+});
+
+reviewController.get("/:movieId/:reviewId/hasOwner", isAuthMiddleware, async (req, res) => {
     const movieId = Number(req.params.movieId);
     const reviewId = Number(req.params.reviewId);
     const userId = Number(req.user.id);
 
     try {
-        const hasWrittenRewiew = await reviewService.getHasWrittenReview(movieId, userId, reviewId);
+        const hasOwner = await reviewService.hasOwner(movieId, userId, reviewId);
 
-        res.status(200).json(hasWrittenRewiew);
+        res.status(200).json(hasOwner);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
