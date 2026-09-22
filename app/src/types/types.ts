@@ -17,7 +17,6 @@ export type Review = {
     cinematographyScore: string,
     createdAt: string,
     directorScore: string,
-    likes: string,
     movieId: string,
     performanceScore: string,
     review: string,

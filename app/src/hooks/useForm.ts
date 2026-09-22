@@ -39,7 +39,7 @@ export default function useForm<T>(initialValues: T, movieId?: string, castId?: 
             if (reviewId) {
                 const response = await fetch(`${baseUrl}/reviews/${reviewId}`, { signal: controller.signal });
 
-                const result: Review = await response.json();
+                const result = await response.json();
 
                 const reviewData = {
                     content: result.review,
@@ -58,7 +58,7 @@ export default function useForm<T>(initialValues: T, movieId?: string, castId?: 
             controller.abort();
         };
 
-    }, [initialValues, movieId, castId]);
+    }, [initialValues, movieId, castId, reviewId]);
 
     function changeHandler(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement, HTMLSelectElement>) {
         setData((state) => ({

@@ -24,7 +24,6 @@ export default function Reviews() {
                         createdAt={review.createdAt}
                         directorScore={review.directorScore}
                         id={review.id}
-                        likes={review.likes}
                         movieId={review.movieId}
                         performanceScore={review.performanceScore}
                         review={review.review}

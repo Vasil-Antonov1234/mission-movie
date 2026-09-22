@@ -159,7 +159,6 @@ const initialState: Review = {
     createdAt: "",
     directorScore: "",
     id: "0",
-    likes: "0",
     movieId: "0",
     performanceScore: "",
     review: "",
@@ -229,7 +228,9 @@ export default function MovieReview() {
     // const currentUser = { firstName: "Vasil", lastName: "Georgiev" };
 
     const [liked, setLiked] = useState(false);
-    const [likeCount, setLikeCount] = useState(Number(review?.likes));
+    const [likeCount, setLikeCount] = useState(0);
+    // const [likeCount, setLikeCount] = useState(Number(review?.likes));
+    
     // const [comment, setComment] = useState("");
     // const [comments, setComments] = useState<Comment[]>([]);
     // const [submitting, setSubmitting] = useState(false);
