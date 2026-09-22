@@ -190,6 +190,7 @@ export default function MovieReview() {
 
     const [liked, setLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
+    const [disabledLikes, setDisabledLikes] = useState(false);
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -254,10 +255,23 @@ export default function MovieReview() {
         };
 
         try {
-            await request(`/likes/add`, "POST", { accessToken: user.accessToken }, { reviewId });
 
-            setLiked((prev) => !prev);
-            setLikeCount((prev) => liked ? prev - 1 : prev + 1);
+            if (liked) {
+                await request(`/likes/remove/${reviewId}`, "DELETE", { accessToken: user.accessToken });
+            };
+
+            if (!liked) {
+                await request(`/likes/add`, "POST", { accessToken: user.accessToken }, { reviewId });
+            };
+
+            setLiked((state) => !state);
+            setLikeCount((state) => liked ? state - 1 : state + 1);
+            setDisabledLikes(true);
+
+            setTimeout(() => {
+                setDisabledLikes(false);
+            }, 3000);
+
         } catch (error) {
             errorMessageHandler(error);
         };
@@ -396,6 +410,7 @@ export default function MovieReview() {
                                             ""}` :
                                         `${styles.reaction} ${styles.reactionBtnPassive}`}
                                     onClick={handleLike}
+                                    disabled={disabledLikes}
                                 >
                                     ♥ <span className={styles.reactionCount}>{likeCount}</span>
                                 </button>

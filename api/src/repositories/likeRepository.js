@@ -19,5 +19,16 @@ export default {
                 }
             }
         });
+    },
+
+    async remove(reviewId, userId) {
+        return await prisma.like.delete({
+            where: {
+                userId_reviewId: {
+                    userId,
+                    reviewId
+                }
+            }
+        });
     }
 }

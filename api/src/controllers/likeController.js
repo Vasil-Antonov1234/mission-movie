@@ -28,6 +28,19 @@ likeController.get("/has-liked/:reviewId/:userId", async (req, res) => {
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
+});
+
+likeController.delete("/remove/:reviewId", isAuthMiddleware, async (req, res) => {
+    const reviewId = Number(req.params.reviewId);
+    const userId = Number(req.user.id);
+
+    try {
+        const removedReview = await likeService.remove(reviewId, userId);
+
+        res.status(200).json(removedReview);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
 })
 
 export default likeController;

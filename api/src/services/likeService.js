@@ -1,3 +1,4 @@
+import { prisma } from "../lib/prisma.js";
 import likeRepository from "../repositories/likeRepository.js"
 
 export default {
@@ -11,5 +12,9 @@ export default {
         const hasLiked = result ? true : false;
 
         return hasLiked;
+    },
+
+    async remove(reviewId, userId) {
+        return await likeRepository.remove(reviewId, userId);
     }
 }
