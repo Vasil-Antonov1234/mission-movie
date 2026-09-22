@@ -28,6 +28,7 @@ model User {
 	favorites	Favorites[]
 	watchlist	Watchlist[]
 	review		Review[]
+	likes		Like[]
 
 	@@map("users")
 }
@@ -184,6 +185,21 @@ model Review {
 	user		User		@relation(fields: [userId], references: [id], onDelete: Cascade)
 	movie		Movie		@relation(fields: [movieId], references: [id], onDelete: Cascade)
 
+	likes			Like[]
+
 	@@id([movieId, userId])
 	@@map("reviews")
+}
+
+model Like {
+	createdAt			DateTime		@default(now())
+	updatedAt			DateTime		@updatedAt
+	userId				Int
+	reviewId			Int
+
+	user				User			@relation(fields: [userId], references: [id], onDelete: Cascade)
+	review				Review			@relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+	@@id([userId, reviewId])
+	@@map("likes")
 }
