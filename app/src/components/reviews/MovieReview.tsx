@@ -185,8 +185,12 @@ export default function MovieReview() {
     const { user, isAuthenticated } = useContext(UserContext);
     const { reviewId } = useParams();
     const { data: review, BASE_URL, request } = useFetch(`/reviews/${reviewId}`, initialState);
-    const [hasWrittenReview, setHaswrittenReview] = useState<boolean>(false);
-    const [hasOwner, setHasOwner] = useState<boolean>(false);
+    const [hasWrittenReview, setHaswrittenReview] = useState(false);
+    const [hasOwner, setHasOwner] = useState(false);
+
+
+    const [liked, setLiked] = useState(false);
+    const [likeCount, setLikeCount] = useState(0);
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -212,6 +216,11 @@ export default function MovieReview() {
                 const hasOwner: boolean = await hasOwnerResponse.json();
                 setHaswrittenReview(hasWrittenReview);
                 setHasOwner(hasOwner);
+
+                if (review?.likes) {
+                    setLikeCount(review.likes.length)
+                };
+                
             } catch (error) {
                 errorMessageHandler(error);
             };
@@ -228,18 +237,14 @@ export default function MovieReview() {
     // const { user } = useContext(UserContext);
     // const currentUser = { firstName: "Vasil", lastName: "Georgiev" };
 
-    const [liked, setLiked] = useState(false);
-    const [likeCount, setLikeCount] = useState(review?.likes.length || 0);
-    // const [likeCount, setLikeCount] = useState(Number(review?.likes));
-    
     // const [comment, setComment] = useState("");
     // const [comments, setComments] = useState<Comment[]>([]);
     // const [submitting, setSubmitting] = useState(false);
 
     const handleLike = async () => {
         try {
-            // await request(`/likes/add`, "POST", { accessToken: user.accessToken }, user.id);
-            
+            await request(`/likes/add`, "POST", { accessToken: user.accessToken }, { reviewId });
+
             setLiked((prev) => !prev);
             setLikeCount((prev) => liked ? prev - 1 : prev + 1);
         } catch (error) {
