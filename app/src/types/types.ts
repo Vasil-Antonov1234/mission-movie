@@ -13,6 +13,10 @@ export type Featured = {
 
 export type Rating = { rating?: string };
 
+export type Like = {
+    userId: string
+}
+
 export type Review = {
     cinematographyScore: string,
     createdAt: string,
@@ -23,6 +27,7 @@ export type Review = {
     screenplayScore: string,
     userId: string,
     id: string,
+    likes: Like[]
     user: {
         id: string,
         email: string,

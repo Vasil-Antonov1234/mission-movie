@@ -51,6 +51,11 @@ export default {
                         id: true,
                         email: true
                     }
+                },
+                likes: {
+                    select: {
+                        userId: true
+                    }
                 }
             }
         });

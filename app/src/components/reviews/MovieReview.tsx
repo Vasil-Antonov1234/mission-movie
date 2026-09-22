@@ -162,6 +162,7 @@ const initialState: Review = {
     movieId: "0",
     performanceScore: "",
     review: "",
+    likes: [],
     screenplayScore: "",
     userId: "0",
     movie: {
@@ -183,7 +184,7 @@ export default function MovieReview() {
     // const review = MOCK_REVIEW;
     const { user, isAuthenticated } = useContext(UserContext);
     const { reviewId } = useParams();
-    const { data: review, BASE_URL } = useFetch(`/reviews/${reviewId}`, initialState);
+    const { data: review, BASE_URL, request } = useFetch(`/reviews/${reviewId}`, initialState);
     const [hasWrittenReview, setHaswrittenReview] = useState<boolean>(false);
     const [hasOwner, setHasOwner] = useState<boolean>(false);
 
@@ -228,16 +229,22 @@ export default function MovieReview() {
     // const currentUser = { firstName: "Vasil", lastName: "Georgiev" };
 
     const [liked, setLiked] = useState(false);
-    const [likeCount, setLikeCount] = useState(0);
+    const [likeCount, setLikeCount] = useState(review?.likes.length || 0);
     // const [likeCount, setLikeCount] = useState(Number(review?.likes));
     
     // const [comment, setComment] = useState("");
     // const [comments, setComments] = useState<Comment[]>([]);
     // const [submitting, setSubmitting] = useState(false);
 
-    const handleLike = () => {
-        setLiked((prev) => !prev);
-        setLikeCount((prev) => liked ? prev - 1 : prev + 1);
+    const handleLike = async () => {
+        try {
+            // await request(`/likes/add`, "POST", { accessToken: user.accessToken }, user.id);
+            
+            setLiked((prev) => !prev);
+            setLikeCount((prev) => liked ? prev - 1 : prev + 1);
+        } catch (error) {
+            errorMessageHandler(error);
+        };
     };
 
     // const handleCommentSubmit = async (e: FormEvent) => {

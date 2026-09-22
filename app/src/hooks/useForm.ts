@@ -1,6 +1,4 @@
 import { useEffect, useState, type ChangeEvent } from "react";
-import type { Review } from "../types/types";
-// import type { Movie } from "../types/types";
 
 const baseUrl = "http://localhost:5000";
 

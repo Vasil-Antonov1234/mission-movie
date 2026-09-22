@@ -30,6 +30,7 @@ export default function AllReviews() {
                         directorScore={review.directorScore}
                         id={review.id}
                         movieId={review.movieId}
+                        likes={review.likes}
                         performanceScore={review.performanceScore}
                         review={review.review}
                         screenplayScore={review.screenplayScore}
