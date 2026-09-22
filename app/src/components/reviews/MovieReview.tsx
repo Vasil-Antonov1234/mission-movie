@@ -188,7 +188,6 @@ export default function MovieReview() {
     const [hasWrittenReview, setHaswrittenReview] = useState(false);
     const [hasOwner, setHasOwner] = useState(false);
 
-
     const [liked, setLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
 
@@ -217,6 +216,13 @@ export default function MovieReview() {
                 setHaswrittenReview(hasWrittenReview);
                 setHasOwner(hasOwner);
 
+                if (isAuthenticated) {
+                    const hasLikedResponse = await fetch(`${BASE_URL}/likes/has-liked/${reviewId}/${user.id}`, options);
+                    const hasLiked: boolean = await hasLikedResponse.json();
+
+                    setLiked(hasLiked);
+                }
+
                 if (review?.likes) {
                     setLikeCount(review.likes.length)
                 };
@@ -230,7 +236,7 @@ export default function MovieReview() {
             controller.abort();
         }
 
-    }, [isAuthenticated, BASE_URL, review?.movie.id, user.accessToken, reviewId])
+    }, [isAuthenticated, BASE_URL, review?.movie.id, user.accessToken, reviewId, review?.likes, user.id])
 
 
     // Logged-in user

@@ -8,5 +8,16 @@ export default {
                 reviewId
             }
         })
+    },
+
+    async getHasLicked(reviewId, userId) {
+        return await prisma.like.findUnique({
+            where: {
+                userId_reviewId: {
+                    reviewId,
+                    userId
+                }
+            }
+        });
     }
 }

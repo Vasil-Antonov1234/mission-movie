@@ -15,6 +15,19 @@ likeController.post("/add", isAuthMiddleware, async (req, res) => {
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
+});
+
+likeController.get("/has-liked/:reviewId/:userId", async (req, res) => {
+    const reviewId = Number(req.params.reviewId);
+    const userId = Number(req.params.userId);
+
+    try {
+      const hasLiked = await likeService.getHasLiked(reviewId, userId);
+      
+      res.status(200).json(hasLiked);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
 })
 
 export default likeController;
