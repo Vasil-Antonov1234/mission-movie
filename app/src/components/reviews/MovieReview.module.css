@@ -22,7 +22,9 @@
 }
 
 /* ─── MAIN COLUMN ─── */
-.main { min-width: 0; }
+.main {
+  min-width: 0;
+}
 
 /* ─── PAGE EYEBROW ─── */
 .pageEyebrow {
@@ -71,10 +73,12 @@
   border-radius: 8px;
   border: 1px solid #2a2a2a;
   flex-shrink: 0;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
 }
 
-.movieInfo { min-width: 0; }
+.movieInfo {
+  min-width: 0;
+}
 
 .movieTitle {
   font-family: 'Playfair Display', Georgia, serif;
@@ -99,7 +103,9 @@
   color: #a09890;
 }
 
-.movieMetaDot { color: #3a3530; }
+.movieMetaDot {
+  color: #3a3530;
+}
 
 .movieGenreTags {
   display: flex;
@@ -126,7 +132,9 @@
   margin-bottom: 24px;
 }
 
-.card:last-child { margin-bottom: 0; }
+.card:last-child {
+  margin-bottom: 0;
+}
 
 .cardTitle {
   font-size: 11px;
@@ -226,7 +234,9 @@
   margin-bottom: 28px;
 }
 
-.reviewBody p + p { margin-top: 16px; }
+.reviewBody p+p {
+  margin-top: 16px;
+}
 
 .reviewDivider {
   border: none;
@@ -263,7 +273,7 @@
   letter-spacing: 0.08em;
 }
 
-.reactionBtn {
+.reaction {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -277,7 +287,15 @@
   cursor: pointer;
   transition: border-color 0.2s, color 0.2s, background 0.2s;
 }
-.reactionBtn:hover { border-color: #444; color: #e8e2d9; }
+
+.reactionBtn {
+  color: #a09890;
+}
+
+.reactionBtn:hover {
+  border-color: #444;
+  color: #e8e2d9;
+}
 
 .reactionBtnActive {
   border-color: #e8b84b;
@@ -285,10 +303,16 @@
   background: rgba(232, 184, 75, 0.06);
 }
 
-.reactionCount { font-weight: 500; }
+.reactionBtnPassive {
+  cursor: auto;
+}
+
+.reactionCount {
+  font-weight: 500;
+}
 
 /* ─── COMMENTS ─── */
-.commentsSection { }
+.commentsSection {}
 
 .commentsList {
   display: flex;
@@ -365,7 +389,10 @@
   align-items: center;
   gap: 4px;
 }
-.commentLikeBtn:hover { color: #e8b84b; }
+
+.commentLikeBtn:hover {
+  color: #e8b84b;
+}
 
 /* ─── COMMENT FORM ─── */
 .commentForm {
@@ -390,7 +417,10 @@
   flex-shrink: 0;
 }
 
-.commentFormInner { flex: 1; min-width: 0; }
+.commentFormInner {
+  flex: 1;
+  min-width: 0;
+}
 
 .commentInput {
   width: 100%;
@@ -407,11 +437,15 @@
   outline: none;
   min-height: 80px;
 }
+
 .commentInput:focus {
   border-color: #e8b84b;
   box-shadow: 0 0 0 3px rgba(232, 184, 75, 0.08);
 }
-.commentInput::placeholder { color: #3a3530; }
+
+.commentInput::placeholder {
+  color: #3a3530;
+}
 
 .commentFormActions {
   display: flex;
@@ -432,12 +466,22 @@
   transition: background 0.2s, transform 0.1s;
   letter-spacing: 0.02em;
 }
-.btnPrimary:hover { background: #f5ca60; }
-.btnPrimary:active { transform: scale(0.99); }
-.btnPrimary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btnPrimary:hover {
+  background: #f5ca60;
+}
+
+.btnPrimary:active {
+  transform: scale(0.99);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 /* ─── SIDEBAR ─── */
-.sidebar { }
+.sidebar {}
 
 .sidebarCard {
   background: #111;
@@ -447,7 +491,9 @@
   margin-bottom: 20px;
 }
 
-.sidebarCard:last-child { margin-bottom: 0; }
+.sidebarCard:last-child {
+  margin-bottom: 0;
+}
 
 .sidebarCardTitle {
   font-size: 11px;
@@ -520,8 +566,15 @@
   cursor: pointer;
   transition: opacity 0.2s;
 }
-.moreReviewItem:hover { opacity: 0.75; }
-.moreReviewItem:last-child { border-bottom: none; padding-bottom: 0; }
+
+.moreReviewItem:hover {
+  opacity: 0.75;
+}
+
+.moreReviewItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
 
 .moreReviewTitle {
   font-size: 13px;
@@ -536,7 +589,10 @@
   justify-content: space-between;
 }
 
-.moreReviewAuthor { font-size: 11px; color: #555; }
+.moreReviewAuthor {
+  font-size: 11px;
+  color: #555;
+}
 
 .moreReviewRating {
   background: #e8b84b;
@@ -568,7 +624,11 @@
   font-family: inherit;
   transition: border-color 0.2s, color 0.2s;
 }
-.tag:hover { border-color: #444; color: #a09890; }
+
+.tag:hover {
+  border-color: #444;
+  color: #a09890;
+}
 
 /* ─── WRITE REVIEW CTA (for logged-in users on movie detail) ─── */
 .writeReviewCta {
@@ -599,6 +659,7 @@
   transition: border-color 0.2s, background 0.2s;
   letter-spacing: 0.02em;
 }
+
 .btnSecondary:hover {
   border-color: #e8b84b;
   background: rgba(232, 184, 75, 0.06);
@@ -616,27 +677,52 @@
     gap: 16px;
   }
 
-  .sidebarCard { margin-bottom: 0; }
+  .sidebarCard {
+    margin-bottom: 0;
+  }
 }
 
 @media (max-width: 600px) {
-  .wrapper { padding: 32px 16px 60px; }
+  .wrapper {
+    padding: 32px 16px 60px;
+  }
 
-  .card { padding: 22px 18px; }
+  .card {
+    padding: 22px 18px;
+  }
 
-  .movieBannerContent { padding: 20px; gap: 16px; }
+  .movieBannerContent {
+    padding: 20px;
+    gap: 16px;
+  }
 
-  .moviePoster { width: 60px; height: 88px; }
+  .moviePoster {
+    width: 60px;
+    height: 88px;
+  }
 
-  .movieTitle { font-size: 17px; }
+  .movieTitle {
+    font-size: 17px;
+  }
 
-  .reviewTitle { font-size: 19px; }
+  .reviewTitle {
+    font-size: 19px;
+  }
 
-  .reviewHeader { flex-direction: column; align-items: flex-start; }
+  .reviewHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-  .reviewRatingBlock { align-items: flex-start; }
+  .reviewRatingBlock {
+    align-items: flex-start;
+  }
 
-  .sidebar { grid-template-columns: 1fr; }
+  .sidebar {
+    grid-template-columns: 1fr;
+  }
 
-  .commentForm { gap: 8px; }
+  .commentForm {
+    gap: 8px;
+  }
 }

@@ -226,7 +226,7 @@ export default function MovieReview() {
                 if (review?.likes) {
                     setLikeCount(review.likes.length)
                 };
-                
+
             } catch (error) {
                 errorMessageHandler(error);
             };
@@ -248,6 +248,11 @@ export default function MovieReview() {
     // const [submitting, setSubmitting] = useState(false);
 
     const handleLike = async () => {
+
+        if (!isAuthenticated) {
+            return
+        };
+
         try {
             await request(`/likes/add`, "POST", { accessToken: user.accessToken }, { reviewId });
 
@@ -385,7 +390,11 @@ export default function MovieReview() {
                             <div className={styles.reactions}>
                                 <span className={styles.reactionsLabel}>React:</span>
                                 <button
-                                    className={`${styles.reactionBtn}${liked ? ` ${styles.reactionBtnActive}` : ""}`}
+                                    className={isAuthenticated ?
+                                        `${styles.reaction} ${styles.reactionBtn}${liked ?
+                                            ` ${styles.reactionBtnActive}` :
+                                            ""}` :
+                                        `${styles.reaction} ${styles.reactionBtnPassive}`}
                                     onClick={handleLike}
                                 >
                                     ♥ <span className={styles.reactionCount}>{likeCount}</span>
