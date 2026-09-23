@@ -73,5 +73,9 @@ export default {
 
     async getAll() {
         return await userRepository.getAll();
+    },
+
+    async getById(userId) {
+        return await userRepository.getById(userId);
     }
 }

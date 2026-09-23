@@ -116,5 +116,13 @@ export default {
                 }
             }
         });
+    },
+
+    async getById(userId) {
+        return await prisma.user.findUnique({
+            where: {
+                id: userId
+            }
+        });
     }
 }
