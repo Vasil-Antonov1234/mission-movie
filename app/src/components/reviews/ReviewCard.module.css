@@ -19,6 +19,10 @@
     box-shadow: #111 0px 0px 10px 3px;
 }
 
+.review-card-small {
+    max-width: 300px;
+}
+
 .review-card-header {
     display: flex;
     gap: 16px;
@@ -53,6 +57,10 @@
     max-width: 140ch;
     max-height: 100px;
     overflow: hidden;
+}
+
+.review-card-excerpt-small {
+    max-height: 70px;
 }
 
 .text-wrapper {

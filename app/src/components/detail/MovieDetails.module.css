@@ -553,9 +553,18 @@
   transition: border-color 0.2s, background 0.2s;
   letter-spacing: 0.02em;
 }
+
 .btnSecondary:hover {
   border-color: #e8b84b;
   background: rgba(232, 184, 75, 0.06);
+}
+
+.small-review-section {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
 }
 
 @media(max-width: 390px) {

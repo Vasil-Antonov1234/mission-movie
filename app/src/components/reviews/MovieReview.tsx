@@ -193,6 +193,10 @@ export default function MovieReview() {
     const [disabledLikes, setDisabledLikes] = useState(false);
 
     useEffect(() => {
+        if (review?.likes) {
+            setLikeCount(review.likes.length)
+        };
+
         if (!isAuthenticated) {
             return;
         };
@@ -223,10 +227,6 @@ export default function MovieReview() {
 
                     setLiked(hasLiked);
                 }
-
-                if (review?.likes) {
-                    setLikeCount(review.likes.length)
-                };
 
             } catch (error) {
                 errorMessageHandler(error);

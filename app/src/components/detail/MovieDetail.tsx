@@ -12,6 +12,7 @@ import UserContext from "../../contexts/UserContext";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import type { Movie, Options } from "../../types/types";
 import { toast } from "react-toastify";
+import ReviewSmall from "../reviews/ReviewSmall";
 
 type RatingBadgeProps = { rating?: string, large?: boolean }
 
@@ -322,6 +323,14 @@ export default function MovieDetail() {
                     </Activity>
 
                     <hr className={styles["section-divider"]} />
+
+                    {/* REVIEWS */}
+
+                    <section className={styles["small-review-section"]}>
+                        <ReviewSmall />
+                        <ReviewSmall />
+                        <ReviewSmall />
+                    </section>
 
                     {/* COMMENTS AND RATE SECTION */}
                     <CommentsSection owner={isOwner} onRate={rateHandler} hasRated={hasRated} />

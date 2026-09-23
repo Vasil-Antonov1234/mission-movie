@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import type { Review } from "../../types/types";
 import styles from "./ReviewCard.module.css";
+import { convertDate } from "../../utils/convertDate";
 
 // function StarRating({ rating }: Rating) {
 //     const filled = Math.round((Number(rating)));
@@ -30,7 +31,7 @@ export default function ReviewCard(
             </div>
             <div className={styles["review-card-meta"]}>
                 <span className={styles["review-card-author"]}>— {review.user.firstName} {review.user.lastName}</span>
-                <span className={styles["review-card-date"]}>{review.createdAt}</span>
+                <span className={styles["review-card-date"]}>{convertDate(review.createdAt)}</span>
             </div>
         </Link>
     )
