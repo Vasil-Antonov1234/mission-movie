@@ -51,7 +51,11 @@ export default {
                     }
                 },
                 review: true,
-                createdAt: true
+                createdAt: true,
+                cinematographyScore: true,
+                directorScore: true,
+                performanceScore: true,
+                screenplayScore: true
             }
         });
     },

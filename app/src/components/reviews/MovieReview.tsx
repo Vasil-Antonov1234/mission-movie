@@ -7,6 +7,7 @@ import UserContext from "../../contexts/UserContext";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import ButtonSecondary from "../buttons/ButtonSecondary";
 import { convertDate } from "../../utils/convertDate";
+import { calculateReviewTotalScore } from "../../utils/calculateReviewTotalScore";
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 
@@ -188,6 +189,9 @@ export default function MovieReview() {
     const { data: review, BASE_URL, request } = useFetch(`/reviews/${reviewId}`, initialState);
     const [hasWrittenReview, setHaswrittenReview] = useState(false);
     const [hasOwner, setHasOwner] = useState(false);
+    const { data: other } = useFetch<Review[]>(`/reviews/for-movie/${review?.movieId}`, [])
+
+    const otherReviews = other?.filter((x) => x.id !== review?.id);
 
     const [liked, setLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
@@ -569,6 +573,21 @@ export default function MovieReview() {
                                         </div>
                                     ))
                                 }} */}
+                                {otherReviews?.map((x) => (
+                                    <Link to={`/review/${x.id}`} key={x.id} className={styles.moreReviewItem}>
+                                        <div className={styles.moreReviewTitle}>By</div>
+                                        <div className={styles.moreReviewMeta}>
+                                            <span className={styles.moreReviewAuthor}>{`${x.user.firstName} ${x.user.lastName}`}</span>
+                                        </div>
+                                        <div className={styles.moreReviewMeta}>
+                                            <span className={styles.moreReviewAuthor}>Total score</span>
+                                            <span className={styles.moreReviewRating}>★ {
+                                                calculateReviewTotalScore(x.cinematographyScore, x.directorScore, x.performanceScore, x.screenplayScore)}
+                                            </span>
+                                        </div>
+                                        <span className={styles.moreReviewAuthor}>{convertDate(x.createdAt)}</span>
+                                    </Link>
+                                ))}
                             </div>
                         </div>
 
