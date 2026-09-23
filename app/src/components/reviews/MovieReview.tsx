@@ -8,6 +8,7 @@ import { errorMessageHandler } from "../../utils/errorUtil";
 import ButtonSecondary from "../buttons/ButtonSecondary";
 import { convertDate } from "../../utils/convertDate";
 import { calculateReviewTotalScore } from "../../utils/calculateReviewTotalScore";
+import { toast } from "react-toastify";
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 
@@ -264,6 +265,10 @@ export default function MovieReview() {
 
         if (!isAuthenticated) {
             return
+        };
+        
+        if (hasOwner) {
+            return toast.warning("You cannot like your own review");
         };
 
         try {
