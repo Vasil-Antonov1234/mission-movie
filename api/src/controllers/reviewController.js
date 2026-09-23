@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { isAuthMiddleware } from "../middlewares/authMiddleware.js";
+import { isAdmin, isAuthMiddleware } from "../middlewares/authMiddleware.js";
 import { getErrorMessage } from "../utils/errorUtil.js";
 import reviewService from "../services/reviewService.js";
 import { createReviewSchema } from "../schemas/reviewSchema.js";
@@ -121,6 +121,18 @@ reviewController.patch("/edit/:reviewId", isAuthMiddleware, async (req, res) => 
         const result = await reviewService.updateOne(userId, movieId, req.body);
         
         res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+});
+
+reviewController.get("/:userId/count", isAuthMiddleware, isAdmin, async (req, res) => {
+    const userId = Number(req.params.userId);
+
+    try {
+      const result = await reviewService.countByUserId(userId);
+      
+      res.status(200).json(result);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };

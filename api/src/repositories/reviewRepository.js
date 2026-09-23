@@ -164,5 +164,13 @@ export default {
                 review: data.content
             }
         });
+    },
+
+    async countByUserId(userId) {
+        return await prisma.review.count({
+            where: {
+                userId
+            }
+        });
     }
 }

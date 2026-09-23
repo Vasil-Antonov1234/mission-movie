@@ -39,5 +39,9 @@ export default {
 
     async getForMovie(movieId) {
         return await reviewRepository.getForMovie(movieId)
+    },
+
+    async countByUserId(userId) {
+        return await reviewRepository.countByUserId(userId);
     }
 }
