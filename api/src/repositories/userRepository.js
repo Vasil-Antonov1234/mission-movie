@@ -106,5 +106,15 @@ export default {
                 }
             }
         });
+    },
+
+    async getAll() {
+        return await prisma.user.findMany({
+            where: {
+                role: {
+                    not: "ADMIN"
+                }
+            }
+        });
     }
 }

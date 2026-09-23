@@ -11,12 +11,9 @@ import { Link } from "react-router";
 import { toast } from "react-toastify";
 import useReduceState from "../../hooks/useReduceState";
 import AdminPanel from "../admin/AdminPanel";
+import { getInitials } from "../../utils/getInitials";
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
-
-function getInitials(firstName: string | undefined, lastName: string | undefined): string {
-    return `${(firstName || "").charAt(0)}${(lastName || "").charAt(0)}`.toUpperCase();
-}
 
 const initialValuesProfile = {
     firstName: "",

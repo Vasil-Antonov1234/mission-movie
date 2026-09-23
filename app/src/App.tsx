@@ -18,6 +18,8 @@ import AuthCallback from "./components/login-register/AuthCallback"
 import UserProfile from "./components/user/UserProfile"
 import CreateReview from "./components/create/CreateReview"
 import MovieReview from "./components/reviews/MovieReview"
+import IsAdmin from "./components/route-guards/isAdmin"
+import User from "./components/user/User"
 
 function App() {
 
@@ -52,6 +54,10 @@ function App() {
                     <Route path="/reviews/create" element={<CreateReview />} />
                     <Route path="/reviews/:movieId/create" element={<CreateReview />} />
                     <Route path="/reviews/:reviewId/edit" element={<CreateReview />} />
+                    
+                    <Route element={<IsAdmin />} >
+                    <Route path="/users/:userId" element={<User />} />
+                    </Route>
                 </Route>
             </Routes>
             <Footer />

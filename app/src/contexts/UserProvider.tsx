@@ -50,12 +50,14 @@ export default function UserProvider({ children }: { children: React.ReactNode }
     };
 
     const isAuthenticated = !!user?.accessToken;
+    const isAdmin = user.role === "ADMIN";
 
     const userContextValues: UserCtx = {
         user,
         onLogin: loginHandler,
         onLogout: logoutHandler,
         isAuthenticated,
+        isAdmin,
         onUpdateCtxUser: updateUserCtx
     }
 

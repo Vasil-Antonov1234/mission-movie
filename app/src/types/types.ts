@@ -251,6 +251,7 @@ export type UserCtx = {
     onLogin: (user: User) => void,
     onLogout: (navigateTo?: string) => void,
     isAuthenticated: boolean,
+    isAdmin: boolean,
     onUpdateCtxUser: (user: User) => void
 };
 

@@ -15,6 +15,7 @@ const UserContext = createContext<UserCtx>({
     onLogin() {},
     onLogout() {},
     isAuthenticated: false,
+    isAdmin: false,
     onUpdateCtxUser() {},
 });
 
