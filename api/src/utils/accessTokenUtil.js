@@ -9,7 +9,8 @@ export default {
         const payload = {
             id: user.id,
             email: user.email,
-            isGoogleUser
+            isGoogleUser,
+            role: user.role
         };
     
         return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" })
