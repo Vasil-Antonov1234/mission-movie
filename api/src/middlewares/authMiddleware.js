@@ -31,3 +31,12 @@ export function isAuthMiddleware(req, res, next) {
 
     next();
 };
+
+export function isAdmin(req, res, next) {
+    
+    if (req.user.role !== "ADMIN") {
+        return res.status(403).json({error: "Forbidden — admin access required"});
+    };
+
+    next();
+}
