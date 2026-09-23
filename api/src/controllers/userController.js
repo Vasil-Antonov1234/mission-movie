@@ -3,7 +3,7 @@ import { createUserSchema } from "../schemas/userSchema.js";
 import userService from "../services/userService.js";
 import { getErrorMessage } from "../utils/errorUtil.js";
 import accessTokenUtil from "../utils/accessTokenUtil.js";
-import { isAuthMiddleware } from "../middlewares/authMiddleware.js";
+import { isAdmin, isAuthMiddleware } from "../middlewares/authMiddleware.js";
 import { changePasswordSchema } from "../schemas/passwordSchema.js";
 
 const userController = Router();
@@ -57,7 +57,8 @@ userController.post("/login", async (req, res) => {
             lastName: user.lastName,
             accessToken: token,
             isGoogleUser: false,
-            createdAt: user.createdAt
+            createdAt: user.createdAt,
+            role: user.role
         });
     } catch (error) {
         res.status(400).json(error.message);
@@ -162,6 +163,17 @@ userController.delete("/watchlist/:movieId/remove", isAuthMiddleware, async (req
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
+});
+
+userController.get("/get-all", isAuthMiddleware, isAdmin, async (req, res) => {    
+    try {
+        const users = await userService.getAll();
+
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+
 })
 
 export default userController;
