@@ -6,6 +6,7 @@ import type { Options, Review } from "../../types/types";
 import UserContext from "../../contexts/UserContext";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import ButtonSecondary from "../buttons/ButtonSecondary";
+import { convertDate } from "../../utils/convertDate";
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 
@@ -239,6 +240,13 @@ export default function MovieReview() {
 
     }, [isAuthenticated, BASE_URL, review?.movie.id, user.accessToken, reviewId, review?.likes, user.id])
 
+    const reviewScore = {
+        director: review ? Number(review.directorScore) : 0,
+        cinematography: review ? Number(review.cinematographyScore) : 0,
+        performance: review ? Number(review.performanceScore) : 0,
+        screenplay: review ? Number(review.screenplayScore) : 0
+    };
+
 
     // Logged-in user
     // const { user } = useContext(UserContext);
@@ -359,7 +367,7 @@ export default function MovieReview() {
                                 )
                             }} */}
 
-                            {/* Reviewer info + rating */}
+                            {/* Reviewer info */}
                             <div className={styles.reviewHeader}>
                                 <div className={styles.reviewerInfo}>
                                     <div className={styles.reviewerAvatar}>
@@ -369,7 +377,7 @@ export default function MovieReview() {
                                         <div className={styles.reviewerName}>
                                             {review?.user.firstName} {review?.user.lastName}
                                         </div>
-                                        <div className={styles.reviewerDate}>{review?.createdAt}</div>
+                                        <div className={styles.reviewerDate}>{convertDate(review?.createdAt)}</div>
                                     </div>
                                 </div>
                                 {/* {<div className={styles.reviewRatingBlock}>
@@ -503,20 +511,46 @@ export default function MovieReview() {
                         <div className={styles.sidebarCard}>
                             <div className={styles.sidebarCardTitle}>Score Breakdown</div>
                             <div className={styles.scoreBreakdown}>
-                                {/* {{
-                                    review.scoreBreakdown.map((row) => (
-                                        <div key={row.label} className={styles.scoreRow}>
-                                            <span className={styles.scoreRowLabel}>{row.label}</span>
-                                            <div className={styles.scoreBar}>
-                                                <div
-                                                    className={styles.scoreBarFill}
-                                                    style={{ width: `${(row.value / 10) * 100}%` }}
-                                                />
-                                            </div>
-                                            <span className={styles.scoreRowValue}>{row.value}</span>
-                                        </div>
-                                    ))
-                                }} */}
+                                <div className={styles.scoreRow}>
+                                    <span className={styles.scoreRowLabel}>Director</span>
+                                    <div className={styles.scoreBar}>
+                                        <div
+                                            className={styles.scoreBarFill}
+                                            style={{ width: `${(reviewScore.director / 10) * 100}%` }}
+                                        />
+                                    </div>
+                                    <span className={styles.scoreRowValue}>{reviewScore.director}</span>
+                                </div>
+                                <div className={styles.scoreRow}>
+                                    <span className={styles.scoreRowLabel}>Cinematogr.</span>
+                                    <div className={styles.scoreBar}>
+                                        <div
+                                            className={styles.scoreBarFill}
+                                            style={{ width: `${(reviewScore.cinematography / 10) * 100}%` }}
+                                        />
+                                    </div>
+                                    <span className={styles.scoreRowValue}>{reviewScore.cinematography}</span>
+                                </div>
+                                <div className={styles.scoreRow}>
+                                    <span className={styles.scoreRowLabel}>Screenplay</span>
+                                    <div className={styles.scoreBar}>
+                                        <div
+                                            className={styles.scoreBarFill}
+                                            style={{ width: `${(reviewScore.screenplay / 10) * 100}%` }}
+                                        />
+                                    </div>
+                                    <span className={styles.scoreRowValue}>{reviewScore.screenplay}</span>
+                                </div>
+                                <div className={styles.scoreRow}>
+                                    <span className={styles.scoreRowLabel}>Performance</span>
+                                    <div className={styles.scoreBar}>
+                                        <div
+                                            className={styles.scoreBarFill}
+                                            style={{ width: `${(reviewScore.performance / 10) * 100}%` }}
+                                        />
+                                    </div>
+                                    <span className={styles.scoreRowValue}>{reviewScore.performance}</span>
+                                </div>
                             </div>
                         </div>
 

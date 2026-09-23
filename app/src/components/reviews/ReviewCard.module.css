@@ -12,6 +12,7 @@
     text-decoration: none;
     color: unset;
     max-width: 500px;
+    overflow: hidden;
 }
 
 .review-card:hover {

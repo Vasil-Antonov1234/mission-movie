@@ -130,6 +130,7 @@
   border-radius: 14px;
   padding: 32px;
   margin-bottom: 24px;
+  overflow: hidden;
 }
 
 .card:last-child {
