@@ -24,19 +24,26 @@ function RatingBadge({ rating, large = false }: RatingBadgeProps) {
     );
 }
 
+const initialState: Movie = {
+    id: 0,
+    genre: "",
+    poster: "",
+    rating: "0",
+    title: ""
+}
+
+const initialStateReview = {
+    content: "",
+    userFullName: "",
+    createdAt: ""
+}
+
 export default function MovieDetail() {
     const { isAuthenticated, user, onLogout } = useContext(UserContext);
     const navigate = useNavigate();
 
     const movieId = useParams().movieId;
 
-    const initialState: Movie = {
-        id: 0,
-        genre: "",
-        poster: "",
-        rating: "0",
-        title: ""
-    }
 
     const { data: movie, setData } = useFetch(`/movies/${movieId}`, initialState);
     const genreArray = !movie ? " " : movie?.genre.split(", ");

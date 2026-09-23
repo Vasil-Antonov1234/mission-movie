@@ -37,6 +37,25 @@ export default {
         });
     },
 
+    async getForMovie(movieId) {
+        return await prisma.review.findMany({
+            where: {
+                movieId
+            },
+            select: {
+                id: true,
+                user: {
+                    select: {
+                        firstName: true,
+                        lastName: true
+                    }
+                },
+                review: true,
+                createdAt: true
+            }
+        });
+    },
+
     async getById(reviewId) {
         return await prisma.review.findUnique({
             where: {

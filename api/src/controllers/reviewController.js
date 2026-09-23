@@ -68,6 +68,18 @@ reviewController.get("/:movieId/hasWrittenReview", isAuthMiddleware, async (req,
     };
 });
 
+reviewController.get("/for-movie/:movieId", async (req, res) => {
+    const movieId = Number(req.params.movieId);
+
+    try {
+        const reviews = await reviewService.getForMovie(movieId);
+
+        res.status(200).json(reviews);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+});
+
 reviewController.get("/:movieId/:reviewId/hasOwner", isAuthMiddleware, async (req, res) => {
     const movieId = Number(req.params.movieId);
     const reviewId = Number(req.params.reviewId);

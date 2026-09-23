@@ -35,5 +35,9 @@ export default {
 
     async updateOne(userId, movieId, data) {
         return await reviewRepository.updateOne(userId, movieId, data);
+    },
+
+    async getForMovie(movieId) {
+        return await reviewRepository.getForMovie(movieId)
     }
 }
