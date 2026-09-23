@@ -1,13 +1,26 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import type { Config, Method, Options } from "../types/types";
 import { errorMessageHandler } from "../utils/errorUtil";
 import UserContext from "../contexts/UserContext";
 
 const BASE_URL = "http://localhost:5000";
 
-export default function useFetch<T>(url?: string, initialState?: T, config?: Config) {
+export default function useFetch<T>(url?: string, initialState?: T, config: Config = {}) {
     const [data, setData] = useState(initialState);
     const { onLogout } = useContext(UserContext);
+
+    const options = useMemo(() => {
+        const options: Options = { method: "GET" }
+
+        if (config.accessToken) {
+            options.headers = {
+                ...options.headers,
+                "authorization": config.accessToken
+            };
+        };
+
+        return options
+    }, [config.accessToken]);
 
     useEffect(() => {
         if (!url) {
@@ -19,13 +32,7 @@ export default function useFetch<T>(url?: string, initialState?: T, config?: Con
 
         (async () => {
             try {
-                const options: Options = { method: "GET", signal: controller.signal };
-
-                if (config) {
-                    options.headers = {
-                        "authorization": config.accessToken
-                    };
-                };
+                options.signal = controller.signal
 
                 const response = await fetch(`${BASE_URL}${url}`, options);
 
@@ -40,7 +47,7 @@ export default function useFetch<T>(url?: string, initialState?: T, config?: Con
 
                 setData(result);
             } catch (error) {
-                if(errorMessageHandler(error) === "Invalid token") {
+                if (errorMessageHandler(error) === "Invalid token") {
                     onLogout("/login")
                 }
             };
@@ -50,7 +57,7 @@ export default function useFetch<T>(url?: string, initialState?: T, config?: Con
             controller.abort();
         }
 
-    }, [url, onLogout, config]);
+    }, [url, onLogout, options]);
 
     async function request<T>(url: string, method: Method, config: Config = {}, body?: T) {
         const options: Options = { method: method };
