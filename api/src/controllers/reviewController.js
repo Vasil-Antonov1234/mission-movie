@@ -12,7 +12,7 @@ reviewController.get("/yours", isAuthMiddleware, async (req, res) => {
     try {
         const result = await reviewService.getYours(userId);
 
-        res.status(201).json(result);
+        res.status(200).json(result);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };

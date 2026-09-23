@@ -453,6 +453,11 @@
   justify-content: space-between;
 }
 
+.additional-info-card {
+  max-width: 500px;
+  margin: 10px auto;
+}
+
 .remove {
     font-size: 11px;
     color: rgb(233, 114, 137);

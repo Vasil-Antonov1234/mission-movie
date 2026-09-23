@@ -279,7 +279,6 @@ export default function UserProfile() {
                                 </div>
                                 <button
                                     className={`${styles.editBtn}${isEditingProfile ? ` ${styles.editBtnActive}` : ""}`}
-                                    // onClick={() => isEditingProfile ? handleProfileCancel() : setIsEditingProfile(true)}
                                     onClick={() => isEditingProfile ? handleProfileCancel() : openEditProfileHandler()}
                                 >
                                     {isEditingProfile ? "Cancel" : "Edit"}
@@ -458,7 +457,53 @@ export default function UserProfile() {
 
                             </div>
                         </Activity>
+
+                        {/* Additional info */}
+                        <section>
+
+                            {/* Watchlist */}
+                            <div className={`${styles.sidebarCard} ${styles["additional-info-card"]}`}>
+                                <div className={styles.sidebarCardTitle}>Watchlist</div>
+                                <div className={styles.infoList}>
+                                    <div className={styles.infoItem}>
+                                        {watchlistData.map((x) =>
+                                            <p className={styles["favourites-wrapper"]} key={x.id}>
+                                                <Link className={styles["watchlist-title"]} to={`/movies/${x.movie?.id}/details`}>{x.movie?.title}</Link>
+                                                <span className={styles.remove} onClick={() => removeFromWatchlist(x.movie?.id)}>remove</span>
+                                            </p>)}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Favorites movies */}
+                            <div className={`${styles.sidebarCard} ${styles.favorites} ${styles["additional-info-card"]}`}>
+                                <div className={styles.sidebarCardTitle}>Favourite movies</div>
+                                <div className={styles.infoList}>
+                                    <div className={styles.infoItem}>
+                                        {favoriteMovies.map((x) =>
+                                            <p className={styles["favourites-wrapper"]} key={x.id}>
+                                                <Link className={styles["favorites-title"]} to={`/movies/${x.movie?.id}/details`}>{x.movie?.title}</Link>
+                                                <span className={styles.remove} onClick={() => removeFavouriteMovie(x.movie?.id)}>remove</span>
+                                            </p>)}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Written reviews */}
+                            <div className={`${styles.sidebarCard} ${styles["additional-info-card"]}`}>
+                                <div className={styles.sidebarCardTitle}>Your reviews</div>
+                                <div className={styles.infoList}>
+                                    <div className={styles.infoItem}>
+                                        {writtenReviews?.map((x) =>
+                                            <p className={styles["favourites-wrapper"]} key={x.id}>
+                                                <Link className={styles["watchlist-title"]} to={`/review/${x.id}`}>{x.movie.title}</Link>
+                                            </p>)}
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     </div>
+
 
                     {/* ── SIDEBAR ── */}
                     <aside>
@@ -476,47 +521,6 @@ export default function UserProfile() {
                                     <span className={styles.infoValue}>
                                         {user.isGoogleUser ? "Google OAuth" : "Email & password"}
                                     </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Favorites movies */}
-                        <div className={`${styles.sidebarCard} ${styles.favorites}`}>
-                            <div className={styles.sidebarCardTitle}>Favourite movies</div>
-                            <div className={styles.infoList}>
-                                <div className={styles.infoItem}>
-                                    {favoriteMovies.map((x) =>
-                                        <p className={styles["favourites-wrapper"]} key={x.id}>
-                                            <Link className={styles["favorites-title"]} to={`/movies/${x.movie?.id}/details`}>{x.movie?.title}</Link>
-                                            <span className={styles.remove} onClick={() => removeFavouriteMovie(x.movie?.id)}>remove</span>
-                                        </p>)}
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Watchlist */}
-                        <div className={`${styles.sidebarCard}`}>
-                            <div className={styles.sidebarCardTitle}>Watchlist</div>
-                            <div className={styles.infoList}>
-                                <div className={styles.infoItem}>
-                                    {watchlistData.map((x) =>
-                                        <p className={styles["favourites-wrapper"]} key={x.id}>
-                                            <Link className={styles["watchlist-title"]} to={`/movies/${x.movie?.id}/details`}>{x.movie?.title}</Link>
-                                            <span className={styles.remove} onClick={() => removeFromWatchlist(x.movie?.id)}>remove</span>
-                                        </p>)}
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Written reviews */}
-                        <div className={`${styles.sidebarCard}`}>
-                            <div className={styles.sidebarCardTitle}>Your reviews</div>
-                            <div className={styles.infoList}>
-                                <div className={styles.infoItem}>
-                                    {writtenReviews?.map((x) =>
-                                        <p className={styles["favourites-wrapper"]} key={x.id}>
-                                            <Link className={styles["watchlist-title"]} to={`/review/${x.id}`}>{x.movie.title}</Link>
-                                        </p>)}
                                 </div>
                             </div>
                         </div>
