@@ -10,6 +10,7 @@ import { errorMessageHandler } from "../../utils/errorUtil";
 import { Link } from "react-router";
 import { toast } from "react-toastify";
 import useReduceState from "../../hooks/useReduceState";
+import AdminPanel from "../admin/AdminPanel";
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 
@@ -524,6 +525,11 @@ export default function UserProfile() {
                                 </div>
                             </div>
                         </div>
+
+                        {/* Admin panel */}
+                        <Activity mode={user.role === "ADMIN" ? "visible" : "hidden"}>
+                            <AdminPanel />
+                        </Activity>
 
                         {/* Danger zone */}
                         <div className={styles.dangerCard}>
