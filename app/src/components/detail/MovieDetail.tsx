@@ -10,9 +10,9 @@ import { useParams, Link, useNavigate } from "react-router";
 import { Activity, useContext, useEffect, useState } from "react";
 import UserContext from "../../contexts/UserContext";
 import { errorMessageHandler } from "../../utils/errorUtil";
-import type { Movie, Options } from "../../types/types";
+import type { Movie, Options, ReviewSmall } from "../../types/types";
 import { toast } from "react-toastify";
-import ReviewSmall from "../reviews/ReviewSmall";
+import ReviewSmallCard from "../reviews/ReviewSmallCard";
 
 type RatingBadgeProps = { rating?: string, large?: boolean }
 
@@ -30,12 +30,6 @@ const initialState: Movie = {
     poster: "",
     rating: "0",
     title: ""
-}
-
-const initialStateReview = {
-    content: "",
-    userFullName: "",
-    createdAt: ""
 }
 
 export default function MovieDetail() {
@@ -56,6 +50,7 @@ export default function MovieDetail() {
     const [isAddedToWatchlist, setIsAddedToWatchlist] = useState<boolean>(false);
     const [hasWrittenReview, setHasWrittenReview] = useState<boolean>(false);
     const { data: ratesCount } = useFetch(`/rates/count/${movieId}`, "1");
+    const { data: reviews } = useFetch<ReviewSmall[]>(`/reviews/for-movie/${movieId}`, []);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -333,15 +328,29 @@ export default function MovieDetail() {
 
                     {/* REVIEWS */}
 
+                    <div className={styles["section-label"]}>Reviews</div>
                     <section className={styles["small-review-section"]}>
-                        <ReviewSmall />
-                        <ReviewSmall />
-                        <ReviewSmall />
+                        {reviews?.map((x) => <ReviewSmallCard
+                            key={x.id}
+                            id={x.id}
+                            user={x.user}
+                            review={x.review}
+                            createdAt={x.createdAt} />)}
                     </section>
+
+                    <Activity mode={reviews ? reviews.length > 0 ? "hidden" : "visible" : "hidden"}>
+                        <h2 className={styles["nothing-yet"]}>No reviews about this movie yet
+                            <p>
+                                <Link to={`/reviews/${movie.id}/create`} className={styles["section-link"]}>Click to write the first one.</Link>
+                            </p>
+                        </h2>
+                    </Activity>
 
                     {/* COMMENTS AND RATE SECTION */}
                     <CommentsSection owner={isOwner} onRate={rateHandler} hasRated={hasRated} />
-
+                    
+                    <h2 className={styles["nothing-yet"]}>No comments yet
+                    </h2>
                 </main>
 
                 {/* RIGHT SIDEBAR */}

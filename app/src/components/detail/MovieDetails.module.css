@@ -567,6 +567,14 @@
     gap: 30px;
 }
 
+.nothing-yet {
+    color: #e8e2d9a1;
+    text-align: center;
+    font-size: clamp(8px, 5vw, 29px);
+    margin: 0 auto;
+    font-weight: 100;
+}
+
 @media(max-width: 390px) {
     .detail-hero {
         margin-bottom: 70px;

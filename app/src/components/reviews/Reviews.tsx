@@ -12,7 +12,7 @@ export default function Reviews() {
             <div className={styles["section-header"]}>
                 <div>
                     <div className={`${styles["section-label"]} ${styles["section-label--spaced"]}`}>Latest reviews</div>
-                    <h2 className={styles["section-heading"]}>From our critics</h2>
+                    <h2 className={styles["section-heading"]}>You shared</h2>
                 </div>
                 <Link to="/reviews/catalog" className={`${styles["section-link"]} ${styles["section-link-top"]}`}>All reviews →</Link>
             </div>

@@ -46,6 +46,16 @@ export type Review = {
     }
 };
 
+export type ReviewSmall = {
+    id: string,
+    review: string,
+    user: {
+        firstName: string,
+        lastName: string,
+    },
+    createdAt: string
+};
+
 export type Author = {
     id: number,
     email: string,
