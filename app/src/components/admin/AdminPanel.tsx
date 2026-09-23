@@ -9,8 +9,6 @@ export default function AdminPanel() {
     const { user } = useContext(UserContext);
     const { data: users } = useFetch<User[]>("/users/get-all", [], { accessToken: user.accessToken });
 
-    console.log(users);
-
     return (
         <div className={`${styles.sidebarCard} ${styles.users}`}>
             <div className={styles.sidebarCardTitle}>Admin panel</div>

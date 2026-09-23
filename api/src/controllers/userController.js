@@ -105,9 +105,10 @@ userController.patch("/change-password", isAuthMiddleware, async (req, res) => {
 
 userController.delete("/:userId/delete", isAuthMiddleware, async (req, res) => {
     const userId = Number(req.params.userId);
+    const currentUserId = Number(req.user.id);
 
     try {
-        const result = await userService.remove(userId);
+        const result = await userService.remove(userId, currentUserId);
 
         res.status(200).json(result);
     } catch (error) {
@@ -115,13 +116,25 @@ userController.delete("/:userId/delete", isAuthMiddleware, async (req, res) => {
     };
 });
 
+userController.delete("/:userId/admin-delete", isAuthMiddleware, isAdmin, async (req, res) => {
+    const userId = Number(req.params.userId);
+
+    try {
+        const removedUser = await userService.removeByAdmin(userId);
+
+        res.status(200).json(removedUser);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+});
+
 userController.get("/favorite-movies", isAuthMiddleware, async (req, res) => {
     const userId = Number(req.user.id);
 
     try {
-      const result = await userService.getFavoriteMovies(userId);
-      
-      res.status(200).json(result);
+        const result = await userService.getFavoriteMovies(userId);
+
+        res.status(200).json(result);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
@@ -165,7 +178,7 @@ userController.delete("/watchlist/:movieId/remove", isAuthMiddleware, async (req
     };
 });
 
-userController.get("/get-all", isAuthMiddleware, isAdmin, async (req, res) => {    
+userController.get("/get-all", isAuthMiddleware, isAdmin, async (req, res) => {
     try {
         const users = await userService.getAll();
 
@@ -180,9 +193,9 @@ userController.get("/:userId", isAuthMiddleware, isAdmin, async (req, res) => {
     const userId = Number(req.params.userId);
 
     try {
-      const user = await userService.getById(userId);
-      
-      res.status(200).json(user);
+        const user = await userService.getById(userId);
+
+        res.status(200).json(user);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };

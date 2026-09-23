@@ -51,7 +51,16 @@ export default {
         return userRepository.edit(userId, data);
     },
 
-    async remove(userId) {
+    async remove(userId, currentUserId) {
+
+        if(userId !== currentUserId) {
+            throw new Error("Unauthorised");
+        };
+
+        return await userRepository.remove(userId);
+    },
+
+    async removeByAdmin(userId) {
         return await userRepository.remove(userId);
     },
 
@@ -76,6 +85,21 @@ export default {
     },
 
     async getById(userId) {
-        return await userRepository.getById(userId);
+        const result = await userRepository.getById(userId);
+        const user = {}
+
+        if (result.password) {
+            result.isGoogleUser = false;
+        };
+
+        if (!result.password) {
+            result.isGoogleUser = true;
+        };
+
+        result.password = "";
+
+        return result
     }
 }
+
+// transform(({ repeatPassword, ...data }) => data)

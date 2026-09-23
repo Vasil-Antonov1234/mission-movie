@@ -19,7 +19,7 @@ import UserProfile from "./components/user/UserProfile"
 import CreateReview from "./components/create/CreateReview"
 import MovieReview from "./components/reviews/MovieReview"
 import IsAdmin from "./components/route-guards/isAdmin"
-import User from "./components/user/User"
+import UserDetails from "./components/user/UserDetails"
 
 function App() {
 
@@ -56,7 +56,7 @@ function App() {
                     <Route path="/reviews/:reviewId/edit" element={<CreateReview />} />
                     
                     <Route element={<IsAdmin />} >
-                    <Route path="/users/:userId" element={<User />} />
+                    <Route path="/users/:userId" element={<UserDetails />} />
                     </Route>
                 </Route>
             </Routes>
