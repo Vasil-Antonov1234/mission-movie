@@ -245,7 +245,8 @@ export type UserCtx = {
         lastName?: string,
         email?: string,
         isGoogleUser?: boolean,
-        createdAt?: string
+        createdAt?: string,
+        role?: string
     }
     onLogin: (user: User) => void,
     onLogout: (navigateTo?: string) => void,
@@ -262,7 +263,8 @@ export type User = {
     password?: string,
     confirmPassword?: string,
     isGoogleUser?: boolean,
-    createdAt?: string
+    createdAt?: string,
+    role?: string
 };
 
 export type Config = {

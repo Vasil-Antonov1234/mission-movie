@@ -9,7 +9,8 @@ const UserContext = createContext<UserCtx>({
         lastName: "",
         email: "",
         isGoogleUser: undefined,
-        createdAt: ""
+        createdAt: "",
+        role: "USER"
     },
     onLogin() {},
     onLogout() {},

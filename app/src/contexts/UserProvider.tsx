@@ -11,6 +11,11 @@ export default function UserProvider({ children }: { children: React.ReactNode }
     const { request } = useFetch()
 
     function loginHandler(user: User) {
+
+        if (user.isGoogleUser) {
+            user.role = "USER";
+        };
+
         setUser(user);
         localStorage.setItem("auth", JSON.stringify(user));
         navigate("/");
