@@ -127,9 +127,10 @@ movieController.get("/:movieId", async (req, res) => {
 movieController.delete("/:movieId", isAuthMiddleware, async (req, res) => {
     const movieId = Number(req.params.movieId);
     const userId = Number(req.user.id);
+    const isAdmin = req.user.role === "ADMIN";
 
     try {
-        const movie = await movieService.removeById(movieId, userId);
+        const movie = await movieService.removeById(movieId, userId, isAdmin);
 
         res.status(200).json(`${movie.title} has been deleted`);
     } catch (error) {

@@ -125,6 +125,14 @@ export default {
         });
     },
 
+    async removeByIdByAdmin(movieId) {
+        return await prisma.movie.delete({
+            where: {
+                id: movieId
+            }
+        });
+    },
+
     async updateOne(movieId, userId, parsedMovieData) {
         return await prisma.movie.update({
             where: {
