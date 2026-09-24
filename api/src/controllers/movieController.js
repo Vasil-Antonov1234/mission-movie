@@ -142,10 +142,11 @@ movieController.patch("/:movieId", isAuthMiddleware, async (req, res) => {
     const movieId = Number(req.params.movieId);
     const userId = Number(req.user.id);
     const movieData = req.body;
+    const isAdmin = req.user.role === "ADMIN";
 
     try {
         const parsedMovieData = await patrialMovieSchema.parseAsync(movieData);
-        const movie = await movieService.updateOne(movieId, userId, parsedMovieData);
+        const movie = await movieService.updateOne(movieId, userId, parsedMovieData, isAdmin);
 
         res.status(200).json({ movie });
     } catch (error) {

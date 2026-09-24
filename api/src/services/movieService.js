@@ -76,11 +76,15 @@ export default {
         return await movieRepository.removeById(movieId, userId)
     },
 
-    async updateOne(movieId, userId, parsedMovieData) {
+    async updateOne(movieId, userId, parsedMovieData, isAdmin) {
         const movie = await movieRepository.getById(movieId);
 
         if (!movie) {
             throw new Error("Movie not found");
+        };
+
+        if (isAdmin) {
+            return await movieRepository.updateOneByAdmin(movieId, parsedMovieData);
         };
 
         if (movie.authorId !== userId) {
