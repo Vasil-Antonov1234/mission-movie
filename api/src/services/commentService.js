@@ -14,5 +14,9 @@ export default {
 
     async getAll(movieId) {
         return await commentRepository.getAll(movieId)
+    },
+
+    async removeById(commentId) {
+        return await commentRepository.removeById(commentId);
     }
 }

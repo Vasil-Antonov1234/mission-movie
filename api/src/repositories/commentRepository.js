@@ -26,5 +26,13 @@ export default {
                 }
             }
         });
+    },
+
+    async removeById(commentId) {
+        return await prisma.comment.delete({
+            where: {
+                id: commentId
+            }
+        });
     }
 }

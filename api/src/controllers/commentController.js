@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { isAuthMiddleware } from "../middlewares/authMiddleware";
+import { isAdmin, isAuthMiddleware } from "../middlewares/authMiddleware";
 import { getErrorMessage } from "../utils/errorUtil";
 import { createCommentSchema } from "../schemas/commentSchema";
 import commentService from "../services/commentService";
@@ -33,6 +33,18 @@ commentController.get("/:movieId", async (req, res) => {
         const comments = await commentService.getAll(movieId);
 
         res.status(200).json(comments);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+});
+
+commentController.delete("/:commentId/delete", isAuthMiddleware, isAdmin, async (req, res) => {
+    const commentId = Number(req.params.commentId);
+
+    try {
+        const deletedComment = await commentService.removeById(commentId);
+
+        res.status(200).json(deletedComment);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
