@@ -36,7 +36,7 @@ function stateReducer(state: R[], action: Action): R[] {
         case "ADD":
             return [...state, action.payload[0]];
         case "REMOVE":
-            return state.filter((x) => x.movieId !== action.recordId);
+            return state.filter((x) => x.id !== action.recordId);
         default:
             return state;
     }

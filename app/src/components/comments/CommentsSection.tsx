@@ -55,6 +55,20 @@ export default function CommentsSection({ owner, onRate, hasRated }: CommentsSec
         } catch (error) {
             errorMessageHandler(error);
         };
+    };
+
+    async function deleteCommentHandler(commentId: number) {
+        try {
+            await request(`/comments/${commentId}/delete`, "DELETE", { accessToken: user.accessToken });
+
+            dispatch({
+                type: "REMOVE",
+                payload: commentsData,
+                recordId: commentId
+            })
+        } catch (error) {
+            errorMessageHandler(error);
+        };
     }
 
     return (
@@ -98,7 +112,7 @@ export default function CommentsSection({ owner, onRate, hasRated }: CommentsSec
 
             <div className={styles["comments-list"]}>
                 {commentsData.map((comment) => (
-                    <Comment key={comment.id} comment={comment} />
+                    <Comment key={comment.id} comment={comment} onDelete={deleteCommentHandler}/>
                 ))}
             </div>
         </section>

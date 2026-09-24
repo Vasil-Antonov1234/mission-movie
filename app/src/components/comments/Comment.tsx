@@ -13,9 +13,9 @@ function StarRating({ rating }: StarRatingProps) {
     );
 }
 
-type CommentProps = { comment: CommentData };
+type CommentProps = { comment: CommentData, onDelete: (commentId: number) => void };
 
-export default function Comment({ comment }: CommentProps) {
+export default function Comment({ comment, onDelete }: CommentProps) {
     const createdAt = convertDate(comment.createdAt);
 
     return (
@@ -28,6 +28,9 @@ export default function Comment({ comment }: CommentProps) {
                 <StarRating rating={4} />
             </div>
             <p className={styles["comment-item-text"]}>"{comment.content}"</p>
+            <p className={styles["remove-comment"]} onClick={() => onDelete(comment.id)}>Remove</p>
         </div>
     )
+
+    // <p className={styles["remove-from-cast"]} onClick={() => person.onRemoveCast(castId, fullName)}>Remove from the cast</p>
 }
