@@ -115,6 +115,7 @@ export default function MovieDetail() {
     };
 
     const isOwner = movie.authorId === user.id;
+    const isAdmin = user.role === "ADMIN";
 
     const similarMovies = similarMoviesData ? similarMoviesData : [];
 
@@ -251,7 +252,7 @@ export default function MovieDetail() {
                                 {isFavourite ? <span className={styles["is-favourite"]}>Favourite Movie ♥</span> : <ButtonChost text="♥ Favourite" addStyle="btn-170" clickHandler={addToFavourites} />}
                             </Activity>
                         </div>
-                        <Activity mode={isAuthenticated && isOwner ? "visible" : "hidden"}>
+                        <Activity mode={isAuthenticated && (isOwner || isAdmin) ? "visible" : "hidden"}>
                             <div className={`${styles["detail-hero-actions"]} ${styles["detail-hero-edit-delete"]}`}>
                                 <Link to={`/movies/${movie.id}/edit`}>
                                     <ButtonSecondary text="Edit" addStyle="btn-gray" />
