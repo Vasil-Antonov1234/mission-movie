@@ -30,7 +30,7 @@ export default function ActorDetail() {
 
   async function deleteHandler() {
     
-    if (!isOwner) {
+    if (!isOwner && !isAdmin) {
       alert("Unauthorised");
       onLogout("/login");
     }

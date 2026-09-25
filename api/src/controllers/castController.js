@@ -104,9 +104,10 @@ castController.patch("/:castId", isAuthMiddleware, async (req, res) => {
 castController.delete("/:castId", isAuthMiddleware, async (req, res) => {
     const castId = Number(req.params.castId);
     const userId = Number(req.user.id);
+    const isAdmin = req.user.role === "ADMIN";
 
     try {
-        const cast = await castService.removeById(castId, userId);
+        const cast = await castService.removeById(castId, userId, isAdmin);
 
         res.status(200).json(`${cast.firstName} ${cast.lastName} has been deleted`);
     } catch (error) {

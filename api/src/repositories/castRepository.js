@@ -78,7 +78,16 @@ export default {
         });
     },
 
-    async removeById(castId, userId) {
+    async removeById(castId, userId, isAdmin) {
+        
+        if(isAdmin) {
+            return await prisma.cast.delete({
+                where: {
+                    id: castId
+                }
+            });
+        };
+        
         return await prisma.cast.delete({
             where: {
                 id: castId,
