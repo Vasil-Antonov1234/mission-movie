@@ -10,133 +10,6 @@ import { convertDate } from "../../utils/convertDate";
 import { calculateReviewTotalScore } from "../../utils/calculateReviewTotalScore";
 import { toast } from "react-toastify";
 
-// ─── TYPES ────────────────────────────────────────────────────────────────────
-
-// interface Movie {
-//   id: number;
-//   title: string;
-//   year: number;
-//   director: string;
-//   duration: string;
-//   genres: string[];
-//   poster: string;
-//   backdrop: string;
-// }
-
-// interface Reviewer {
-//   id: number;
-//   firstName: string;
-//   lastName: string;
-// }
-
-// interface ScoreBreakdown {
-//   label: string;
-//   value: number;
-// }
-
-// interface Comment {
-//     id: number;
-//     author: string;
-//     text: string;
-//     date: string;
-//     likes: number;
-// }
-
-// interface OtherReview {
-//   id: number;
-//   title: string;
-//   author: string;
-//   rating: number;
-// }
-
-// interface Review {
-//   id: number;
-//   movie: Movie;
-//   reviewer: Reviewer;
-//   title: string;
-//   body: string[];
-//   rating: number;
-//   hasSpoilers: boolean;
-//   createdAt: string;
-//   likes: number;
-//   tags: string[];
-//   scoreBreakdown: ScoreBreakdown[];
-//   comments: Comment[];
-//   otherReviews: OtherReview[];
-// }
-
-// ─── MOCK DATA ────────────────────────────────────────────────────────────────
-// TODO
-// Replace with data fetched via useParams() + API call:
-// const { id } = useParams();
-// const [review, setReview] = useState(null);
-// useEffect(() => { fetch(`/api/reviews/${id}`).then(...).then(setReview) }, [id]);
-
-// const MOCK_REVIEW: Review = {
-//   id: 1,
-//   movie: {
-//     id: 1,
-//     title: "Oppenheimer",
-//     year: 2023,
-//     director: "Christopher Nolan",
-//     duration: "3h 0m",
-//     genres: ["Drama", "History", "Thriller"],
-//     poster: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&q=80",
-//     backdrop: "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=1400&q=80",
-//   },
-//   reviewer: {
-//     id: 2,
-//     firstName: "Elena",
-//     lastName: "Marsh",
-//   },
-//   title: "A Towering Achievement in Cinema",
-//   body: [
-//     "Christopher Nolan has never been more controlled or more explosive. Oppenheimer is a film that refuses to let you look away — from the science, from the politics, from the man at the centre of it all. Cillian Murphy gives the performance of his generation, inhabiting Oppenheimer's brilliance and his guilt with equal, devastating precision.",
-//     "The Trinity sequence alone is worth the price of admission. Nolan renders the unknowable tangible in a way only cinema can — the absence of sound before the shockwave arrives is one of the most terrifying moments I have experienced in a theatre. It is not a film about the bomb. It is a film about a man who understood exactly what he had done.",
-//     "If it stumbles anywhere, it is in the courtroom sequences, which pale somewhat against the volcanic energy of the first two acts. But this is a minor complaint. Three hours that feel like thirty minutes. Dense, demanding, and utterly devastating.",
-//   ],
-//   rating: 9.5,
-//   hasSpoilers: false,
-//   createdAt: "August 3, 2023",
-//   likes: 214,
-//   tags: ["biopic", "war", "historical", "masterpiece", "nolan"],
-//   scoreBreakdown: [
-//     { label: "Direction", value: 10 },
-//     { label: "Performance", value: 10 },
-//     { label: "Screenplay", value: 9 },
-//     { label: "Cinematogr.", value: 10 },
-//     { label: "Score", value: 9 },
-//   ],
-//   comments: [
-//     {
-//       id: 1,
-//       author: "James O.",
-//       text: "Completely agree about the Trinity sequence — I had to remind myself to breathe.",
-//       date: "Aug 5, 2023",
-//       likes: 18,
-//     },
-//     {
-//       id: 2,
-//       author: "Sofia N.",
-//       text: "The courtroom scenes worked for me actually — I think the contrast was intentional. Great review though.",
-//       date: "Aug 7, 2023",
-//       likes: 9,
-//     },
-//     {
-//       id: 3,
-//       author: "Vasil G.",
-//       text: "Murphy was incredible. Best performance of 2023 without question.",
-//       date: "Aug 9, 2023",
-//       likes: 24,
-//     },
-//   ],
-//   otherReviews: [
-//     { id: 2, title: "History Rendered Visceral", author: "James O.", rating: 8.5 },
-//     { id: 3, title: "Nolan at His Most Restrained", author: "Sofia N.", rating: 7.5 },
-//     { id: 4, title: "Overwhelming in the Best Way", author: "Vasil G.", rating: 9.0 },
-//   ],
-// };
-
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 
 function getInitials(firstName: string | undefined, lastName: string | undefined): string {
@@ -184,13 +57,14 @@ const initialState: Review = {
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
 
 export default function MovieReview() {
-    // const review = MOCK_REVIEW;
     const { user, isAuthenticated } = useContext(UserContext);
     const { reviewId } = useParams();
     const { data: review, BASE_URL, request } = useFetch(`/reviews/${reviewId}`, initialState);
     const [hasWrittenReview, setHaswrittenReview] = useState(false);
     const [hasOwner, setHasOwner] = useState(false);
     const { data: other } = useFetch<Review[]>(`/reviews/for-movie/${review?.movieId}`, [])
+
+    const isAdmin = user.role === "ADMIN";
 
     const otherReviews = other?.filter((x) => x.id !== review?.id);
 
@@ -266,7 +140,7 @@ export default function MovieReview() {
         if (!isAuthenticated) {
             return
         };
-        
+
         if (hasOwner) {
             return toast.warning("You cannot like your own review");
         };
@@ -594,6 +468,9 @@ export default function MovieReview() {
                                     </Link>
                                 ))}
                             </div>
+                            <Activity mode={isAdmin? "visible" : "hidden"}>
+                                <ButtonSecondary clickHandler={() => { }} text="Delete" addStyle="btn-red" />
+                            </Activity>
                         </div>
 
                     </aside>
