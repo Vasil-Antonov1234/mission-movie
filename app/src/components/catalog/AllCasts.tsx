@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { Activity, useContext } from "react";
 import useFetch from "../../hooks/useFetch";
 import type { CastSmall } from "../../types/types";
 import CastCardSmall from "../cast/CastCardSmall";
@@ -25,9 +25,11 @@ export default function AllCasts() {
                     />)}
                 </div>
             </section>
-            <section className={styles["trending-wrapper"]}>
-                <h2 className={styles["no-cast"]}>Nothing here yet</h2>
-            </section>
+            <Activity mode={data?.length === 0 ? "visible" : "hidden"}>
+                <section className={styles["trending-wrapper"]}>
+                    <h2 className={styles["no-cast"]}>Nothing here yet</h2>
+                </section>
+            </Activity>
         </section>
     );
 }

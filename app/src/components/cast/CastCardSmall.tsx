@@ -9,7 +9,6 @@ export default function CastCardSmall(props: CastSmall) {
                 <img src={`${props.imageUrl}`} alt={`${props.firstName} ${props.lastName}`} className={styles["movie-card-img"]} />
             </div>
             <div className={styles["movie-card-body"]}>
-                {/* <div className={styles["movie-card-genre"]}>{movie.genre}</div> */}
                 <div className={styles["movie-card-title"]}>{`${props.firstName} ${props.lastName}`}</div>
             </div>
         </Link>

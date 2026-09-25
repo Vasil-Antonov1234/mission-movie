@@ -35,7 +35,7 @@ castController.get("/:castId", async (req, res) => {
     };
 });
 
-castController.get("/get/all", isAuthMiddleware, isAdmin, async (req, res) => {
+castController.get("/get/all", async (req, res) => {
 
     try {
         const result = await castService.getAll();
