@@ -55,13 +55,16 @@ export default function MovieDetail() {
     useEffect(() => {
         const controller = new AbortController();
 
-        (async () => {
-            try {
-                await fetch(`${BASE_URL}/movies/${movieId}/increment-views`, { method: "PATCH", signal: controller.signal });
-            } catch (error) {
-                errorMessageHandler(error);
-            };
-        })();
+        setTimeout(() => {
+            (async () => {
+                try {
+
+                    await fetch(`${BASE_URL}/movies/${movieId}/increment-views`, { method: "PATCH", signal: controller.signal });
+                } catch (error) {
+                    errorMessageHandler(error);
+                };
+            })();
+        }, 4000);
 
         return () => {
             controller.abort();
@@ -349,7 +352,7 @@ export default function MovieDetail() {
 
                     {/* COMMENTS AND RATE SECTION */}
                     <CommentsSection owner={isOwner} onRate={rateHandler} hasRated={hasRated} />
-                    
+
                     <h2 className={styles["nothing-yet"]}>No comments yet
                     </h2>
                 </main>
