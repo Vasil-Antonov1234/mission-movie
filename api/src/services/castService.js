@@ -7,7 +7,12 @@ export default {
     },
 
     async getAll(movieId) {
-        return await castRepository.getAll(movieId);
+
+        if (movieId) {
+            return await castRepository.getAll(movieId);
+        };
+
+        return await castRepository.getAllCast();
     },
 
     async getSelected(excludedCastIds) {
@@ -43,5 +48,5 @@ export default {
 
     async removeById(castId, userId) {
         return await castRepository.removeById(castId, userId);
-    }
+    },
 }

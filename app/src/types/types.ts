@@ -130,6 +130,13 @@ export type Cast = {
     cast: Artist
 };
 
+export type CastSmall = {
+    id: string,
+    firstName: string,
+    lastName: string,
+    imageUrl: string
+}
+
 export type Actor = {
     id: number,
     firstName: string,

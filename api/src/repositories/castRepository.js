@@ -74,5 +74,16 @@ export default {
                 authorId: userId
             }
         });
+    },
+
+    async getAllCast() {        
+        return await prisma.cast.findMany({
+            select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                imageUrl: true
+            }
+        })
     }
 }

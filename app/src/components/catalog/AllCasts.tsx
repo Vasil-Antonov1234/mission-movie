@@ -1,7 +1,14 @@
+import { useContext } from "react";
+import useFetch from "../../hooks/useFetch";
+import type { CastSmall } from "../../types/types";
 import CastCardSmall from "../cast/CastCardSmall";
 import styles from "./AllCasts.module.css"
+import UserContext from "../../contexts/UserContext";
 
 export default function AllCasts() {
+    const { user } = useContext(UserContext);
+    const { data } = useFetch<CastSmall[]>("/casts/get/all", [], { accessToken: user.accessToken });
+
     return (
         <section className={styles["trending-section"]}>
             <div>
@@ -9,9 +16,13 @@ export default function AllCasts() {
             </div>
             <section className={styles["trending-wrapper"]}>
                 <div className={styles["trending-container"]}>
-                   <CastCardSmall />
-                   <CastCardSmall />
-                   <CastCardSmall />
+                    {data?.map((x) => <CastCardSmall
+                        key={x.id}
+                        id={x.id}
+                        firstName={x.firstName}
+                        lastName={x.lastName}
+                        imageUrl={x.imageUrl}
+                    />)}
                 </div>
             </section>
             <section className={styles["trending-wrapper"]}>

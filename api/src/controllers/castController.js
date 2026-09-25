@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { isAuthMiddleware } from "../middlewares/authMiddleware.js";
+import { isAdmin, isAuthMiddleware } from "../middlewares/authMiddleware.js";
 import { createCastSchema } from "../schemas/castSchema.js";
 import castService from "../services/castService.js";
 import { getErrorMessage } from "../utils/errorUtil.js";
@@ -33,7 +33,18 @@ castController.get("/:castId", async (req, res) => {
     } catch (error) {
         res.status(404).json(getErrorMessage(error));
     };
-})
+});
+
+castController.get("/get/all", isAuthMiddleware, isAdmin, async (req, res) => {
+
+    try {
+        const result = await castService.getAll();
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+});
 
 castController.get("/", async (req, res) => {
     let filter = {};
@@ -100,6 +111,6 @@ castController.delete("/:castId", isAuthMiddleware, async (req, res) => {
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
-})
+});
 
 export default castController;
