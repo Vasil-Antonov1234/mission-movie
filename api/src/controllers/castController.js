@@ -89,10 +89,11 @@ castController.patch("/:castId", isAuthMiddleware, async (req, res) => {
     const castId = Number(req.params.castId);
     const userId = Number(req.user.id);
     const castData = req.body;
+    const isAdmin = req.user.role === "ADMIN";
 
     try {
         const parsedCastData = await editCastSchema.parseAsync(castData);
-        const cast = await castService.updateOne(castId, userId, parsedCastData);
+        const cast = await castService.updateOne(castId, userId, parsedCastData, isAdmin);
 
         res.status(200).json({ cast });
     } catch (error) {

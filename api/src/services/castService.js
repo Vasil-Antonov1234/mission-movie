@@ -32,11 +32,15 @@ export default {
         return await castRepository.getById(castId);
     },
 
-    async updateOne(castId, userId, parsedCastData) {
+    async updateOne(castId, userId, parsedCastData, isAdmin) {
         const cast = await castRepository.getById(castId);
 
         if (!cast) {
             throw new Error("Cast not found");
+        };
+
+        if (isAdmin) {
+            return await castRepository.updateOneByAdmin(castId, parsedCastData);
         };
 
         if (cast.authorId !== userId) {

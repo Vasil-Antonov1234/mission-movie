@@ -56,8 +56,10 @@ export default function CreateEditCast() {
             let result = "";
 
             if (castId) {
+                // Edit cast
                 result = await request(`/casts/${castId}`, "PATCH", { accessToken: user.accessToken }, data);
             } else {
+                // Create cast
                 result = await request("/casts/create", "POST", { accessToken: user.accessToken }, data);
             }
 

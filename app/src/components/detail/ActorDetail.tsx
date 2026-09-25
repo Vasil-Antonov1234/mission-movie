@@ -26,6 +26,7 @@ export default function ActorDetail() {
   const filmography = movies ? movies : [];
 
   const isOwner = data?.authorId === user.id;
+  const isAdmin = user.role === "ADMIN";
 
   async function deleteHandler() {
     
@@ -74,7 +75,7 @@ export default function ActorDetail() {
               <span className={styles.metaDot}>·</span>
               <span className={styles.metaItem}>{data?.bornDate}</span>
             </div>
-            <Activity mode={isOwner ? "visible": "hidden"}>
+            <Activity mode={isOwner || isAdmin ? "visible": "hidden"}>
               <div className={styles["detail-hero-actions"]}>
                 <Link to={`/casts/${castId}/edit`}>
                   <ButtonSecondary text="Edit" addStyle="btn-gray" />

@@ -67,6 +67,17 @@ export default {
         });
     },
 
+    async updateOneByAdmin(castId, parsedCastData) {
+        return await prisma.cast.update({
+            where: {
+                id: castId
+            },
+            data: {
+                ...parsedCastData
+            }
+        });
+    },
+
     async removeById(castId, userId) {
         return await prisma.cast.delete({
             where: {
