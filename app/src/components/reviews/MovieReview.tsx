@@ -1,6 +1,6 @@
 import { Activity, useContext, useEffect, useState } from "react";
 import styles from "./MovieReview.module.css";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import useFetch from "../../hooks/useFetch";
 import type { Options, Review } from "../../types/types";
 import UserContext from "../../contexts/UserContext";
@@ -57,7 +57,7 @@ const initialState: Review = {
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
 
 export default function MovieReview() {
-    const { user, isAuthenticated } = useContext(UserContext);
+    const { user, isAuthenticated, onLogout } = useContext(UserContext);
     const { reviewId } = useParams();
     const { data: review, BASE_URL, request } = useFetch(`/reviews/${reviewId}`, initialState);
     const [hasWrittenReview, setHaswrittenReview] = useState(false);
@@ -71,6 +71,7 @@ export default function MovieReview() {
     const [liked, setLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
     const [disabledLikes, setDisabledLikes] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (review?.likes) {
@@ -163,6 +164,30 @@ export default function MovieReview() {
                 setDisabledLikes(false);
             }, 3000);
 
+        } catch (error) {
+            errorMessageHandler(error);
+        };
+    };
+
+    async function deleteHandler() {
+
+        if(!isAdmin) {
+            toast.warning("Unauthorised");
+            onLogout("/login");
+        };
+
+        const confirmation = confirm(`Are you sure you want to delete the review for ${review?.movie.title} with id: ${review?.id}`);
+
+        if (!confirmation) {
+            return;
+        };
+
+        console.log(review?.id)
+
+        try {
+            await request(`/reviews/${reviewId}`, "DELETE", { accessToken: user.accessToken });
+
+            navigate("/reviews/catalog");
         } catch (error) {
             errorMessageHandler(error);
         };
@@ -468,8 +493,8 @@ export default function MovieReview() {
                                     </Link>
                                 ))}
                             </div>
-                            <Activity mode={isAdmin? "visible" : "hidden"}>
-                                <ButtonSecondary clickHandler={() => { }} text="Delete" addStyle="btn-red" />
+                            <Activity mode={isAdmin ? "visible" : "hidden"}>
+                                <ButtonSecondary clickHandler={deleteHandler} text="Delete" addStyle="btn-red" />
                             </Activity>
                         </div>
 
