@@ -34,8 +34,9 @@ export default function Header() {
                     <NavLink to="/" className={styles["nav-link"]}>Home</NavLink>
                     <NavLink to="/movies/catalog" className={styles["nav-link"]}>Movies</NavLink>
                     <NavLink to="/reviews/catalog" className={styles["nav-link"]}>Reviews</NavLink>
-                    <NavLink to="#" className={styles["nav-link"]}>Directors</NavLink>
-                    <NavLink to="#" className={styles["nav-link"]}>Comunity</NavLink>
+                    <Activity mode={user.role === "ADMIN" ? "visible" : "hidden"}>
+                        <NavLink to="/cast/catalog" className={styles["nav-link"]}>Cast managment</NavLink>
+                    </Activity>
                 </div>
             </div>
             <div className={styles["navbar-right"]}>

@@ -20,6 +20,7 @@ import CreateReview from "./components/create/CreateReview"
 import MovieReview from "./components/reviews/MovieReview"
 import IsAdmin from "./components/route-guards/isAdmin"
 import UserDetails from "./components/user/UserDetails"
+import AllCasts from "./components/catalog/AllCasts"
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/movies/:movieId/details" element={<MovieDetail />} />
                 <Route path="/casts/:castId/details" element={<ActorDetail />} />
                 <Route path="/review/:reviewId" element={<MovieReview />} />
+                <Route path="/cast/catalog" element={<AllCasts />} />
 
 
                 <Route element={<IsAuthenticated />}>
