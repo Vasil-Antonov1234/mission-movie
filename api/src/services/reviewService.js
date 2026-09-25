@@ -43,5 +43,9 @@ export default {
 
     async countByUserId(userId) {
         return await reviewRepository.countByUserId(userId);
+    },
+
+    async removeByID(reviewId) {
+        return await reviewRepository.removeById(reviewId);
     }
 }

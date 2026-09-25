@@ -136,6 +136,18 @@ reviewController.get("/:userId/count", isAuthMiddleware, isAdmin, async (req, re
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
+});
+
+reviewController.delete("/:reviewId", isAuthMiddleware, isAdmin, async (req, res) => {
+    const reviewId = Number(req.params.reviewId);
+
+    try {
+      const result = await reviewService.removeByID(reviewId);
+      
+      res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
 })
 
 export default reviewController;

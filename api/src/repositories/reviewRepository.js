@@ -172,5 +172,13 @@ export default {
                 userId
             }
         });
+    },
+
+    async removeById(reviewId) {
+        return await prisma.review.delete({
+            where: {
+                id: reviewId
+            }
+        });
     }
 }
