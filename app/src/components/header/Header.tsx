@@ -1,6 +1,6 @@
 import { Activity, useContext, useState } from "react";
 import styles from "./Header.module.css";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import ButtonSecondary from "../buttons/ButtonSecondary";
 import UserContext from "../../contexts/UserContext";
 
@@ -12,6 +12,7 @@ export default function Header() {
     // const [movies, setMovies] = useState<Movie[]>([]);
 
     const [mobileNavOpen, setMobileNavOpen] = useState(false);
+    const navigate = useNavigate();
 
     function mobileNavHandler() {
         setMobileNavOpen((state) => !state);
@@ -24,8 +25,8 @@ export default function Header() {
         if (!searchQuery.trim()) {
             return;
         };
-        
-        console.log(searchQuery)
+
+        navigate("/search", { state: { searchQuery } } )
     }
 
     return (
@@ -62,7 +63,7 @@ export default function Header() {
                     text="⌕"
                     clickHandler={search}
                     addStyle={`${"search-icon"}`}
-                    addStyle1={searchQuery.length ? "search-icon-active" : ""}
+                    addStyle1={searchQuery.trim().length ? "search-icon-active" : ""}
                 />
                 <Activity mode={isAuthenticated ? "hidden" : "visible"}>
                     <Link to="/login">

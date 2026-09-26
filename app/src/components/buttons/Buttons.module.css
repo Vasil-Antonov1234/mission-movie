@@ -79,10 +79,12 @@
     color: #a09890;
     border: none;
     padding: 0;
+    cursor: default;
 }
 
 .search-icon-active {
     color: #e8b84b;
+    cursor: pointer;
 }
 
 @media(max-width: 530px) {
