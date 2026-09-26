@@ -163,6 +163,7 @@ export type Artist = {
 export type ButtonProps = {
     text: string,
     addStyle?: string,
+    addStyle1?: string,
     clickHandler?: () => void
 };
 

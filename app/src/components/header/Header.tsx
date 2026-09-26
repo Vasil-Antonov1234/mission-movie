@@ -8,6 +8,8 @@ export default function Header() {
     const { isAuthenticated, onLogout } = useContext(UserContext);
 
     const [searchQuery, setSearchQuery] = useState("");
+    // const [isActive, setIsactive] = useState(false);
+    // const [movies, setMovies] = useState<Movie[]>([]);
 
     const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
@@ -16,6 +18,15 @@ export default function Header() {
     };
 
     const { user } = useContext(UserContext);
+
+    function search() {
+        
+        if (!searchQuery.trim()) {
+            return;
+        };
+        
+        console.log(searchQuery)
+    }
 
     return (
         <nav className={mobileNavOpen ? `${styles["navbar"]} ${styles["logo-hamburger-menu-wrapper-open"]}` : `${styles["navbar"]} ${styles["logo-hamburger-menu-wrapper-close"]}`}>
@@ -39,14 +50,20 @@ export default function Header() {
             </div>
             <div className={styles["navbar-right"]}>
                 <div className={styles["search-wrapper"]}>
-                    <span className={styles["search-icon"]}>⌕</span>
+                    {/* <span className={styles["search-icon"]}>⌕</span> */}
                     <input
                         className={styles["search-input"]}
-                        placeholder="Search films…"
+                        placeholder="Search…"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
                 </div>
+                <ButtonSecondary
+                    text="⌕"
+                    clickHandler={search}
+                    addStyle={`${"search-icon"}`}
+                    addStyle1={searchQuery.length ? "search-icon-active" : ""}
+                />
                 <Activity mode={isAuthenticated ? "hidden" : "visible"}>
                     <Link to="/login">
                         <ButtonSecondary text="Sign in" />

@@ -74,6 +74,23 @@
     color: black;
 }
 
+.search-icon {
+    font-size: 34px;
+    color: #a09890;
+    border: none;
+    padding: 0;
+}
+
+.search-icon-active {
+    color: #e8b84b;
+}
+
+@media(max-width: 530px) {
+    .search-icon {
+        margin: -10px 0 -10px 37px;
+    }
+}
+
 @media(max-width: 190px) {
     .btn-170 {
         width: 100px;
