@@ -4,6 +4,7 @@ import { Link, NavLink, useNavigate } from "react-router";
 import ButtonSecondary from "../buttons/ButtonSecondary";
 import UserContext from "../../contexts/UserContext";
 
+
 export default function Header() {
     const { isAuthenticated, onLogout } = useContext(UserContext);
 
@@ -13,12 +14,20 @@ export default function Header() {
 
     const [mobileNavOpen, setMobileNavOpen] = useState(false);
     const navigate = useNavigate();
+    const { user } = useContext(UserContext);
 
     function mobileNavHandler() {
         setMobileNavOpen((state) => !state);
     };
 
-    const { user } = useContext(UserContext);
+    function keyPressHandler(event: React.KeyboardEvent) {
+        
+        if(event.code === "Enter") {
+            return search()
+        };
+
+    };
+
 
     function search() {
         
@@ -57,6 +66,7 @@ export default function Header() {
                         placeholder="Search…"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
+                        onKeyDown={(event) => keyPressHandler(event)}
                     />
                 </div>
                 <ButtonSecondary

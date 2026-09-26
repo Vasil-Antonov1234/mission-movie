@@ -1,3 +1,6 @@
+import { Activity } from "react";
+import useFetch from "../../hooks/useFetch";
+import type { Movie } from "../../types/types";
 import MovieCard from "../trending/MovieCard";
 import styles from "./Search.module.css";
 import { useLocation } from "react-router"
@@ -8,16 +11,18 @@ type Search = {
 
 export default function Search() {
 
-    const state: Search = useLocation().state;
+    const searchQuery: Search = useLocation().state;
+
+    const { data: movies } = useFetch<Movie[]>(`/search/movies?search=search%3D%22${searchQuery.searchQuery}%22`, []);
 
     return (
         <section className={styles["trending-section"]}>
             <div>
-                <h1 className={styles["section-heading-title"]}>Watch new titles</h1>
+                <h1 className={styles["section-heading-title"]}>Results </h1>
             </div>
             <section className={styles["trending-wrapper"]}>
                 <div className={styles["trending-container"]}>
-                    {/* {filteredMovies.map((movie) => (
+                    {movies?.map((movie) => (
                         <MovieCard
                             key={movie.id}
                             id={movie.id}
@@ -28,15 +33,14 @@ export default function Search() {
                             poster={movie.poster}
                             position={movies.indexOf(movie) + 1}
                         />
-                    ))} */}
-                    <MovieCard title="Test" genre="asasa" poster="none"/>
+                    ))}
                 </div>
             </section>
-            {/* <Activity mode={filteredMovies && filteredMovies.length > 0 ? "hidden" : "visible"}>
+            <Activity mode={movies && movies.length ? "hidden" : "visible"}>
                 <section className={styles["trending-wrapper"]}>
-                    <h2 className={styles["no-movies"]}>Nothing here yet</h2>
+                    <h2 className={styles["no-movies"]}>Nothing found</h2>
                 </section>
-            </Activity> */}
+            </Activity>
         </section>
     );
 }
