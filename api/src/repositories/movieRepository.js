@@ -253,12 +253,12 @@ export default {
     },
 
     async getAllCount() {
-        const test = await prisma.$queryRaw`
+        const count = await prisma.$queryRaw`
         SELECT
 	        COUNT(id)
         FROM movies
         `
-        return Number(test[0].count)
+        return Number(count[0].count)
     },
 
     async getAddedFilmsCount(userID) {
@@ -307,5 +307,17 @@ export default {
                 }
             }
         });
+    },
+
+    async getSearch(search) {
+
+        const searchQuery = `%${search}%`;
+
+        return await prisma.$queryRaw`
+        SELECT 
+	        id, title, genre, poster, year, rating
+        FROM movies
+        WHERE title ILIKE ${searchQuery};
+        `
     }
 }
