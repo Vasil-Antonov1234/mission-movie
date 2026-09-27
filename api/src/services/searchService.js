@@ -1,5 +1,6 @@
 import castRepository from "../repositories/castRepository.js";
 import movieRepository from "../repositories/movieRepository.js"
+import userRepository from "../repositories/userRepository.js";
 
 export default {
     async movies(search) {
@@ -12,5 +13,9 @@ export default {
 
     async directors(search) {
         return await movieRepository.getDirectors(search);
+    },
+
+    async users(search) {
+        return await userRepository.getBySearch(search);
     }
 }

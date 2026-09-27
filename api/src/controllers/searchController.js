@@ -39,6 +39,18 @@ searchController.get("/directors", async (req, res) => {
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
+});
+
+searchController.get("/users", async (req, res) => {
+    const search = querystring.parse(req.query.search.replaceAll('"', '')).search;
+
+    try {
+      const result = await searchService.users(search);
+      
+      res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
 })
 
 export default searchController;

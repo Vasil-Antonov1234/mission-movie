@@ -124,5 +124,16 @@ export default {
                 id: userId
             }
         });
+    },
+
+    async getBySearch(search) {
+        const searchQuery = `%${search}%`
+
+        return await prisma.$queryRaw`
+        SELECT 
+	        id, "firstName", "lastName" 
+        FROM users
+        WHERE "firstName" ILIKE ${searchQuery} OR "lastName" ILIKE ${searchQuery}
+        `
     }
 }
