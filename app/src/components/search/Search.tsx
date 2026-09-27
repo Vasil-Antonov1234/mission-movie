@@ -10,17 +10,24 @@ type Search = {
     searchQuery: string
 }
 
+type Director = {
+    id: string,
+    director: string,
+    title: string
+};
+
 export default function Search() {
 
     const searchQuery: Search = useLocation().state;
 
     const { data: movies } = useFetch<Movie[]>(`/search/movies?search=search%3D%22${searchQuery.searchQuery}%22`, []);
-    const { data: actors } = useFetch<Actor[]>(`/search/actors?search=search%3D%22${searchQuery.searchQuery}%22`);
+    const { data: actors } = useFetch<Actor[]>(`/search/actors?search=search%3D%22${searchQuery.searchQuery}%22`, []);
+    const { data: directors } = useFetch<Director[]>(`/search/directors?search=search%3D%22${searchQuery.searchQuery}%22`, []);
 
     return (
         <section className={styles["trending-section"]}>
             <div>
-                <h1 className={styles["section-heading-title"]}>Results for {searchQuery.searchQuery}</h1>
+                <h1 className={styles["section-heading-title"]}>Results for "{searchQuery.searchQuery}"</h1>
             </div>
 
             {/* Movies */}
@@ -71,14 +78,14 @@ export default function Search() {
             {/* Directors */}
             <section className={styles["trending-wrapper"]}>
                 <div className={styles["section-label"]}>Directors</div>
-                <div className={styles["film-titles-container"]}>
-                    <span className={styles["director-name"]}>John Doe</span>
-                    <span className={styles["director-of-films"]}> director of: </span>
-                    <Link to="/" className={styles["film-title"]}>Howse of the dragon</Link>
-                    <Link to="/" className={styles["film-title"]}>Breaking bad</Link>
-                    <Link to="/" className={styles["film-title"]}>Spider-man: Brand New Day</Link>
-                </div>
-                <Activity mode={actors && actors.length ? "hidden" : "visible"}>
+                {directors?.map((x) =>
+                    <div key={x.id} className={styles["film-titles-container"]}>
+                        <span className={styles["director-name"]}>{x.director}</span>
+                        <span className={styles["director-of-films"]}> director of: </span>
+                        <Link to={`/movies/${x.id}/details`} className={styles["film-title"]}>{x.title}</Link>
+                    </div>
+                )}
+                <Activity mode={directors && directors.length ? "hidden" : "visible"}>
                     <section className={styles["trending-wrapper"]}>
                         <h2 className={styles["no-movies"]}>Nothing found</h2>
                     </section>
