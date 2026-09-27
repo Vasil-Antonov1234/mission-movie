@@ -79,15 +79,15 @@ export default {
     },
 
     async removeById(castId, userId, isAdmin) {
-        
-        if(isAdmin) {
+
+        if (isAdmin) {
             return await prisma.cast.delete({
                 where: {
                     id: castId
                 }
             });
         };
-        
+
         return await prisma.cast.delete({
             where: {
                 id: castId,
@@ -96,7 +96,7 @@ export default {
         });
     },
 
-    async getAllCast() {        
+    async getAllCast() {
         return await prisma.cast.findMany({
             select: {
                 id: true,
@@ -105,5 +105,16 @@ export default {
                 imageUrl: true
             }
         })
+    },
+
+    async getSearch(search) {
+        const searchQuery = `%${search}%`;
+
+        return await prisma.$queryRaw`
+        SELECT
+	        id, "firstName", "lastName", "imageUrl"
+        FROM casts
+        WHERE "firstName" ILIKE ${searchQuery} OR "lastName" ILIKE ${searchQuery}; 
+        `
     }
 }
