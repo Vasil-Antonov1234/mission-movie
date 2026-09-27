@@ -319,5 +319,16 @@ export default {
         FROM movies
         WHERE title ILIKE ${searchQuery};
         `
+    },
+
+    async getDirectors(search) {
+        const searchQuery = `%${search}%`;
+
+        return await prisma.$queryRaw`
+        SELECT 
+	        id, title, director
+        FROM movies
+        WHERE director ILIKE ${searchQuery};
+        `
     }
 }

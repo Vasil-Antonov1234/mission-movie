@@ -8,5 +8,9 @@ export default {
 
     async actors(search) {
         return await castRepository.getSearch(search);
+    },
+
+    async directors(search) {
+        return await movieRepository.getDirectors(search);
     }
 }
