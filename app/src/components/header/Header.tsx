@@ -62,7 +62,7 @@ export default function Header() {
                 <div className={styles["search-wrapper"]}>
                     {/* <span className={styles["search-icon"]}>⌕</span> */}
                     <input
-                        className={styles["search-input"]}
+                        className={searchQuery.trim().length ? `${styles["search-input"]} ${styles["search-input-active"]}` : `${styles["search-input"]}`}
                         placeholder="Search…"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}

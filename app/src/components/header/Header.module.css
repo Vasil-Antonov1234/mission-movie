@@ -98,6 +98,14 @@
     width: 280px;
 }
 
+.search-input-active {
+    border-color: #e8b84b;
+}
+
+.search-input-active:focus {
+    border-color: #e8b84b;
+}
+
 .search-input::placeholder {
     color: #aaa4a4;
 }
@@ -302,7 +310,8 @@
     }
 
     .search-icon-active {
-        font-size: 34px;;
+        font-size: 34px;
+        ;
         color: #e8b84b;
     }
 

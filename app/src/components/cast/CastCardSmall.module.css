@@ -1,4 +1,4 @@
-.movie-card {
+.cast-card {
     background: whitesmoke;
     border: 1px solid #333;
     border-radius: 50px;
@@ -14,32 +14,38 @@
     text-align: center;
 }
 
-.movie-card:hover {
+.cast-card:hover {
     transform: translateY(-4px);
     border-color: #e8b84b;
     background-color: #e8b84b;
 }
 
-.movie-card-img-wrapper {
+.cast-card-img-wrapper {
     position: relative;
 }
 
-.movie-card-img {
+.cast-card-img {
     width: 100%;
     height: 180px;
     object-fit: cover;
     display: block;
 }
 
-.movie-card-body {
+.cast-card-body {
     padding: 14px;
 }
 
-.movie-card-title {
+.cast-card-title {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 15px;
     font-weight: 700;
     color: #1f1f1f;
     margin-bottom: 8px;
     line-height: 1.3;
+}
+
+@media(max-width: 240px) {
+    .cast-card {
+        margin-bottom: 14px;
+    }
 }
