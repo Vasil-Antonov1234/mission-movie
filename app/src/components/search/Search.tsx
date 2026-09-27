@@ -21,6 +21,7 @@ export default function Search() {
                 <h1 className={styles["section-heading-title"]}>Results </h1>
             </div>
             <section className={styles["trending-wrapper"]}>
+                <div className={styles["section-label"]}>Movies</div>
                 <div className={styles["trending-container"]}>
                     {movies?.map((movie) => (
                         <MovieCard
@@ -35,12 +36,34 @@ export default function Search() {
                         />
                     ))}
                 </div>
+                <Activity mode={movies && movies.length ? "hidden" : "visible"}>
+                    <section className={styles["trending-wrapper"]}>
+                        <h2 className={styles["no-movies"]}>Nothing found</h2>
+                    </section>
+                </Activity>
             </section>
-            <Activity mode={movies && movies.length ? "hidden" : "visible"}>
-                <section className={styles["trending-wrapper"]}>
-                    <h2 className={styles["no-movies"]}>Nothing found</h2>
-                </section>
-            </Activity>
+            <section className={styles["trending-wrapper"]}>
+                <div className={styles["section-label"]}>Actors</div>
+                <div className={styles["trending-container"]}>
+                    {movies?.map((movie) => (
+                        <MovieCard
+                            key={movie.id}
+                            id={movie.id}
+                            title={movie.title}
+                            year={movie.year}
+                            rating={movie.rating}
+                            genre={movie.genre}
+                            poster={movie.poster}
+                            position={movies.indexOf(movie) + 1}
+                        />
+                    ))}
+                </div>
+                <Activity mode={movies && movies.length ? "hidden" : "visible"}>
+                    <section className={styles["trending-wrapper"]}>
+                        <h2 className={styles["no-movies"]}>Nothing found</h2>
+                    </section>
+                </Activity>
+            </section>
         </section>
     );
 }

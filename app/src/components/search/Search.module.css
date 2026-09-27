@@ -63,6 +63,17 @@
     font-weight: 900;
 }
 
+.section-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #b8b5b5;
+    font-weight: 500;
+    margin-bottom: 6px;
+    margin-top: 34px;
+    border-bottom: 1px solid #b8b5b59c;
+}
+
 @media(max-width: 1400px) {
     .trending-container {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -72,5 +83,9 @@
 @media(max-width: 240px) {
     .trending-container {
         display: block;
+    }
+
+    .trending-section {
+        padding-left: 34px;
     }
 }
