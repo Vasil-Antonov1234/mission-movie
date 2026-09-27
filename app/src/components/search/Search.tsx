@@ -92,6 +92,25 @@ export default function Search() {
                 </Activity>
             </section>
 
+            {/* Users */}
+            <section className={styles["trending-wrapper"]}>
+                <div className={styles["section-label"]}>Users</div>
+                <Link to={"#"} className={`${styles["director-name"]} ${styles["user-name"]}`}>User one</Link>
+                <Link to={"#"} className={`${styles["director-name"]} ${styles["user-name"]}`}>User two</Link>
+                <Link to={"#"} className={`${styles["director-name"]} ${styles["user-name"]}`}>User three</Link>
+                {/* {directors?.map((x) =>
+                    <div key={x.id} className={styles["film-titles-container"]}>
+                        <span className={styles["director-name"]}>{x.director}</span>
+                        <span className={styles["director-of-films"]}> director of: </span>
+                        <Link to={`/movies/${x.id}/details`} className={styles["film-title"]}>{x.title}</Link>
+                    </div>
+                )} */}
+                {/* <Activity mode={directors && directors.length ? "hidden" : "visible"}>
+                    <section className={styles["trending-wrapper"]}>
+                        <h2 className={styles["no-movies"]}>Nothing found</h2>
+                    </section>
+                </Activity> */}
+            </section>
 
         </section>
     );

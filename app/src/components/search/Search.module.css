@@ -116,9 +116,32 @@
     color: #0d0d0d;
 }
 
+.user-name {
+    display: block;
+    text-decoration: none;
+}
+
+.user-name:hover {
+    color: #e8b84b;
+}
+
 @media(max-width: 1400px) {
     .trending-container {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+}
+
+@media(max-width: 600px) {
+    .director-name {
+    margin-bottom: 0;
+    }
+
+    .film-titles-container {
+        margin-bottom: 34px;
+    }
+
+    .director-of-films {
+        margin-bottom: 0;
     }
 }
 
