@@ -131,7 +131,7 @@ export default {
 
         return await prisma.$queryRaw`
         SELECT 
-	        id, "firstName", "lastName" 
+	        id, "firstName", "lastName", email
         FROM users
         WHERE "firstName" ILIKE ${searchQuery} OR "lastName" ILIKE ${searchQuery}
         `

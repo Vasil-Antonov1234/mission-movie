@@ -1,6 +1,6 @@
 import { Activity } from "react";
 import useFetch from "../../hooks/useFetch";
-import type { Actor, Movie } from "../../types/types";
+import type { Actor, Movie, User } from "../../types/types";
 import MovieCard from "../trending/MovieCard";
 import styles from "./Search.module.css";
 import { Link, useLocation } from "react-router"
@@ -23,6 +23,7 @@ export default function Search() {
     const { data: movies } = useFetch<Movie[]>(`/search/movies?search=search%3D%22${searchQuery.searchQuery}%22`, []);
     const { data: actors } = useFetch<Actor[]>(`/search/actors?search=search%3D%22${searchQuery.searchQuery}%22`, []);
     const { data: directors } = useFetch<Director[]>(`/search/directors?search=search%3D%22${searchQuery.searchQuery}%22`, []);
+    const { data: users } = useFetch<User[]>(`/search/users?search=search%3D%22${searchQuery.searchQuery}%22`, []);
 
     return (
         <section className={styles["trending-section"]}>
@@ -95,21 +96,17 @@ export default function Search() {
             {/* Users */}
             <section className={styles["trending-wrapper"]}>
                 <div className={styles["section-label"]}>Users</div>
-                <Link to={"#"} className={`${styles["director-name"]} ${styles["user-name"]}`}>User one</Link>
-                <Link to={"#"} className={`${styles["director-name"]} ${styles["user-name"]}`}>User two</Link>
-                <Link to={"#"} className={`${styles["director-name"]} ${styles["user-name"]}`}>User three</Link>
-                {/* {directors?.map((x) =>
-                    <div key={x.id} className={styles["film-titles-container"]}>
-                        <span className={styles["director-name"]}>{x.director}</span>
-                        <span className={styles["director-of-films"]}> director of: </span>
-                        <Link to={`/movies/${x.id}/details`} className={styles["film-title"]}>{x.title}</Link>
-                    </div>
-                )} */}
-                {/* <Activity mode={directors && directors.length ? "hidden" : "visible"}>
+                {users?.map((x) => <Link
+                    to={"#"} 
+                    key={x.id} 
+                    className={`${styles["director-name"]} ${styles["user-name"]}`}>{x.firstName} {x.lastName}
+                    <span className={styles["director-of-films"]}> {x.email}</span>
+                </Link>)}
+                <Activity mode={users && users.length ? "hidden" : "visible"}>
                     <section className={styles["trending-wrapper"]}>
                         <h2 className={styles["no-movies"]}>Nothing found</h2>
                     </section>
-                </Activity> */}
+                </Activity>
             </section>
 
         </section>
