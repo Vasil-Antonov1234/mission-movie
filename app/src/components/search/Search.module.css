@@ -74,6 +74,48 @@
     border-bottom: 1px solid #b8b5b59c;
 }
 
+.director-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #e8e2d9;
+    width: max-content;
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.director-of-films {
+    font-size: 11px;
+    color: #b8b5b5;
+    /* text-transform: uppercase; */
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+}
+
+.film-titles-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.film-title {
+    border: 1px solid #2a2a2a;
+    color: #a09890;
+    font-size: 11px;
+    padding: 3px 10px;
+    text-decoration: none;
+    border-radius: 999px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.film-title:hover {
+    background-color: #e8b84b;
+    color: #0d0d0d;
+}
+
 @media(max-width: 1400px) {
     .trending-container {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
