@@ -26,6 +26,7 @@ export default function Login() {
     const [errors, setErrors] = useState<ValidateValue>({});
     const [touched, setTouched] = useState<ValidateValue>({});
     const { onLogin } = useContext(UserContext);
+    const [isPending, setIsPending] = useState(false);
 
     function validateHandler(event: React.BaseSyntheticEvent) {
         setTouched((state) => ({
@@ -83,7 +84,7 @@ export default function Login() {
                 </p>
 
                 {/* Social */}
-                <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "24px" }}>
+                <div onClick={() => setIsPending(true)} style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "24px" }}>
                     <Link className={styles["reset"]} to="http://localhost:5000/auth/google">
                         <button className={styles["auth-social-btn"]}>
                             <span className={styles["auth-social-icon"]}>G</span> Continue with Google
@@ -101,7 +102,7 @@ export default function Login() {
                 {/* Form */}
                 <form className={styles["auth-form"]} action={actionHandler} noValidate>
 
-                    {<Loading isPending={false}/>}
+                    {<Loading isPending={isPending}/>}
 
                     {/* Email */}
                     <div className={styles["auth-field"]}>
