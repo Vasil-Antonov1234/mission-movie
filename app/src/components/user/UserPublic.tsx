@@ -11,12 +11,25 @@ const initialState: User = {
     firstName: "",
     lastName: "",
     email: ""
-}
+};
+
+type AddetReview = {
+    id: string,
+    createdAt: string,
+    cinematographyScore: string,
+    directorScore: string,
+    performanceScore: string,
+    screenplayScore: string
+    movie: {
+        title: string
+    }
+};
 
 export default function UserPublic() {
     const userId = useParams().userId;
     const { data: user } = useFetch(`/users/profile/${userId}/public`, initialState);
     const { data: addedMovies } = useFetch<Movie[]>(`/users/added/movies/${userId}`, []);
+    const { data: writtenReviews } = useFetch<AddetReview[]>(`/users/added/reviews/${userId}`, []);
 
     return (
         <div className={styles.wrapper}>
@@ -72,10 +85,10 @@ export default function UserPublic() {
                                 <div className={styles.sidebarCardTitle}>Written reviews</div>
                                 <div className={styles.infoList}>
                                     <div className={styles.infoItem}>
-                                        {/* {writtenReviews?.map((x) =>
+                                        {writtenReviews?.map((x) =>
                                             <p className={styles["favourites-wrapper"]} key={x.id}>
                                                 <Link className={styles["watchlist-title"]} to={`/review/${x.id}`}>{x.movie.title}</Link>
-                                            </p>)} */}
+                                            </p>)}
                                     </div>
                                 </div>
                             </section>
