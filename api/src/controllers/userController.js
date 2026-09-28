@@ -199,6 +199,18 @@ userController.get("/:userId", isAuthMiddleware, isAdmin, async (req, res) => {
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
+});
+
+userController.get("/profile/:userId/public", async (req, res) => {
+    const userId = Number(req.params.userId);
+
+    try {
+        const user = await userService.getById(userId)
+
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
 })
 
 export default userController;

@@ -97,10 +97,10 @@ export default function Search() {
             <section className={styles["trending-wrapper"]}>
                 <div className={styles["section-label"]}>Users</div>
                 {users?.map((x) => <Link
-                    to={"#"} 
+                    to={`/user/${x.id}/public`} 
                     key={x.id} 
                     className={`${styles["director-name"]} ${styles["user-name"]}`}>{x.firstName} {x.lastName}
-                    <span className={styles["director-of-films"]}> {x.email}</span>
+                    <span className={styles["director-of-films"]}> email: {x.email}</span>
                 </Link>)}
                 <Activity mode={users && users.length ? "hidden" : "visible"}>
                     <section className={styles["trending-wrapper"]}>

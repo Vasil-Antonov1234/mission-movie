@@ -41,7 +41,7 @@ function App() {
                 <Route path="/review/:reviewId" element={<MovieReview />} />
                 <Route path="/cast/catalog" element={<AllCasts />} />
                 <Route path="/search" element={<Search />} />
-                <Route path="/user/public" element={<UserPublic />} />
+                <Route path="/user/:userId/public" element={<UserPublic />} />
 
 
                 <Route element={<IsAuthenticated />}>

@@ -1,8 +1,22 @@
+import { useParams } from "react-router";
+import useFetch from "../../hooks/useFetch";
 import { convertDate } from "../../utils/convertDate";
 import { getInitials } from "../../utils/getInitials";
 import styles from "./UserProfile.module.css";
+import type { User } from "../../types/types";
+
+const initialState: User = {
+    id: 0,
+    createdAt: "",
+    firstName: "",
+    lastName: "",
+    email: ""
+}
 
 export default function UserPublic() {
+    const userId = useParams().userId;
+    const { data: user } = useFetch(`/users/profile/${userId}/public`, initialState);
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
@@ -15,16 +29,17 @@ export default function UserPublic() {
                 <div className={styles.profileCard}>
                     <div className={styles.avatarWrapper}>
                         <div className={styles.avatarFallback}>
-                            {getInitials("firstName", "lastName")}
+                            {getInitials(user?.firstName, user?.lastName)}
                         </div>
+                        <div className={styles.profileEmail}>{user?.email}</div>
                     </div>
 
                     <div className={styles.profileInfo}>
                         <div className={styles.profileName}>
-                            {"firstName"} {"lastName"}
+                            {user?.firstName} {user?.lastName}
                         </div>
                         <div className={styles.profileBadges}>
-                            <span className={styles.badge}>Member since {"createdAd"}</span>
+                            <span className={styles.badge}>Member since {convertDate(user?.createdAt)}</span>
                         </div>
                     </div>
                 </div>
