@@ -211,6 +211,18 @@ userController.get("/profile/:userId/public", async (req, res) => {
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
+});
+
+userController.get("/added/movies/:userId", async (req, res) => {
+    const userId = Number(req.params.userId);
+
+    try {
+        const addedFilms = await userService.getAddedFilms(userId);
+
+        res.status(200).json(addedFilms);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
 })
 
 export default userController;

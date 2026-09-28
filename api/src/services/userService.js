@@ -99,7 +99,9 @@ export default {
         result.password = "";
 
         return result
+    },
+
+    async getAddedFilms(userId) {
+        return await movieRepository.getAdded(userId);
     }
 }
-
-// transform(({ repeatPassword, ...data }) => data)

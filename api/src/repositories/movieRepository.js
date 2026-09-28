@@ -330,5 +330,13 @@ export default {
         FROM movies
         WHERE director ILIKE ${searchQuery};
         `
+    },
+
+    async getAdded(userId) {
+        return await prisma.movie.findMany({
+            where: {
+                authorId: userId
+            }
+        });
     }
 }
