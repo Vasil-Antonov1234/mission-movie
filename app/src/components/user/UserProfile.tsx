@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 import useReduceState from "../../hooks/useReduceState";
 import AdminPanel from "../admin/AdminPanel";
 import { getInitials } from "../../utils/getInitials";
+import StarRating from "../comments/StarRating";
+import { calculateReviewTotalScore } from "../../utils/calculateReviewTotalScore";
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 
@@ -29,6 +31,11 @@ const initialValuesPassword = {
 
 type YourReview = {
     id: string,
+    createdAt: string,
+    cinematographyScore: string,
+    directorScore: string,
+    performanceScore: string,
+    screenplayScore: string,
     movie: {
         title: string
     }
@@ -488,19 +495,25 @@ export default function UserProfile() {
                             </div>
 
                             {/* Written reviews */}
-                            <div className={`${styles.sidebarCard} ${styles["additional-info-card"]}`}>
-                                <div className={styles.sidebarCardTitle}>Your reviews</div>
+                            <section className={`${styles.sidebarCard} ${styles["additional-info-card"]}`}>
+                                <div className={styles.sidebarCardTitle}>Written reviews</div>
                                 <div className={styles.infoList}>
                                     <div className={styles.infoItem}>
                                         {writtenReviews?.map((x) =>
-                                            <p className={styles["favourites-wrapper"]} key={x.id}>
-                                                <Link className={styles["watchlist-title"]} to={`/review/${x.id}`}>{x.movie.title}</Link>
+                                            <p className={styles["written-reviews-container"]} key={x.id}>
+                                                <div className={styles["favourites-wrapper"]}>
+                                                    <Link className={styles["watchlist-title"]} to={`/review/${x.id}`}>{x.movie.title}</Link>
+                                                    <StarRating rating={calculateReviewTotalScore(x.cinematographyScore, x.directorScore, x.performanceScore, x.screenplayScore)} />
+                                                </div>
+                                                <p className={styles["created-at"]}>{convertDate(x.createdAt)}</p>
                                             </p>)}
                                     </div>
                                 </div>
-                            </div>
+                            </section>
                         </section>
+
                     </div>
+
 
 
                     {/* ── SIDEBAR ── */}

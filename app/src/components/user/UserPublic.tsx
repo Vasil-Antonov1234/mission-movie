@@ -4,6 +4,8 @@ import { convertDate } from "../../utils/convertDate";
 import { getInitials } from "../../utils/getInitials";
 import styles from "./UserProfile.module.css";
 import type { Movie, User } from "../../types/types";
+import StarRating from "../comments/StarRating";
+import { calculateReviewTotalScore } from "../../utils/calculateReviewTotalScore";
 
 const initialState: User = {
     id: 0,
@@ -13,7 +15,7 @@ const initialState: User = {
     email: ""
 };
 
-type AddetReview = {
+type AddedReview = {
     id: string,
     createdAt: string,
     cinematographyScore: string,
@@ -29,7 +31,7 @@ export default function UserPublic() {
     const userId = useParams().userId;
     const { data: user } = useFetch(`/users/profile/${userId}/public`, initialState);
     const { data: addedMovies } = useFetch<Movie[]>(`/users/added/movies/${userId}`, []);
-    const { data: writtenReviews } = useFetch<AddetReview[]>(`/users/added/reviews/${userId}`, []);
+    const { data: writtenReviews } = useFetch<AddedReview[]>(`/users/added/reviews/${userId}`, []);
 
     return (
         <div className={styles.wrapper}>
@@ -73,8 +75,11 @@ export default function UserPublic() {
                                 <div className={styles.infoList}>
                                     <div className={styles.infoItem}>
                                         {addedMovies?.map((x) =>
-                                            <p className={styles["favourites-wrapper"]} key={x.id}>
-                                                <Link className={styles["watchlist-title"]} to={`/movies/${x.id}/details`}>{x.title}</Link>
+                                            <p className={styles["written-reviews-container"]} key={x.id}>
+                                                <div className={styles["favourites-wrapper"]}>
+                                                    <Link className={styles["watchlist-title"]} to={`/movies/${x.id}/details`}>{x.title}</Link>
+                                                    <p className={styles["created-at"]}>{convertDate(x.createdAt)}</p>
+                                                </div>
                                             </p>)}
                                     </div>
                                 </div>
@@ -86,8 +91,12 @@ export default function UserPublic() {
                                 <div className={styles.infoList}>
                                     <div className={styles.infoItem}>
                                         {writtenReviews?.map((x) =>
-                                            <p className={styles["favourites-wrapper"]} key={x.id}>
-                                                <Link className={styles["watchlist-title"]} to={`/review/${x.id}`}>{x.movie.title}</Link>
+                                            <p className={styles["written-reviews-container"]} key={x.id}>
+                                                <div className={styles["favourites-wrapper"]}>
+                                                    <Link className={styles["watchlist-title"]} to={`/review/${x.id}`}>{x.movie.title}</Link>
+                                                    <StarRating rating={calculateReviewTotalScore(x.cinematographyScore, x.directorScore, x.performanceScore, x.screenplayScore)} />
+                                                </div>
+                                                <p className={styles["created-at"]}>{convertDate(x.createdAt)}</p>
                                             </p>)}
                                     </div>
                                 </div>

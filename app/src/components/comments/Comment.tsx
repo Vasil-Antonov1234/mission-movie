@@ -3,17 +3,18 @@ import type { CommentData } from "../../types/types";
 import { convertDate } from "../../utils/convertDate";
 import styles from "./Comment.module.css";
 import UserContext from "../../contexts/UserContext";
+import StarRating from "./StarRating";
 
-type StarRatingProps = { rating: number }
+// type StarRatingProps = { rating: number }
 
-function StarRating({ rating }: StarRatingProps) {
-    const filled = Math.round((rating / 5) * 5);
-    return (
-        <span className={styles["star-rating"]}>
-            {"★".repeat(filled)}{"☆".repeat(5 - filled)}
-        </span>
-    );
-}
+// function StarRating({ rating }: StarRatingProps) {
+//     const filled = Math.round((rating / 5) * 5);
+//     return (
+//         <span className={styles["star-rating"]}>
+//             {"★".repeat(filled)}{"☆".repeat(5 - filled)}
+//         </span>
+//     );
+// }
 
 type CommentProps = { comment: CommentData, onDelete: (commentId: number) => void };
 

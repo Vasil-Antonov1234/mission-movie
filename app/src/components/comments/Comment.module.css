@@ -52,6 +52,10 @@
     transform: translateX(14px);
 }
 
+.star-rating {
+    color: #e8b84b;
+}
+
 @media(max-width: 250px) {
     .comment-item {
         padding: 5px 10px;
