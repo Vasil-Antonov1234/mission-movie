@@ -101,8 +101,7 @@ export default function Login() {
                 {/* Form */}
                 <form className={styles["auth-form"]} action={actionHandler} noValidate>
 
-                    {<Loading />}
-
+                    {<Loading isPending={false}/>}
 
                     {/* Email */}
                     <div className={styles["auth-field"]}>

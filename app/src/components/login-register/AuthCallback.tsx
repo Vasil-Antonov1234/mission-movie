@@ -1,13 +1,16 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import UserContext from "../../contexts/UserContext";
 import { toast } from "react-toastify";
+import Loading from "../loading/Loading";
 
 export default function AuthCallback() {
     const navigate = useNavigate();
     const { onLogin } = useContext(UserContext);
-
-    useEffect(() => {        
+    const [isPending, setIsPending] = useState(false);
+    
+    useEffect(() => {    
+        setIsPending(true)
         const params = new URLSearchParams(window.location.search);
         const token = params.get("token");
 
@@ -37,12 +40,15 @@ export default function AuthCallback() {
             } catch (error) {
                 toast.error(`Auth callback error: ${error}`);
                 navigate("/login");
+            } finally {
+                setIsPending(false);
             }
         })()
 
     }, [navigate, onLogin]);
 
     return (
-        <p>Signing you in…</p>
+        // <p>Signing you in…</p>
+        <Loading isPending={isPending}/>
     );
 }

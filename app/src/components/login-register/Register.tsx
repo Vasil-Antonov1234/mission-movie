@@ -7,6 +7,7 @@ import type { ValidateValue } from "../../types/types";
 import { validate } from "../../utils/validate";
 import UserContext from "../../contexts/UserContext";
 import { errorMessageHandler } from "../../utils/errorUtil";
+import Loading from "../loading/Loading";
 
 const initialValues = {
     firstName: "",
@@ -158,6 +159,8 @@ export default function Register() {
 
                 {/* Form */}
                 <form className={styles["auth-form"]} action={actionHandler} noValidate>
+
+                    {<Loading isPending={false}/>}
 
                     {/* First / Last name */}
                     <div className={styles["auth-form-row"]}>
