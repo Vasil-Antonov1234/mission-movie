@@ -1,6 +1,8 @@
+import { Activity, useContext } from "react";
 import type { CommentData } from "../../types/types";
 import { convertDate } from "../../utils/convertDate";
 import styles from "./Comment.module.css";
+import UserContext from "../../contexts/UserContext";
 
 type StarRatingProps = { rating: number }
 
@@ -16,6 +18,7 @@ function StarRating({ rating }: StarRatingProps) {
 type CommentProps = { comment: CommentData, onDelete: (commentId: number) => void };
 
 export default function Comment({ comment, onDelete }: CommentProps) {
+    const { isAdmin } = useContext(UserContext);
     const createdAt = convertDate(comment.createdAt);
 
     return (
@@ -28,9 +31,9 @@ export default function Comment({ comment, onDelete }: CommentProps) {
                 <StarRating rating={4} />
             </div>
             <p className={styles["comment-item-text"]}>"{comment.content}"</p>
-            <p className={styles["remove-comment"]} onClick={() => onDelete(comment.id)}>Remove</p>
+            <Activity mode={isAdmin ? "visible" : "hidden"}>
+                <p className={styles["remove-comment"]} onClick={() => onDelete(comment.id)}>Remove</p>
+            </Activity>
         </div>
     )
-
-    // <p className={styles["remove-from-cast"]} onClick={() => person.onRemoveCast(castId, fullName)}>Remove from the cast</p>
 }
