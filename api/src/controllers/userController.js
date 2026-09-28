@@ -5,6 +5,7 @@ import { getErrorMessage } from "../utils/errorUtil.js";
 import accessTokenUtil from "../utils/accessTokenUtil.js";
 import { isAdmin, isAuthMiddleware } from "../middlewares/authMiddleware.js";
 import { changePasswordSchema } from "../schemas/passwordSchema.js";
+import reviewRepository from "../repositories/reviewRepository.js";
 
 const userController = Router();
 
@@ -220,6 +221,18 @@ userController.get("/added/movies/:userId", async (req, res) => {
         const addedFilms = await userService.getAddedFilms(userId);
 
         res.status(200).json(addedFilms);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+});
+
+userController.get("/added/reviews/:userId", async (req, res) => {
+    const userId = Number(req.params.userId);
+
+    try {
+        const addedReviews = await reviewRepository.getYours(userId);
+        
+        res.status(200).json(addedReviews);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
