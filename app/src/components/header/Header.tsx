@@ -53,7 +53,7 @@ export default function Header() {
                 </div>
                 <div className={styles["navbar-links"]}>
                     <NavLink to="/" className={styles["nav-link"]}>Home</NavLink>
-                    <NavLink to="/movies/catalog" className={styles["nav-link"]}>Movies</NavLink>
+                    <NavLink to="/movies/catalog" className={styles["nav-link"]}>Reelist</NavLink>
                     <NavLink to="/reviews/catalog" className={styles["nav-link"]}>Reviews</NavLink>
                     <NavLink to="/cast/catalog" className={styles["nav-link"]}>Actors</NavLink>
                 </div>

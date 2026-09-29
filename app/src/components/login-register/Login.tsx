@@ -73,7 +73,7 @@ export default function Login() {
             <div className="auth-card">
                 {/* Logo */}
                 <Link to="/" className={styles["auth-logo"]}>
-                    Mission<span className={styles["auth-logo-accent"]}>movie</span>
+                    Mission<span className={styles["auth-logo-accent"]}>Movie</span>
                 </Link>
 
                 {/* Heading */}

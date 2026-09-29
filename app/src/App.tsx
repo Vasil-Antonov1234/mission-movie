@@ -24,6 +24,7 @@ import AllCasts from "./components/catalog/AllCasts"
 import Search from "./components/search/Search"
 import UserPublic from "./components/user/UserPublic"
 import About from "./components/about/About"
+import NotFound from "./components/404/NotFound"
 
 function App() {
 
@@ -61,11 +62,13 @@ function App() {
                     <Route path="/reviews/create" element={<CreateReview />} />
                     <Route path="/reviews/:movieId/create" element={<CreateReview />} />
                     <Route path="/reviews/:reviewId/edit" element={<CreateReview />} />
-                    
+
                     <Route element={<IsAdmin />} >
-                    <Route path="/users/:userId" element={<UserDetails />} />
+                        <Route path="/users/:userId" element={<UserDetails />} />
                     </Route>
                 </Route>
+                
+                <Route path="/*" element={<NotFound />} />
             </Routes>
             <Footer />
         </>

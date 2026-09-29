@@ -131,11 +131,11 @@ export default function Register() {
             <div className={styles["auth-card"]}>
                 {/* Logo */}
                 <Link to="/" className={styles["auth-logo"]}>
-                    reel<span className={styles["auth-logo-accent"]}>ist</span>
+                    Mission<span className={styles["auth-logo-accent"]}>Movie</span>
                 </Link>
 
                 {/* Heading */}
-                <div className={styles["auth-eyebrow"]}>Join Reelist</div>
+                <div className={styles["auth-eyebrow"]}>Join Mission Movie</div>
                 <h1 className={styles["auth-title"]}>Create your account</h1>
                 <p className={styles["auth-subtitle"]}>
                     Free forever. Track every film you've ever watched.
