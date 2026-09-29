@@ -23,6 +23,7 @@ import UserDetails from "./components/user/UserDetails"
 import AllCasts from "./components/catalog/AllCasts"
 import Search from "./components/search/Search"
 import UserPublic from "./components/user/UserPublic"
+import About from "./components/about/About"
 
 function App() {
 
@@ -42,7 +43,7 @@ function App() {
                 <Route path="/cast/catalog" element={<AllCasts />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/user/:userId/public" element={<UserPublic />} />
-
+                <Route path="/about" element={<About />} />
 
                 <Route element={<IsAuthenticated />}>
                     <Route path="/auth/callback" element={<AuthCallback />} />
