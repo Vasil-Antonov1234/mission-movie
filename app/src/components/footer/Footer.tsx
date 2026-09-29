@@ -14,12 +14,6 @@ export default function Footer() {
                             <Link to="/about" className={`${styles["nav-link"]} ${styles["footer-nav-link"]}`}>About</Link>
                         </li>
                         <li>
-                            <Link to="/blog" className={`${styles["nav-link"]} ${styles["footer-nav-link"]}`}>Blog</Link>
-                        </li>
-                        <li>
-                            <Link to="/press" className={`${styles["nav-link"]} ${styles["footer-nav-link"]}`}>Press</Link>
-                        </li>
-                        <li>
                             <Link to="/privcacy" className={`${styles["nav-link"]} ${styles["footer-nav-link"]}`}>Privacy</Link>
                         </li>
                         <li><Link to="/terms" className={`${styles["nav-link"]} ${styles["footer-nav-link"]}`}>Terms</Link></li>

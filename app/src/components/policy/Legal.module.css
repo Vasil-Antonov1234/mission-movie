@@ -1,0 +1,231 @@
+/* ─── PAGE WRAPPER ─── */
+.wrapper {
+  background: #0d0d0d;
+  min-height: 100vh;
+  color: #e8e2d9;
+  font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+  padding: 64px 24px 96px;
+}
+
+/* ─── CONTAINER ─── */
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* ─── HEADER ─── */
+.header {
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #e8b84b;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #f0ebe2;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+
+.meta {
+  font-size: 13px;
+  color: #555;
+}
+
+.metaAccent { color: #7a7068; }
+
+/* ─── TABLE OF CONTENTS ─── */
+.toc {
+  background: #111;
+  border: 1px solid #1e1e1e;
+  border-radius: 12px;
+  padding: 22px 24px;
+  margin-bottom: 48px;
+}
+
+.tocTitle {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #555;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.tocList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tocItem { }
+
+.tocLink {
+  font-size: 13px;
+  color: #7a7068;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: color 0.2s;
+  padding: 3px 0;
+}
+.tocLink:hover { color: #e8b84b; }
+
+.tocNumber {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 11px;
+  color: #3a3530;
+  width: 18px;
+  flex-shrink: 0;
+}
+
+/* ─── SECTIONS ─── */
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+}
+
+.section { }
+
+.sectionAnchor {
+  display: block;
+  position: relative;
+  top: -20px;
+  visibility: hidden;
+}
+
+.sectionNumber {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 11px;
+  color: #e8b84b;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+
+.sectionTitle {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #e8e2d9;
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+  line-height: 1.2;
+}
+
+.sectionText {
+  font-size: 14px;
+  color: #a09890;
+  line-height: 1.85;
+  font-weight: 300;
+}
+
+.sectionText + .sectionText {
+  margin-top: 12px;
+}
+
+/* ─── LIST INSIDE SECTION ─── */
+.sectionList {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sectionListItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: #a09890;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.sectionListItem::before {
+  content: '—';
+  color: #e8b84b;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+  border: none;
+  border-top: 1px solid #1a1a1a;
+}
+
+/* ─── CONTACT CARD ─── */
+.contactCard {
+  background: #111;
+  border: 1px solid #1e1e1e;
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin-top: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.contactText {
+  font-size: 14px;
+  color: #7a7068;
+  line-height: 1.6;
+}
+
+.contactEmail {
+  color: #e8b84b;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.contactEmail:hover { color: #f5ca60; }
+
+.backBtn {
+  background: transparent;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 9px 20px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #a09890;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.backBtn:hover { border-color: #555; color: #e8e2d9; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 600px) {
+  .wrapper  { padding: 40px 16px 64px; }
+  .title    { font-size: 26px; }
+  .toc      { padding: 18px; }
+
+  .contactCard {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .backBtn { width: 100%; text-align: center; }
+}
