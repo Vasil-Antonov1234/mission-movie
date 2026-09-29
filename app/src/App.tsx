@@ -26,6 +26,7 @@ import UserPublic from "./components/user/UserPublic"
 import About from "./components/about/About"
 import NotFound from "./components/404/NotFound"
 import TermsOfService from "./components/policy/TermsOfService"
+import PrivacyPolicy from "./components/policy/PrivacyPolicy"
 
 function App() {
 
@@ -47,6 +48,7 @@ function App() {
                 <Route path="/user/:userId/public" element={<UserPublic />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/terms" element={<TermsOfService />} />
+                <Route path="/privacy" element={<PrivacyPolicy />} />
 
                 <Route element={<IsAuthenticated />}>
                     <Route path="/auth/callback" element={<AuthCallback />} />

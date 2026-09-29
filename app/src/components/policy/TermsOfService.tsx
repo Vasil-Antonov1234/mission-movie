@@ -87,7 +87,7 @@ export default function TermsOfService() {
           <div className={styles.eyebrow}>Legal</div>
           <h1 className={styles.title}>Terms of Service</h1>
           <p className={styles.meta}>
-            Last updated: <span className={styles.metaAccent}>January 1, 2024</span>
+            Last updated: <span className={styles.metaAccent}>September 1, 2026</span>
           </p>
         </div>
 
