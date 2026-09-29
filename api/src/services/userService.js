@@ -6,6 +6,10 @@ import movieRepository from "../repositories/movieRepository.js";
 export default {
     async register(userData) {
 
+        if(userData.role) {
+            userData.role = "USER";
+        };
+
         const user = await userRepository.register(userData);
                 
         const token = accessTokenUtil.generate(user);
