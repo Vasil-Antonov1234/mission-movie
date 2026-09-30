@@ -242,7 +242,8 @@ export type ValidateValue = {
     performanceScore?: string,
     screenplayScore?: string,
     cinematographyScore?: string,
-    movieId?: string
+    movieId?: string,
+    agreeTerms?: string | boolean
 };
 
 export type UserCtx = {

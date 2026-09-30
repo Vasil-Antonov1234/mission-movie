@@ -14,7 +14,8 @@ const initialValues = {
     lastName: "",
     email: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    agreeTerms: false
 }
 
 type Level = 0 | 1 | 2 | 3 | 4;
@@ -93,6 +94,7 @@ export default function Register() {
     };
 
     async function actionHandler() {
+
         const fieldErrors = validate(data);
         setErrors(fieldErrors);
         setTouched(fieldErrors);
@@ -101,7 +103,8 @@ export default function Register() {
             setData((state) => ({
                 ...state,
                 password: "",
-                confirmPassword: ""
+                confirmPassword: "",
+                agreeTerms: false
             }))
             return;
         };
@@ -115,7 +118,8 @@ export default function Register() {
             setData((state) => ({
                 ...state,
                 password: "",
-                confirmPassword: ""
+                confirmPassword: "",
+                agreeTerms: false
             }));
 
             errorMessageHandler(error);
@@ -160,7 +164,7 @@ export default function Register() {
                 {/* Form */}
                 <form className={styles["auth-form"]} action={actionHandler} noValidate>
 
-                    {<Loading isPending={false}/>}
+                    {<Loading isPending={false} />}
 
                     {/* First / Last name */}
                     <div className={styles["auth-form-row"]}>
@@ -258,11 +262,11 @@ export default function Register() {
                     <div className={styles["auth-field"]}>
                         <div className={styles["auth-checkbox-row"]}>
                             <input
+                                {...formInputRegister("agreeTerms")}
                                 id="agreeTerms"
-                                name="agreeTerms"
                                 type="checkbox"
                                 className="auth-checkbox"
-                            // checked={false}
+                                checked={data.agreeTerms}
                             />
                             <label htmlFor="agreeTerms" className={styles["auth-checkbox-label"]}>
                                 I agree to the{" "}
@@ -275,6 +279,7 @@ export default function Register() {
                                 </Link>
                             </label>
                         </div>
+                        {touched.agreeTerms ? <p className={styles["auth-error-msg"]}>{errors.agreeTerms}</p> : ""}
                     </div>
 
                     {/* Submit */}

@@ -45,7 +45,7 @@ userController.get("/logout", async (req, res) => {
 
 })
 
-userController.post("/login", async (req, res) => {
+userController.post("/login", async (req, res) => {    
     const { email, password } = req.body;
 
     try {

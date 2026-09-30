@@ -7,6 +7,9 @@ export const createUserSchema = z.object({
     lastName: z.string({ error: "Only string is available as last name" })
         .min(1, { error: "First name is required" }),
     email: z.email({ error: "Invalid email address" }),
+    agreeTerms: z.literal(true, {
+        errorMap: () => ({ message: "You must accept the terms and conditions" }),
+    }),
     password: z.string()
         .min(8, { error: "Password must be at least 8 characters long" })
         .transform(async (val) => {

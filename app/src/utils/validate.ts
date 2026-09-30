@@ -115,6 +115,12 @@ export function validate(value: ValidateValue) {
         errors.lastName = "The last name must start with a capital letter and contain only letters";
     };
 
+    // Terms of Service and Privacy Policy
+
+    if (value.agreeTerms !== undefined && !value.agreeTerms) {
+        errors["agreeTerms"] = "You must agree to the Terms of Use and the Privacy Policy";
+    };
+
     // Movie validation
     // Title
     if (value.title === "") {

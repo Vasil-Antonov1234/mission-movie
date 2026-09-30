@@ -1,6 +1,15 @@
-import { useEffect, useState, type ChangeEvent } from "react";
+import { useEffect, useState } from "react";
 
 const baseUrl = "http://localhost:5000";
+
+type Review = {
+    review: string,
+    movieId: string,
+    directorScore: string,
+    performanceScore: string,
+    screenplayScore: string,
+    cinematographyScore: string
+}
 
 export default function useForm<T>(initialValues: T, movieId?: string, castId?: string, reviewId?: string) {
     const [data, setData] = useState(initialValues);
@@ -37,7 +46,7 @@ export default function useForm<T>(initialValues: T, movieId?: string, castId?: 
             if (reviewId) {
                 const response = await fetch(`${baseUrl}/reviews/${reviewId}`, { signal: controller.signal });
 
-                const result = await response.json();
+                const result: Review = await response.json();
 
                 const reviewData = {
                     content: result.review,
@@ -58,14 +67,26 @@ export default function useForm<T>(initialValues: T, movieId?: string, castId?: 
 
     }, [initialValues, movieId, castId, reviewId]);
 
-    function changeHandler(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement, HTMLSelectElement>) {
+    function changeHandler(event: React.BaseSyntheticEvent) {
+
         setData((state) => ({
             ...state,
-            [event.target.name]: event.target.value
+            [event.target.name]: event.target.type === "checkbox" ? event.target.checked : event.target.value
         }));
     };
 
     function formInputRegister(name: keyof T) {
+
+        // For type checkbox
+        if (typeof data[name] === "boolean") {
+            return {
+                name,
+                checked: data[name],
+                onChange: changeHandler
+            }
+        }
+
+        // For type text/select/textarea input
         return {
             name,
             value: data[name],
