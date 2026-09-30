@@ -1,5 +1,5 @@
-import commentRepository from "../repositories/commentRepository"
-import movieRepository from "../repositories/movieRepository";
+import commentRepository from "../repositories/commentRepository.js"
+import movieRepository from "../repositories/movieRepository.js";
 
 export default {
     async create(userId, movieId, content) {

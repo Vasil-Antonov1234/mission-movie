@@ -1,5 +1,5 @@
-import movieRepository from "../repositories/movieRepository";
-import rateRepository from "../repositories/rateRepository"
+import movieRepository from "../repositories/movieRepository.js";
+import rateRepository from "../repositories/rateRepository.js"
 
 export default {
     async rateMovie(rating, movieId, userId) {

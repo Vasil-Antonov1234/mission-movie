@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { isAdmin, isAuthMiddleware } from "../middlewares/authMiddleware";
-import { getErrorMessage } from "../utils/errorUtil";
-import { createCommentSchema } from "../schemas/commentSchema";
-import commentService from "../services/commentService";
+import { isAdmin, isAuthMiddleware } from "../middlewares/authMiddleware.js";
+import { getErrorMessage } from "../utils/errorUtil.js";
+import { createCommentSchema } from "../schemas/commentSchema.js";
+import commentService from "../services/commentService.js";
 
 const commentController = Router();
 

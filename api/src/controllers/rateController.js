@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { isAuthMiddleware } from "../middlewares/authMiddleware";
-import { getErrorMessage } from "../utils/errorUtil";
-import rateService from "../services/rateService";
+import { isAuthMiddleware } from "../middlewares/authMiddleware.js";
+import { getErrorMessage } from "../utils/errorUtil.js";
+import rateService from "../services/rateService.js";
 
 const rateController = Router();
 

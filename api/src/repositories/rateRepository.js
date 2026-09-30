@@ -1,4 +1,4 @@
-import { prisma } from "../lib/prisma"
+import { prisma } from "../lib/prisma.js"
 
 export default {
     async rateMovie(rating, movieId, userId) {
