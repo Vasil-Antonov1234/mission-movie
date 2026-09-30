@@ -67,7 +67,9 @@ export default function AllMovies() {
                     <h2 className={styles["no-movies"]}>Nothing here yet</h2>
                 </section>
             </Activity>
-            <PaginationContainer count={paginationCount} onPageNumber={pageNumberHandler} />
+            <Activity mode={filteredMovies.length ? "visible" : "hidden"}>
+                <PaginationContainer count={paginationCount} onPageNumber={pageNumberHandler} />
+            </Activity>
         </section>
     )
 }
