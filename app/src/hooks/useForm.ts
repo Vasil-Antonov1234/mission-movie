@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import type { ReviewFormData } from "../types/types";
 // import type { RegisterLoginFormValues } from "../types/types";
 
-const baseUrl = "http://localhost:5000";
+const baseUrl = "https://mission-movie.onrender.com";
+// const baseUrl = "http://localhost:5000";
 
 type Review = {
     review: string,

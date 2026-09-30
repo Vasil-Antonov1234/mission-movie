@@ -3,7 +3,8 @@ import type { Config, Method, Options } from "../types/types";
 import { errorMessageHandler } from "../utils/errorUtil";
 import UserContext from "../contexts/UserContext";
 
-const BASE_URL = "http://localhost:5000";
+// const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://mission-movie.onrender.com";
 
 export default function useFetch<T>(url?: string, initialState?: T, config: Config = {}) {
     const [data, setData] = useState(initialState);

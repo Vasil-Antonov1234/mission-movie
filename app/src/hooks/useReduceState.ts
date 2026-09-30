@@ -73,7 +73,8 @@ export default function useReduceState<T>(url: string, method: Method = "GET", c
             options.signal = controller.signal
             
             try {
-                const response = await fetch(`http://localhost:5000/${url}`, options);
+                const response = await fetch(`https://mission-movie.onrender.com/${url}`, options);
+                // const response = await fetch(`http://localhost:5000/${url}`, options);
 
                 if (!response.ok) {
                     if (response.status === 401) {

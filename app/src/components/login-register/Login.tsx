@@ -86,7 +86,8 @@ export default function Login() {
 
                 {/* Social */}
                 <div onClick={() => setIsPending(true)} style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "24px" }}>
-                    <Link className={styles["reset"]} to="http://localhost:5000/auth/google">
+                    <Link className={styles["reset"]} to="https://mission-movie.onrender.com/auth/google">
+                    {/* <Link className={styles["reset"]} to="http://localhost:5000/auth/google"> */}
                         <button className={styles["auth-social-btn"]}>
                             <span className={styles["auth-social-icon"]}>G</span> Continue with Google
                         </button>

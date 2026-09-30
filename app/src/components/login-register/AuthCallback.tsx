@@ -19,11 +19,17 @@ export default function AuthCallback() {
         (async () => {
 
             try {
-                const response = await fetch("http://localhost:5000/auth/me", {
+                const response = await fetch("https://mission-movie.onrender.com/auth/me", {
                     headers: {
                         authorization: token
                     }
                 });
+
+                // const response = await fetch("http://localhost:5000/auth/me", {
+                //     headers: {
+                //         authorization: token
+                //     }
+                // });
 
                 if (!response.ok) {
                     navigate("/login");
