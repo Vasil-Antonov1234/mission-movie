@@ -2,7 +2,7 @@ import { useNavigate, useParams, Link } from "react-router";
 import useFetch from "../../hooks/useFetch";
 import styles from "./CreateEditMovie.module.css";
 import { useContext, useEffect, useState, type ChangeEvent } from "react";
-import type { Actor, Movie, ValidateValue } from "../../types/types";
+import type { Actor, Movie, ValidateErrors } from "../../types/types";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import { validate } from "../../utils/validate";
 import UserContext from "../../contexts/UserContext";
@@ -26,8 +26,8 @@ export default function AttachCast() {
         nameInMovie: ""
     };
     const [data, setData] = useState(initialValues);
-    const [errors, setErrors] = useState<ValidateValue>({});
-    const [touched, setTouched] = useState<ValidateValue>({});
+    const [errors, setErrors] = useState<ValidateErrors>({});
+    const [touched, setTouched] = useState<ValidateErrors>({});
 
     useEffect(() => {
         const controller = new AbortController();

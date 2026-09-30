@@ -5,7 +5,7 @@ import useForm from "../../hooks/useForm";
 import useFetch from "../../hooks/useFetch";
 import Loading from "../loading/Loading";
 import { validate } from "../../utils/validate";
-import type { ValidateValue } from "../../types/types";
+import type { ValidateErrors } from "../../types/types";
 import UserContext from "../../contexts/UserContext";
 import { errorMessageHandler } from "../../utils/errorUtil";
 
@@ -21,10 +21,10 @@ const initialValues: Values = {
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
-    const { formInputRegister, data, setData } = useForm(initialValues)
+    const { registerTextInput, data, setData } = useForm(initialValues)
     const { request } = useFetch();
-    const [errors, setErrors] = useState<ValidateValue>({});
-    const [touched, setTouched] = useState<ValidateValue>({});
+    const [errors, setErrors] = useState<ValidateErrors>({});
+    const [touched, setTouched] = useState<ValidateErrors>({});
     const { onLogin } = useContext(UserContext);
     const [isPending, setIsPending] = useState(false);
 
@@ -110,7 +110,7 @@ export default function Login() {
                         <label className={styles["auth-label"]} htmlFor="email">Email</label>
                         <div className={styles["auth-input-wrapper"]}>
                             <input
-                                {...formInputRegister("email")}
+                                {...registerTextInput("email")}
                                 id="email"
                                 type="email"
                                 className={touched.email && errors.email ? `${styles["auth-input"]} ${styles["auth-input--error"]}` : styles["auth-input"]}
@@ -130,7 +130,7 @@ export default function Login() {
                         </div>
                         <div className={styles["auth-input-wrapper"]}>
                             <input
-                                {...formInputRegister("password")}
+                                {...registerTextInput("password")}
                                 id="password"
                                 type={showPassword ? "text" : "password"}
                                 className={`${styles["auth-input"]} ${styles["auth-input--has-icon"]} ${touched.password && errors.password ? styles["auth-input--error"] : ""}`}

@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import styles from "./CreateEditMovie.module.css"
 import useForm from "../../hooks/useForm"
 import useFetch from "../../hooks/useFetch"
-import type { ValidateValue } from "../../types/types"
+import type { ReviewFormData, ValidateErrors } from "../../types/types"
 import { validate } from "../../utils/validate"
 import UserContext from "../../contexts/UserContext"
 import { errorMessageHandler } from "../../utils/errorUtil"
@@ -66,9 +66,9 @@ export default function CreateReview() {
 
     const { user, onLogout, isAuthenticated } = useContext(UserContext);
     const { data: movies, request } = useFetch("/movies/exclude/reviewed", initialStateMovies, { accessToken: user.accessToken });
-    const { data, formInputRegister, setData } = useForm(initialValues, undefined, undefined, reviewId);
-    const [errors, setErrors] = useState<ValidateValue>({});
-    const [touched, setTouched] = useState<ValidateValue>({});
+    const { data, formInputRegister, setData } = useForm<ReviewFormData>(initialValues, undefined, undefined, reviewId);
+    const [errors, setErrors] = useState<ValidateErrors>({});
+    const [touched, setTouched] = useState<ValidateErrors>({});
     const navigate = useNavigate();
 
     const id = movieId ? movieId : reviewId ? data.movieId : 0;

@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import type { ReviewFormData } from "../types/types";
+// import type { RegisterLoginFormValues } from "../types/types";
 
 const baseUrl = "http://localhost:5000";
 
@@ -9,11 +11,11 @@ type Review = {
     performanceScore: string,
     screenplayScore: string,
     cinematographyScore: string
-}
+};
 
-export default function useForm<T>(initialValues: T, movieId?: string, castId?: string, reviewId?: string) {
-    const [data, setData] = useState(initialValues);
-    const [currentData, setCurrentData] = useState(null);
+export default function useForm<T extends Record<string, string | number | boolean | undefined>>(initialValues: T, movieId?: string, castId?: string, reviewId?: string) {
+    const [data, setData] = useState<T>(initialValues);
+    const [currentData, setCurrentData] = useState<T | null>(null);
 
     useEffect(() => {
 
@@ -31,16 +33,16 @@ export default function useForm<T>(initialValues: T, movieId?: string, castId?: 
                 const response = await fetch(`${baseUrl}/movies/${movieId}`, { signal: controller.signal });
 
                 const result = await response.json();
-                setData(result);
-                setCurrentData(result);
+                setData(result as T);
+                setCurrentData(result as T | null);
             };
 
             if (castId) {
                 const response = await fetch(`${baseUrl}/casts/${castId}`, { signal: controller.signal });
 
                 const result = await response.json();
-                setData(result);
-                setCurrentData(result);
+                setData(result as T);
+                setCurrentData(result as T | null);
             };
 
             if (reviewId) {
@@ -48,7 +50,7 @@ export default function useForm<T>(initialValues: T, movieId?: string, castId?: 
 
                 const result: Review = await response.json();
 
-                const reviewData = {
+                const reviewData: ReviewFormData = {
                     content: result.review,
                     movieId: result.movieId,
                     directorScore: result.directorScore,
@@ -57,7 +59,7 @@ export default function useForm<T>(initialValues: T, movieId?: string, castId?: 
                     cinematographyScore: result.cinematographyScore
                 };
 
-                setData(reviewData);
+                setData(reviewData as unknown as T);
             };
         })()
 
@@ -71,8 +73,8 @@ export default function useForm<T>(initialValues: T, movieId?: string, castId?: 
 
         setData((state) => ({
             ...state,
-            [event.target.name]: event.target.type === "checkbox" ? event.target.checked : event.target.value
-        }));
+            [event.target.name]: event.target.type === "checkbox" ? Boolean(event.target.checked) : String(event.target.value)
+        }) as T);
     };
 
     function formInputRegister(name: keyof T) {
@@ -93,5 +95,31 @@ export default function useForm<T>(initialValues: T, movieId?: string, castId?: 
             onChange: changeHandler
         }
     }
-    return { changeHandler, formInputRegister, data, setData, currentData }
-}
+
+    function registerTextInput(name: keyof T) {
+        return {
+            name,
+            value: String(data[name] ?? ""),
+            onChange: changeHandler
+        } as const;
+    };
+
+    function registerChecboxInput(name: keyof T) {
+        return {
+            name,
+            checked: Boolean(data[name]),
+            onChange: changeHandler
+        } as const;
+    };
+
+
+    return {
+        changeHandler,
+        formInputRegister,
+        registerTextInput,
+        registerChecboxInput,
+        data,
+        setData,
+        currentData
+    };
+}   

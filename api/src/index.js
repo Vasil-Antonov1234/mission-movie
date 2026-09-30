@@ -7,7 +7,10 @@ import passport from "./config/passport.js";
 const app = express()
 
 //Add CORS 
-app.use(cors());
+app.use(cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true
+}));
 
 // Add json parser
 app.use(express.json())

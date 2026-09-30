@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import useForm from "../../hooks/useForm";
 import styles from "./CreateEditMovie.module.css";
-import type { ValidateValue } from "../../types/types";
+import type { ValidateErrors } from "../../types/types";
 import { validate } from "../../utils/validate";
 import useFetch from "../../hooks/useFetch";
 import UserContext from "../../contexts/UserContext";
@@ -38,8 +38,8 @@ function isValidUrl(url: string): boolean {
 export default function CreateEditCast() {
     const castId = useParams().castId;
     const { data, setData, formInputRegister, currentData: actor } = useForm(initialValues, undefined, castId);
-    const [errors, setErrors] = useState<ValidateValue>({});
-    const [touched, setTouched] = useState<ValidateValue>({});
+    const [errors, setErrors] = useState<ValidateErrors>({});
+    const [touched, setTouched] = useState<ValidateErrors>({});
     const { request } = useFetch();
     const { user, onLogout } = useContext(UserContext);
     const navigate = useNavigate();

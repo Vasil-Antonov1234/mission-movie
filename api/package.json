@@ -4,7 +4,9 @@
   "description": "- [ ] Initialize project",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx --watch src/index.js"
+    "start": "node src/index.js",
+    "dev": "tsx --watch src/index.js",
+    "postinstall": "prisma generate"
   },
   "keywords": [],
   "author": "",

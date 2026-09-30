@@ -42,7 +42,6 @@ export default function Reviews() {
                         />
                     ))}
                 </div>
-                <Link to="/catalog/reviews" className={`${styles["section-link"]} ${styles["section-link-bottom"]}`}>Test →</Link>
             </section>
         </>
     )

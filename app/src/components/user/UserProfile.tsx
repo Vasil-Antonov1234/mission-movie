@@ -4,7 +4,7 @@ import UserContext from "../../contexts/UserContext";
 import { convertDate } from "../../utils/convertDate";
 import useFetch from "../../hooks/useFetch";
 import useForm from "../../hooks/useForm";
-import type { ValidateValue } from "../../types/types";
+import type { ValidateErrors } from "../../types/types";
 import { validate } from "../../utils/validate";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import { Link } from "react-router";
@@ -54,8 +54,8 @@ export default function UserProfile() {
 
     const { data, formInputRegister, setData } = useForm(initialValuesProfile);
     const { data: passwordData, formInputRegister: passwordFormInputRegister, setData: setPasswordData } = useForm(initialValuesPassword);
-    const [errors, setErrors] = useState<ValidateValue>({});
-    const [touched, setTouched] = useState<ValidateValue>({});
+    const [errors, setErrors] = useState<ValidateErrors>({});
+    const [touched, setTouched] = useState<ValidateErrors>({});
 
     function validateProfileHandler(event: React.BaseSyntheticEvent) {
         setTouched((state) => ({

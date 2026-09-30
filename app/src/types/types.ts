@@ -1,3 +1,44 @@
+export type InputFormsData = {
+    firstName?: string,
+    lastName?: string,
+    bornDate?: string,
+    placeOfBorn?: string,
+    imageUrl?: string,
+    imdbProfile?: string,
+    wikipedia?: string,
+    biography?: string,
+    awards?: string,
+    title?: string,
+    year?: string,
+    rating?: string,
+    totalRating?: string,
+    genre?: string,
+    poster?: string,
+    synopsis?: string,
+    duration?: string,
+    director?: string,
+    trailerUrl?: string,
+    tagline?: string,
+    writtenBy?: string,
+    studio?: string,
+    releaseDate?: string,
+    language?: string,
+    country?: string,
+    budget?: string,
+    boxOffice?: string,
+    content?: string,
+    movieId?: string,
+    directorScore?: string,
+    performanceScore?: string,
+    screenplayScore?: string,
+    cinematographyScore?: string,
+    email?: string,
+    password?: string,
+    confirmPassword?: string,
+    agreeTerms?: boolean,
+    currentPassword?: string
+}
+
 export type Featured = {
     id: number,
     title: string,
@@ -39,8 +80,8 @@ export type Review = {
         poster: string,
         title: string,
         year?: string,
-        rating? :string,
-        genre? :string,
+        rating?: string,
+        genre?: string,
         duration?: string,
         director?: string
     }
@@ -190,7 +231,17 @@ export type RegisterBody = {
     firstName: string,
     lastName: string,
     email: string,
-    password: string
+    password: string,
+    agreeTerms: boolean
+};
+
+export type ReviewFormData = {
+    content: string;
+    movieId: string;
+    directorScore: string;
+    performanceScore: string;
+    screenplayScore: string;
+    cinematographyScore: string;
 };
 
 export type Options = {
@@ -243,7 +294,58 @@ export type ValidateValue = {
     screenplayScore?: string,
     cinematographyScore?: string,
     movieId?: string,
-    agreeTerms?: string | boolean
+    agreeTerms?: boolean
+};
+
+export type ValidateErrors = {
+    firstName?: string,
+    lastName?: string,
+    email?: string,
+    password?: string,
+    confirmPassword?: string,
+    title?: string,
+    year?: string,
+    rating?: string,
+    genre?: string,
+    poster?: string,
+    synopsis?: string,
+    duration?: string,
+    director?: string,
+    trailerUrl?: string,
+    writtenBy?: string,
+    tagline?: string,
+    studio?: string,
+    releaseDate?: string,
+    language?: string,
+    country?: string,
+    budget?: string,
+    boxOffice?: string,
+    bornDate?: string,
+    placeOfBorn?: string,
+    imageUrl?: string,
+    cast?: string,
+    nameInMovie?: string,
+    imdbProfile?: string,
+    wikipedia?: string,
+    biography?: string,
+    awards?: string,
+    currentPassword?: string,
+    content?: string,
+    directorScore?: string,
+    performanceScore?: string,
+    screenplayScore?: string,
+    cinematographyScore?: string,
+    movieId?: string,
+    agreeTerms?: string
+};
+
+export type RegisterLoginFormValues = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    agreeTerms: boolean;
 };
 
 export type UserCtx = {

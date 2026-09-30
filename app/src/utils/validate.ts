@@ -1,4 +1,4 @@
-import type { ValidateValue } from "../types/types";
+import type { ValidateErrors, ValidateValue } from "../types/types";
 
 const genres = [
     "Action",
@@ -55,7 +55,7 @@ function validateGenre(text: string) {
 const currentYear = new Date().getFullYear();
 
 export function validate(value: ValidateValue) {
-    const errors: ValidateValue = {};
+    const errors: ValidateErrors = {};
 
     // User validate
     // Email
@@ -117,7 +117,7 @@ export function validate(value: ValidateValue) {
 
     // Terms of Service and Privacy Policy
 
-    if (value.agreeTerms !== undefined && !value.agreeTerms) {
+    if (value.agreeTerms === false) {
         errors["agreeTerms"] = "You must agree to the Terms of Use and the Privacy Policy";
     };
 

@@ -3,7 +3,7 @@ import useForm from "../../hooks/useForm";
 import useFetch from "../../hooks/useFetch";
 import { Activity, useContext, useState } from "react";
 import UserContext from "../../contexts/UserContext";
-import type { Movie, ValidateValue } from "../../types/types";
+import type { Movie, ValidateErrors } from "../../types/types";
 import { validate } from "../../utils/validate";
 import { useNavigate, useParams } from "react-router";
 import { errorMessageHandler } from "../../utils/errorUtil";
@@ -45,8 +45,8 @@ export default function CreateEditMovie() {
 	const { formInputRegister, data, setData, currentData } = useForm(initialValues, movieId);
 	const { user, onLogout } = useContext(UserContext);
 	const { request } = useFetch();
-	const [errors, setErrors] = useState<ValidateValue>({});
-	const [touched, setTouched] = useState<ValidateValue>({});
+	const [errors, setErrors] = useState<ValidateErrors>({});
+	const [touched, setTouched] = useState<ValidateErrors>({});
 	const navigate = useNavigate();
 
 	function validateHandler(event: React.BaseSyntheticEvent) {

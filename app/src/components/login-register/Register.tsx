@@ -3,7 +3,7 @@ import styles from "./Auth.module.css";
 import { Link } from "react-router";
 import useForm from "../../hooks/useForm";
 import useFetch from "../../hooks/useFetch";
-import type { ValidateValue } from "../../types/types";
+import type { RegisterLoginFormValues, ValidateErrors } from "../../types/types";
 import { validate } from "../../utils/validate";
 import UserContext from "../../contexts/UserContext";
 import { errorMessageHandler } from "../../utils/errorUtil";
@@ -77,10 +77,10 @@ function PasswordStrengthHandler({ password }: PasswordStrengthHandlerProps) {
 export default function Register() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
-    const { formInputRegister, data, setData } = useForm(initialValues)
+    const { registerTextInput, registerChecboxInput, data, setData } = useForm<RegisterLoginFormValues>(initialValues)
     const { request } = useFetch();
-    const [errors, setErrors] = useState<ValidateValue>({});
-    const [touched, setTouched] = useState<ValidateValue>({});
+    const [errors, setErrors] = useState<ValidateErrors>({});
+    const [touched, setTouched] = useState<ValidateErrors>({});
     const { onLogin } = useContext(UserContext)
 
     function validateHandler(event: React.BaseSyntheticEvent) {
@@ -171,7 +171,7 @@ export default function Register() {
                         <div className={styles["auth-field"]}>
                             <label className={styles["auth-label"]} htmlFor="firstName">First name</label>
                             <input
-                                {...formInputRegister("firstName")}
+                                {...registerTextInput("firstName")}
                                 id="firstName"
                                 type="text"
                                 className={touched.firstName && errors.firstName ? `${styles["auth-input"]} ${styles["auth-input--error"]}` : styles["auth-input"]}
@@ -184,7 +184,7 @@ export default function Register() {
                         <div className={styles["auth-field"]}>
                             <label className={styles["auth-label"]} htmlFor="lastName">Last name</label>
                             <input
-                                {...formInputRegister("lastName")}
+                                {...registerTextInput("lastName")}
                                 id="lastName"
                                 type="text"
                                 className={touched.lastName && errors.lastName ? `${styles["auth-input"]} ${styles["auth-input--error"]}` : styles["auth-input"]}
@@ -200,7 +200,7 @@ export default function Register() {
                     <div className={styles["auth-field"]}>
                         <label className={styles["auth-label"]} htmlFor="email">Email</label>
                         <input
-                            {...formInputRegister("email")}
+                            {...registerTextInput("email")}
                             id="email"
                             type="email"
                             className={touched.email && errors.email ? `${styles["auth-input"]} ${styles["auth-input--error"]}` : styles["auth-input"]}
@@ -216,7 +216,7 @@ export default function Register() {
                         <label className={styles["auth-label"]} htmlFor="password">Password</label>
                         <div className={styles["auth-input-wrapper"]}>
                             <input
-                                {...formInputRegister("password")}
+                                {...registerTextInput("password")}
                                 id="password"
                                 type={showPassword ? "text" : "password"}
                                 className={`${styles["auth-input"]} ${styles["auth-input--has-icon"]} ${touched.password && errors.password ? styles["auth-input--error"] : ""}`}
@@ -240,7 +240,7 @@ export default function Register() {
                         <label className={styles["auth-label"]} htmlFor="confirmPassword">Confirm password</label>
                         <div className={styles["auth-input-wrapper"]}>
                             <input
-                                {...formInputRegister("confirmPassword")}
+                                {...registerTextInput("confirmPassword")}
                                 id="confirmPassword"
                                 type={showConfirm ? "text" : "password"}
                                 className={`${styles["auth-input"]} ${styles["auth-input--has-icon"]} ${touched.confirmPassword && errors.confirmPassword ? styles["auth-input--error"] : ""}`}
@@ -262,11 +262,10 @@ export default function Register() {
                     <div className={styles["auth-field"]}>
                         <div className={styles["auth-checkbox-row"]}>
                             <input
-                                {...formInputRegister("agreeTerms")}
+                                {...registerChecboxInput("agreeTerms")}
                                 id="agreeTerms"
                                 type="checkbox"
                                 className="auth-checkbox"
-                                checked={data.agreeTerms}
                             />
                             <label htmlFor="agreeTerms" className={styles["auth-checkbox-label"]}>
                                 I agree to the{" "}
