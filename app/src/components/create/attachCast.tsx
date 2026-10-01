@@ -2,10 +2,10 @@ import { useNavigate, useParams, Link } from "react-router";
 import useFetch from "../../hooks/useFetch";
 import styles from "./CreateEditMovie.module.css";
 import { useContext, useEffect, useState, type ChangeEvent } from "react";
-import type { Actor, Movie, ValidateErrors } from "../../types/types";
-import { errorMessageHandler } from "../../utils/errorUtil";
-import { validate } from "../../utils/validate";
-import UserContext from "../../contexts/UserContext";
+import type { Actor, Movie, ValidateErrors } from "../../types/types.ts";
+import { errorMessageHandler } from "../../utils/errorUtil.ts";
+import { validate } from "../../utils/validate.ts";
+import UserContext from "../../contexts/UserContext.ts";
 
 const initialStateMovie: Movie = {
     genre: "",
