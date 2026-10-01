@@ -2,6 +2,7 @@ import { useContext, useEffect, useMemo, useReducer } from "react";
 import { errorMessageHandler } from "../utils/errorUtil";
 import type { Config, Method, Options } from "../types/types";
 import UserContext from "../contexts/UserContext";
+import useFetch from "./useFetch";
 
 type R = {
     id: number,
@@ -36,7 +37,8 @@ function stateReducer(state: R[], action: Action): R[] {
         case "ADD":
             return [...state, action.payload[0]];
         case "REMOVE":
-            return state.filter((x) => x.id !== action.recordId);
+            state = state.filter((x) => x.movie?.id !== action.recordId);
+            return state
         default:
             return state;
     }
@@ -44,18 +46,19 @@ function stateReducer(state: R[], action: Action): R[] {
 export default function useReduceState<T>(url: string, method: Method = "GET", config: Config = {}, initialState: R[], body?: T) {
 
     const [data, dispatch] = useReducer(stateReducer, initialState);
-    const { onLogout } = useContext(UserContext)
+    const { onLogout } = useContext(UserContext);
+    const { BASE_URL } = useFetch();
 
     const options = useMemo(() => {
         const options: Options = { method }
-    
+
         if (body) {
             options.headers = {
                 "content-type": "application/json"
             };
             options.body = JSON.stringify(body);
         };
-    
+
         if (config.accessToken) {
             options.headers = {
                 ...options.headers,
@@ -65,15 +68,16 @@ export default function useReduceState<T>(url: string, method: Method = "GET", c
 
         return options
     }, [method, body, config.accessToken]);
-    
+
     useEffect(() => {
         const controller = new AbortController();
-        
+
         (async () => {
             options.signal = controller.signal
-            
+
             try {
-                const response = await fetch(`https://mission-movie.onrender.com/${url}`, options);
+                const response = await fetch(`${BASE_URL}/${url}`, options);
+                // const response = await fetch(`https://mission-movie.onrender.com/${url}`, options);
                 // const response = await fetch(`http://localhost:5000/${url}`, options);
 
                 if (!response.ok) {
@@ -90,7 +94,7 @@ export default function useReduceState<T>(url: string, method: Method = "GET", c
                     payload: result
                 });
             } catch (error) {
-                if(errorMessageHandler(error) === "Invalid token") {
+                if (errorMessageHandler(error) === "Invalid token") {
                     onLogout("/login")
                 }
             };

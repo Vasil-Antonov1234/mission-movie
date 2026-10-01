@@ -2,10 +2,12 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router";
 import UserContext from "../../contexts/UserContext";
 import { toast } from "react-toastify";
+import useFetch from "../../hooks/useFetch";
 
 export default function AuthCallback() {
     const navigate = useNavigate();
     const { onLogin } = useContext(UserContext);
+    const { BASE_URL } = useFetch();
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
@@ -19,17 +21,11 @@ export default function AuthCallback() {
         (async () => {
 
             try {
-                const response = await fetch("https://mission-movie.onrender.com/auth/me", {
+                const response = await fetch(`${BASE_URL}/auth/me`, {
                     headers: {
                         authorization: token
                     }
                 });
-
-                // const response = await fetch("http://localhost:5000/auth/me", {
-                //     headers: {
-                //         authorization: token
-                //     }
-                // });
 
                 if (!response.ok) {
                     navigate("/login");
@@ -46,7 +42,7 @@ export default function AuthCallback() {
             }
         })()
 
-    }, [navigate, onLogin]);
+    }, [navigate, onLogin, BASE_URL]);
 
     return (
         <p>Signing you in…</p>

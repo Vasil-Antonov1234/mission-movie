@@ -16,7 +16,7 @@ const initialStateMovie: Movie = {
 
 export default function AttachCast() {
     const movieId = useParams().movieId
-    const { data: movie, request } = useFetch(`/movies/${movieId}?select=title%3D%22true%22&select=poster%3D%22true%22`, initialStateMovie);
+    const { data: movie, request, BASE_URL } = useFetch(`/movies/${movieId}?select=title%3D%22true%22&select=poster%3D%22true%22`, initialStateMovie);
     const [cast, setCast] = useState<Actor[]>([]);
     const { user, onLogout } = useContext(UserContext);
     const navigate = useNavigate();
@@ -35,8 +35,7 @@ export default function AttachCast() {
 
         (async () => {
             try {
-                const response = await fetch(`https://mission-movie.onrender.com/casts?where=movieId%3D%22${movieId}%22`, { signal: controller.signal });
-                // const response = await fetch(`http://localhost:5000/casts?where=movieId%3D%22${movieId}%22`, { signal: controller.signal });
+                const response = await fetch(`${BASE_URL}/casts?where=movieId%3D%22${movieId}%22`, { signal: controller.signal });
 
                 if (!response.ok) {
                     return {}

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import type { ReviewFormData } from "../types/types";
-// import type { RegisterLoginFormValues } from "../types/types";
+import useFetch from "./useFetch";
 
-const baseUrl = "https://mission-movie.onrender.com";
+// const baseUrl = "https://mission-movie.onrender.com";
 // const baseUrl = "http://localhost:5000";
 
 type Review = {
@@ -17,6 +17,7 @@ type Review = {
 export default function useForm<T extends Record<string, string | number | boolean | undefined>>(initialValues: T, movieId?: string, castId?: string, reviewId?: string) {
     const [data, setData] = useState<T>(initialValues);
     const [currentData, setCurrentData] = useState<T | null>(null);
+    const { BASE_URL } = useFetch();
 
     useEffect(() => {
 
@@ -31,7 +32,7 @@ export default function useForm<T extends Record<string, string | number | boole
         (async () => {
 
             if (movieId) {
-                const response = await fetch(`${baseUrl}/movies/${movieId}`, { signal: controller.signal });
+                const response = await fetch(`${BASE_URL}/movies/${movieId}`, { signal: controller.signal });
 
                 const result = await response.json();
                 setData(result as T);
@@ -39,7 +40,7 @@ export default function useForm<T extends Record<string, string | number | boole
             };
 
             if (castId) {
-                const response = await fetch(`${baseUrl}/casts/${castId}`, { signal: controller.signal });
+                const response = await fetch(`${BASE_URL}/casts/${castId}`, { signal: controller.signal });
 
                 const result = await response.json();
                 setData(result as T);
@@ -47,7 +48,7 @@ export default function useForm<T extends Record<string, string | number | boole
             };
 
             if (reviewId) {
-                const response = await fetch(`${baseUrl}/reviews/${reviewId}`, { signal: controller.signal });
+                const response = await fetch(`${BASE_URL}/reviews/${reviewId}`, { signal: controller.signal });
 
                 const result: Review = await response.json();
 
@@ -68,7 +69,7 @@ export default function useForm<T extends Record<string, string | number | boole
             controller.abort();
         };
 
-    }, [initialValues, movieId, castId, reviewId]);
+    }, [initialValues, movieId, castId, reviewId, BASE_URL]);
 
     function changeHandler(event: React.BaseSyntheticEvent) {
 

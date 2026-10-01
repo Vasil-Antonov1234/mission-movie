@@ -41,6 +41,24 @@ type YourReview = {
     }
 }
 
+type RemovedFavoriteMovie = {
+    createdAt: string,
+    movieId: number,
+    updatedAt: string,
+    userId: number
+}
+
+type FavoriteMovie = {
+    createdAt: string,
+    movieId: number,
+    updatedAt: string,
+    userId: number,
+    movie: {
+        id: number,
+        title: string
+    }
+}
+
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
 
 const initialMovieCount = { count: "0" };
@@ -48,9 +66,11 @@ const initialMovieCount = { count: "0" };
 export default function UserProfile() {
     const { user: user, onUpdateCtxUser, onLogout } = useContext(UserContext);
     const { data: addedFilmsCount, request } = useFetch(`/users/added-films-count/${user.id}`, initialMovieCount);
-    const { data: favoriteMovies, dispatch: dispatchFavorite } = useReduceState("users/favorite-movies", "GET", { accessToken: user.accessToken }, []);
+    const { data: favoriteMovies, dispatch: dispatchFavorite } = useReduceState<FavoriteMovie[]>("users/favorite-movies", "GET", { accessToken: user.accessToken }, []);
     const { data: watchlistData, dispatch: dispatchWatchlist } = useReduceState("users/watchlist", "GET", { accessToken: user.accessToken }, []);
     const { data: writtenReviews } = useFetch<YourReview[]>("/reviews/yours", [], { accessToken: user.accessToken });
+
+    console.log(favoriteMovies)
 
     const { data, formInputRegister, setData } = useForm(initialValuesProfile);
     const { data: passwordData, formInputRegister: passwordFormInputRegister, setData: setPasswordData } = useForm(initialValuesPassword);
@@ -168,7 +188,9 @@ export default function UserProfile() {
     async function removeFavouriteMovie(movieId?: number) {
 
         try {
-            const removedFavoriteMovie = await request(`/users/favorites/${movieId}/remove`, "DELETE", { accessToken: user.accessToken });
+            const removedFavoriteMovie: RemovedFavoriteMovie = await request(`/users/favorites/${movieId}/remove`, "DELETE", { accessToken: user.accessToken });
+
+            // console.log(removedFavoriteMovie);
 
             dispatchFavorite({ payload: favoriteMovies, type: "REMOVE", recordId: Number(removedFavoriteMovie.movieId) });
         } catch (error) {
