@@ -52,10 +52,12 @@ export default function Header() {
                     </div>
                 </div>
                 <div className={styles["navbar-links"]}>
-                    <NavLink to="/" className={styles["nav-link"]}>Home</NavLink>
-                    <NavLink to="/movies/catalog" className={styles["nav-link"]}>Reelist</NavLink>
-                    <NavLink to="/reviews/catalog" className={styles["nav-link"]}>Reviews</NavLink>
-                    <NavLink to="/cast/catalog" className={styles["nav-link"]}>Actors</NavLink>
+                    <NavLink to="/" className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]}>Home</NavLink>
+                    <NavLink to="/movies/catalog" className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]}>
+                        Reelist
+                    </NavLink>
+                    <NavLink to="/reviews/catalog" className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]}>Reviews</NavLink>
+                    <NavLink to="/cast/catalog" className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]} >Actors</NavLink>
                 </div>
             </div>
             <div className={styles["navbar-right"]}>

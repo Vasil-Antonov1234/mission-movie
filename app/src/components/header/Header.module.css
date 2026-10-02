@@ -59,6 +59,11 @@
 
 .nav-link--active {
     color: #e8e2d9;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
 }
 
 .search-wrapper {
