@@ -7,6 +7,7 @@ import { Activity, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import type { Movie } from "../../types/types";
 import { countPages } from "../../utils/pagesCounter";
+import usePageTitle from "../../hooks/usePageTitle";
 
 // const paginationCount = [1, 2, 3];
 const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary"];
@@ -19,6 +20,8 @@ export default function AllMovies() {
 
     const { data } = useFetch(`/movies?where=activePage%3D%22${activePage}%22&where=genre%3D%22${activeGenre}%22`, initialState);
     const { data: moviesCount } = useFetch("/movies/all/count", "0");
+
+    usePageTitle("Reel List")
 
     const paginationCount = moviesCount ? countPages(moviesCount) : [];
 

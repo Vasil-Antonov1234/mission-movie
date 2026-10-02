@@ -7,6 +7,7 @@ import useFetch from "../../hooks/useFetch";
 import UserContext from "../../contexts/UserContext";
 import { useNavigate, useParams } from "react-router";
 import { errorMessageHandler } from "../../utils/errorUtil";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const initialValues = {
     firstName: "",
@@ -43,6 +44,8 @@ export default function CreateEditCast() {
     const { request } = useFetch();
     const { user, onLogout } = useContext(UserContext);
     const navigate = useNavigate();
+
+    usePageTitle("Actor Management")
 
     async function actionHandler() {
         const fieldErrors = validate(data);

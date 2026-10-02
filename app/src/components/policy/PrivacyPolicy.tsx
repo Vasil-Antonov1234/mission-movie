@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
 import styles from "./Legal.module.css";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const SECTIONS = [
   {
@@ -104,6 +105,7 @@ const SECTIONS = [
 
 export default function PrivacyPolicy() {
   const navigate = useNavigate();
+  usePageTitle("Privacy policy")
 
   return (
     <div className={styles.wrapper}>

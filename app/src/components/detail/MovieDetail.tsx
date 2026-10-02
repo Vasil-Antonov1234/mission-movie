@@ -13,6 +13,7 @@ import { errorMessageHandler } from "../../utils/errorUtil";
 import type { Movie, Options, ReviewSmall } from "../../types/types";
 import { toast } from "react-toastify";
 import ReviewSmallCard from "../reviews/ReviewSmallCard";
+import usePageTitle from "../../hooks/usePageTitle";
 
 type RatingBadgeProps = { rating?: string, large?: boolean }
 
@@ -38,6 +39,7 @@ export default function MovieDetail() {
 
     const movieId = useParams().movieId;
 
+    usePageTitle("Movie Details")
 
     const { data: movie, setData } = useFetch(`/movies/${movieId}`, initialState);
     const genreArray = !movie ? " " : movie?.genre.split(", ");

@@ -6,6 +6,7 @@ import styles from "./UserProfile.module.css";
 import type { Movie, User } from "../../types/types";
 import StarRating from "../comments/StarRating";
 import { calculateReviewTotalScore } from "../../utils/calculateReviewTotalScore";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const initialState: User = {
     id: 0,
@@ -32,6 +33,7 @@ export default function UserPublic() {
     const { data: user } = useFetch(`/users/profile/${userId}/public`, initialState);
     const { data: addedMovies } = useFetch<Movie[]>(`/users/added/movies/${userId}`, []);
     const { data: writtenReviews } = useFetch<AddedReview[]>(`/users/added/reviews/${userId}`, []);
+    usePageTitle("Public Profile")
 
     return (
         <div className={styles.wrapper}>

@@ -14,6 +14,7 @@ import AdminPanel from "../admin/AdminPanel";
 import { getInitials } from "../../utils/getInitials";
 import StarRating from "../comments/StarRating";
 import { calculateReviewTotalScore } from "../../utils/calculateReviewTotalScore";
+import usePageTitle from "../../hooks/usePageTitle";
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 
@@ -70,7 +71,7 @@ export default function UserProfile() {
     const { data: watchlistData, dispatch: dispatchWatchlist } = useReduceState("users/watchlist", "GET", { accessToken: user.accessToken }, []);
     const { data: writtenReviews } = useFetch<YourReview[]>("/reviews/yours", [], { accessToken: user.accessToken });
 
-    console.log(favoriteMovies)
+    usePageTitle("My Profile")
 
     const { data, formInputRegister, setData } = useForm(initialValuesProfile);
     const { data: passwordData, formInputRegister: passwordFormInputRegister, setData: setPasswordData } = useForm(initialValuesPassword);

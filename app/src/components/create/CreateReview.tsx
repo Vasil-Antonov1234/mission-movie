@@ -7,6 +7,7 @@ import { validate } from "../../utils/validate"
 import UserContext from "../../contexts/UserContext"
 import { errorMessageHandler } from "../../utils/errorUtil"
 import { useNavigate, useParams } from "react-router"
+import usePageTitle from "../../hooks/usePageTitle"
 
 type Movie = {
     id: number,
@@ -70,6 +71,8 @@ export default function CreateReview() {
     const [errors, setErrors] = useState<ValidateErrors>({});
     const [touched, setTouched] = useState<ValidateErrors>({});
     const navigate = useNavigate();
+
+    usePageTitle("Review Management")
 
     const id = movieId ? movieId : reviewId ? data.movieId : 0;
     const { data: currentMovie } = useFetch(`/movies/${id}`, initialStateMovie);

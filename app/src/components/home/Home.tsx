@@ -10,6 +10,7 @@ import type { Featured, Movie } from "../../types/types";
 import UserContext from "../../contexts/UserContext";
 import useFetch from "../../hooks/useFetch";
 import { Link } from "react-router";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary", "Fantasy", "Adventure"];
 
@@ -23,6 +24,7 @@ export default function Home() {
     const { isAuthenticated } = useContext(UserContext);
     const { data: trending } = useFetch(`/movies/latest?where=genre%3D%22${activeGenre}%22`, initialStateTrending);
     const { data: featuredMovies } = useFetch("/movies/featured", initialStateFeatuted);
+    usePageTitle("Home");
 
     if (!Array.isArray(trending)) {
         return;

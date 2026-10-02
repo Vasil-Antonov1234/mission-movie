@@ -8,6 +8,7 @@ import { validate } from "../../utils/validate";
 import UserContext from "../../contexts/UserContext";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import Loading from "../loading/Loading";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const initialValues = {
     firstName: "",
@@ -54,6 +55,7 @@ type PasswordStrengthHandlerProps = { password: string };
 
 function PasswordStrengthHandler({ password }: PasswordStrengthHandlerProps) {
     const { level, result } = getPassStrengthHandler(password);
+    usePageTitle("Register")
 
     return (
         <div className={styles["auth-strength"]}>

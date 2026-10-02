@@ -5,12 +5,14 @@ import ReviewCard from "../reviews/RviewCard";
 import SelectionFilter from "../trending/SelectionFilter";
 import styles from "./AllReviews.module.css";
 import useFetch from "../../hooks/useFetch";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const options = ["All", "Latest by year", "Oldest by year", "Alphabetically"];
 
 export default function AllReviews() {
     const [activeReview, setActiveReviwe] = useState("All");
     const { data } = useFetch<Review[]>("/reviews", []);
+    usePageTitle("Reviews");
 
     const filteredReviews = data ? filterRecordsHandler.filterReviews(data, activeReview) : [];
 

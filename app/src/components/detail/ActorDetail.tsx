@@ -6,6 +6,7 @@ import useFetch from "../../hooks/useFetch";
 import ButtonSecondary from "../buttons/ButtonSecondary";
 import UserContext from "../../contexts/UserContext";
 import { errorMessageHandler } from "../../utils/errorUtil";
+import usePageTitle from "../../hooks/usePageTitle";
 
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
 
@@ -22,6 +23,8 @@ export default function ActorDetail() {
   const { data, request } = useFetch(`/casts/${castId}`, initialStateActor);
   const { user, onLogout } = useContext(UserContext);
   const navigate = useNavigate();
+
+  usePageTitle("Actor Details")
 
   const filmography = movies ? movies : [];
 

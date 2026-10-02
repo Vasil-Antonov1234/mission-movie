@@ -54,7 +54,7 @@ export default function Header() {
                 <div className={styles["navbar-links"]}>
                     <NavLink to="/" className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]}>Home</NavLink>
                     <NavLink to="/movies/catalog" className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]}>
-                        Reelist
+                        ReelList
                     </NavLink>
                     <NavLink to="/reviews/catalog" className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]}>Reviews</NavLink>
                     <NavLink to="/cast/catalog" className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]} >Actors</NavLink>

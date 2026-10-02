@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
 import styles from "./Legal.module.css";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const SECTIONS = [
   {
@@ -77,6 +78,7 @@ const SECTIONS = [
 
 export default function TermsOfService() {
   const navigate = useNavigate();
+  usePageTitle("Terms of Service");
 
   return (
     <div className={styles.wrapper}>

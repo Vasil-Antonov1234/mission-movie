@@ -8,6 +8,7 @@ import { validate } from "../../utils/validate";
 import type { ValidateErrors } from "../../types/types";
 import UserContext from "../../contexts/UserContext";
 import { errorMessageHandler } from "../../utils/errorUtil";
+import usePageTitle from "../../hooks/usePageTitle";
 
 type Values = {
     email: string,
@@ -27,6 +28,7 @@ export default function Login() {
     const [touched, setTouched] = useState<ValidateErrors>({});
     const { onLogin } = useContext(UserContext);
     const [isPending, setIsPending] = useState(false);
+    usePageTitle("Login")
 
     function validateHandler(event: React.BaseSyntheticEvent) {
         setTouched((state) => ({

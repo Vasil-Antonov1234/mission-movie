@@ -7,6 +7,7 @@ import type { Movie, ValidateErrors } from "../../types/types";
 import { validate } from "../../utils/validate";
 import { useNavigate, useParams } from "react-router";
 import { errorMessageHandler } from "../../utils/errorUtil";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const currentYear = new Date().getFullYear();
 
@@ -48,6 +49,8 @@ export default function CreateEditMovie() {
 	const [errors, setErrors] = useState<ValidateErrors>({});
 	const [touched, setTouched] = useState<ValidateErrors>({});
 	const navigate = useNavigate();
+
+	usePageTitle("Movie Management")
 
 	function validateHandler(event: React.BaseSyntheticEvent) {
 		setTouched((state) => ({

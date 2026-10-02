@@ -4,10 +4,12 @@ import type { CastSmall } from "../../types/types";
 import CastCardSmall from "../cast/CastCardSmall";
 import styles from "./AllCasts.module.css"
 import UserContext from "../../contexts/UserContext";
+import usePageTitle from "../../hooks/usePageTitle";
 
 export default function AllCasts() {
     const { user } = useContext(UserContext);
     const { data } = useFetch<CastSmall[]>("/casts/get/all", [], { accessToken: user.accessToken });
+    usePageTitle("Actors")
 
     return (
         <section className={styles["trending-section"]}>

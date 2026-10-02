@@ -5,6 +5,7 @@ import MovieCard from "../trending/MovieCard";
 import styles from "./Search.module.css";
 import { Link, useLocation } from "react-router"
 import CastCardSmall from "../cast/CastCardSmall";
+import usePageTitle from "../../hooks/usePageTitle";
 
 type Search = {
     searchQuery: string
@@ -24,11 +25,12 @@ export default function Search() {
     const { data: actors } = useFetch<Actor[]>(`/search/actors?search=search%3D%22${searchQuery.searchQuery}%22`, []);
     const { data: directors } = useFetch<Director[]>(`/search/directors?search=search%3D%22${searchQuery.searchQuery}%22`, []);
     const { data: users } = useFetch<User[]>(`/search/users?search=search%3D%22${searchQuery.searchQuery}%22`, []);
+    usePageTitle("Search")
 
     return (
         <section className={styles["trending-section"]}>
             <div>
-                <h1 className={styles["section-heading-title"]}>Results for "{searchQuery.searchQuery}"</h1>
+                <h1 className={styles["section-heading-title"]}>Results for <span className={styles["search-key"]}>"{searchQuery.searchQuery}"</span></h1>
             </div>
 
             {/* Movies */}

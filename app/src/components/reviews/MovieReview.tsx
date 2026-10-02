@@ -9,6 +9,7 @@ import ButtonSecondary from "../buttons/ButtonSecondary";
 import { convertDate } from "../../utils/convertDate";
 import { calculateReviewTotalScore } from "../../utils/calculateReviewTotalScore";
 import { toast } from "react-toastify";
+import usePageTitle from "../../hooks/usePageTitle";
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 
@@ -63,6 +64,8 @@ export default function MovieReview() {
     const [hasWrittenReview, setHaswrittenReview] = useState(false);
     const [hasOwner, setHasOwner] = useState(false);
     const { data: other } = useFetch<Review[]>(`/reviews/for-movie/${review?.movieId}`, [])
+
+    usePageTitle("Movie Review")
 
     const isAdmin = user.role === "ADMIN";
 
