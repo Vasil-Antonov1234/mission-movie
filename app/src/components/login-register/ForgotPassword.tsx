@@ -2,11 +2,18 @@ import { useState } from "react"
 import styles from "./Auth.module.css";
 import type { ValidateErrors } from "../../types/types";
 import { validate } from "../../utils/validate";
+import { Link } from "react-router";
+import { errorMessageHandler } from "../../utils/errorUtil";
+import useFetch from "../../hooks/useFetch";
+import { toast } from "react-toastify";
+import usePageTitle from "../../hooks/usePageTitle";
 
 export default function ForgotPassword() {
     const [email, setEmail] = useState("");
     const [errors, setErrors] = useState<ValidateErrors>({});
     const [touched, setTouched] = useState<ValidateErrors>({});
+    const { request } = useFetch();
+    usePageTitle("Forgoten Password")
 
     function changeHandler(event: React.BaseSyntheticEvent) {
         setEmail(event.target.value);
@@ -22,16 +29,37 @@ export default function ForgotPassword() {
         setErrors(fieldErrors);
     };
 
+    async function actionHandler() {
+        const fieldErrors = validate({ email });
+        setErrors(fieldErrors);
+        setTouched(fieldErrors);
+
+        if (Object.keys(fieldErrors).length > 0) {
+            return;
+        };
+
+        setErrors({});
+
+        try {
+
+            const result = await request("/users/forgot-password", "POST", {}, { email});
+
+            toast.info(result.message);
+        } catch (error) {
+            errorMessageHandler(error);
+        };
+    };
+
     return (
         <div className={styles["auth-wrapper"]}>
             <div className={styles["auth-card"]}>
                 <div className={styles["auth-eyebrow"]}>Password management</div>
-                <h1 className={styles["auth-title"]}>Reset Password</h1>
+                <h1 className={styles["auth-title"]}>Forgoten Password</h1>
                 <p className={styles["auth-subtitle"]}>
                     Please enter your email address, and a password reset link will be sent to it.
                 </p>
 
-                <form className={styles["auth-form"]}>
+                <form className={styles["auth-form"]} action={actionHandler}>
                     <div className={styles["auth-field"]}>
 
                         {/* Email */}
@@ -61,6 +89,12 @@ export default function ForgotPassword() {
                         Submit
                     </button>
                 </form>
+
+                {/* Back to login */}
+                <p className={styles["auth-switch"]} style={{ marginTop: "24px" }}>
+                    Back to{" "}
+                    <Link to="/login" className={styles["auth-switch-link"]}>Sign in</Link>
+                </p>
             </div>
         </div>
     )

@@ -113,9 +113,8 @@ export default {
         return await userRepository.findByEmail(email);
     },
 
-    async resetPassword(newPassword, userId) {
-        const newHashedPassword = bcrypt.hash(newPassword, 10);
-
-        return await userRepository.changePassword(userId, newHashedPassword);
+    async resetPassword(password, userId) {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        return await userRepository.changePassword(userId, hashedPassword);
     }
 }

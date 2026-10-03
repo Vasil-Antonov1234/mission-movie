@@ -240,13 +240,13 @@ userController.get("/added/reviews/:userId", async (req, res) => {
 });
 
 userController.post("/forgot-password", async (req, res) => {
-    const email = req.body;
+    const email = req.body.email;
 
     try {
         const user = await userService.findByEmail(email);
 
         if (!user) {
-            throw new Error("If that email exists, a reset link has been sent.");
+            res.status(200).json({ message: "If that email exists, a reset link has been sent."});
         };
 
         if (!user.password) {
@@ -278,7 +278,7 @@ userController.post("/forgot-password", async (req, res) => {
 
 userController.post("/reset-password", async (req, res) => {
     const token = req.body.token;
-    const newPassword = req.body.password;
+    const password = req.body.password;
     
     try {
         await accessTokenUtil.check(token);
@@ -291,11 +291,11 @@ userController.post("/reset-password", async (req, res) => {
 
         const user = await userService.getById(decodedToken.id);
 
-        const result = await userService.resetPassword(newPassword, user.id);
+        const result = await userService.resetPassword(password, user.id);
 
         await accessTokenUtil.invalidate(token);
 
-        res.status(200).json({message: "Password reset successfully"});
+        res.status(200).json({message: "Password reset successfully. Please sign in."});
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };

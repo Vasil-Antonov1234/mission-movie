@@ -28,6 +28,7 @@ import NotFound from "./components/404/NotFound.tsx"
 import TermsOfService from "./components/policy/TermsOfService"
 import PrivacyPolicy from "./components/policy/PrivacyPolicy"
 import ForgotPassword from "./components/login-register/ForgotPassword.tsx"
+import ResetPassword from "./components/login-register/ResetPassword.tsx"
 
 function App() {
 
@@ -50,12 +51,13 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/terms" element={<TermsOfService />} />
                 <Route path="/privacy" element={<PrivacyPolicy />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
 
                 <Route element={<IsAuthenticated />}>
                     <Route path="/auth/callback" element={<AuthCallback />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path="/forgot-password" element={<ForgotPassword />} />
                 </Route>
 
                 <Route element={<IsGuest />} >
@@ -73,7 +75,7 @@ function App() {
                         <Route path="/users/:userId" element={<UserDetails />} />
                     </Route>
                 </Route>
-                
+
                 <Route path="/*" element={<NotFound />} />
             </Routes>
             <Footer />
