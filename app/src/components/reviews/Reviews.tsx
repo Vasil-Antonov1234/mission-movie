@@ -20,7 +20,7 @@ export default function Reviews() {
                     </div>
                     <Link to="/reviews/catalog" className={`${styles["section-link"]} ${styles["section-link-top"]}`}>View all →</Link>
                 </div>
-                        <Activity>
+                        <Activity mode={data?.length ? "hidden" : "visible"}>
                                 <h2 className={styles["no-movies"]}>Nothing here yet</h2>
                         </Activity>
                 <div className={styles["reviews-container"]}>
