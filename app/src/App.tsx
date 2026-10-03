@@ -27,6 +27,7 @@ import About from "./components/about/About"
 import NotFound from "./components/404/NotFound.tsx"
 import TermsOfService from "./components/policy/TermsOfService"
 import PrivacyPolicy from "./components/policy/PrivacyPolicy"
+import ForgotPassword from "./components/login-register/ForgotPassword.tsx"
 
 function App() {
 
@@ -54,6 +55,7 @@ function App() {
                     <Route path="/auth/callback" element={<AuthCallback />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
                 </Route>
 
                 <Route element={<IsGuest />} >
