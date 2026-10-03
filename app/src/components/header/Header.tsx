@@ -52,12 +52,12 @@ export default function Header() {
                     </div>
                 </div>
                 <div className={styles["navbar-links"]}>
-                    <NavLink to="/" className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]}>Home</NavLink>
-                    <NavLink to="/movies/catalog" className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]}>
+                    <NavLink to="/" onClick={mobileNavHandler} className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]}>Home</NavLink>
+                    <NavLink to="/movies/catalog" onClick={mobileNavHandler} className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]}>
                         ReelList
                     </NavLink>
-                    <NavLink to="/reviews/catalog" className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]}>Reviews</NavLink>
-                    <NavLink to="/cast/catalog" className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]} >Actors</NavLink>
+                    <NavLink to="/reviews/catalog" onClick={mobileNavHandler} className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]}>Reviews</NavLink>
+                    <NavLink to="/cast/catalog" onClick={mobileNavHandler} className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]} >Actors</NavLink>
                 </div>
             </div>
             <div className={styles["navbar-right"]}>
