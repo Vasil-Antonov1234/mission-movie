@@ -104,6 +104,7 @@
 
 /* ─── FORM ─── */
 .auth-form {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 18px;

@@ -40,8 +40,8 @@ export default function Login() {
         setErrors(fieldErrors);
     }
 
-    async function actionHandler() {   
-                
+    async function actionHandler() {
+
         const fieldErrors = validate(data);
         setErrors(fieldErrors);
         setTouched(fieldErrors);
@@ -105,7 +105,7 @@ export default function Login() {
                 {/* Form */}
                 <form className={styles["auth-form"]} action={actionHandler} noValidate>
 
-                    {<Loading isPending={isPending}/>}
+                    {<Loading isPending={isPending} />}
 
                     {/* Email */}
                     <div className={styles["auth-field"]}>
