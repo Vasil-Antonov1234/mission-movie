@@ -18,7 +18,7 @@ export default {
     },
 
     async changePassword(userId, newHashedPassword, oldPassword, email) {
-        const user = await userRepository.fondByEmail(email);
+        const user = await userRepository.findByEmail(email);
         
         const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
 
@@ -30,7 +30,7 @@ export default {
     },
 
     async login(email, password) {
-        const user = await userRepository.fondByEmail(email);
+        const user = await userRepository.findByEmail(email);
 
         if (!user) {
             throw new Error("Invalid user or password");
@@ -107,5 +107,9 @@ export default {
 
     async getAddedFilms(userId) {
         return await movieRepository.getAdded(userId);
+    },
+
+    async findByEmail(email) {
+        return await userRepository.findByEmail(email);
     }
 }

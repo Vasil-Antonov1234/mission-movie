@@ -5,14 +5,14 @@ export default {
     generate(user) {
 
         const isGoogleUser = user.password === null;
-    
+
         const payload = {
             id: user.id,
             email: user.email,
             isGoogleUser,
             role: user.role
         };
-    
+
         return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" })
     },
 
@@ -44,5 +44,15 @@ export default {
         if (invalidToken) {
             throw new Error("Invalid Token");
         };
+    },
+
+    async generateResetToken(user) {
+
+        const payload = {
+            id: user.id,
+            purpose: "password-reset"
+        };
+
+        return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "15m"});
     }
 }

@@ -6,6 +6,7 @@ import accessTokenUtil from "../utils/accessTokenUtil.js";
 import { isAdmin, isAuthMiddleware } from "../middlewares/authMiddleware.js";
 import { changePasswordSchema } from "../schemas/passwordSchema.js";
 import reviewRepository from "../repositories/reviewRepository.js";
+import transporter from "../config/nodemailer.js";
 
 const userController = Router();
 
@@ -45,7 +46,7 @@ userController.get("/logout", async (req, res) => {
 
 })
 
-userController.post("/login", async (req, res) => {    
+userController.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     try {
@@ -231,11 +232,48 @@ userController.get("/added/reviews/:userId", async (req, res) => {
 
     try {
         const addedReviews = await reviewRepository.getYours(userId);
-        
+
         res.status(200).json(addedReviews);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
-})
+});
+
+userController.post("/forgot-password", async (req, res) => {
+    const email = req.body;
+
+    try {
+        const user = await userService.findByEmail(email);
+
+        if (!user) {
+            throw new Error("If that email exists, a reset link has been sent.");
+        };
+
+        if (!user.password) {
+            throw new Error("This account uses Google sign-in. Please continue with Google.");
+        };
+
+        const resetToken = await accessTokenUtil.generateResetToken(user);
+
+        const resetUrl = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}`;
+
+        await transporter.sendMail({
+            from: '"Movie Magic" <noreply@movie-magic.com>',
+            to: email,
+            subject: "Reset your Magic Movie password",
+            html:
+                `
+                    <p>Hi ${user.firstName} ${user.lastName},</p>
+                    <p>Click the link below to reset your password. It expires in 15 minutes.</p>
+                    <a href="${resetUrl}">${resetUrl}</a>
+                    <p>If you didn't request this, ignore this email.</p>
+                `
+        });
+
+        res.status(200).json({ message: "If that email exists, a reset link has been sent."});
+    } catch (error) {
+        res.status(500).json(getErrorMessage(error));
+    };
+});
 
 export default userController;

@@ -31,7 +31,7 @@ authController.get("/me", async (req, res) => {
 
         const email = decodedToken.email;
 
-        const user = await userRepository.fondByEmail(email);
+        const user = await userRepository.findByEmail(email);
 
         res.status(200).json({
             id: user.id,

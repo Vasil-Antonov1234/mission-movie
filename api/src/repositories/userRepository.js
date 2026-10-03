@@ -21,7 +21,7 @@ export default {
 
     },
 
-    async fondByEmail(email) {
+    async findByEmail(email) {
 
         try {
             return await prisma.user.findUnique({
