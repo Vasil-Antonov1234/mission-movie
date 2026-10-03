@@ -276,4 +276,29 @@ userController.post("/forgot-password", async (req, res) => {
     };
 });
 
+userController.post("/reset-password", async (req, res) => {
+    const token = req.body.token;
+    const newPassword = req.body.password;
+    
+    try {
+        await accessTokenUtil.check(token);
+
+        const decodedToken = await accessTokenUtil.decodeToket(token);
+
+        if (decodedToken.purpose !== "password-reset") {
+            throw new Error("Invalid Token")
+        }
+
+        const user = await userService.getById(decodedToken.id);
+
+        const result = await userService.resetPassword(newPassword, user.id);
+
+        await accessTokenUtil.invalidate(token);
+
+        res.status(200).json({message: "Password reset successfully"});
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+})
+
 export default userController;

@@ -54,5 +54,9 @@ export default {
         };
 
         return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "15m"});
+    },
+
+    async decodeToket(token) {
+        return await jwt.verify(token, process.env.JWT_SECRET);
     }
 }
