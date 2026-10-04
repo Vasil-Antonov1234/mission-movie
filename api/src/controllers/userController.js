@@ -258,7 +258,7 @@ userController.post("/forgot-password", async (req, res) => {
         const resetUrl = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}`;
 
         await transporter.sendMail({
-            from: '"Movie Magic" <noreply@movie-magic.com>',
+            from: `"Movie Magic" <${process.env.GMAIL_USER}>`,
             to: email,
             subject: "Reset your Magic Movie password",
             html:
