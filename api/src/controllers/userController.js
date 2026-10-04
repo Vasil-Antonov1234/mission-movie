@@ -6,7 +6,8 @@ import accessTokenUtil from "../utils/accessTokenUtil.js";
 import { isAdmin, isAuthMiddleware } from "../middlewares/authMiddleware.js";
 import { changePasswordSchema } from "../schemas/passwordSchema.js";
 import reviewRepository from "../repositories/reviewRepository.js";
-import transporter from "../config/nodemailer.js";
+// import transporter from "../config/nodemailer.js";
+import resend from "../config/resend.js";
 
 const userController = Router();
 
@@ -257,17 +258,30 @@ userController.post("/forgot-password", async (req, res) => {
 
         const resetUrl = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}`;
 
-        await transporter.sendMail({
-            from: `"Movie Magic" <${process.env.GMAIL_USER}>`,
+        // await transporter.sendMail({
+        //     from: `"Movie Magic" <${process.env.GMAIL_USER}>`,
+        //     to: email,
+        //     subject: "Reset your Magic Movie password",
+        //     html:
+        //         `
+        //             <p>Hi ${user.firstName} ${user.lastName},</p>
+        //             <p>Click the link below to reset your password. It expires in 15 minutes.</p>
+        //             <a href="${resetUrl}">${resetUrl}</a>
+        //             <p>If you didn't request this, ignore this email.</p>
+        //         `
+        // });
+
+        await resend.emails.send({
+            from: "onboarding@resend.dev",
             to: email,
             subject: "Reset your Magic Movie password",
-            html:
-                `
-                    <p>Hi ${user.firstName} ${user.lastName},</p>
-                    <p>Click the link below to reset your password. It expires in 15 minutes.</p>
-                    <a href="${resetUrl}">${resetUrl}</a>
-                    <p>If you didn't request this, ignore this email.</p>
-                `
+            html: 
+            `
+                <p>Hi ${user.firstName} ${user.lastName},</p>
+                <p>Click the link below to reset your password. It expires in 15 minutes.</p>
+                <a href="${resetUrl}">${resetUrl}</a>
+                <p>If you didn't request this, ignore this email.</p>
+            `
         });
 
         res.status(200).json({ message: "If that email exists, a reset link has been sent."});
