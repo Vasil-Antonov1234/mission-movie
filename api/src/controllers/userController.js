@@ -245,7 +245,7 @@ userController.post("/forgot-password", async (req, res) => {
 
     try {
         const user = await userService.findByEmail(email);
-
+        
         if (!user) {
             res.status(200).json({ message: "If that email exists, a reset link has been sent."});
         };
@@ -273,12 +273,13 @@ userController.post("/forgot-password", async (req, res) => {
 
         await resend.emails.send({
             from: "onboarding@resend.dev",
-            to: email,
+            to: process.env.GMAIL_USER,
             subject: "Reset your Magic Movie password",
             html: 
             `
                 <p>Hi ${user.firstName} ${user.lastName},</p>
-                <p>Click the link below to reset your password. It expires in 15 minutes.</p>
+                <p>A password reset was requested for: <strong>${email}</strong></p>
+                <p>Click the link below to reset the password. It expires in 15 minutes.</p>
                 <a href="${resetUrl}">${resetUrl}</a>
                 <p>If you didn't request this, ignore this email.</p>
             `

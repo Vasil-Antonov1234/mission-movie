@@ -56,7 +56,7 @@ export default function ForgotPassword() {
                 <div className={styles["auth-eyebrow"]}>Password management</div>
                 <h1 className={styles["auth-title"]}>Forgoten Password</h1>
                 <p className={styles["auth-subtitle"]}>
-                    Please enter your email address, and a password reset link will be sent to it.
+                    Please enter your email address, and a password reset link will be sent to the admin email address. Then contact to the admin. The link will expire in 15 minutes.
                 </p>
 
                 <form className={styles["auth-form"]} action={actionHandler}>
