@@ -11,6 +11,7 @@ import UserContext from "../../contexts/UserContext";
 import useFetch from "../../hooks/useFetch";
 import { Link } from "react-router";
 import usePageTitle from "../../hooks/usePageTitle";
+import TopUsersSection from "../user/TopUsersSection";
 
 const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary", "Fantasy", "Adventure"];
 
@@ -89,6 +90,7 @@ export default function Home() {
                 </section>
             </Activity>
             <Reviews />
+            <TopUsersSection /> 
         </div>
     );
 }
