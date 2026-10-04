@@ -90,7 +90,7 @@ export default function Home() {
                 </section>
             </Activity>
             <Reviews />
-            <TopUsersSection /> 
+            <TopUsersSection />
         </div>
     );
 }

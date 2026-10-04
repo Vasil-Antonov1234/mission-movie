@@ -1,16 +1,19 @@
-.reviews-section {
+.top-users-section {
     padding: 48px 60px;
     border-top: 1px solid #1a1a1a;
     background: #0a0a0a;
 }
 
-.reviews-section .section-header {
+.top-users-section .section-header {
     margin-bottom: 28px;
 }
 
-.reviews-container {
+.top-users-container {
     display: flex;
-    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 120px;
+    padding: 34px;
 }
 
 .section-header {
@@ -23,7 +26,7 @@
     margin-bottom: 20px;
 }
 
-.reviews-section .section-header {
+.top-users-section .section-header {
     margin-bottom: 28px;
 }
 
@@ -66,7 +69,7 @@
 }
 
 @media(max-width: 700px) {
-    .reviews-container {
+    .top-users-container {
         flex-direction: column;
     }
 
@@ -80,7 +83,7 @@
 }
 
 @media(max-width: 300px) {
-    .reviews-section {
+    .top-users-section {
         padding: clamp(10px, 10vw, 34px) clamp(5px, 10vw, 30px);
     }
 }
