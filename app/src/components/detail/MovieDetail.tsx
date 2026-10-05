@@ -14,6 +14,7 @@ import type { Movie, Options, ReviewSmall } from "../../types/types";
 import { toast } from "react-toastify";
 import ReviewSmallCard from "../reviews/ReviewSmallCard";
 import usePageTitle from "../../hooks/usePageTitle";
+import TrailerModal from "../trailer-modal/TrailerModal";
 
 type RatingBadgeProps = { rating?: string, large?: boolean }
 
@@ -54,6 +55,9 @@ export default function MovieDetail() {
     const { data: ratesCount } = useFetch(`/rates/count/${movieId}`, "1");
     const { data: reviews } = useFetch<ReviewSmall[]>(`/reviews/for-movie/${movieId}`, []);
 
+    const [showTrailer, setShowTrailer] = useState(false);
+
+   
     useEffect(() => {
         const controller = new AbortController();
 
@@ -248,9 +252,11 @@ export default function MovieDetail() {
 
                         <div className={styles["detail-hero-actions"]}>
                             <Activity mode={movie.trailerUrl ? "visible" : "hidden"}>
-                                <Link to={movie.trailerUrl ? movie.trailerUrl : ""} target="_blank">
+                                <ButtonPrimary text="▶ Watch Trailer" addStyle="btn-170" clickHandler={() => setShowTrailer(true)}/>
+                                { showTrailer && movie.trailerUrl ? <TrailerModal trailerUrl={movie.trailerUrl} onClose={() => setShowTrailer(false)}/> : ""}
+                                {/* <Link to={movie.trailerUrl ? movie.trailerUrl : ""} target="_blank">
                                     <ButtonPrimary text="▶ Watch Trailer" addStyle="btn-170" />
-                                </Link>
+                                </Link> */}
                             </Activity>
                             <Activity mode={isAuthenticated ? "visible" : "hidden"}>
                                 {isAddedToWatchlist ? <span className={styles["watchlist"]}>✓ In Your Watchlist</span> : <ButtonSecondary text="+ Add to Watchlist" addStyle="btn-170" clickHandler={addToWatchlist} />}

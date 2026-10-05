@@ -1,8 +1,10 @@
+import { useState } from "react";
 import type { Featured, Rating } from "../../types/types";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import ButtonSecondary from "../buttons/ButtonSecondary";
 import styles from "./Hero.module.css";
 import { Link } from "react-router";
+import TrailerModal from "../trailer-modal/TrailerModal";
 
 function RatingBadge({ rating }: Rating) {
     return <span className={styles["rating-badge"]}>★ {rating}</span>;
@@ -11,6 +13,8 @@ function RatingBadge({ rating }: Rating) {
 type HeroProps = { movie: Featured, position: number }
 
 export default function Hero(movie: HeroProps) {
+    const [showTrailer, setShowTrailer] = useState(false);
+
     return (
         <div className={styles["hero"]}>
             <img src={movie.movie.poster} alt={movie.movie.title} className={styles["hero-backdrop"]} />
@@ -30,14 +34,13 @@ export default function Hero(movie: HeroProps) {
                 </div>
                 <p className={styles["hero-description"]}>{movie.movie.description}</p>
                 <div className={styles["hero-actions"]}>
-                    <Link to={movie.movie.trailerUrl ? movie.movie.trailerUrl : ""} target="_blank">
-                        <ButtonPrimary text="▶ Watch Trailer" />
-                    </Link>
+                    <ButtonPrimary text="▶ Watch Trailer" clickHandler={() => setShowTrailer(true)} />
                     <Link to={`/movies/${movie.movie.id}/details`}>
                         <ButtonSecondary text="Read More" />
                     </Link>
                 </div>
             </div>
+            {showTrailer && movie.movie.trailerUrl ? <TrailerModal trailerUrl={movie.movie.trailerUrl} onClose={() => setShowTrailer(false)} /> : ""}
         </div>
     );
 }
