@@ -39,6 +39,16 @@ export type InputFormsData = {
     currentPassword?: string
 }
 
+export type TopUsersProps = {
+    id: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    addedMovies: string,
+    writtenReviews: string,
+    totalCount: string
+};
+
 export type Featured = {
     id: number,
     title: string,

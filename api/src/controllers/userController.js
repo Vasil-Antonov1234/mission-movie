@@ -320,8 +320,6 @@ userController.get("/top/users", async (req, res) => {
     try {
         const result = await userService.getTopUsers();
 
-        console.log(result)
-
         res.status(200).json(result);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));

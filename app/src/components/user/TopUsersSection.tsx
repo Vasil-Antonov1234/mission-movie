@@ -1,7 +1,11 @@
+import useFetch from "../../hooks/useFetch";
+import type { TopUsersProps } from "../../types/types";
 import TopUsersCard from "./TopUsersCard";
 import styles from "./TopUsersSection.module.css";
 
 export default function TopUsersSection() {
+    const { data } = useFetch<TopUsersProps[]>("/users/top/users", []);
+
     return (
         <section className={styles["top-users-section"]}>
             <div className={styles["section-header"]}>
@@ -11,9 +15,16 @@ export default function TopUsersSection() {
                 </div>
             </div>
             <div className={styles["top-users-container"]}>
-                <TopUsersCard />
-                <TopUsersCard />
-                <TopUsersCard />
+                {data?.map((x) => <TopUsersCard
+                    key={x.id}
+                    id={x.id}
+                    firstName={x.firstName}
+                    lastName={x.lastName}
+                    email={x.email}
+                    addedMovies={x.addedMovies}
+                    writtenReviews={x.writtenReviews}
+                    totalCount={x.totalCount}
+                />)}
             </div>
         </section>
     );
