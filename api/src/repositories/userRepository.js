@@ -141,5 +141,26 @@ export default {
         FROM users
         WHERE "firstName" ILIKE ${searchQuery} OR "lastName" ILIKE ${searchQuery}
         `
+    },
+
+    async getTopUsers() {
+        return await prisma.$queryRaw`
+        SELECT
+	        u.id, 
+	        u."firstName", 
+	        u."lastName", 
+	        u.email,
+	        COUNT(DISTINCT m.id) AS "addedMovies",
+	        COUNT(DISTINCT r.id) AS "writtenReviews",
+	        COUNT(DISTINCT m.id) + COUNT(DISTINCT r.id) AS "totalCount"
+        FROM users as u
+        LEFT JOIN movies as m
+        ON u.id = m."authorId"
+        LEFT JOIN reviews as r
+        ON u.id = r."userId"
+        GROUP BY u.id, u."firstName", u."lastName", u.email
+        ORDER BY "totalCount" DESC
+        LIMIT 3
+        `
     }
 }

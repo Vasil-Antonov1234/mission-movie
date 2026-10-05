@@ -6,12 +6,12 @@ import movieRepository from "../repositories/movieRepository.js";
 export default {
     async register(userData) {
 
-        if(userData.role) {
+        if (userData.role) {
             userData.role = "USER";
         };
 
         const user = await userRepository.register(userData);
-                
+
         const token = accessTokenUtil.generate(user);
 
         return { user, token };
@@ -19,7 +19,7 @@ export default {
 
     async changePassword(userId, newHashedPassword, oldPassword, email) {
         const user = await userRepository.findByEmail(email);
-        
+
         const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
 
         if (!isPasswordValid) {
@@ -57,7 +57,7 @@ export default {
 
     async remove(userId, currentUserId) {
 
-        if(userId !== currentUserId) {
+        if (userId !== currentUserId) {
             throw new Error("Unauthorised");
         };
 
@@ -116,5 +116,17 @@ export default {
     async resetPassword(password, userId) {
         const hashedPassword = await bcrypt.hash(password, 10);
         return await userRepository.changePassword(userId, hashedPassword);
+    },
+
+    async getTopUsers() {
+        const result = await userRepository.getTopUsers();
+
+        result.forEach((x) => {
+            x.addedMovies = Number(x.addedMovies);
+            x.writtenReviews = Number(x.writtenReviews);
+            x.totalCount = Number(x.totalCount);
+        });
+
+        return result;
     }
 }
