@@ -1,0 +1,37 @@
+.trailer-modal-container {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.trailer-modal-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+}
+
+.close-button {
+    position: absolute;
+    top: -40px;
+    right: "0";
+    background: transparent;
+    border: none;
+    color: #e8e2d9;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.i-frime {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+}
