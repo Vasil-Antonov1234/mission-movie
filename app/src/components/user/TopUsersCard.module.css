@@ -4,11 +4,12 @@
     cursor: pointer;
     padding: 16px;
     border-radius: 8px;
-    transition: background 0.2s;
+    min-width: 370px;
     margin: -8px;
     background-color: rgba(232, 185, 75, 0.192);
     border: 0.3px solid #e8b94b2f;
-    transition: transform 0.25s, border-color 0.25s;
+    transition: transform 0.25s, border-color 0.25s, background 0.2s;
+    justify-content: center;
 }
 
 .similar-item:hover {
@@ -100,6 +101,27 @@
 
 .link {
     all: unset;
+}
+
+@media(max-width: 520px) {
+    .similar-item-info {
+        flex-direction: column;
+    }
+
+    .similar-item {
+        min-width: 240px;
+        text-align: center;
+    }
+}
+
+@media(max-width: 400px) {
+    .similar-item {
+        min-width: auto;
+    }
+
+    .similar-item-email {
+        font-size: 10px;
+    }
 }
 
 @media(max-width: 230px) {
