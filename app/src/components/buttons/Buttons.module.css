@@ -91,6 +91,10 @@
     justify-content: center;
 }
 
+.margim-bottom {
+    margin-bottom: 12px;
+}
+
 @media(max-width: 530px) {
     .search-icon {
         margin: -10px 0 -10px 37px;

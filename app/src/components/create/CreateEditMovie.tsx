@@ -8,6 +8,7 @@ import { validate } from "../../utils/validate";
 import { useNavigate, useParams } from "react-router";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import usePageTitle from "../../hooks/usePageTitle";
+import ButtonPrimary from "../buttons/ButtonPrimary";
 
 const currentYear = new Date().getFullYear();
 
@@ -49,6 +50,9 @@ export default function CreateEditMovie() {
 	const [errors, setErrors] = useState<ValidateErrors>({});
 	const [touched, setTouched] = useState<ValidateErrors>({});
 	const navigate = useNavigate();
+
+	const [posterMode, setPosterMode] = useState<"url" | "upload">("url");
+	const [uploading, setUploading] = useState(false);
 
 	usePageTitle("Movie Management")
 
@@ -129,6 +133,18 @@ export default function CreateEditMovie() {
 			setData(initialValues);
 		};
 	};
+
+	function uploadImage(event: React.BaseSyntheticEvent) {
+		event.preventDefault();
+
+		if (posterMode === "url") {
+			setPosterMode("upload");
+		} else {
+			setPosterMode("url");
+		};
+
+		console.log(posterMode)
+	}
 
 	const showPosterPreview = data.poster.trim() !== "" && isValidUrl(data.poster);
 
@@ -400,16 +416,26 @@ export default function CreateEditMovie() {
 						</div>
 					</div>
 
+
 					{/* ─── Card 3: Media ─── */}
 					<div className={styles.card}>
 						<div className={styles.cardTitle}>Media & Links</div>
+						
+						<label htmlFor="posterUpload" className={styles["upload-btn"]}>Upload image</label>
+						<input
+							id="posterUpload"
+							type="file"
+							className={styles["hidden-upload"]}
+							accept="image/jpeg,image/png,image/webp"
+							disabled={uploading}
+						/>
 
 						<div className={styles.formGrid}>
 
 							{/* Poster URL */}
 							<div className={styles.field}>
 								<label className={styles.label} htmlFor="posterUrl">
-									Poster URL <span className={styles.required}>*</span>
+									Or populate an URL here <span className={styles.required}>*</span>
 								</label>
 								<input
 									id="posterUrl"

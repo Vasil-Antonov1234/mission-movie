@@ -398,6 +398,29 @@
   margin: 12px 0 24px 0;
 }
 
+.hidden-upload {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none
+}
+
+.upload-btn {
+  display: inline-block;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: #111827;
+  margin-bottom: 12px;
+  color: #e8e2d9;
+  cursor: pointer;
+}
+
+.upload-btn:hover {
+  color: #e8b84b;
+  border: 1px solid #e8b94b73;
+}
+
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 680px) {
