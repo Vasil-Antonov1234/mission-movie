@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import ReviewSmallCard from "../reviews/ReviewSmallCard";
 import usePageTitle from "../../hooks/usePageTitle";
 import TrailerModal from "../trailer-modal/TrailerModal";
+import ConfirmModal from "../trailer-modal/ConfirmModal";
 
 type RatingBadgeProps = { rating?: string, large?: boolean }
 
@@ -56,8 +57,11 @@ export default function MovieDetail() {
     const { data: reviews } = useFetch<ReviewSmall[]>(`/reviews/for-movie/${movieId}`, []);
 
     const [showTrailer, setShowTrailer] = useState(false);
+    const [showConfirmMovie, setShowConfirmMovie] = useState(false);
+    const [showConfirmActor, setShowConfirmActor] = useState(false);
+    const [textConfirmation, setTextConfirmation] = useState("");
+    const [currentActor, setCurrentActor] = useState({castId: "", fullName: ""});
 
-   
     useEffect(() => {
         const controller = new AbortController();
 
@@ -134,11 +138,7 @@ export default function MovieDetail() {
             return;
         };
 
-        const confirmation = confirm(`Are you sure you want to delete ${movie.title}`);
-
-        if (!confirmation) {
-            return;
-        };
+        setShowConfirmMovie(false);
 
         try {
             await request(`/movies/${movieId}`, "DELETE", { accessToken: user.accessToken });
@@ -149,18 +149,22 @@ export default function MovieDetail() {
         };
     };
 
+    function test(castId: string, fullName: string) {
+        setCurrentActor({ castId, fullName });
+        setTextConfirmation(`Are you sure you want to remove ${fullName} from the cast?`);
+        
+        setShowConfirmActor(true);
+
+    };
+
     async function removeFromCastHandler(castId: string, fullName: string) {
 
         if (!isOwner) {
             onLogout("/login");
         };
 
-        const confirmation = confirm(`Are you sure you want to remove ${fullName} from the cast?`);
-
-        if (!confirmation) {
-            return;
-        };
-
+        setShowConfirmActor(false);
+        
         try {
             await request(`/movies/${movieId}/${castId}/unattach`, "GET", { accessToken: user.accessToken });
 
@@ -212,10 +216,18 @@ export default function MovieDetail() {
         } catch (error) {
             toast.error(errorMessageHandler(error));
         };
-    }
+    };
 
     return (
         <div className={styles["detail-wrapper"]}>
+
+            <Activity mode={showConfirmMovie ? "visible" : "hidden"}>
+                <ConfirmModal text={`Are you sure you want to delete ${movie.title}?`} onCancel={() => setShowConfirmMovie(false)} onConfirm={deleteHandler} />
+            </Activity>
+
+            <Activity mode={showConfirmActor ? "visible" : "hidden"}>
+                <ConfirmModal text={textConfirmation} onCancel={() => setShowConfirmActor(false)} onConfirm={() => removeFromCastHandler(currentActor.castId, currentActor.fullName)} />
+            </Activity>
 
             {/* ─── HERO ─── */}
             <div className={styles["detail-hero"]}>
@@ -252,8 +264,8 @@ export default function MovieDetail() {
 
                         <div className={styles["detail-hero-actions"]}>
                             <Activity mode={movie.trailerUrl ? "visible" : "hidden"}>
-                                <ButtonPrimary text="▶ Watch Trailer" addStyle="btn-170" clickHandler={() => setShowTrailer(true)}/>
-                                { showTrailer && movie.trailerUrl ? <TrailerModal trailerUrl={movie.trailerUrl} onClose={() => setShowTrailer(false)}/> : ""}
+                                <ButtonPrimary text="▶ Watch Trailer" addStyle="btn-170" clickHandler={() => setShowTrailer(true)} />
+                                {showTrailer && movie.trailerUrl ? <TrailerModal trailerUrl={movie.trailerUrl} onClose={() => setShowTrailer(false)} /> : ""}
                                 {/* <Link to={movie.trailerUrl ? movie.trailerUrl : ""} target="_blank">
                                     <ButtonPrimary text="▶ Watch Trailer" addStyle="btn-170" />
                                 </Link> */}
@@ -268,7 +280,7 @@ export default function MovieDetail() {
                                 <Link to={`/movies/${movie.id}/edit`}>
                                     <ButtonSecondary text="Edit" addStyle="btn-gray" />
                                 </Link>
-                                <ButtonSecondary clickHandler={deleteHandler} text="Delete" addStyle="btn-red" />
+                                <ButtonSecondary clickHandler={() => setShowConfirmMovie(true)} text="Delete" addStyle="btn-red" />
                                 <Link to={`/movies/${movie.id}/attach`}>
                                     <ButtonSecondary text="Add cast" addStyle="btn-170" />
                                 </Link>
@@ -322,7 +334,7 @@ export default function MovieDetail() {
                         <h2 className={styles["synopsis-heading"]}>Cast</h2>
                         <div className={styles["cast-grid"]}>
                             {movie.casts?.map((person) => (
-                                <CastCard key={person.castId} person={person} owner={isOwner} onRemoveCast={removeFromCastHandler} />
+                                <CastCard key={person.castId} person={person} owner={isOwner} onRemoveCast={test} />
                             ))}
                         </div>
                     </section>

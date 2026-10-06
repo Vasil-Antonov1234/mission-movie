@@ -6,7 +6,8 @@ import { Activity } from "react";
 type castProps = {
     person: Artist,
     owner: boolean,
-    onRemoveCast: (castId: string, fullName: string) => Promise<void>
+    // onRemoveCast: (castId: string, fullName: string) => Promise<void>
+    onRemoveCast: (castId: string, fullName: string) => void
 }
 
 export default function CastCard(person: castProps) {

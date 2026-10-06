@@ -9,10 +9,35 @@
     padding: 20px;
 }
 
+.confirm-modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e8e2d9;
+    gap: 20px;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: column;
+    border: 1px solid #e8b84b;
+    border-radius: 14px;
+    padding: 20px;
+    position: absolute;
+}
+
 .trailer-modal-wrapper {
     position: relative;
     width: 100%;
     max-width: 900px;
+}
+
+.buttons-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .close-button {
@@ -24,6 +49,12 @@
     color: #e8e2d9;
     font-size: 28px;
     cursor: pointer;
+}
+
+.text {
+    color: black;
+    text-align: center;
+    font-weight: 300;
 }
 
 .i-frime {
