@@ -8,6 +8,7 @@ import rateController from "./controllers/rateController.js";
 import authController from "./controllers/authController.js";
 import likeController from "./controllers/likeController.js";
 import searchController from "./controllers/searchController.js";
+import uploadController from "./controllers/uploadController.js";
 
 const routes = Router();
 
@@ -20,5 +21,6 @@ routes.use("/rates", rateController);
 routes.use("/auth", authController);
 routes.use("/likes", likeController);
 routes.use("/search", searchController);
+routes.use("/upload", uploadController);
 
 export default routes;
