@@ -103,7 +103,7 @@ export function validate(value: ValidateValue) {
     };
 
     if (value.firstName && !value.firstName.match(/^[A-Z]{1}[a-zA-Z]+$/)) {
-        errors.firstName = "The first name must start with a capital letter and contain only letters";
+        errors.firstName = "The first name must start with a capital letter and cannot contain special characters";
     };
 
     // Last name
@@ -111,8 +111,8 @@ export function validate(value: ValidateValue) {
         errors["lastName"] = "Last name is required";
     };
 
-    if (value.lastName && !value.lastName.match(/^[A-Z]{1}[a-zA-Z']+$/)) {
-        errors.lastName = "The last name must start with a capital letter and contain only letters";
+    if (value.lastName && !value.lastName.match(/^[A-Z]{1}[a-zA-Z'/. ]+$/)) {
+        errors.lastName = "The last name must start with a capital letter and cannot contain special characters";
     };
 
     // Terms of Service and Privacy Policy
@@ -325,14 +325,14 @@ export function validate(value: ValidateValue) {
         errors["cast"] = "Please select an actor to attach";
     };
 
-    // IMDb Prifile
+    // IMDb Profile
     if (value.imdbProfile && value.imdbProfile.length > 0 && !value.imdbProfile?.match(/^https?:\/\//)) {
-        errors["imdbProfile"] = "Imvalid URL format";
+        errors["imdbProfile"] = "Invalid URL format";
     };
 
     // Wikipedia
     if (value.wikipedia && value.wikipedia.length > 0 && !value.wikipedia?.match(/^https?:\/\//)) {
-        errors["wikipedia"] = "Imvalid URL format";
+        errors["wikipedia"] = "Invalid URL format";
     };
 
     // Biography
