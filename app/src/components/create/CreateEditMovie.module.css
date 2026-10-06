@@ -414,11 +414,13 @@
   margin-bottom: 12px;
   color: #e8e2d9;
   cursor: pointer;
+  transition: transform 0.25s, color 0.2s, border-color 0.2s;
 }
 
 .upload-btn:hover {
   color: #e8b84b;
   border: 1px solid #e8b94b73;
+  transform: scale(104%)
 }
 
 

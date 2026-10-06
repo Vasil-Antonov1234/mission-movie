@@ -8,7 +8,6 @@ import { validate } from "../../utils/validate";
 import { useNavigate, useParams } from "react-router";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import usePageTitle from "../../hooks/usePageTitle";
-import ButtonPrimary from "../buttons/ButtonPrimary";
 
 const currentYear = new Date().getFullYear();
 
@@ -134,16 +133,24 @@ export default function CreateEditMovie() {
 		};
 	};
 
-	function uploadImage(event: React.BaseSyntheticEvent) {
-		event.preventDefault();
-
-		if (posterMode === "url") {
-			setPosterMode("upload");
-		} else {
-			setPosterMode("url");
+	function uploadImage(event: React.ChangeEvent<HTMLInputElement>) {
+		const file = event.target.files?.[0];
+		
+		if (!file) {
+			return;
 		};
 
-		console.log(posterMode)
+		setUploading(true);
+
+		const formData = new FormData();
+		formData.append("poster", file);
+
+		// TODO make a real fetch
+
+		setData((state) => ({
+			...state,
+			poster: "https://m.media-amazon.com/images/M/MV5BYWU2MjRjZTYtMjVkMS00MTBjLWFiMTAtYmZlYTk1YjkyMWFkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+		}))
 	}
 
 	const showPosterPreview = data.poster.trim() !== "" && isValidUrl(data.poster);
@@ -427,6 +434,7 @@ export default function CreateEditMovie() {
 							type="file"
 							className={styles["hidden-upload"]}
 							accept="image/jpeg,image/png,image/webp"
+							onChange={uploadImage}
 							disabled={uploading}
 						/>
 
