@@ -2,12 +2,13 @@ import { useNavigate, useParams } from "react-router"
 import useFetch from "../../hooks/useFetch"
 import { getInitials } from "../../utils/getInitials"
 import styles from "./UserProfile.module.css"
-import { useContext } from "react";
+import { Activity, useContext, useState } from "react";
 import UserContext from "../../contexts/UserContext";
 import type { User } from "../../types/types";
 import { convertDate } from "../../utils/convertDate";
 import { toast } from "react-toastify";
 import { errorMessageHandler } from "../../utils/errorUtil";
+import ConfirmModal from "../trailer-modal/ConfirmModal";
 
 const initialState: User = {
     id: 0,
@@ -29,29 +30,31 @@ export default function UserDetails() {
     const { data, request } = useFetch(`/users/${userId}`, initialState, { accessToken: user.accessToken });
     const { data: addedFilmsCount } = useFetch(`/users/added-films-count/${userId}`, initialMovieCount);
     const { data: writtenReviews } = useFetch(`/reviews/${userId}/count`, [], { accessToken: user.accessToken });
+    const [showConfirm, setShowConfirm] = useState(false);
 
     const navigate = useNavigate();
 
     async function deleteProfileHandler() {
 
-        const deleteProfile = confirm(`Are you sure you want to delete the frofile associated with email: ${data?.email}? This action is irreversible!`);
+        try {
+            await request(`/users/${userId}/admin-delete`, "DELETE", { accessToken: user.accessToken })
+            toast.dark(`Profile: ${data?.email} has been deleted!`);
 
-        if (deleteProfile) {
-
-            try {
-                await request(`/users/${userId}/admin-delete`, "DELETE", { accessToken: user.accessToken })
-                toast.dark(`Profile: ${data?.email} has been deleted!`);
-
-                navigate("/users/profile");
-            } catch (error) {
-                errorMessageHandler(error);
-            };
+            navigate("/users/profile");
+        } catch (error) {
+            errorMessageHandler(error);
         };
-
     };
 
     return (
         <div className={styles.wrapper}>
+            <Activity mode={showConfirm ? "visible" : "hidden"}>
+                <ConfirmModal
+                    text={`Are you sure you want to delete the frofile associated with email: ${data?.email}? This action is irreversible!`}
+                    onCancel={() => setShowConfirm(false)}
+                    onConfirm={deleteProfileHandler}
+                />
+            </Activity>
             <div className={styles.container}>
 
                 {/* ─── Page header ─── */}
@@ -158,7 +161,7 @@ export default function UserDetails() {
                             <p className={styles.dangerText}>
                                 {`Permanently delete the account with email: ${data?.email} and all associated data. This action cannot be undone.`}
                             </p>
-                            <button className={styles.btnDanger} onClick={deleteProfileHandler}>
+                            <button className={styles.btnDanger} onClick={() => setShowConfirm(true)} >
                                 Delete account
                             </button>
                         </div>

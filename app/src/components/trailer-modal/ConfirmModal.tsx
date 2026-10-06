@@ -15,8 +15,8 @@ export default function ConfirmModal({ text, onCancel, onConfirm }: ConfirmModal
             <div className={styles["confirm-modal-container"]}>
                 <p className={styles["text"]}>{text}</p>
                 <div className={styles["buttons-wrapper"]}>
-                    <ButtonPrimary text="Yes" clickHandler={onConfirm} addStyle="btn-red" />
-                    <ButtonSecondary text="Cancel" clickHandler={onCancel} addStyle="btn-gray" />
+                    <ButtonPrimary text="Yes" clickHandler={onConfirm} addStyle="btn-red" addStyle1="text-center" />
+                    <ButtonSecondary text="Cancel" clickHandler={onCancel} addStyle="btn-gray" addStyle1="text-center"/>
                 </div>
             </div>
         </div>

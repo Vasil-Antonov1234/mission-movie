@@ -17,9 +17,11 @@
     gap: 20px;
     top: 40%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-60%);
     flex-direction: column;
     border: 1px solid #e8b84b;
+    max-width: 500px;
+    width: 100%;
     border-radius: 14px;
     padding: 20px;
     position: absolute;
@@ -65,4 +67,11 @@
     height: 100%;
     border: none;
     border-radius: 10px;
+}
+
+@media(max-width: 700px) {
+    .confirm-modal-container {
+        max-width: fit-content;
+        transform: translateX(-50%);
+    }
 }

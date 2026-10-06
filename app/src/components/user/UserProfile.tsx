@@ -15,6 +15,7 @@ import { getInitials } from "../../utils/getInitials";
 import StarRating from "../comments/StarRating";
 import { calculateReviewTotalScore } from "../../utils/calculateReviewTotalScore";
 import usePageTitle from "../../hooks/usePageTitle";
+import ConfirmModal from "../trailer-modal/ConfirmModal";
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 
@@ -77,6 +78,8 @@ export default function UserProfile() {
     const { data: passwordData, formInputRegister: passwordFormInputRegister, setData: setPasswordData } = useForm(initialValuesPassword);
     const [errors, setErrors] = useState<ValidateErrors>({});
     const [touched, setTouched] = useState<ValidateErrors>({});
+
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
 
     function validateProfileHandler(event: React.BaseSyntheticEvent) {
         setTouched((state) => ({
@@ -168,30 +171,22 @@ export default function UserProfile() {
 
     async function deleteProfileHandler() {
 
-        const deleteProfile = confirm(`Are you sure you want to delete your frofile? This action is irreversible!`);
+        try {
+            await request(`/users/${user.id}/delete`, "DELETE", { accessToken: user.accessToken })
+            toast.dark(`Profile: ${user.email} has been deleted!`);
 
-        if (deleteProfile) {
-
-            try {
-                await request(`/users/${user.id}/delete`, "DELETE", { accessToken: user.accessToken })
-                toast.dark(`Profile: ${user.email} has been deleted!`);
-
-                onLogout("/");
-            } catch (error) {
-                if (errorMessageHandler(error)) {
-                    onLogout()
-                };
+            onLogout("/");
+        } catch (error) {
+            if (errorMessageHandler(error)) {
+                onLogout()
             };
         };
-
     };
 
     async function removeFavouriteMovie(movieId?: number) {
 
         try {
             const removedFavoriteMovie: RemovedFavoriteMovie = await request(`/users/favorites/${movieId}/remove`, "DELETE", { accessToken: user.accessToken });
-
-            // console.log(removedFavoriteMovie);
 
             dispatchFavorite({ payload: favoriteMovies, type: "REMOVE", recordId: Number(removedFavoriteMovie.movieId) });
         } catch (error) {
@@ -230,6 +225,15 @@ export default function UserProfile() {
 
     return (
         <div className={styles.wrapper}>
+
+            <Activity mode={showConfirmModal ? "visible" : "hidden"}>
+                <ConfirmModal
+                    text="Are you sure you want to delete your frofile? This action is irreversible!"
+                    onCancel={() => setShowConfirmModal(false)}
+                    onConfirm={() => deleteProfileHandler}
+                />
+            </Activity>
+
             <div className={styles.container}>
 
                 {/* ─── Page header ─── */}
@@ -570,7 +574,7 @@ export default function UserProfile() {
                             <p className={styles.dangerText}>
                                 Permanently delete your account and all associated data. This action cannot be undone.
                             </p>
-                            <button className={styles.btnDanger} onClick={deleteProfileHandler}>
+                            <button className={styles.btnDanger} onClick={() => setShowConfirmModal(true) }>
                                 Delete account
                             </button>
                         </div>

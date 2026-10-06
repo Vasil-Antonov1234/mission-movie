@@ -1,8 +1,8 @@
 import type { ButtonProps } from "../../types/types";
 import styles from "./Buttons.module.css";
 
-export default function ButtonPrimary({ text, addStyle: styleName, clickHandler }: ButtonProps) {
+export default function ButtonPrimary({ text, addStyle: styleName, addStyle1: styleName1, clickHandler }: ButtonProps) {
     return (
-        <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]} ${styles[`${styleName}`]}`} onClick={clickHandler}>{text}</button>
+        <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]} ${styles[`${styleName}`]} ${styles[`${styleName1}`]}`} onClick={clickHandler}>{text}</button>
     );
 }

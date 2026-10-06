@@ -143,13 +143,14 @@ export default function MovieDetail() {
         try {
             await request(`/movies/${movieId}`, "DELETE", { accessToken: user.accessToken });
 
+            toast.info(`${movie.title} has been deleted!`);
             navigate("/movies/catalog");
         } catch (error) {
             errorMessageHandler(error);
         };
     };
 
-    function test(castId: string, fullName: string) {
+    function prepareRemoveFromCast(castId: string, fullName: string) {
         setCurrentActor({ castId, fullName });
         setTextConfirmation(`Are you sure you want to remove ${fullName} from the cast?`);
         
@@ -334,7 +335,7 @@ export default function MovieDetail() {
                         <h2 className={styles["synopsis-heading"]}>Cast</h2>
                         <div className={styles["cast-grid"]}>
                             {movie.casts?.map((person) => (
-                                <CastCard key={person.castId} person={person} owner={isOwner} onRemoveCast={test} />
+                                <CastCard key={person.castId} person={person} owner={isOwner} onRemoveCast={prepareRemoveFromCast} />
                             ))}
                         </div>
                     </section>
