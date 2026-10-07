@@ -255,7 +255,7 @@
     }
 }
 
-@media(max-width: 930px) {
+@media(max-width: 1130px) {
     .navbar {
         flex-direction: column;
         height: 70px;
@@ -263,7 +263,7 @@
     }
 }
 
-@media(max-width: 530px) {
+@media(max-width: 680px) {
     .navbar {
         align-items: flex-start;
         padding: 10px 20px;

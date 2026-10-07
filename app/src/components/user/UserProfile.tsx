@@ -248,6 +248,12 @@ export default function UserProfile() {
                         </div>
                     </div>
 
+                    {/* <div className={styles.avatarWrapper}>
+                        <div className={styles.avatarFallback}>
+                            <img src="https://cdn-icons-png.magnific.com/512/12965/12965382.png" className={styles["avatar"]}></img>
+                        </div>
+                    </div> */}
+
                     <div className={styles.profileInfo}>
                         <div className={styles.profileName}>
                             {user.firstName} {user.lastName}
@@ -574,7 +580,7 @@ export default function UserProfile() {
                             <p className={styles.dangerText}>
                                 Permanently delete your account and all associated data. This action cannot be undone.
                             </p>
-                            <button className={styles.btnDanger} onClick={() => setShowConfirmModal(true) }>
+                            <button className={styles.btnDanger} onClick={() => setShowConfirmModal(true)}>
                                 Delete account
                             </button>
                         </div>
