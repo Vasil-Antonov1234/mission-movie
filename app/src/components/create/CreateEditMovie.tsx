@@ -89,7 +89,7 @@ export default function CreateEditMovie() {
 			completedData = data
 		}
 
-
+		const toatsId = toast.loading(`Adding ${completedData.title} to the reel list...`);
 
 		try {
 			let result = "";
@@ -119,7 +119,10 @@ export default function CreateEditMovie() {
 			if (errorMessage === "Invalid token") {
 				onLogout("/login");
 			};
-		};
+		} finally {
+			toast.dismiss(toatsId);
+			toast.success(`${completedData.title} has been added successfully!`);
+		}
 	}
 
 	const handleReset = () => {
@@ -141,7 +144,7 @@ export default function CreateEditMovie() {
 		};
 
 		setUploading(true);
-		const toatsId = toast.loading("Uploading");
+		const toatsId = toast.loading("Uploading...");
 
 		const formData = new FormData();
 		formData.append("poster", file);
