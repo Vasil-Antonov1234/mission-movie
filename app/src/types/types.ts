@@ -215,7 +215,7 @@ export type ButtonProps = {
     text: string,
     addStyle?: string,
     addStyle1?: string,
-    clickHandler?: (event: React.BaseSyntheticEvent) => void
+    clickHandler?: () => void
 };
 
 export type SimilarFilm = {
