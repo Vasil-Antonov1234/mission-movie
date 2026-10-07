@@ -8,6 +8,7 @@ import { validate } from "../../utils/validate";
 import { useNavigate, useParams } from "react-router";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import usePageTitle from "../../hooks/usePageTitle";
+import { toast } from "react-toastify";
 
 const currentYear = new Date().getFullYear();
 
@@ -50,7 +51,6 @@ export default function CreateEditMovie() {
 	const [touched, setTouched] = useState<ValidateErrors>({});
 	const navigate = useNavigate();
 
-	const [posterMode, setPosterMode] = useState<"url" | "upload">("url");
 	const [uploading, setUploading] = useState(false);
 
 	usePageTitle("Movie Management")
@@ -133,25 +133,46 @@ export default function CreateEditMovie() {
 		};
 	};
 
-	function uploadImage(event: React.ChangeEvent<HTMLInputElement>) {
+	async function uploadImage(event: React.ChangeEvent<HTMLInputElement>) {
 		const file = event.target.files?.[0];
-		
+
 		if (!file) {
 			return;
 		};
 
 		setUploading(true);
+		const toatsId = toast.loading("Uploading");
 
 		const formData = new FormData();
 		formData.append("poster", file);
 
-		// TODO make a real fetch
+		if (!user || !user.accessToken) {
+			return;
+		};
 
-		setData((state) => ({
-			...state,
-			poster: "https://m.media-amazon.com/images/M/MV5BYWU2MjRjZTYtMjVkMS00MTBjLWFiMTAtYmZlYTk1YjkyMWFkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
-		}))
-	}
+		try {
+			const response = await fetch(`${import.meta.env.VITE_API_URL}/upload/poster`, {
+				method: "POST",
+				headers: {
+					"authorization": user.accessToken
+				},
+				body: formData
+			})
+
+			const result = await response.json();
+
+			setData((state) => ({
+				...state,
+				poster: result.url
+			}));
+
+		} catch (error) {
+			errorMessageHandler(error);
+		} finally {
+			setUploading(false);
+			toast.dismiss(toatsId);
+		};
+	};
 
 	const showPosterPreview = data.poster.trim() !== "" && isValidUrl(data.poster);
 
@@ -427,7 +448,7 @@ export default function CreateEditMovie() {
 					{/* ─── Card 3: Media ─── */}
 					<div className={styles.card}>
 						<div className={styles.cardTitle}>Media & Links</div>
-						
+
 						<label htmlFor="posterUpload" className={styles["upload-btn"]}>Upload image</label>
 						<input
 							id="posterUpload"
