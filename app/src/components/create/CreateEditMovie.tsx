@@ -89,7 +89,22 @@ export default function CreateEditMovie() {
 			completedData = data
 		}
 
-		const toatsId = toast.loading(`Adding ${completedData.title} to the reel list...`);
+		const loadintText = {
+			start: "",
+			end: ""
+		};
+
+		if (!movieId) {
+			loadintText.start = `Adding ${completedData.title} to the reel list...`;
+			loadintText.end = `${completedData.title} has been added successfully!`;
+		};
+
+		if (movieId) {
+			loadintText.start = `Updating ${completedData.title} in the reel list...`;
+			loadintText.end = `${completedData.title} has been updated successfully!`
+		};
+
+		const toatsId = toast.loading(loadintText.start);
 
 		try {
 			let result = "";
@@ -121,8 +136,8 @@ export default function CreateEditMovie() {
 			};
 		} finally {
 			toast.dismiss(toatsId);
-			toast.success(`${completedData.title} has been added successfully!`);
-		}
+			toast.success(loadintText.end);
+		};
 	}
 
 	const handleReset = () => {

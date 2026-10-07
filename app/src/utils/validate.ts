@@ -21,7 +21,8 @@ const genres = [
     "Marvel",
     "TV-series",
     "Epic",
-    "Historical"
+    "Historical",
+    "Mistery"
 ];
 
 const months = [
