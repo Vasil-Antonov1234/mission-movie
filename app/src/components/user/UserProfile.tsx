@@ -260,7 +260,8 @@ export default function UserProfile() {
                         </div>
                         <div className={styles.profileEmail}>{user.email}</div>
                         <div className={styles.profileBadges}>
-                            <span className={styles.badge}>Member since {convertDate(user.createdAt)}</span>
+                            <span className={styles["member-since"]}>Member since </span>
+                            <span className={styles.badge}>{convertDate(user.createdAt)}</span>
                             {user.isGoogleUser && (
                                 <span className={`${styles.badge} ${styles.badgeGoogle}`}>
                                     Google account

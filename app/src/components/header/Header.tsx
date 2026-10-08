@@ -20,6 +20,10 @@ export default function Header() {
         setMobileNavOpen((state) => !state);
     };
 
+    function mobileNavClose() {
+        setMobileNavOpen(false);
+    };
+
     function keyPressHandler(event: React.KeyboardEvent) {
         
         if(event.code === "Enter") {
@@ -38,6 +42,11 @@ export default function Header() {
         navigate("/search", { state: { searchQuery } } )
     }
 
+    function logoutHandler() {
+        mobileNavClose();
+        onLogout();
+    };
+
     return (
         <nav className={mobileNavOpen ? `${styles["navbar"]} ${styles["logo-hamburger-menu-wrapper-open"]}` : `${styles["navbar"]} ${styles["logo-hamburger-menu-wrapper-close"]}`}>
             <div className={mobileNavOpen ? styles["navbar-left"] : `${styles["navbar-left"]} ${styles["small"]}`}>
@@ -52,12 +61,12 @@ export default function Header() {
                     </div>
                 </div>
                 <div className={styles["navbar-links"]}>
-                    <NavLink to="/" onClick={mobileNavHandler} className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]}>Home</NavLink>
-                    <NavLink to="/movies/catalog" onClick={mobileNavHandler} className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]}>
+                    <NavLink to="/" onClick={mobileNavClose} className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]}>Home</NavLink>
+                    <NavLink to="/movies/catalog" onClick={mobileNavClose} className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]}>
                         ReelList
                     </NavLink>
-                    <NavLink to="/reviews/catalog" onClick={mobileNavHandler} className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]}>Reviews</NavLink>
-                    <NavLink to="/cast/catalog" onClick={mobileNavHandler} className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]} >Actors</NavLink>
+                    <NavLink to="/reviews/catalog" onClick={mobileNavClose} className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]}>Reviews</NavLink>
+                    <NavLink to="/cast/catalog" onClick={mobileNavClose} className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]} >Actors</NavLink>
                 </div>
             </div>
             <div className={styles["navbar-right"]}>
@@ -79,25 +88,25 @@ export default function Header() {
                 />
                 <Activity mode={isAuthenticated ? "hidden" : "visible"}>
                     <Link to="/login">
-                        <ButtonSecondary text="Sign in" clickHandler={mobileNavHandler} />
+                        <ButtonSecondary text="Sign in" clickHandler={mobileNavClose} />
                     </Link>
                     <Link to="/register">
-                        <button onClick={mobileNavHandler} className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Join</button>
+                        <button onClick={mobileNavClose} className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Join</button>
                     </Link>
                 </Activity>
                 <Activity mode={isAuthenticated ? "visible" : "hidden"}>
                     <Link to="/movies/create">
-                        <button onClick={mobileNavHandler} className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Add movie</button>
+                        <button onClick={mobileNavClose} className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Add movie</button>
                     </Link>
                     <Link to="/casts/create">
-                        <button onClick={mobileNavHandler} className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Add cast</button>
+                        <button onClick={mobileNavClose} className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Add cast</button>
                     </Link>
                     <Link to="/reviews/create">
-                        <button onClick={mobileNavHandler} className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Write review</button>
+                        <button onClick={mobileNavClose} className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Write review</button>
                     </Link>
-                    <ButtonSecondary text="Logout" clickHandler={onLogout} />
+                    <ButtonSecondary text="Logout" clickHandler={logoutHandler} />
                 </Activity>
-                <Link to="/users/profile" onClick={mobileNavHandler} className={styles["nav-link"]}>{user.firstName} {user.lastName}</Link>
+                <Link to="/users/profile" onClick={mobileNavClose} className={styles["nav-link"]}>{user.firstName} {user.lastName}</Link>
             </div>
         </nav>
     );

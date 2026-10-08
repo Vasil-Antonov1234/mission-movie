@@ -49,13 +49,13 @@ export default function UserPublic() {
                         <div className={styles.avatarFallback}>
                             {getInitials(user?.firstName, user?.lastName)}
                         </div>
-                        <div className={styles.profileEmail}>{user?.email}</div>
                     </div>
 
                     <div className={styles.profileInfo}>
                         <div className={styles.profileName}>
                             {user?.firstName} {user?.lastName}
                         </div>
+                        <div className={styles.profileEmail}>{user?.email}</div>
                         <div className={styles.profileBadges}>
                             <span className={styles.badge}>Member since {convertDate(user?.createdAt)}</span>
                         </div>

@@ -112,6 +112,11 @@
     margin-bottom: 14px;
 }
 
+.member-since {
+    font-size: 14px;
+    color: #f5ca60;
+}
+
 .profileBadges {
     display: flex;
     gap: 8px;
@@ -198,6 +203,7 @@
     padding-bottom: 16px;
     border-bottom: 1px solid #1a1a1a;
     margin-bottom: 24px;
+    flex-wrap: wrap;
 }
 
 .cardEyebrow {
@@ -226,6 +232,7 @@
     font-family: inherit;
     color: #a09890;
     cursor: pointer;
+    max-width: fit-content;
     transition: border-color 0.2s, color 0.2s;
     letter-spacing: 0.03em;
 }
@@ -711,5 +718,39 @@
 
     .statsRow {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .profileBadges {
+        justify-content: center;
+    }
+
+    .profileInfo {
+        text-align: center;
+    }
+
+    .input {
+        font-size: clamp(0.5rem, 3.7vw, 4rem);
+    }
+
+    .displayValue {
+        font-size: clamp(0.7rem, 4vw, 4rem);
+    }
+
+    .remove {
+        font-size: clamp(0.5rem, 3vw, 3rem);
+    }
+
+    .watchlist-title {
+        font-size: clamp(0.5rem, 4vw, 4rem);
+    }
+
+    .favorites-title {
+        font-size: clamp(0.5rem, 4vw, 4rem);
+    }
+}
+
+@media(max-width: 260px) {
+    .profileEmail {
+        font-size: 10px;
     }
 }
