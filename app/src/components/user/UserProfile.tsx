@@ -246,6 +246,7 @@ export default function UserProfile() {
                         <div className={styles.avatarFallback}>
                             {getInitials(user.firstName, user.lastName)}
                         </div>
+                        <span className={`${styles.badge} ${styles.edit}`}>Change avatar ✏️</span>
                     </div>
 
                     {/* <div className={styles.avatarWrapper}>
