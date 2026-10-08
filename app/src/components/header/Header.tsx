@@ -79,25 +79,25 @@ export default function Header() {
                 />
                 <Activity mode={isAuthenticated ? "hidden" : "visible"}>
                     <Link to="/login">
-                        <ButtonSecondary text="Sign in" />
+                        <ButtonSecondary text="Sign in" clickHandler={mobileNavHandler} />
                     </Link>
                     <Link to="/register">
-                        <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Join</button>
+                        <button onClick={mobileNavHandler} className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Join</button>
                     </Link>
                 </Activity>
                 <Activity mode={isAuthenticated ? "visible" : "hidden"}>
                     <Link to="/movies/create">
-                        <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Add movie</button>
+                        <button onClick={mobileNavHandler} className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Add movie</button>
                     </Link>
                     <Link to="/casts/create">
-                        <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Add cast</button>
+                        <button onClick={mobileNavHandler} className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Add cast</button>
                     </Link>
                     <Link to="/reviews/create">
-                        <button className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Write review</button>
+                        <button onClick={mobileNavHandler} className={`${styles["cta-btn"]} ${styles["cta-btn--primary"]}`}>Write review</button>
                     </Link>
                     <ButtonSecondary text="Logout" clickHandler={onLogout} />
                 </Activity>
-                <Link to="/users/profile" className={styles["nav-link"]}>{user.firstName} {user.lastName}</Link>
+                <Link to="/users/profile" onClick={mobileNavHandler} className={styles["nav-link"]}>{user.firstName} {user.lastName}</Link>
             </div>
         </nav>
     );
