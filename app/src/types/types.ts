@@ -46,7 +46,8 @@ export type TopUsersProps = {
     email: string,
     addedMovies: string,
     writtenReviews: string,
-    totalCount: string
+    totalCount: string,
+    avatarUrl: string | null
 };
 
 export type Featured = {

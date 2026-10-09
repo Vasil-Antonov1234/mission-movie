@@ -150,6 +150,7 @@ export default {
 	        u."firstName", 
 	        u."lastName", 
 	        u.email,
+            u."avatarUrl",
 	        COUNT(DISTINCT m.id) AS "addedMovies",
 	        COUNT(DISTINCT r.id) AS "writtenReviews",
 	        COUNT(DISTINCT m.id) + COUNT(DISTINCT r.id) AS "totalCount"

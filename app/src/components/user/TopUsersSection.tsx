@@ -24,6 +24,7 @@ export default function TopUsersSection() {
                     addedMovies={x.addedMovies}
                     writtenReviews={x.writtenReviews}
                     totalCount={x.totalCount}
+                    avatarUrl={x.avatarUrl}
                 />)}
             </div>
         </section>

@@ -2,17 +2,29 @@ import { Link } from "react-router";
 import styles from "./TopUsersCard.module.css";
 import { getInitials } from "../../utils/getInitials";
 import type { TopUsersProps } from "../../types/types";
+import { Activity } from "react";
 
 export default function TopUsersCard(props: TopUsersProps) {
+    const avatar = props.avatarUrl ? props.avatarUrl : "";
+
     return (
         <Link className={styles["link"]} to={`/user/${props.id}/public`}>
             <div className={styles["similar-item"]}>
                 <div className={styles["similar-item-info"]}>
-                    <div className={styles.avatarWrapper}>
-                        <div className={styles.avatarFallback}>
-                            {getInitials("firstName", "lastName")}
+                    <Activity mode={avatar ? "hidden" : "visible"}>
+                        <div className={styles.avatarWrapper}>
+                            <div className={styles.avatarFallback}>
+                                {getInitials("firstName", "lastName")}
+                            </div>
                         </div>
-                    </div>
+                    </Activity>
+                    <Activity mode={avatar ? "visible" : "hidden"}>
+                        <div className={styles.avatarWrapper}>
+                            <div className={styles.avatarFallback}>
+                                <img src={avatar} className={styles["avatar"]}></img>
+                            </div>
+                        </div>
+                    </Activity>
 
                     <div>
                         <section>
