@@ -26,7 +26,8 @@ export default function UserProvider({ children }: { children: React.ReactNode }
             ...state,
             firstName: user.firstName,
             lastName: user.lastName,
-            email: user.email
+            email: user.email,
+            avatarUrl: user.avatarUrl
         }));
     };
 

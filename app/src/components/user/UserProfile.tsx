@@ -256,13 +256,20 @@ export default function UserProfile() {
 
             await request("/users/uplpad/avatar", "PATCH", { accessToken: user.accessToken }, { avatarUrl: result.url });
 
+            onUpdateCtxUser({
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                avatarUrl: result.url
+            });
+
         } catch (error) {
             errorMessageHandler(error);
         } finally {
             setUploading(false);
             toast.dismiss(toastId);
-        }
-    }
+        };
+    };
 
     return (
         <div className={styles.wrapper}>
