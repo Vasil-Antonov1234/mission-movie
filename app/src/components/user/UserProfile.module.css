@@ -160,6 +160,15 @@
     flex-shrink: 0;
 }
 
+/* Avatar */
+.hiddel-upload {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none
+}
+
 /* ─── STATS ROW ─── */
 .statsRow {
     display: grid;

@@ -246,8 +246,23 @@ export default function UserProfile() {
                         <div className={styles.avatarFallback}>
                             {getInitials(user.firstName, user.lastName)}
                         </div>
-                        <span className={`${styles.badge} ${styles.edit}`}>Change avatar ✏️</span>
+                        <label htmlFor="avatarUpload" className={`${styles.badge} ${styles.edit}`}>Change avatar ✏️</label>
+                        <input
+                            id="avatarUpload"
+                            type="file"
+                            className={styles["hiddel-upload"]}
+                            accept="image/jpeg,image/png,image/webp"
+                        />
                     </div>
+
+                    {/* <input
+                        id="posterUpload"
+                        type="file"
+                        className={styles["hidden-upload"]}
+                        accept="image/jpeg,image/png,image/webp"
+                        onChange={uploadImage}
+                        disabled={uploading}
+                    /> */}
 
                     {/* <div className={styles.avatarWrapper}>
                         <div className={styles.avatarFallback}>
