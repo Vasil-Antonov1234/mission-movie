@@ -143,7 +143,7 @@ export type Movie = {
     budget?: string,
     boxOffice?: string,
     casts?: Artist[]
-    reviewsCount?: number,
+    reviewsCount?: number
 };
 
 export type SelectionOptions = {
@@ -367,7 +367,8 @@ export type UserCtx = {
         email?: string,
         isGoogleUser?: boolean,
         createdAt?: string,
-        role?: string
+        role?: string,
+        avatarUrl?: string | null
     }
     onLogin: (user: User) => void,
     onLogout: (navigateTo?: string) => void,
@@ -386,7 +387,8 @@ export type User = {
     confirmPassword?: string,
     isGoogleUser?: boolean,
     createdAt?: string,
-    role?: string
+    role?: string,
+    avatarUrl?: string | null
 };
 
 export type Config = {

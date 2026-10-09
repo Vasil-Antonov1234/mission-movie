@@ -80,6 +80,9 @@ export default function UserProfile() {
     const [touched, setTouched] = useState<ValidateErrors>({});
 
     const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [uploading, setUploading] = useState(false);
+
+    const avatar = user && user.avatarUrl ? user.avatarUrl : "";
 
     function validateProfileHandler(event: React.BaseSyntheticEvent) {
         setTouched((state) => ({
@@ -223,6 +226,44 @@ export default function UserProfile() {
         setTouched({});
     };
 
+    async function uploadImage(event: React.ChangeEvent<HTMLInputElement>) {
+        const file = event.target.files?.[0];
+
+        if (!file) {
+            return;
+        };
+
+        setUploading(true);
+        const toastId = toast.loading("Uploading...");
+
+        const formData = new FormData();
+        formData.append("poster", file);
+
+        if (!user || !user.accessToken) {
+            return;
+        };
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/upload/poster`, {
+                method: "POST",
+                headers: {
+                    "authorization": user.accessToken
+                },
+                body: formData
+            });
+
+            const result = await response.json();
+
+            await request("/users/uplpad/avatar", "PATCH", { accessToken: user.accessToken }, { avatarUrl: result.url });
+
+        } catch (error) {
+            errorMessageHandler(error);
+        } finally {
+            setUploading(false);
+            toast.dismiss(toastId);
+        }
+    }
+
     return (
         <div className={styles.wrapper}>
 
@@ -243,32 +284,29 @@ export default function UserProfile() {
                 {/* ─── Profile summary card ─── */}
                 <div className={styles.profileCard}>
                     <div className={styles.avatarWrapper}>
-                        <div className={styles.avatarFallback}>
-                            {getInitials(user.firstName, user.lastName)}
-                        </div>
+                        <Activity mode={avatar ? "hidden" : "visible"}>
+                            <div className={styles.avatarFallback}>
+                                {getInitials(user.firstName, user.lastName)}
+                            </div>
+                        </Activity>
+                        <Activity mode={avatar ? "visible" : "hidden"}>
+                            <div className={styles.avatarWrapper}>
+                                <div className={styles.avatarFallback}>
+                                    <img src={avatar} className={styles["avatar"]}></img>
+                                </div>
+                            </div>
+                        </Activity>
                         <label htmlFor="avatarUpload" className={`${styles.badge} ${styles.edit}`}>Change avatar ✏️</label>
                         <input
                             id="avatarUpload"
                             type="file"
                             className={styles["hiddel-upload"]}
+                            onChange={uploadImage}
                             accept="image/jpeg,image/png,image/webp"
+                            disabled={uploading}
                         />
                     </div>
 
-                    {/* <input
-                        id="posterUpload"
-                        type="file"
-                        className={styles["hidden-upload"]}
-                        accept="image/jpeg,image/png,image/webp"
-                        onChange={uploadImage}
-                        disabled={uploading}
-                    /> */}
-
-                    {/* <div className={styles.avatarWrapper}>
-                        <div className={styles.avatarFallback}>
-                            <img src="https://cdn-icons-png.magnific.com/512/12965/12965382.png" className={styles["avatar"]}></img>
-                        </div>
-                    </div> */}
 
                     <div className={styles.profileInfo}>
                         <div className={styles.profileName}>

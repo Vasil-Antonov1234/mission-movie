@@ -128,5 +128,9 @@ export default {
         });
 
         return result;
+    },
+
+    async uploadAvatar(userId, avatarUrl) {
+        return await userRepository.uploadAvatar(userId, avatarUrl);
     }
 }

@@ -162,5 +162,16 @@ export default {
         ORDER BY "totalCount" DESC
         LIMIT 3
         `
+    },
+
+    async uploadAvatar(userId, avatarUrl) {
+        return await prisma.user.update({
+            data: {
+                avatarUrl
+            },
+            where: {
+                id: userId
+            }
+        });
     }
 }

@@ -61,7 +61,8 @@ userController.post("/login", async (req, res) => {
             accessToken: token,
             isGoogleUser: false,
             createdAt: user.createdAt,
-            role: user.role
+            role: user.role,
+            avatarUrl: user.avatarUrl
         });
     } catch (error) {
         res.status(400).json(error.message);
@@ -325,5 +326,18 @@ userController.get("/top/users", async (req, res) => {
         res.status(400).json(getErrorMessage(error));
     };
 });
+
+userController.patch("/uplpad/avatar", isAuthMiddleware, async (req, res) => {
+    const userId = Number(req.user.id);
+    const avatarUrl = req.body.avatarUrl;
+
+    try {
+        const result = await userService.uploadAvatar(userId, avatarUrl);
+        
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
+})
 
 export default userController;

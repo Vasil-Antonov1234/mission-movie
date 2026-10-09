@@ -14,7 +14,7 @@ type Review = {
     cinematographyScore: string
 };
 
-export default function useForm<T extends Record<string, string | number | boolean | undefined>>(initialValues: T, movieId?: string, castId?: string, reviewId?: string) {
+export default function useForm<T extends Record<string, string | number | boolean | undefined | null>>(initialValues: T, movieId?: string, castId?: string, reviewId?: string) {
     const [data, setData] = useState<T>(initialValues);
     const [currentData, setCurrentData] = useState<T | null>(null);
     const { BASE_URL } = useFetch();
