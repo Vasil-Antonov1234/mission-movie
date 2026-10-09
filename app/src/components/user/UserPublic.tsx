@@ -7,6 +7,7 @@ import type { Movie, User } from "../../types/types";
 import StarRating from "../comments/StarRating";
 import { calculateReviewTotalScore } from "../../utils/calculateReviewTotalScore";
 import usePageTitle from "../../hooks/usePageTitle";
+import { Activity } from "react";
 
 const initialState: User = {
     id: 0,
@@ -35,6 +36,8 @@ export default function UserPublic() {
     const { data: writtenReviews } = useFetch<AddedReview[]>(`/users/added/reviews/${userId}`, []);
     usePageTitle("Public Profile")
 
+    const avatar = user?.avatarUrl ? user.avatarUrl : "";
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
@@ -45,11 +48,20 @@ export default function UserPublic() {
 
                 {/* ─── Profile summary card ─── */}
                 <div className={styles.profileCard}>
-                    <div className={styles.avatarWrapper}>
-                        <div className={styles.avatarFallback}>
-                            {getInitials(user?.firstName, user?.lastName)}
+                    <Activity mode={avatar ? "hidden" : "visible"}>
+                        <div className={styles.avatarWrapper}>
+                            <div className={styles.avatarFallback}>
+                                {getInitials(user?.firstName, user?.lastName)}
+                            </div>
                         </div>
-                    </div>
+                    </Activity>
+                    <Activity mode={avatar ? "visible" : "hidden"}>
+                        <div className={styles.avatarWrapper}>
+                            <div className={styles.avatarFallback}>
+                                <img src={avatar} className={styles["avatar"]}></img>
+                            </div>
+                        </div>
+                    </Activity>
 
                     <div className={styles.profileInfo}>
                         <div className={styles.profileName}>
