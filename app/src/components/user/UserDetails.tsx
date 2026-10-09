@@ -34,6 +34,8 @@ export default function UserDetails() {
 
     const navigate = useNavigate();
 
+    const avatar = data?.avatarUrl ? data.avatarUrl : "";
+
     async function deleteProfileHandler() {
 
         try {
@@ -63,11 +65,20 @@ export default function UserDetails() {
 
                 {/* ─── Profile summary card ─── */}
                 <div className={styles.profileCard}>
-                    <div className={styles.avatarWrapper}>
-                        <div className={styles.avatarFallback}>
-                            {getInitials(data?.firstName, data?.lastName)}
+                    <Activity mode={avatar ? "hidden" : "visible"}>
+                        <div className={styles.avatarWrapper}>
+                            <div className={styles.avatarFallback}>
+                                {getInitials(data?.firstName, data?.lastName)}
+                            </div>
                         </div>
-                    </div>
+                    </Activity>
+                    <Activity mode={avatar ? "visible" : "hidden"}>
+                        <div className={styles.avatarWrapper}>
+                            <div className={styles.avatarFallback}>
+                                <img src={avatar} className={styles["avatar"]}></img>
+                            </div>
+                        </div>
+                    </Activity>
 
                     <div className={styles.profileInfo}>
                         <div className={styles.profileName}>
