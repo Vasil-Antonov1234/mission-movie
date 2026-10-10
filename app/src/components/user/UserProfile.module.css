@@ -482,6 +482,10 @@
     margin-bottom: 0;
 }
 
+.you-added {
+    border-color: #e8b84b;
+}
+
 .sidebarCardTitle {
     font-size: 11px;
     color: #555;
@@ -491,6 +495,10 @@
     padding-bottom: 14px;
     border-bottom: 1px solid #1a1a1a;
     margin-bottom: 16px;
+}
+
+.you-added-title {
+    color: #e8b84b;
 }
 
 .favorites {

@@ -352,7 +352,6 @@ export default function MovieDetail() {
                     <hr className={styles["section-divider"]} />
 
                     {/* REVIEWS */}
-
                     <div className={styles["section-label"]}>Reviews</div>
                     <section className={styles["small-review-section"]}>
                         {reviews?.map((x) => <ReviewSmallCard
@@ -370,9 +369,6 @@ export default function MovieDetail() {
                             </p>
                         </h2>
                     </Activity>
-
-                    {/* COMMENTS AND RATE SECTION */}
-                    <CommentsSection owner={isOwner} onRate={rateHandler} hasRated={hasRated} />
                 </main>
 
                 {/* RIGHT SIDEBAR */}
@@ -459,6 +455,8 @@ export default function MovieDetail() {
                     </div>
 
                 </aside>
+                {/* COMMENTS AND RATE SECTION */}
+                <CommentsSection owner={isOwner} onRate={rateHandler} hasRated={hasRated} />
             </div>
         </div>
     );

@@ -613,6 +613,10 @@
         width: 110px;
         height: 154px;
     }
+
+    .similar-list {
+        flex-direction: column;
+    }
 }
 
 @media(min-width: 2000px) {

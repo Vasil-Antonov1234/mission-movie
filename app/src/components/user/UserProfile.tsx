@@ -631,6 +631,20 @@ export default function UserProfile() {
                             </div>
                         </div>
 
+                        {/* Added movies */}
+                        <div className={`${styles.sidebarCard} ${styles["you-added"]}`}>
+                            <div className={`${styles.sidebarCardTitle} ${styles["you-added-title"]}`}>You added</div>
+                            <p className={styles["favourites-wrapper"]}>
+                                <Link className={styles["watchlist-title"]} to="#">Movie title 1</Link>
+                            </p>
+                            <p className={styles["favourites-wrapper"]}>
+                                <Link className={styles["watchlist-title"]} to="#">Movie title 2</Link>
+                            </p>
+                            <p className={styles["favourites-wrapper"]}>
+                                <Link className={styles["watchlist-title"]} to="#">Movie title 3</Link>
+                            </p>
+                        </div>
+
                         {/* Admin panel */}
                         <Activity mode={user.role === "ADMIN" ? "visible" : "hidden"}>
                             <AdminPanel />
