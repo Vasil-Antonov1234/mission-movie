@@ -14,7 +14,7 @@ export default function TopUsersCard(props: TopUsersProps) {
                     <Activity mode={avatar ? "hidden" : "visible"}>
                         <div className={styles.avatarWrapper}>
                             <div className={styles.avatarFallback}>
-                                {getInitials("firstName", "lastName")}
+                                {getInitials(props.firstName, props.lastName)}
                             </div>
                         </div>
                     </Activity>

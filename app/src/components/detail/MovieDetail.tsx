@@ -60,7 +60,7 @@ export default function MovieDetail() {
     const [showConfirmMovie, setShowConfirmMovie] = useState(false);
     const [showConfirmActor, setShowConfirmActor] = useState(false);
     const [textConfirmation, setTextConfirmation] = useState("");
-    const [currentActor, setCurrentActor] = useState({castId: "", fullName: ""});
+    const [currentActor, setCurrentActor] = useState({ castId: "", fullName: "" });
 
     useEffect(() => {
         const controller = new AbortController();
@@ -153,7 +153,7 @@ export default function MovieDetail() {
     function prepareRemoveFromCast(castId: string, fullName: string) {
         setCurrentActor({ castId, fullName });
         setTextConfirmation(`Are you sure you want to remove ${fullName} from the cast?`);
-        
+
         setShowConfirmActor(true);
 
     };
@@ -165,7 +165,7 @@ export default function MovieDetail() {
         };
 
         setShowConfirmActor(false);
-        
+
         try {
             await request(`/movies/${movieId}/${castId}/unattach`, "GET", { accessToken: user.accessToken });
 
@@ -373,9 +373,6 @@ export default function MovieDetail() {
 
                     {/* COMMENTS AND RATE SECTION */}
                     <CommentsSection owner={isOwner} onRate={rateHandler} hasRated={hasRated} />
-
-                    <h2 className={styles["nothing-yet"]}>No comments yet
-                    </h2>
                 </main>
 
                 {/* RIGHT SIDEBAR */}

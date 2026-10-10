@@ -20,7 +20,7 @@ export default function CommentsSection({ owner, onRate, hasRated }: CommentsSec
     const [hoverRating, setHoverRating] = useState(0);
     const { isAuthenticated, user } = useContext(UserContext);
     const { request } = useFetch();
-    
+
     const movieId = useParams().movieId
     const { data: commentsData, dispatch } = useReduceState(`comments/${movieId}`, "GET", {}, [])
 
@@ -112,9 +112,12 @@ export default function CommentsSection({ owner, onRate, hasRated }: CommentsSec
 
             <div className={styles["comments-list"]}>
                 {commentsData.map((comment) => (
-                    <Comment key={comment.id} comment={comment} onDelete={deleteCommentHandler}/>
+                    <Comment key={comment.id} comment={comment} onDelete={deleteCommentHandler} />
                 ))}
             </div>
+            <Activity mode={commentsData.length ? "hidden" : "visible"}>
+                <h2 className={styles["nothing-yet"]}>No comments yet</h2>
+            </Activity>
         </section>
     );
 }
