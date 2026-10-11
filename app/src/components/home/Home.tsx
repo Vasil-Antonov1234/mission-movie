@@ -12,6 +12,7 @@ import useFetch from "../../hooks/useFetch";
 import { Link } from "react-router";
 import usePageTitle from "../../hooks/usePageTitle";
 import TopUsersSection from "../user/TopUsersSection";
+import Loading from "../loading/Loading";
 
 const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary", "Fantasy", "Adventure"];
 
@@ -23,9 +24,11 @@ export default function Home() {
     const [moveState, SetMoveState] = useState("next");
     const [activeGenre, setActiveGenre] = useState("All");
     const { isAuthenticated } = useContext(UserContext);
-    const { data: trending } = useFetch(`/movies/latest?where=genre%3D%22${activeGenre}%22`, initialStateTrending);
+    const { data: trending, isPending } = useFetch(`/movies/latest?where=genre%3D%22${activeGenre}%22`, initialStateTrending);
     const { data: featuredMovies } = useFetch("/movies/featured", initialStateFeatuted);
     usePageTitle("Home");
+
+    console.log(isPending)
 
     if (!Array.isArray(trending)) {
         return;
@@ -59,6 +62,7 @@ export default function Home() {
 
     return (
         <div className={styles["home-wrapper"]}>
+            <Loading isPending={isPending}/>
             <section className={styles["hero-wrapper"]}>
                 <div className={styles["slide"]}>
                     <span className={heroState === 1 ? styles["next-slide"] : `${styles["next-slide"]} ${styles["hover-slade"]}`} onClick={previousHeroHandler} onTouchEnd={(event) => touchEndHandler(event)}>{"<"}</span>

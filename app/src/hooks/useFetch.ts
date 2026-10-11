@@ -8,6 +8,7 @@ const BASE_URL = `${import.meta.env.VITE_API_URL}`;
 export default function useFetch<T>(url?: string, initialState?: T, config: Config = {}) {
     const [data, setData] = useState(initialState);
     const { onLogout } = useContext(UserContext);
+    const [isPending, setIsPending] = useState(false);
 
     const options = useMemo(() => {
         const options: Options = { method: "GET" }
@@ -26,6 +27,8 @@ export default function useFetch<T>(url?: string, initialState?: T, config: Conf
         if (!url) {
             return;
         };
+
+        setIsPending(true);
 
         const controller = new AbortController();
 
@@ -46,11 +49,12 @@ export default function useFetch<T>(url?: string, initialState?: T, config: Conf
                 const result = await response.json();
 
                 setData(result);
+                setIsPending(false)
             } catch (error) {
                 if (errorMessageHandler(error) === "Invalid token") {
                     onLogout("/login")
                 }
-            };
+            }
         })()
 
         return () => {
@@ -61,6 +65,7 @@ export default function useFetch<T>(url?: string, initialState?: T, config: Conf
 
     async function request<T>(url: string, method: Method, config: Config = {}, body?: T) {
         const options: Options = { method: method };
+        setIsPending(true);
 
         if (body) {
             options.headers = {
@@ -85,9 +90,10 @@ export default function useFetch<T>(url?: string, initialState?: T, config: Conf
 
         const result = await response.json();
 
+        setIsPending(false);
         return result;
 
     };
 
-    return { data, setData, request, BASE_URL };
+    return { data, setData, request, BASE_URL, isPending };
 };
