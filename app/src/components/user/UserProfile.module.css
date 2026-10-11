@@ -647,6 +647,7 @@
     color: #555;
     letter-spacing: 0.1em;
     font-weight: 500;
+    margin-bottom: 10px;
 }
 
 .avatar {
@@ -654,6 +655,10 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+}
+
+.added-movies-container {
+    width: 100%;
 }
 
 /* ─── RESPONSIVE ─── */
@@ -682,6 +687,13 @@
     .editBtn {
         width: 100%;
         text-align: center;
+    }
+
+    .added-movies-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
     }
 }
 
@@ -781,6 +793,20 @@
 
     .favorites-title {
         font-size: clamp(0.5rem, 4vw, 4rem);
+    }
+    
+    .created-at {
+        font-size: 8px;
+    }
+
+    .added-movies-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .favourites-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
 

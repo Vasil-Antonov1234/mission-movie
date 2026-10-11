@@ -4,7 +4,7 @@ import UserContext from "../../contexts/UserContext";
 import { convertDate } from "../../utils/convertDate";
 import useFetch from "../../hooks/useFetch";
 import useForm from "../../hooks/useForm";
-import type { ValidateErrors } from "../../types/types";
+import type { Movie, ValidateErrors } from "../../types/types";
 import { validate } from "../../utils/validate";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import { Link } from "react-router";
@@ -71,6 +71,7 @@ export default function UserProfile() {
     const { data: favoriteMovies, dispatch: dispatchFavorite } = useReduceState<FavoriteMovie[]>("users/favorite-movies", "GET", { accessToken: user.accessToken }, []);
     const { data: watchlistData, dispatch: dispatchWatchlist } = useReduceState("users/watchlist", "GET", { accessToken: user.accessToken }, []);
     const { data: writtenReviews } = useFetch<YourReview[]>("/reviews/yours", [], { accessToken: user.accessToken });
+    const { data: addedMovies } = useFetch<Movie[]>(`/users/added/movies/${user.id}`, [], { accessToken: user.accessToken });
 
     usePageTitle("My Profile")
 
@@ -634,15 +635,14 @@ export default function UserProfile() {
                         {/* Added movies */}
                         <div className={`${styles.sidebarCard} ${styles["you-added"]}`}>
                             <div className={`${styles.sidebarCardTitle} ${styles["you-added-title"]}`}>You added</div>
-                            <p className={styles["favourites-wrapper"]}>
-                                <Link className={styles["watchlist-title"]} to="#">Movie title 1</Link>
-                            </p>
-                            <p className={styles["favourites-wrapper"]}>
-                                <Link className={styles["watchlist-title"]} to="#">Movie title 2</Link>
-                            </p>
-                            <p className={styles["favourites-wrapper"]}>
-                                <Link className={styles["watchlist-title"]} to="#">Movie title 3</Link>
-                            </p>
+                            {addedMovies?.map((x) =>
+                                <p className={styles["favourites-wrapper"]} key={x.id}>
+                                    <div className={styles["added-movies-container"]}>
+                                        <Link className={styles["watchlist-title"]} to={`${x.id}`}>{x.title}</Link>
+                                        <p className={styles["created-at"]}>{convertDate(x.createdAt)}</p>
+                                    </div>
+                                </p>
+                            )}
                         </div>
 
                         {/* Admin panel */}
