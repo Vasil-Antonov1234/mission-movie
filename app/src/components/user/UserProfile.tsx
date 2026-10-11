@@ -563,49 +563,55 @@ export default function UserProfile() {
                         <section>
 
                             {/* Watchlist */}
-                            <div className={`${styles.sidebarCard} ${styles["additional-info-card"]}`}>
-                                <div className={styles.sidebarCardTitle}>Watchlist</div>
-                                <div className={styles.infoList}>
-                                    <div className={styles.infoItem}>
-                                        {watchlistData.map((x) =>
-                                            <p className={styles["favourites-wrapper"]} key={x.id}>
-                                                <Link className={styles["watchlist-title"]} to={`/movies/${x.movie?.id}/details`}>{x.movie?.title}</Link>
-                                                <span className={styles.remove} onClick={() => removeFromWatchlist(x.movie?.id)}>remove</span>
-                                            </p>)}
+                            <Activity mode={watchlistData.length ? "visible" : "hidden"}>
+                                <div className={`${styles.sidebarCard} ${styles["additional-info-card"]}`}>
+                                    <div className={styles.sidebarCardTitle}>Watchlist</div>
+                                    <div className={styles.infoList}>
+                                        <div className={styles.infoItem}>
+                                            {watchlistData.map((x) =>
+                                                <p className={styles["favourites-wrapper"]} key={x.id}>
+                                                    <Link className={styles["watchlist-title"]} to={`/movies/${x.movie?.id}/details`}>{x.movie?.title}</Link>
+                                                    <span className={styles.remove} onClick={() => removeFromWatchlist(x.movie?.id)}>remove</span>
+                                                </p>)}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </Activity>
 
                             {/* Favorites movies */}
-                            <div className={`${styles.sidebarCard} ${styles.favorites} ${styles["additional-info-card"]}`}>
-                                <div className={styles.sidebarCardTitle}>Favourite movies</div>
-                                <div className={styles.infoList}>
-                                    <div className={styles.infoItem}>
-                                        {favoriteMovies.map((x) =>
-                                            <p className={styles["favourites-wrapper"]} key={x.id}>
-                                                <Link className={styles["favorites-title"]} to={`/movies/${x.movie?.id}/details`}>{x.movie?.title}</Link>
-                                                <span className={styles.remove} onClick={() => removeFavouriteMovie(x.movie?.id)}>remove</span>
-                                            </p>)}
+                            <Activity mode={favoriteMovies.length ? "visible" : "hidden"}>
+                                <div className={`${styles.sidebarCard} ${styles.favorites} ${styles["additional-info-card"]}`}>
+                                    <div className={styles.sidebarCardTitle}>Favourite movies</div>
+                                    <div className={styles.infoList}>
+                                        <div className={styles.infoItem}>
+                                            {favoriteMovies.map((x) =>
+                                                <p className={styles["favourites-wrapper"]} key={x.id}>
+                                                    <Link className={styles["favorites-title"]} to={`/movies/${x.movie?.id}/details`}>{x.movie?.title}</Link>
+                                                    <span className={styles.remove} onClick={() => removeFavouriteMovie(x.movie?.id)}>remove</span>
+                                                </p>)}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </Activity>
 
                             {/* Written reviews */}
-                            <section className={`${styles.sidebarCard} ${styles["additional-info-card"]}`}>
-                                <div className={styles.sidebarCardTitle}>Written reviews</div>
-                                <div className={styles.infoList}>
-                                    <div className={styles.infoItem}>
-                                        {writtenReviews?.map((x) =>
-                                            <p className={styles["written-reviews-container"]} key={x.id}>
-                                                <div className={styles["favourites-wrapper"]}>
-                                                    <Link className={styles["watchlist-title"]} to={`/review/${x.id}`}>{x.movie.title}</Link>
-                                                    <StarRating rating={calculateReviewTotalScore(x.cinematographyScore, x.directorScore, x.performanceScore, x.screenplayScore)} />
-                                                </div>
-                                                <p className={styles["created-at"]}>{convertDate(x.createdAt)}</p>
-                                            </p>)}
+                            <Activity mode={writtenReviews?.length ? "visible" : "hidden"}>
+                                <section className={`${styles.sidebarCard} ${styles["additional-info-card"]}`}>
+                                    <div className={styles.sidebarCardTitle}>Written reviews</div>
+                                    <div className={styles.infoList}>
+                                        <div className={styles.infoItem}>
+                                            {writtenReviews?.map((x) =>
+                                                <p className={styles["written-reviews-container"]} key={x.id}>
+                                                    <div className={styles["favourites-wrapper"]}>
+                                                        <Link className={styles["watchlist-title"]} to={`/review/${x.id}`}>{x.movie.title}</Link>
+                                                        <StarRating rating={calculateReviewTotalScore(x.cinematographyScore, x.directorScore, x.performanceScore, x.screenplayScore)} />
+                                                    </div>
+                                                    <p className={styles["created-at"]}>{convertDate(x.createdAt)}</p>
+                                                </p>)}
+                                        </div>
                                     </div>
-                                </div>
-                            </section>
+                                </section>
+                            </Activity>
                         </section>
 
                     </div>
@@ -633,17 +639,19 @@ export default function UserProfile() {
                         </div>
 
                         {/* Added movies */}
-                        <div className={`${styles.sidebarCard} ${styles["you-added"]}`}>
-                            <div className={`${styles.sidebarCardTitle} ${styles["you-added-title"]}`}>You added</div>
-                            {addedMovies?.map((x) =>
-                                <p className={styles["favourites-wrapper"]} key={x.id}>
-                                    <div className={styles["added-movies-container"]}>
-                                        <Link className={styles["watchlist-title"]} to={`${x.id}`}>{x.title}</Link>
-                                        <p className={styles["created-at"]}>{convertDate(x.createdAt)}</p>
-                                    </div>
-                                </p>
-                            )}
-                        </div>
+                        <Activity mode={addedMovies?.length ? "visible" : "hidden"}>
+                            <div className={`${styles.sidebarCard} ${styles["you-added"]}`}>
+                                <div className={`${styles.sidebarCardTitle} ${styles["you-added-title"]}`}>You added</div>
+                                {addedMovies?.map((x) =>
+                                    <p className={styles["favourites-wrapper"]} key={x.id}>
+                                        <div className={styles["added-movies-container"]}>
+                                            <Link className={styles["watchlist-title"]} to={`${x.id}`}>{x.title}</Link>
+                                            <p className={styles["created-at"]}>{convertDate(x.createdAt)}</p>
+                                        </div>
+                                    </p>
+                                )}
+                            </div>
+                        </Activity>
 
                         {/* Admin panel */}
                         <Activity mode={user.role === "ADMIN" ? "visible" : "hidden"}>
