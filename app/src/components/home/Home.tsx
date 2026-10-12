@@ -28,8 +28,6 @@ export default function Home() {
     const { data: featuredMovies } = useFetch("/movies/featured", initialStateFeatuted);
     usePageTitle("Home");
 
-    console.log(isPending)
-
     if (!Array.isArray(trending)) {
         return;
     };

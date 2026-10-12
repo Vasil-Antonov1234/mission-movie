@@ -26,7 +26,7 @@ export default function Header() {
 
     function keyPressHandler(event: React.KeyboardEvent) {
         
-        if(event.code === "Enter") {
+        if(event.key === "Enter") {
             return search()
         };
 
@@ -39,8 +39,8 @@ export default function Header() {
             return;
         };
 
-        navigate("/search", { state: { searchQuery } } )
-    }
+        navigate("/search", { state: { searchQuery } } );
+    };
 
     function logoutHandler() {
         mobileNavClose();
