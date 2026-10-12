@@ -49,12 +49,14 @@ export default function useFetch<T>(url?: string, initialState?: T, config: Conf
                 const result = await response.json();
 
                 setData(result);
-                setIsPending(false)
+                // setIsPending(false)
             } catch (error) {
                 if (errorMessageHandler(error) === "Invalid token") {
                     onLogout("/login")
                 }
-            }
+            } finally {
+                setIsPending(false);
+            };
         })()
 
         return () => {
