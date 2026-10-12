@@ -7,6 +7,7 @@ import ButtonSecondary from "../buttons/ButtonSecondary";
 import UserContext from "../../contexts/UserContext";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import usePageTitle from "../../hooks/usePageTitle";
+import Loading from "../loading/Loading";
 
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
 
@@ -20,7 +21,7 @@ export default function ActorDetail() {
   const initialStateMovie: Movie[] = []
 
   const { data: movies } = useFetch(`/movies/filmography/${castId}`, initialStateMovie);
-  const { data, request } = useFetch(`/casts/${castId}`, initialStateActor);
+  const { data, request, isPending } = useFetch(`/casts/${castId}`, initialStateActor);
   const { user, onLogout } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -55,6 +56,8 @@ export default function ActorDetail() {
 
   return (
     <div className={styles.wrapper}>
+
+      <Loading isPending={isPending} />
 
       {/* ─── HERO ─── */}
       <div className={styles.hero}>

@@ -4,12 +4,14 @@ import type { Review } from "../../types/types";
 import styles from "./Reviews.module.css";
 import ReviewCard from "./RviewCard";
 import { Link } from "react-router";
+import Loading from "../loading/Loading";
 
 export default function Reviews() {
-    const { data } = useFetch<Review[]>("/reviews/latest", []);
+    const { data, isPending } = useFetch<Review[]>("/reviews/latest", []);
 
     return (
         <>
+            <Loading isPending={isPending} />
             <section className={styles["reviews-section"]}>
                 <div className={styles["section-header"]}>
                     <div>

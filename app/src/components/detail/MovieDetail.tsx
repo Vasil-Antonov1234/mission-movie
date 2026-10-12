@@ -16,6 +16,7 @@ import ReviewSmallCard from "../reviews/ReviewSmallCard";
 import usePageTitle from "../../hooks/usePageTitle";
 import TrailerModal from "../trailer-modal/TrailerModal";
 import ConfirmModal from "../trailer-modal/ConfirmModal";
+import Loading from "../loading/Loading";
 
 type RatingBadgeProps = { rating?: string, large?: boolean }
 
@@ -43,7 +44,7 @@ export default function MovieDetail() {
 
     usePageTitle("Movie Details")
 
-    const { data: movie, setData } = useFetch(`/movies/${movieId}`, initialState);
+    const { data: movie, setData, isPending } = useFetch(`/movies/${movieId}`, initialState);
     const genreArray = !movie ? " " : movie?.genre.split(", ");
 
     const movies: Movie[] = []
@@ -221,6 +222,8 @@ export default function MovieDetail() {
 
     return (
         <div className={styles["detail-wrapper"]}>
+
+            <Loading isPending={isPending} />
 
             <Activity mode={showConfirmMovie ? "visible" : "hidden"}>
                 <ConfirmModal text={`Are you sure you want to delete ${movie.title}?`} onCancel={() => setShowConfirmMovie(false)} onConfirm={deleteHandler} />

@@ -29,8 +29,10 @@ import TermsOfService from "./components/policy/TermsOfService"
 import PrivacyPolicy from "./components/policy/PrivacyPolicy"
 import ForgotPassword from "./components/login-register/ForgotPassword.tsx"
 import ResetPassword from "./components/login-register/ResetPassword.tsx"
+import { useState } from "react"
 
 function App() {
+    const [isColdStart, setIsColdStart] = useState(true);
 
     return (
         <>
@@ -39,7 +41,7 @@ function App() {
 
             <Header />
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Home coldStart={isColdStart} setColdStart={() => setIsColdStart(false)}/>} />
                 <Route path="/movies/catalog" element={<AllMovies />} />
                 <Route path="/reviews/catalog" element={<AllReviews />} />
                 <Route path="/movies/:movieId/details" element={<MovieDetail />} />

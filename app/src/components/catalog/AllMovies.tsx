@@ -8,6 +8,7 @@ import useFetch from "../../hooks/useFetch";
 import type { Movie } from "../../types/types";
 import { countPages } from "../../utils/pagesCounter";
 import usePageTitle from "../../hooks/usePageTitle";
+import Loading from "../loading/Loading";
 
 // const paginationCount = [1, 2, 3];
 const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary"];
@@ -18,7 +19,7 @@ export default function AllMovies() {
     const [activePage, setActivePage] = useState(1);
     const [activeGenre, setActiveGenre] = useState("All");
 
-    const { data } = useFetch(`/movies?where=activePage%3D%22${activePage}%22&where=genre%3D%22${activeGenre}%22`, initialState);
+    const { data, isPending } = useFetch(`/movies?where=activePage%3D%22${activePage}%22&where=genre%3D%22${activeGenre}%22`, initialState);
     const { data: moviesCount } = useFetch("/movies/all/count", "0");
 
     usePageTitle("Reel List")
@@ -39,6 +40,7 @@ export default function AllMovies() {
 
     return (
         <section className={styles["trending-section"]}>
+            <Loading isPending={isPending}/>
             <SelectionFilter
                 options={options}
                 setSortBy={setActiveGenre}

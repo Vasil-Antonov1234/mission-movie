@@ -16,6 +16,7 @@ import StarRating from "../comments/StarRating";
 import { calculateReviewTotalScore } from "../../utils/calculateReviewTotalScore";
 import usePageTitle from "../../hooks/usePageTitle";
 import ConfirmModal from "../trailer-modal/ConfirmModal";
+import Loading from "../loading/Loading";
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 
@@ -71,7 +72,7 @@ export default function UserProfile() {
     const { data: favoriteMovies, dispatch: dispatchFavorite } = useReduceState<FavoriteMovie[]>("users/favorite-movies", "GET", { accessToken: user.accessToken }, []);
     const { data: watchlistData, dispatch: dispatchWatchlist } = useReduceState("users/watchlist", "GET", { accessToken: user.accessToken }, []);
     const { data: writtenReviews } = useFetch<YourReview[]>("/reviews/yours", [], { accessToken: user.accessToken });
-    const { data: addedMovies } = useFetch<Movie[]>(`/users/added/movies/${user.id}`, [], { accessToken: user.accessToken });
+    const { data: addedMovies, isPending } = useFetch<Movie[]>(`/users/added/movies/${user.id}`, [], { accessToken: user.accessToken });
 
     usePageTitle("My Profile")
 
@@ -274,6 +275,8 @@ export default function UserProfile() {
 
     return (
         <div className={styles.wrapper}>
+
+            <Loading isPending={isPending} />
 
             <Activity mode={showConfirmModal ? "visible" : "hidden"}>
                 <ConfirmModal

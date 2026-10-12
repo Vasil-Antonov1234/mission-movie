@@ -5,14 +5,16 @@ import CastCardSmall from "../cast/CastCardSmall";
 import styles from "./AllCasts.module.css"
 import UserContext from "../../contexts/UserContext";
 import usePageTitle from "../../hooks/usePageTitle";
+import Loading from "../loading/Loading";
 
 export default function AllCasts() {
     const { user } = useContext(UserContext);
-    const { data } = useFetch<CastSmall[]>("/casts/get/all", [], { accessToken: user.accessToken });
+    const { data, isPending } = useFetch<CastSmall[]>("/casts/get/all", [], { accessToken: user.accessToken });
     usePageTitle("Actors")
 
     return (
         <section className={styles["trending-section"]}>
+            <Loading isPending={isPending} />
             <div>
                 <h1 className={styles["section-heading-title"]}>Cast managment</h1>
             </div>
