@@ -1,0 +1,177 @@
+/* ─── OVERLAY ─── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: #0d0d0d;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+/* ─── FILM FRAME ─── */
+.frame {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+/* ─── CIRCULAR PROGRESS RING ─── */
+.ring {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.ringTrack {
+  fill: none;
+  stroke: #1e1e1e;
+  stroke-width: 3;
+}
+
+.ringProgress {
+  fill: none;
+  stroke: #e8b84b;
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
+}
+
+/* ─── SPROCKET HOLES ─── */
+.sprockets {
+  position: absolute;
+  inset: 0;
+  animation: rotateSprockets 8s linear infinite;
+}
+
+@keyframes rotateSprockets {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.sprocketHole {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid #2a2a2a;
+  background: transparent;
+}
+
+/* ─── COUNTDOWN NUMBER ─── */
+.countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  position: relative;
+  z-index: 1;
+}
+
+.countdownNumber {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 72px;
+  font-weight: 700;
+  color: #f0ebe2;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  transition: opacity 0.3s ease;
+}
+
+.countdownLabel {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #3a3530;
+  font-weight: 400;
+}
+
+/* ─── LOGO ─── */
+.logo {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #e8e2d9;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+
+.logoAccent { color: #e8b84b; }
+
+/* ─── MESSAGE ─── */
+.message {
+  font-size: clamp(12px, 2.5vw, 14px);
+  letter-spacing: 0.04em;
+  padding: 10px;
+  font-weight: 300;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.messageAccent {
+  color: #7a7068;
+}
+
+.endMessage {
+  color: #e8b84b;
+  font-size: clamp(12px, 2.5vw, 18px);
+  font-weight: 400;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* ─── FILM STRIP BAR ─── */
+.filmStrip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-top: 1px solid #1a1a1a;
+}
+
+.filmStripInner {
+  display: flex;
+  gap: 0;
+  animation: scrollFilm 3s linear infinite;
+}
+
+@keyframes scrollFilm {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.filmCell {
+  width: 64px;
+  height: 48px;
+  border-right: 1px solid #1a1a1a;
+  flex-shrink: 0;
+  position: relative;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filmCellHole {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 400px) {
+  .frame          { width: 180px; height: 180px; }
+  .countdownNumber { font-size: 56px; }
+}

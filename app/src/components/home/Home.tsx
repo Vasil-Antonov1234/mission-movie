@@ -12,7 +12,7 @@ import useFetch from "../../hooks/useFetch";
 import { Link } from "react-router";
 import usePageTitle from "../../hooks/usePageTitle";
 import TopUsersSection from "../user/TopUsersSection";
-import Loading from "../loading/Loading";
+import CinematicLoader from "../countdown-spinner/CinematicLoader";
 
 const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary", "Fantasy", "Adventure"];
 
@@ -60,7 +60,9 @@ export default function Home() {
 
     return (
         <div className={styles["home-wrapper"]}>
-            <Loading isPending={isPending}/>
+            <Activity mode={isPending ? "visible" : "hidden"}>
+                <CinematicLoader startFrom={60} />
+            </Activity>
             <section className={styles["hero-wrapper"]}>
                 <div className={styles["slide"]}>
                     <span className={heroState === 1 ? styles["next-slide"] : `${styles["next-slide"]} ${styles["hover-slade"]}`} onClick={previousHeroHandler} onTouchEnd={(event) => touchEndHandler(event)}>{"<"}</span>
