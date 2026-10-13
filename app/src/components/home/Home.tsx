@@ -13,19 +13,13 @@ import { Link } from "react-router";
 import usePageTitle from "../../hooks/usePageTitle";
 import TopUsersSection from "../user/TopUsersSection";
 import CinematicLoader from "../countdown-spinner/CinematicLoader";
-import Loading from "../loading/Loading";
 
 const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary", "Fantasy", "Adventure"];
 
 const initialStateFeatuted: Featured[] = [];
 const initialStateTrending: Movie[] = [];
 
-type homeProps = {
-    coldStart: boolean,
-    setColdStart: () => void;
-}
-
-export default function Home({ coldStart, setColdStart }: homeProps) {
+export default function Home() {
     const [heroState, setHeroState] = useState(1);
     const [moveState, SetMoveState] = useState("next");
     const [activeGenre, setActiveGenre] = useState("All");
@@ -33,10 +27,6 @@ export default function Home({ coldStart, setColdStart }: homeProps) {
     const { data: trending, isPending } = useFetch(`/movies/latest?where=genre%3D%22${activeGenre}%22`, initialStateTrending);
     const { data: featuredMovies } = useFetch("/movies/featured", initialStateFeatuted);
     usePageTitle("Home");
-
-    setTimeout(() => {
-        setColdStart();
-    }, 60000);
 
     if (!Array.isArray(trending)) {
         return;
@@ -70,12 +60,7 @@ export default function Home({ coldStart, setColdStart }: homeProps) {
 
     return (
         <div className={styles["home-wrapper"]}>
-            <Activity mode={isPending && coldStart ? "visible" : "hidden"}>
-                <CinematicLoader startFrom={60} />
-            </Activity>
-            <Activity mode={coldStart ? "hidden" : "visible"}>
-                <Loading isPending={isPending} />
-            </Activity>
+            <CinematicLoader startFrom={60} pending={isPending} />
             <section className={styles["hero-wrapper"]}>
                 <div className={styles["slide"]}>
                     <span className={heroState === 1 ? styles["next-slide"] : `${styles["next-slide"]} ${styles["hover-slade"]}`} onClick={previousHeroHandler} onTouchEnd={(event) => touchEndHandler(event)}>{"<"}</span>

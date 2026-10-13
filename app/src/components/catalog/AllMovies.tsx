@@ -8,7 +8,7 @@ import useFetch from "../../hooks/useFetch";
 import type { Movie } from "../../types/types";
 import { countPages } from "../../utils/pagesCounter";
 import usePageTitle from "../../hooks/usePageTitle";
-import Loading from "../loading/Loading";
+import CinematicLoader from "../countdown-spinner/CinematicLoader";
 
 // const paginationCount = [1, 2, 3];
 const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary"];
@@ -40,7 +40,7 @@ export default function AllMovies() {
 
     return (
         <section className={styles["trending-section"]}>
-            <Loading isPending={isPending}/>
+            <CinematicLoader startFrom={5} pending={isPending} />
             <SelectionFilter
                 options={options}
                 setSortBy={setActiveGenre}

@@ -6,18 +6,20 @@ import SelectionFilter from "../trending/SelectionFilter";
 import styles from "./AllReviews.module.css";
 import useFetch from "../../hooks/useFetch";
 import usePageTitle from "../../hooks/usePageTitle";
+import CinematicLoader from "../countdown-spinner/CinematicLoader";
 
 const options = ["All", "Latest by year", "Oldest by year", "Alphabetically"];
 
 export default function AllReviews() {
     const [activeReview, setActiveReviwe] = useState("All");
-    const { data } = useFetch<Review[]>("/reviews", []);
+    const { data, isPending } = useFetch<Review[]>("/reviews", []);
     usePageTitle("Reviews");
 
     const filteredReviews = data ? filterRecordsHandler.filterReviews(data, activeReview) : [];
 
     return (
         <section className={styles["review-section"]}>
+            <CinematicLoader startFrom={5} pending={isPending} />
             <h1 className={styles["section-heading-title"]}>Read new reviews</h1>
             <SelectionFilter
                 options={options}

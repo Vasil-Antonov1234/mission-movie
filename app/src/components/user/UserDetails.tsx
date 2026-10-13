@@ -9,6 +9,7 @@ import { convertDate } from "../../utils/convertDate";
 import { toast } from "react-toastify";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import ConfirmModal from "../trailer-modal/ConfirmModal";
+import Loading from "../loading/Loading";
 
 const initialState: User = {
     id: 0,
@@ -27,7 +28,7 @@ const initialMovieCount = { count: "0" };
 export default function UserDetails() {
     const userId = useParams().userId;
     const { user } = useContext(UserContext);
-    const { data, request } = useFetch(`/users/${userId}`, initialState, { accessToken: user.accessToken });
+    const { data, request, isPending } = useFetch(`/users/${userId}`, initialState, { accessToken: user.accessToken });
     const { data: addedFilmsCount } = useFetch(`/users/added-films-count/${userId}`, initialMovieCount);
     const { data: writtenReviews } = useFetch(`/reviews/${userId}/count`, [], { accessToken: user.accessToken });
     const [showConfirm, setShowConfirm] = useState(false);
@@ -50,6 +51,7 @@ export default function UserDetails() {
 
     return (
         <div className={styles.wrapper}>
+            <Loading isPending={isPending} />
             <Activity mode={showConfirm ? "visible" : "hidden"}>
                 <ConfirmModal
                     text={`Are you sure you want to delete the frofile associated with email: ${data?.email}? This action is irreversible!`}

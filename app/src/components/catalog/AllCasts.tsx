@@ -5,7 +5,7 @@ import CastCardSmall from "../cast/CastCardSmall";
 import styles from "./AllCasts.module.css"
 import UserContext from "../../contexts/UserContext";
 import usePageTitle from "../../hooks/usePageTitle";
-import Loading from "../loading/Loading";
+import CinematicLoader from "../countdown-spinner/CinematicLoader";
 
 export default function AllCasts() {
     const { user } = useContext(UserContext);
@@ -14,7 +14,7 @@ export default function AllCasts() {
 
     return (
         <section className={styles["trending-section"]}>
-            <Loading isPending={isPending} />
+            <CinematicLoader startFrom={5} pending={isPending} />
             <div>
                 <h1 className={styles["section-heading-title"]}>Cast managment</h1>
             </div>

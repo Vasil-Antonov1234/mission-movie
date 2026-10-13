@@ -8,6 +8,7 @@ import StarRating from "../comments/StarRating";
 import { calculateReviewTotalScore } from "../../utils/calculateReviewTotalScore";
 import usePageTitle from "../../hooks/usePageTitle";
 import { Activity } from "react";
+import Loading from "../loading/Loading";
 
 const initialState: User = {
     id: 0,
@@ -31,7 +32,7 @@ type AddedReview = {
 
 export default function UserPublic() {
     const userId = useParams().userId;
-    const { data: user } = useFetch(`/users/profile/${userId}/public`, initialState);
+    const { data: user, isPending } = useFetch(`/users/profile/${userId}/public`, initialState);
     const { data: addedMovies } = useFetch<Movie[]>(`/users/added/movies/${userId}`, []);
     const { data: writtenReviews } = useFetch<AddedReview[]>(`/users/added/reviews/${userId}`, []);
     usePageTitle("Public Profile")
@@ -40,6 +41,7 @@ export default function UserPublic() {
 
     return (
         <div className={styles.wrapper}>
+            <Loading isPending={isPending} />
             <div className={styles.container}>
 
                 {/* ─── Page header ─── */}
