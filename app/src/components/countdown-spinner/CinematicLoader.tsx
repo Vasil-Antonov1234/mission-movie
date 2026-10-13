@@ -4,8 +4,9 @@ import styles from "./CinematicLoader.module.css";
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 
 type CinematicLoaderProps = {
-  startFrom?: number;  // countdown start in seconds (default: 60)
-  onTimeout?: () => void; // optional callback when countdown reaches 0
+  startFrom?: number,  // countdown start in seconds (default: 60)
+  pending: boolean, // State which indicates whether the component to appears or not
+  onTimeout?: () => void // optional callback when countdown reaches 0
 }
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
@@ -37,7 +38,7 @@ function getSprocketPosition(angle: number, radius: number): { top: string; left
 
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
 
-export default function CinematicLoader({ startFrom = 60, onTimeout }: CinematicLoaderProps) {
+export default function CinematicLoader({ startFrom = 60, pending, onTimeout }: CinematicLoaderProps) {
   const [seconds, setSeconds] = useState(startFrom);
   const [flash, setFlash] = useState(false);
 
@@ -62,87 +63,89 @@ export default function CinematicLoader({ startFrom = 60, onTimeout }: Cinematic
   const { main, sub } = getMessages(seconds);
 
   return (
-    <div className={styles.overlay}>
+    <Activity mode={pending ? "visible" : "hidden"}>
+      <div className={styles.overlay}>
 
-      {/* ─── Circular countdown ─── */}
-      <div className={styles.frame}>
+        {/* ─── Circular countdown ─── */}
+        <div className={styles.frame}>
 
-        {/* SVG ring */}
-        <svg className={styles.ring} viewBox="0 0 220 220">
-          {/* Track */}
-          <circle
-            className={styles.ringTrack}
-            cx="110"
-            cy="110"
-            r={radius}
-          />
-          {/* Progress */}
-          <circle
-            className={styles.ringProgress}
-            cx="110"
-            cy="110"
-            r={radius}
-            strokeDasharray={Circumference}
-            strokeDashoffset={dashOffset}
-          />
-        </svg>
+          {/* SVG ring */}
+          <svg className={styles.ring} viewBox="0 0 220 220">
+            {/* Track */}
+            <circle
+              className={styles.ringTrack}
+              cx="110"
+              cy="110"
+              r={radius}
+            />
+            {/* Progress */}
+            <circle
+              className={styles.ringProgress}
+              cx="110"
+              cy="110"
+              r={radius}
+              strokeDasharray={Circumference}
+              strokeDashoffset={dashOffset}
+            />
+          </svg>
 
-        {/* Sprocket holes rotating around the ring */}
-        <div className={styles.sprockets}>
-          {sprocketAngles.map((angle) => {
-            const pos = getSprocketPosition(angle, radius);
-            return (
-              <div
-                key={angle}
-                className={styles.sprocketHole}
-                style={{
-                  top: pos.top,
-                  left: pos.left,
-                  transform: "translate(-50%, -50%)",
-                }}
-              />
-            );
-          })}
+          {/* Sprocket holes rotating around the ring */}
+          <div className={styles.sprockets}>
+            {sprocketAngles.map((angle) => {
+              const pos = getSprocketPosition(angle, radius);
+              return (
+                <div
+                  key={angle}
+                  className={styles.sprocketHole}
+                  style={{
+                    top: pos.top,
+                    left: pos.left,
+                    transform: "translate(-50%, -50%)",
+                  }}
+                />
+              );
+            })}
+          </div>
+
+          {/* Countdown number */}
+          <div className={styles.countdown}>
+            <span
+              className={styles.countdownNumber}
+              style={{ opacity: flash ? 0.4 : 1 }}
+            >
+              {seconds}
+            </span>
+            <span className={styles.countdownLabel}>seconds</span>
+          </div>
+
         </div>
 
-        {/* Countdown number */}
-        <div className={styles.countdown}>
-          <span
-            className={styles.countdownNumber}
-            style={{ opacity: flash ? 0.4 : 1 }}
-          >
-            {seconds}
-          </span>
-          <span className={styles.countdownLabel}>seconds</span>
+        {/* ─── Logo ─── */}
+        <div className={styles.logo}>
+          mission<span className={styles.logoAccent}>movie</span>
+        </div>
+
+        {/* ─── Message ─── */}
+        <p className={styles.message}>
+          {main} —{" "}
+          <span className={styles.messageAccent}>{sub}</span>
+        </p>
+        <Activity mode={seconds <= 0 ? "visible" : "hidden"}>
+          <p className={styles.endMessage}>Server took too long to respond.</p>
+        </Activity>
+
+        {/* ─── Film strip ─── */}
+        <div className={styles.filmStrip}>
+          <div className={styles.filmStripInner}>
+            {[...filmCells, ...filmCells].map((_, i) => (
+              <div key={i} className={styles.filmCell}>
+                <div className={styles.filmCellHole} />
+              </div>
+            ))}
+          </div>
         </div>
 
       </div>
-
-      {/* ─── Logo ─── */}
-      <div className={styles.logo}>
-        mission<span className={styles.logoAccent}>movie</span>
-      </div>
-
-      {/* ─── Message ─── */}
-      <p className={styles.message}>
-        {main} —{" "}
-        <span className={styles.messageAccent}>{sub}</span>
-      </p>
-      <Activity mode={seconds <= 0 ? "visible" : "hidden"}>
-        <p className={styles.endMessage}>Server took too long to respond.</p>
-      </Activity>
-
-      {/* ─── Film strip ─── */}
-      <div className={styles.filmStrip}>
-        <div className={styles.filmStripInner}>
-          {[...filmCells, ...filmCells].map((_, i) => (
-            <div key={i} className={styles.filmCell}>
-              <div className={styles.filmCellHole} />
-            </div>
-          ))}
-        </div>
-      </div>
-
-    </div>
+    </Activity>
   );
 }
