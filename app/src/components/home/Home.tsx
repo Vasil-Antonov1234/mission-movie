@@ -25,7 +25,7 @@ type homeProps = {
     setColdStart: () => void;
 }
 
-export default function Home({coldStart, setColdStart }: homeProps) {
+export default function Home({ coldStart, setColdStart }: homeProps) {
     const [heroState, setHeroState] = useState(1);
     const [moveState, SetMoveState] = useState("next");
     const [activeGenre, setActiveGenre] = useState("All");
@@ -36,7 +36,7 @@ export default function Home({coldStart, setColdStart }: homeProps) {
 
     setTimeout(() => {
         setColdStart();
-    }, 3000);
+    }, 60000);
 
     if (!Array.isArray(trending)) {
         return;
@@ -71,10 +71,10 @@ export default function Home({coldStart, setColdStart }: homeProps) {
     return (
         <div className={styles["home-wrapper"]}>
             <Activity mode={isPending && coldStart ? "visible" : "hidden"}>
-                <CinematicLoader startFrom={60}/>
+                <CinematicLoader startFrom={60} />
             </Activity>
             <Activity mode={coldStart ? "hidden" : "visible"}>
-                <Loading isPending={isPending}/>
+                <Loading isPending={isPending} />
             </Activity>
             <section className={styles["hero-wrapper"]}>
                 <div className={styles["slide"]}>
@@ -88,7 +88,8 @@ export default function Home({coldStart, setColdStart }: homeProps) {
             <SelectionFilter
                 options={options}
                 setSortBy={setActiveGenre}
-                activeState={activeGenre} />
+                activeState={activeGenre}
+            />
             <Trending trending={trending} />
             <Activity mode={trending.length < 1 ? "visible" : "hidden"}>
                 <h2 className={styles["no-movies"]}>Nothing here yet</h2>
