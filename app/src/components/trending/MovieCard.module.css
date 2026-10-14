@@ -79,6 +79,18 @@
     color: #555;
 }
 
+@media(max-width: 580px) {
+    .movie-card-img {
+        height: 230px;
+    }
+}
+
+@media(max-width: 580px) {
+    .movie-card-img {
+        height: 270px;
+    }
+}
+
 @media(max-width: 240px) {
     .movie-card {
         margin-bottom: 14px;

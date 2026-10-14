@@ -55,10 +55,13 @@
     display: none;
 }
 
-@media(max-width: 700px) {
+@media(max-width: 1400px) {
     .trending-container {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     }
+}
+
+@media(max-width: 700px) {
 
     .section-link-bottom {
         display: inline-block;
@@ -66,6 +69,12 @@
 
     .section-link-top {
         display: none;
+    }
+}
+
+@media(max-width: 580px) {
+    .trending-container {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     }
 }
 
