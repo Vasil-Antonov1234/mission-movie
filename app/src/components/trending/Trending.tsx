@@ -26,6 +26,7 @@ export default function Trending(
                         genre={movie.genre}
                         poster={movie.poster}
                         position={props.trending.indexOf(movie) + 1}
+                        addStyle="add-height"
                     />
                 ))}
             </div>

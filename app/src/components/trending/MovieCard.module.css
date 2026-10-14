@@ -29,6 +29,10 @@
     display: block;
 }
 
+.add-height {
+    height: 400px;
+}
+
 .movie-card-rank {
     position: absolute;
     top: 10px;

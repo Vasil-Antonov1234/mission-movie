@@ -143,8 +143,9 @@ export type Movie = {
     country?: string,
     budget?: string,
     boxOffice?: string,
-    casts?: Artist[]
-    reviewsCount?: number
+    casts?: Artist[],
+    reviewsCount?: number,
+    addStyle?: string,
 };
 
 export type SelectionOptions = {
