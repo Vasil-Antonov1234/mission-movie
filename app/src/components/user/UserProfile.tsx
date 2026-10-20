@@ -648,7 +648,7 @@ export default function UserProfile() {
                                 {addedMovies?.map((x) =>
                                     <p className={styles["favourites-wrapper"]} key={x.id}>
                                         <div className={styles["added-movies-container"]}>
-                                            <Link className={styles["watchlist-title"]} to={`${x.id}`}>{x.title}</Link>
+                                            <Link className={styles["watchlist-title"]} to={`/movies/${x.id}/details`}>{x.title}</Link>
                                             <p className={styles["created-at"]}>{convertDate(x.createdAt)}</p>
                                         </div>
                                     </p>
