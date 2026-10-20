@@ -1,6 +1,6 @@
 import type { ValidateErrors, ValidateValue } from "../types/types";
 
-const genres = [
+export const genres = [
     "Action",
     "Adventure",
     "Animation",

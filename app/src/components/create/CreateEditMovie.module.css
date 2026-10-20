@@ -423,6 +423,12 @@
   transform: scale(104%)
 }
 
+.genre {
+  text-transform: capitalize;
+  color: #e8b94b73;
+  font-size: 14px;
+}
+
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 680px) {

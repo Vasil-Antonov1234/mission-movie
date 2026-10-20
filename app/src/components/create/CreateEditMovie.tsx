@@ -4,7 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import { Activity, useContext, useState } from "react";
 import UserContext from "../../contexts/UserContext";
 import type { Movie, ValidateErrors } from "../../types/types";
-import { validate } from "../../utils/validate";
+import { genres, validate } from "../../utils/validate";
 import { useNavigate, useParams } from "react-router";
 import { errorMessageHandler } from "../../utils/errorUtil";
 import usePageTitle from "../../hooks/usePageTitle";
@@ -280,7 +280,7 @@ export default function CreateEditMovie() {
 							</div>
 
 							{/* Genre */}
-							<div className={styles.field}>
+							{/* <div className={styles.field}>
 								<label className={styles.label} htmlFor="genre">
 									Genre <span className={styles.required}>*</span>
 								</label>
@@ -292,8 +292,37 @@ export default function CreateEditMovie() {
 									onBlur={validateHandler}
 								/>
 								{touched.genre && <span className={styles.errorMsg}>{errors.genre}</span>}
-							</div>
+							</div> */}
 
+							<div className={styles.field}>
+								<label className={styles.label} htmlFor="genre">
+									Genre <span className={styles.required}>*</span>
+								</label>
+								<select
+								id="genre"
+								name="genre"
+								multiple
+								size={7}
+								value={data.genre ? data.genre.split(", ") : []}
+								onChange={(event) => {
+									const selectedGenres = Array.from(event.target.selectedOptions, (x) => x.value);
+									setData((state) => ({
+										...state,
+										genre: selectedGenres.join(", ")
+									}));
+								}}
+								onBlur={validateHandler}
+								className={`${styles.input}${errors.genre && touched.genre ? ` ${styles["input--error"]}` : ""}`}
+								>
+									{genres.map((genre) => (
+										<option key={genre} value={genre}>
+											{genre}
+										</option>
+									))}
+								</select>
+								{touched.genre && <span className={styles.errorMsg}>{errors.genre}</span>}
+							</div>
+							<span className={`${styles.label} ${styles.genre}`}>{data.genre}</span>
 						</div>
 					</div>
 
