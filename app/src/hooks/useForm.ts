@@ -73,10 +73,19 @@ export default function useForm<T extends Record<string, string | number | boole
 
     function changeHandler(event: React.BaseSyntheticEvent) {
 
-        setData((state) => ({
-            ...state,
-            [event.target.name]: event.target.type === "checkbox" ? Boolean(event.target.checked) : String(event.target.value)
-        }) as T);
+        if (event.target.type === "select-multiple") {
+            const selectedGenres = Array.from(event.target.selectedOptions, (x: HTMLOptionElement) => x.value);
+            setData((state) => ({
+                ...state,
+                [event.target.name]: selectedGenres.join(", ")
+            }));
+        } else {
+            setData((state) => ({
+                ...state,
+                [event.target.name]: event.target.type === "checkbox" ? Boolean(event.target.checked) : String(event.target.value)
+            }) as T);
+        };
+
     };
 
     function formInputRegister(name: keyof T) {
@@ -114,12 +123,22 @@ export default function useForm<T extends Record<string, string | number | boole
         } as const;
     };
 
+    function registerMultipleSelectInput(name: keyof T) {
+        const fieldValue = data[name];
+
+        return {
+            name,
+            value: typeof fieldValue === "string" && fieldValue.trim() !== "" ? fieldValue.split(", ") : [],
+            onChange: changeHandler
+        };
+    };
 
     return {
         changeHandler,
         formInputRegister,
         registerTextInput,
         registerChecboxInput,
+        registerMultipleSelectInput,
         data,
         setData,
         currentData

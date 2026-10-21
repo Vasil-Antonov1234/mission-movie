@@ -44,7 +44,7 @@ function isValidUrl(url: string): boolean {
 
 export default function CreateEditMovie() {
 	const movieId = useParams().movieId;
-	const { formInputRegister, data, setData, currentData } = useForm(initialValues, movieId);
+	const { formInputRegister, registerMultipleSelectInput, data, setData, currentData } = useForm(initialValues, movieId);
 	const { user, onLogout } = useContext(UserContext);
 	const { request } = useFetch();
 	const [errors, setErrors] = useState<ValidateErrors>({});
@@ -280,39 +280,17 @@ export default function CreateEditMovie() {
 							</div>
 
 							{/* Genre */}
-							{/* <div className={styles.field}>
-								<label className={styles.label} htmlFor="genre">
-									Genre <span className={styles.required}>*</span>
-								</label>
-								<input
-									id="genre"
-									{...formInputRegister("genre")}
-									className={`${styles.input}${errors.genre && touched.genre ? ` ${styles["input--error"]}` : ""}`}
-									// className={`${styles.select}${errors.genre ? ` ${styles["select--error"]}` : ""}`}
-									onBlur={validateHandler}
-								/>
-								{touched.genre && <span className={styles.errorMsg}>{errors.genre}</span>}
-							</div> */}
-
 							<div className={styles.field}>
 								<label className={styles.label} htmlFor="genre">
 									Genre <span className={styles.required}>*</span>
 								</label>
 								<select
-								id="genre"
-								name="genre"
-								multiple
-								size={7}
-								value={data.genre ? data.genre.split(", ") : []}
-								onChange={(event) => {
-									const selectedGenres = Array.from(event.target.selectedOptions, (x) => x.value);
-									setData((state) => ({
-										...state,
-										genre: selectedGenres.join(", ")
-									}));
-								}}
-								onBlur={validateHandler}
-								className={`${styles.input}${errors.genre && touched.genre ? ` ${styles["input--error"]}` : ""}`}
+									id="genre"
+									{...registerMultipleSelectInput("genre")}
+									multiple
+									size={7}
+									onBlur={validateHandler}
+									className={`${styles.input}${errors.genre && touched.genre ? ` ${styles["input--error"]}` : ""}`}
 								>
 									{genres.map((genre) => (
 										<option key={genre} value={genre}>
