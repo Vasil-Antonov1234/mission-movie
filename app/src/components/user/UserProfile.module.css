@@ -5,6 +5,7 @@
     color: #e8e2d9;
     font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
     padding: 48px 24px 80px;
+    transition: background-color 1.2s, color 1.2s;
 }
 
 /* ─── CONTAINER ─── */
@@ -672,7 +673,7 @@
 .change-theme-button {
     width: 34px;
     height: 34px;
-    border: 1px solid #e8b94b6e;
+    border: 1px solid #e8b84b;
     border-radius: 50%;
     cursor: pointer;
     font-size: 24px;
@@ -681,10 +682,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: background-color 0.4s
 }
 
 .change-theme-button:hover {
-    border: 1px solid #e8b84b;
     background-color: rgba(235, 224, 244);
 }
 

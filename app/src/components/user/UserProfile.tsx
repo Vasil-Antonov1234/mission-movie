@@ -1,5 +1,6 @@
 import { useState, useContext, Activity } from "react";
 import styles from "./UserProfile.module.css";
+import theme from "../Theme.module.css";
 import UserContext from "../../contexts/UserContext";
 import { convertDate } from "../../utils/convertDate";
 import useFetch from "../../hooks/useFetch";
@@ -274,7 +275,7 @@ export default function UserProfile() {
     };
 
     return (
-        <div className={styles.wrapper}>
+        <div className={`${styles.wrapper} ${isDarkTheme ? "" : theme["white-theme"]}`}>
 
             <Loading isPending={isPending} />
 
@@ -289,14 +290,14 @@ export default function UserProfile() {
             <div className={styles.container}>
 
                 {/* ─── Page header ─── */}
-                <div className={styles.pageEyebrow}>Account</div>
-                <h1 className={styles.pageTitle}>Your Profile</h1>
+                <div className={`${styles.pageEyebrow} ${isDarkTheme ? "" : theme["pageEyebrow"]}`}>Account</div>
+                <h1 className={`${styles.pageTitle} ${isDarkTheme ? "" : theme["white-theme"]}`}>Your Profile</h1>
 
                 {/* ─── Profile summary card ─── */}
-                <div className={styles.profileCard}>
+                <div className={`${styles.profileCard} ${isDarkTheme ? "" : theme["box"]}`}>
                     <div className={styles.avatarWrapper}>
                         <Activity mode={avatar ? "hidden" : "visible"}>
-                            <div className={styles.avatarFallback}>
+                            <div className={`${styles.avatarFallback} ${isDarkTheme ? "" : theme.avatarFallback}`}>
                                 {getInitials(user.firstName, user.lastName)}
                             </div>
                         </Activity>
@@ -307,7 +308,7 @@ export default function UserProfile() {
                                 </div>
                             </div>
                         </Activity>
-                        <label htmlFor="avatarUpload" className={`${styles.badge} ${styles.edit}`}>Change avatar ✏️</label>
+                        <label htmlFor="avatarUpload" className={`${styles.badge} ${styles.edit} ${isDarkTheme ? "" : theme["white-theme"]}`}>Change avatar ✏️</label>
                         <input
                             id="avatarUpload"
                             type="file"
@@ -320,15 +321,15 @@ export default function UserProfile() {
 
 
                     <div className={styles.profileInfo}>
-                        <div className={styles.profileName}>
+                        <div className={`${styles.profileName} ${isDarkTheme ? "" : theme["box"]}`}>
                             {user.firstName} {user.lastName}
                         </div>
                         <div className={styles.profileEmail}>{user.email}</div>
                         <div className={styles.profileBadges}>
-                            <span className={styles["member-since"]}>Member since </span>
-                            <span className={styles.badge}>{convertDate(user.createdAt)}</span>
+                            <span className={`${styles["member-since"]} ${isDarkTheme ? "" : theme["pageEyebrow"]}`}>Member since </span>
+                            <span className={`${styles.badge} ${isDarkTheme ? "" : theme["badge"]}`}>{convertDate(user.createdAt)}</span>
                             {user.isGoogleUser && (
-                                <span className={`${styles.badge} ${styles.badgeGoogle}`}>
+                                <span className={`${styles.badge} ${styles.badgeGoogle} ${isDarkTheme ? "" : theme["badgeGoogle"]}`}>
                                     Google account
                                 </span>
                             )}
@@ -337,7 +338,7 @@ export default function UserProfile() {
                     </div>
                     <section className={styles["theme-wrapper"]}>
                         <div
-                            className={styles["change-theme-button"]}
+                            className={`${styles["change-theme-button"]} ${isDarkTheme ? "" : theme["change-theme-button"]}`}
                             onClick={onChangeTheme}
                         >
                             <span>{isDarkTheme ? "🌞" : "🌛"}</span>

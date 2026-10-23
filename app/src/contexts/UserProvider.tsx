@@ -65,6 +65,11 @@ export default function UserProvider({ children }: { children: React.ReactNode }
         isDarkTheme,
         onChangeTheme() {
             setIsDarckTheme((state) => !state);
+            // const bodyElement = document.querySelector("body");
+
+            // if (bodyElement) {
+            //     bodyElement.style.background = isDarkTheme ? "0d0d0d" : "white";
+            // };
         },
     };
 

@@ -1,0 +1,39 @@
+.white-theme {
+    background-color: ghostwhite;
+    color: #0d0d0d;
+    transition: background-color 1.2s, color 1.2s;
+}
+
+.box {
+    background-color: gainsboro;
+    color: #0d0d0d;
+}
+
+.avatarFallback {
+    background-color: #f5ca60;
+    color: #0d0d0d;
+}
+
+.pageEyebrow {
+    color: rgb(102, 28, 32);
+    font-weight: 500;
+}
+
+.badge {
+    background-color: rgb(185, 185, 185);
+    color: #0d0d0d;
+}
+
+.badgeGoogle {
+    background-color: #4caf7d;
+    color: white;
+}
+
+.change-theme-button {
+    background-color: rgb(185, 185, 185);
+    color: #0d0d0d;
+}
+
+.change-theme-button:hover {
+    background-color: #0d0d0d;
+}
