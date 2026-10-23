@@ -376,7 +376,9 @@ export type UserCtx = {
     onLogout: (navigateTo?: string) => void,
     isAuthenticated: boolean,
     isAdmin: boolean,
-    onUpdateCtxUser: (user: User) => void
+    onUpdateCtxUser: (user: User) => void,
+    isDarkTheme: boolean,
+    onChangeTheme: () => void
 };
 
 export type User = {

@@ -67,7 +67,7 @@ type FavoriteMovie = {
 const initialMovieCount = { count: "0" };
 
 export default function UserProfile() {
-    const { user: user, onUpdateCtxUser, onLogout } = useContext(UserContext);
+    const { user: user, onUpdateCtxUser, onLogout, isDarkTheme, onChangeTheme } = useContext(UserContext);
     const { data: addedFilmsCount, request } = useFetch(`/users/added-films-count/${user.id}`, initialMovieCount);
     const { data: favoriteMovies, dispatch: dispatchFavorite } = useReduceState<FavoriteMovie[]>("users/favorite-movies", "GET", { accessToken: user.accessToken }, []);
     const { data: watchlistData, dispatch: dispatchWatchlist } = useReduceState("users/watchlist", "GET", { accessToken: user.accessToken }, []);
@@ -335,12 +335,15 @@ export default function UserProfile() {
                         </div>
 
                     </div>
-                        <section className={styles["theme-wrapper"]}>
-                            <div className={styles["change-theme-button"]}>
-                                <span>🌞</span>
-                            </div>
-                            <span className={styles.profileEmail}>Change Theme</span>
-                        </section>
+                    <section className={styles["theme-wrapper"]}>
+                        <div
+                            className={styles["change-theme-button"]}
+                            onClick={onChangeTheme}
+                        >
+                            <span>{isDarkTheme ? "🌞" : "🌛"}</span>
+                        </div>
+                        <span className={styles.profileEmail}>Change Theme</span>
+                    </section>
                 </div>
 
                 {/* ─── Stats ─── */}
@@ -611,13 +614,13 @@ export default function UserProfile() {
                                     <div className={styles.infoList}>
                                         <div className={styles.infoItem}>
                                             {writtenReviews?.map((x) =>
-                                                <p className={styles["written-reviews-container"]} key={x.id}>
+                                                <div className={styles["written-reviews-container"]} key={x.id}>
                                                     <div className={styles["favourites-wrapper"]}>
                                                         <Link className={styles["watchlist-title"]} to={`/review/${x.id}`}>{x.movie.title}</Link>
                                                         <StarRating rating={calculateReviewTotalScore(x.cinematographyScore, x.directorScore, x.performanceScore, x.screenplayScore)} />
                                                     </div>
                                                     <p className={styles["created-at"]}>{convertDate(x.createdAt)}</p>
-                                                </p>)}
+                                                </div>)}
                                         </div>
                                     </div>
                                 </section>
@@ -653,12 +656,12 @@ export default function UserProfile() {
                             <div className={`${styles.sidebarCard} ${styles["you-added"]}`}>
                                 <div className={`${styles.sidebarCardTitle} ${styles["you-added-title"]}`}>You added</div>
                                 {addedMovies?.map((x) =>
-                                    <p className={styles["favourites-wrapper"]} key={x.id}>
+                                    <div className={styles["favourites-wrapper"]} key={x.id}>
                                         <div className={styles["added-movies-container"]}>
                                             <Link className={styles["watchlist-title"]} to={`/movies/${x.id}/details`}>{x.title}</Link>
                                             <p className={styles["created-at"]}>{convertDate(x.createdAt)}</p>
                                         </div>
-                                    </p>
+                                    </div>
                                 )}
                             </div>
                         </Activity>

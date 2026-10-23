@@ -18,6 +18,8 @@ const UserContext = createContext<UserCtx>({
     isAuthenticated: false,
     isAdmin: false,
     onUpdateCtxUser() {},
+    isDarkTheme: true,
+    onChangeTheme() {},
 });
 
 export default UserContext;

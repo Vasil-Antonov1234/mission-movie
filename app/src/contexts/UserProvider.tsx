@@ -4,11 +4,13 @@ import useFetch from "../hooks/useFetch";
 import UserContext from "./UserContext";
 import { usePersistedState } from "../hooks/usePersistedState";
 import { errorMessageHandler } from "../utils/errorUtil";
+import { useState } from "react";
 
 export default function UserProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = usePersistedState({});
     const navigate = useNavigate();
-    const { request } = useFetch()
+    const { request } = useFetch();
+    const [isDarkTheme, setIsDarckTheme] = useState(true);
 
     function loginHandler(user: User) {
 
@@ -59,8 +61,12 @@ export default function UserProvider({ children }: { children: React.ReactNode }
         onLogout: logoutHandler,
         isAuthenticated,
         isAdmin,
-        onUpdateCtxUser: updateUserCtx
-    }
+        onUpdateCtxUser: updateUserCtx,
+        isDarkTheme,
+        onChangeTheme() {
+            setIsDarckTheme((state) => !state);
+        },
+    };
 
     return (
         <UserContext.Provider value={ userContextValues }>
