@@ -25,8 +25,8 @@ export default function Header() {
     };
 
     function keyPressHandler(event: React.KeyboardEvent) {
-        
-        if(event.key === "Enter") {
+
+        if (event.key === "Enter") {
             return search()
         };
 
@@ -34,12 +34,12 @@ export default function Header() {
 
 
     function search() {
-        
+
         if (!searchQuery.trim()) {
             return;
         };
 
-        navigate("/search", { state: { searchQuery } } );
+        navigate("/search", { state: { searchQuery } });
     };
 
     function logoutHandler() {
@@ -59,6 +59,9 @@ export default function Header() {
                         <span className={mobileNavOpen ? `${styles["hamburger-menu-span"]} ${styles["hamburger-menu-second-close"]}` : `${styles["hamburger-menu-span"]} ${styles["hamburger-menu-second-open"]}`}></span>
                         <span className={mobileNavOpen ? `${styles["hamburger-menu-span"]} ${styles["hamburger-menu-third-close"]}` : `${styles["hamburger-menu-span"]} ${styles["hamburger-menu-third-open"]}`}></span>
                     </div>
+                </div>
+                <div className={styles["change-theme-button"]}>
+                    <span>🌞</span>
                 </div>
                 <div className={styles["navbar-links"]}>
                     <NavLink to="/" onClick={mobileNavClose} className={({ isActive }) => isActive ? styles["nav-link--active"] : styles["nav-link"]}>Home</NavLink>
