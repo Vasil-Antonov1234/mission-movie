@@ -333,7 +333,14 @@ export default function UserProfile() {
                                 </span>
                             )}
                         </div>
+
                     </div>
+                        <section className={styles["theme-wrapper"]}>
+                            <div className={styles["change-theme-button"]}>
+                                <span>🌞</span>
+                            </div>
+                            <span className={styles.profileEmail}>Change Theme</span>
+                        </section>
                 </div>
 
                 {/* ─── Stats ─── */}

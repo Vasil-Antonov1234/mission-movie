@@ -172,22 +172,6 @@
     animation: first-close 1s ease;
 }
 
-.change-theme-button {
-    width: 30px;
-    height: 30px;
-    border: 1px solid #e8b94b6e;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.change-theme-button:hover {
-    border: 1px solid #e8b84b
-}
-
 @keyframes first-close {
     from {
         transform: rotate(0deg) translateY(0px);
