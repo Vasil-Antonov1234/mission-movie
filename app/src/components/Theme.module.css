@@ -1,39 +1,96 @@
-.white-theme {
+div .white-theme {
     background-color: ghostwhite;
     color: #0d0d0d;
     transition: background-color 1.2s, color 1.2s;
 }
 
-.box {
-    background-color: gainsboro;
+.white-theme .text {
     color: #0d0d0d;
 }
 
-.avatarFallback {
-    background-color: #f5ca60;
+.white-theme .watch-list {
     color: #0d0d0d;
 }
 
-.pageEyebrow {
-    color: rgb(102, 28, 32);
-    font-weight: 500;
+.white-theme .watch-list:hover {
+    color: #555;
 }
 
-.badge {
-    background-color: rgb(185, 185, 185);
-    color: #0d0d0d;
+.white-theme .text-gray {
+    color: #555;
+    transition: background-color 1.2s, color 1.2s;
 }
 
-.badgeGoogle {
-    background-color: #4caf7d;
+.white-theme .text-inverse {
     color: white;
 }
 
-.change-theme-button {
+.white-theme .btnDanger {
+    background-color: white;
+    color: rgb(102, 28, 32);
+}
+
+.white-theme .btnDanger:hover {
+    color: white;
+}
+
+.white-theme .box {
+    background-color: gainsboro;
+    color: #0d0d0d;
+    transition: background-color 1.2s, color 1.2s;
+}
+
+.white-theme .card {
+    background-color: rgb(234, 234, 234);
+    color: #0d0d0d;
+    transition: background-color 1.2s, color 1.2s;
+}
+
+.white-theme .avatarFallback {
+    background-color: #f5ca60;
+    color: #0d0d0d;
+    border: 2px solid #e8b84b
+}
+
+.white-theme .pageEyebrow {
+    color: rgb(102, 28, 32);
+    font-weight: 500;
+    transition: background-color 1.2s, color 1.2s;
+}
+
+.white-theme .badge {
+    background-color: rgb(204, 204, 204);
+    color: #0d0d0d;
+    transition: background-color 1.2s, color 1.2s;
+}
+
+.white-theme .badgeGoogle {
+    background-color: #4caf7d;
+    color: white;
+    transition: background-color 1.2s, color 1.2s;
+}
+
+.white-theme .change-theme-button {
+    background-color: rgb(185, 185, 185);
+    color: #0d0d0d;
+    transition: background-color 1.2s, color 1.2s;
+}
+
+.white-theme .change-theme-button:hover {
+    background-color: #0d0d0d;
+}
+
+.white-theme .button {
     background-color: rgb(185, 185, 185);
     color: #0d0d0d;
 }
 
-.change-theme-button:hover {
-    background-color: #0d0d0d;
+.white-theme .button:hover {
+    border-color: rgb(185, 185, 185);
+}
+
+.white-theme .dangerCard {
+    background-color: rgb(102, 28, 32);
+    color: white;
+    transition: background-color 1.2s, color 1.2s;
 }

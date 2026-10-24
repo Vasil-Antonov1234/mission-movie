@@ -291,7 +291,7 @@ export default function UserProfile() {
 
                 {/* ─── Page header ─── */}
                 <div className={`${styles.pageEyebrow} ${isDarkTheme ? "" : theme["pageEyebrow"]}`}>Account</div>
-                <h1 className={`${styles.pageTitle} ${isDarkTheme ? "" : theme["white-theme"]}`}>Your Profile</h1>
+                <h1 className={`${styles.pageTitle} ${isDarkTheme ? "" : theme["text"]}`}>Your Profile</h1>
 
                 {/* ─── Profile summary card ─── */}
                 <div className={`${styles.profileCard} ${isDarkTheme ? "" : theme["box"]}`}>
@@ -308,7 +308,7 @@ export default function UserProfile() {
                                 </div>
                             </div>
                         </Activity>
-                        <label htmlFor="avatarUpload" className={`${styles.badge} ${styles.edit} ${isDarkTheme ? "" : theme["white-theme"]}`}>Change avatar ✏️</label>
+                        <label htmlFor="avatarUpload" className={`${styles.badge} ${styles.edit} ${isDarkTheme ? "" : theme["badge"]}`}>Change avatar ✏️</label>
                         <input
                             id="avatarUpload"
                             type="file"
@@ -321,7 +321,7 @@ export default function UserProfile() {
 
 
                     <div className={styles.profileInfo}>
-                        <div className={`${styles.profileName} ${isDarkTheme ? "" : theme["box"]}`}>
+                        <div className={`${styles.profileName} ${isDarkTheme ? "" : theme["text"]}`}>
                             {user.firstName} {user.lastName}
                         </div>
                         <div className={styles.profileEmail}>{user.email}</div>
@@ -349,20 +349,20 @@ export default function UserProfile() {
 
                 {/* ─── Stats ─── */}
                 <div className={styles.statsRow}>
-                    <div className={styles.statCard}>
-                        <div className={styles.statValue}>{addedFilmsCount?.count}</div>
+                    <div className={`${styles.statCard} ${isDarkTheme ? "" : theme["box"]}`}>
+                        <div className={`${styles.statValue} ${isDarkTheme ? "" : theme["pageEyebrow"]}`}>{addedFilmsCount?.count}</div>
                         <div className={styles.statLabel}>Films added</div>
                     </div>
-                    <div className={styles.statCard}>
-                        <div className={styles.statValue}>{writtenReviews?.length}</div>
+                    <div className={`${styles.statCard} ${isDarkTheme ? "" : theme["box"]}`}>
+                        <div className={`${styles.statValue} ${isDarkTheme ? "" : theme["pageEyebrow"]}`}>{writtenReviews?.length}</div>
                         <div className={styles.statLabel}>Reviews</div>
                     </div>
-                    <div className={styles.statCard}>
-                        <div className={styles.statValue}>{favoriteMovies.length}</div>
+                    <div className={`${styles.statCard} ${isDarkTheme ? "" : theme["box"]}`}>
+                        <div className={`${styles.statValue} ${isDarkTheme ? "" : theme["pageEyebrow"]}`}>{favoriteMovies.length}</div>
                         <div className={styles.statLabel}>Favourites</div>
                     </div>
-                    <div className={styles.statCard}>
-                        <div className={styles.statValue}>{watchlistData.length}</div>
+                    <div className={`${styles.statCard} ${isDarkTheme ? "" : theme["box"]}`}>
+                        <div className={`${styles.statValue} ${isDarkTheme ? "" : theme["pageEyebrow"]}`}>{watchlistData.length}</div>
                         <div className={styles.statLabel}>Watch list</div>
                     </div>
                 </div>
@@ -386,14 +386,14 @@ export default function UserProfile() {
                         )}
 
                         {/* ── Profile info card ── */}
-                        <div className={styles.card}>
+                        <div className={`${styles.card} ${isDarkTheme ? "" : theme["card"]}`}>
                             <div className={styles.cardHeader}>
                                 <div>
                                     <div className={styles.cardEyebrow}>Personal</div>
-                                    <div className={styles.cardTitle}>Profile Information</div>
+                                    <div className={`${styles.cardTitle} ${isDarkTheme ? "" : theme["text"]}`}>Profile Information</div>
                                 </div>
                                 <button
-                                    className={`${styles.editBtn}${isEditingProfile ? ` ${styles.editBtnActive}` : ""}`}
+                                    className={`${styles.editBtn}${isEditingProfile ? ` ${styles.editBtnActive}` : ""} ${isDarkTheme ? "" : theme["button"]}`}
                                     onClick={() => isEditingProfile ? handleProfileCancel() : openEditProfileHandler()}
                                 >
                                     {isEditingProfile ? "Cancel" : "Edit"}
@@ -411,7 +411,7 @@ export default function UserProfile() {
                                                 {...formInputRegister("firstName")}
                                                 id="firstName"
                                                 type="text"
-                                                className={`${styles.input} ${touched.firstName && errors.firstName ? ` ${styles["input--error"]}` : ""}`}
+                                                className={`${styles.input} ${touched.firstName && errors.firstName ? ` ${styles["input--error"]}` : ""} ${isDarkTheme ? "" : theme["box"]}`}
                                                 onBlur={validateProfileHandler}
                                             />
                                             {touched.firstName && <span className={styles.errorMsg}>{errors.firstName}</span>}
@@ -424,7 +424,7 @@ export default function UserProfile() {
                                                 {...formInputRegister("lastName")}
                                                 id="lastName"
                                                 type="text"
-                                                className={`${styles.input} ${touched.lastName && errors.lastName ? ` ${styles["input--error"]}` : ""}`}
+                                                className={`${styles.input} ${touched.lastName && errors.lastName ? ` ${styles["input--error"]}` : ""} ${isDarkTheme ? "" : theme["box"]}`}
                                                 onBlur={validateProfileHandler}
                                             />
                                             {touched.lastName && <span className={styles.errorMsg}>{errors.lastName}</span>}
@@ -437,7 +437,7 @@ export default function UserProfile() {
                                                 {...formInputRegister("email")}
                                                 id="email"
                                                 type="email"
-                                                className={`${styles.input} ${touched.email && errors.email ? ` ${styles["input--error"]}` : ""}`}
+                                                className={`${styles.input} ${touched.email && errors.email ? ` ${styles["input--error"]}` : ""} ${isDarkTheme ? "" : theme["box"]}`}
                                                 onBlur={validateProfileHandler}
                                             />
                                             {touched.email && <span className={styles.errorMsg}>{errors.email}</span>}
@@ -445,7 +445,7 @@ export default function UserProfile() {
                                     </div>
 
                                     <div className={styles.formActions}>
-                                        <button type="button" className={styles.btnSecondary} onClick={handleProfileCancel}>
+                                        <button type="button" className={`${styles.btnSecondary} ${isDarkTheme ? "" : theme["button"]}`} onClick={handleProfileCancel}>
                                             Cancel
                                         </button>
                                         <button type="submit" className={styles.btnPrimary} disabled={profileLoading}>
@@ -457,15 +457,15 @@ export default function UserProfile() {
                                 <div className={styles.formGrid}>
                                     <div className={styles.field}>
                                         <div className={styles.label}>First name</div>
-                                        <div className={styles.displayValue}>{user.firstName}</div>
+                                        <div className={`${styles.displayValue} ${isDarkTheme ? "" : theme["text"]}`}>{user.firstName}</div>
                                     </div>
                                     <div className={styles.field}>
                                         <div className={styles.label}>Last name</div>
-                                        <div className={styles.displayValue}>{user.lastName}</div>
+                                        <div className={`${styles.displayValue} ${isDarkTheme ? "" : theme["text"]}`}>{user.lastName}</div>
                                     </div>
                                     <div className={`${styles.field} ${styles.colSpan2}`}>
                                         <div className={styles.label}>Email</div>
-                                        <div className={styles.displayValue}>{user.email}</div>
+                                        <div className={`${styles.displayValue} ${isDarkTheme ? "" : theme["text"]}`}>{user.email}</div>
                                     </div>
                                 </div>
                             )}
@@ -473,14 +473,14 @@ export default function UserProfile() {
 
                         {/* ── Change password card ── */}
                         <Activity mode={user.isGoogleUser ? "hidden" : "visible"}>
-                            <div className={styles.card}>
+                            <div className={`${styles.card} ${isDarkTheme ? "" : theme["card"]}`}>
                                 <div className={styles.cardHeader}>
                                     <div>
                                         <div className={styles.cardEyebrow}>Security</div>
-                                        <div className={styles.cardTitle}>Change Password</div>
+                                        <div className={`${styles.cardTitle} ${isDarkTheme ? "" : theme["text"]}`}>Change Password</div>
                                     </div>
                                     <button
-                                        className={`${styles.editBtn}${isEditingPassword ? ` ${styles.editBtnActive}` : ""}`}
+                                        className={`${styles.editBtn} ${isDarkTheme ? "" : theme["button"]}${isEditingPassword ? ` ${styles.editBtnActive}` : ""}`}
                                         onClick={() => isEditingPassword ? handlePasswordCancel() : setIsEditingPassword(true)}
                                     >
                                         {isEditingPassword ? "Cancel" : "Change"}
@@ -499,7 +499,7 @@ export default function UserProfile() {
                                                         {...passwordFormInputRegister("currentPassword")}
                                                         id="currentPassword"
                                                         type={showCurrent ? "text" : "password"}
-                                                        className={`${styles.input} ${styles.inputWithIcon} ${errors.currentPassword && touched.currentPassword ? ` ${styles["input--error"]}` : ""}`}
+                                                        className={`${styles.input} ${styles.inputWithIcon} ${errors.currentPassword && touched.currentPassword ? ` ${styles["input--error"]}` : ""} ${isDarkTheme ? "" : theme["box"]}`}
                                                         placeholder="••••••••"
                                                         autoComplete="current-password"
                                                         onBlur={validatePasswordHandler}
@@ -519,7 +519,7 @@ export default function UserProfile() {
                                                         {...passwordFormInputRegister("password")}
                                                         id="password"
                                                         type={showNew ? "text" : "password"}
-                                                        className={`${styles.input} ${styles.inputWithIcon}${errors.password && touched.password ? ` ${styles["input--error"]}` : ""}`}
+                                                        className={`${styles.input} ${styles.inputWithIcon}${errors.password && touched.password ? ` ${styles["input--error"]}` : ""} ${isDarkTheme ? "" : theme["box"]}`}
                                                         placeholder="Min. 8 characters"
                                                         autoComplete="new-password"
                                                         onBlur={validatePasswordHandler}
@@ -539,7 +539,7 @@ export default function UserProfile() {
                                                         {...passwordFormInputRegister("confirmPassword")}
                                                         id="confirmPassword"
                                                         type={showConfirm ? "text" : "password"}
-                                                        className={`${styles.input} ${styles.inputWithIcon} ${errors.confirmPassword && touched.confirmPassword ? ` ${styles["input--error"]}` : ""}`}
+                                                        className={`${styles.input} ${styles.inputWithIcon} ${errors.confirmPassword && touched.confirmPassword ? ` ${styles["input--error"]}` : ""} ${isDarkTheme ? "" : theme["box"]}`}
                                                         placeholder="Repeat new password"
                                                         autoComplete="new-password"
                                                         onBlur={validatePasswordHandler}
@@ -554,7 +554,7 @@ export default function UserProfile() {
                                         </div>
 
                                         <div className={styles.formActions}>
-                                            <button type="button" className={styles.btnSecondary} onClick={handlePasswordCancel}>
+                                            <button type="button" className={`${styles.btnSecondary} ${isDarkTheme ? "" : theme["button"]}`} onClick={handlePasswordCancel}>
                                                 Cancel
                                             </button>
                                             <button type="submit" className={styles.btnPrimary} disabled={passwordLoading}>
@@ -578,13 +578,13 @@ export default function UserProfile() {
 
                             {/* Watchlist */}
                             <Activity mode={watchlistData.length ? "visible" : "hidden"}>
-                                <div className={`${styles.sidebarCard} ${styles["additional-info-card"]}`}>
+                                <div className={`${styles.sidebarCard} ${styles["additional-info-card"]} ${isDarkTheme ? "" : theme["box"]}`}>
                                     <div className={styles.sidebarCardTitle}>Watchlist</div>
                                     <div className={styles.infoList}>
                                         <div className={styles.infoItem}>
                                             {watchlistData.map((x) =>
                                                 <p className={styles["favourites-wrapper"]} key={x.id}>
-                                                    <Link className={styles["watchlist-title"]} to={`/movies/${x.movie?.id}/details`}>{x.movie?.title}</Link>
+                                                    <Link className={`${styles["watchlist-title"]} ${isDarkTheme ? "" : theme["watch-list"]}`} to={`/movies/${x.movie?.id}/details`}>{x.movie?.title}</Link>
                                                     <span className={styles.remove} onClick={() => removeFromWatchlist(x.movie?.id)}>remove</span>
                                                 </p>)}
                                         </div>
@@ -610,14 +610,14 @@ export default function UserProfile() {
 
                             {/* Written reviews */}
                             <Activity mode={writtenReviews?.length ? "visible" : "hidden"}>
-                                <section className={`${styles.sidebarCard} ${styles["additional-info-card"]}`}>
+                                <section className={`${styles.sidebarCard} ${styles["additional-info-card"]} ${isDarkTheme ? "" : theme["box"]}`}>
                                     <div className={styles.sidebarCardTitle}>Written reviews</div>
                                     <div className={styles.infoList}>
                                         <div className={styles.infoItem}>
                                             {writtenReviews?.map((x) =>
                                                 <div className={styles["written-reviews-container"]} key={x.id}>
                                                     <div className={styles["favourites-wrapper"]}>
-                                                        <Link className={styles["watchlist-title"]} to={`/review/${x.id}`}>{x.movie.title}</Link>
+                                                        <Link className={`${styles["watchlist-title"]} ${isDarkTheme ? "" : theme["watch-list"]}`} to={`/review/${x.id}`}>{x.movie.title}</Link>
                                                         <StarRating rating={calculateReviewTotalScore(x.cinematographyScore, x.directorScore, x.performanceScore, x.screenplayScore)} />
                                                     </div>
                                                     <p className={styles["created-at"]}>{convertDate(x.createdAt)}</p>
@@ -636,16 +636,16 @@ export default function UserProfile() {
                     <aside>
 
                         {/* Account info */}
-                        <div className={styles.sidebarCard}>
+                        <div className={`${styles.sidebarCard} ${isDarkTheme ? "" : theme["box"]}`}>
                             <div className={styles.sidebarCardTitle}>Account Details</div>
                             <div className={styles.infoList}>
                                 <div className={styles.infoItem}>
                                     <span className={styles.infoLabel}>Member since</span>
-                                    <span className={styles.infoValue}>{convertDate(user.createdAt)}</span>
+                                    <span className={`${styles.infoValue} ${isDarkTheme ? "" : theme["text"]}`}>{convertDate(user.createdAt)}</span>
                                 </div>
                                 <div className={styles.infoItem}>
                                     <span className={styles.infoLabel}>Sign-in method</span>
-                                    <span className={styles.infoValue}>
+                                    <span className={`${styles.infoValue} ${isDarkTheme ? "" : theme["text"]}`}>
                                         {user.isGoogleUser ? "Google OAuth" : "Email & password"}
                                     </span>
                                 </div>
@@ -654,12 +654,12 @@ export default function UserProfile() {
 
                         {/* Added movies */}
                         <Activity mode={addedMovies?.length ? "visible" : "hidden"}>
-                            <div className={`${styles.sidebarCard} ${styles["you-added"]}`}>
-                                <div className={`${styles.sidebarCardTitle} ${styles["you-added-title"]}`}>You added</div>
+                            <div className={`${styles.sidebarCard} ${isDarkTheme ? "" : theme["box"]} ${styles["you-added"]}`}>
+                                <div className={`${styles.sidebarCardTitle} ${styles["you-added-title"]} ${isDarkTheme ? "" : theme["pageEyebrow"]}`}>You added</div>
                                 {addedMovies?.map((x) =>
                                     <div className={styles["favourites-wrapper"]} key={x.id}>
                                         <div className={styles["added-movies-container"]}>
-                                            <Link className={styles["watchlist-title"]} to={`/movies/${x.id}/details`}>{x.title}</Link>
+                                            <Link className={`${styles["watchlist-title"]} ${isDarkTheme ? "" : theme["watch-list"]}`} to={`/movies/${x.id}/details`}>{x.title}</Link>
                                             <p className={styles["created-at"]}>{convertDate(x.createdAt)}</p>
                                         </div>
                                     </div>
@@ -673,12 +673,12 @@ export default function UserProfile() {
                         </Activity>
 
                         {/* Danger zone */}
-                        <div className={styles.dangerCard}>
-                            <div className={styles.dangerTitle}>Danger Zone</div>
-                            <p className={styles.dangerText}>
+                        <div className={`${styles.dangerCard} ${isDarkTheme ? "" : theme["dangerCard"]}`}>
+                            <div className={`${styles.dangerTitle} ${isDarkTheme ? "" : theme["text-inverse"]}`}>Danger Zone</div>
+                            <p className={`${styles.dangerText} ${isDarkTheme ? "" : theme["text-inverse"]}`    }>
                                 Permanently delete your account and all associated data. This action cannot be undone.
                             </p>
-                            <button className={styles.btnDanger} onClick={() => setShowConfirmModal(true)}>
+                            <button className={`${styles.btnDanger} ${isDarkTheme ? "" : theme["btnDanger"]}`} onClick={() => setShowConfirmModal(true)}>
                                 Delete account
                             </button>
                         </div>
