@@ -16,6 +16,11 @@ enum Role {
 	ADMIN
 }
 
+enum Theme {
+	DARK
+	WHITE
+}
+
 model User {
 	id	Int		@id 		@default(autoincrement())
 	firstName	String
@@ -24,6 +29,7 @@ model User {
 	password	String?
 	role		Role		@default(USER)
 	avatarUrl	String?
+	theme		Theme		@default(DARK)
 	createdAt 	DateTime	@default(now())
 	updatedAt	DateTime	@updatedAt
 	

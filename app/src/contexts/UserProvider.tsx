@@ -10,7 +10,14 @@ export default function UserProvider({ children }: { children: React.ReactNode }
     const [user, setUser] = usePersistedState({});
     const navigate = useNavigate();
     const { request } = useFetch();
-    const [isDarkTheme, setIsDarckTheme] = useState(true);
+    const [isDarkTheme, setIsDarckTheme] = useState(() => {
+        
+        if (user.theme) {
+            return user.theme === "DARK" ? true : false;
+        };
+
+        return true
+    });
 
     function loginHandler(user: User) {
 
@@ -65,11 +72,6 @@ export default function UserProvider({ children }: { children: React.ReactNode }
         isDarkTheme,
         onChangeTheme() {
             setIsDarckTheme((state) => !state);
-            // const bodyElement = document.querySelector("body");
-
-            // if (bodyElement) {
-            //     bodyElement.style.background = isDarkTheme ? "0d0d0d" : "white";
-            // };
         },
     };
 
