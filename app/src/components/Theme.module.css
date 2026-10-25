@@ -21,8 +21,9 @@ div .white-theme {
     transition: background-color 1.2s, color 1.2s;
 }
 
-.white-theme .text-inverse {
-    color: white;
+.white-theme .text-inverse,
+.text-inverse {
+    color: #e8e2d9;
 }
 
 .white-theme .btnDanger {
@@ -34,7 +35,8 @@ div .white-theme {
     color: white;
 }
 
-.white-theme .box {
+.white-theme .box,
+.box {
     background-color: gainsboro;
     color: #0d0d0d;
     transition: background-color 1.2s, color 1.2s;
@@ -92,5 +94,10 @@ div .white-theme {
 .white-theme .dangerCard {
     background-color: rgb(102, 28, 32);
     color: white;
+    transition: background-color 1.2s, color 1.2s;
+}
+
+.black-box {
+    background-color: #555;
     transition: background-color 1.2s, color 1.2s;
 }
