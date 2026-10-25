@@ -34,7 +34,6 @@ export default function UserProvider({ children }: { children: React.ReactNode }
     };
 
     function updateUserCtx(user: User) {
-        console.log("Updating user context with:", user);
         setUser((state: User) => ({
             ...state,
             firstName: user.firstName,
@@ -48,7 +47,7 @@ export default function UserProvider({ children }: { children: React.ReactNode }
 
     async function logoutHandler(navigateTo?: string) {
         try {
-            
+
             await request("/users/logout", "GET", { accessToken: user.accessToken });
         } catch (error) {
             errorMessageHandler(error);
@@ -56,13 +55,13 @@ export default function UserProvider({ children }: { children: React.ReactNode }
             setUser({});
             localStorage.removeItem("auth");
 
-            if (navigateTo && typeof(navigateTo) === "string") {
+            if (navigateTo && typeof (navigateTo) === "string") {
                 navigate(navigateTo);
             } else {
                 navigate("/");
             };
         };
-        
+
     };
 
     const isAuthenticated = !!user?.accessToken;
@@ -76,18 +75,24 @@ export default function UserProvider({ children }: { children: React.ReactNode }
         isAdmin,
         onUpdateCtxUser: updateUserCtx,
         isDarkTheme,
-        onChangeTheme() {
+        async onChangeTheme() {
             setIsDarckTheme((state) => !state);
             updateUserCtx({
                 ...user,
                 theme: user.theme === "DARK" ? "WHITE" : "DARK"
             });
+
+            try {
+                await request("/users/theme", "PATCH", { accessToken: user.accessToken }, { theme: user.theme === "DARK" ? "WHITE" : "DARK" });
+            } catch (error) {
+                errorMessageHandler(error);
+            };
         },
     };
 
     return (
-        <UserContext.Provider value={ userContextValues }>
-            { children }
+        <UserContext.Provider value={userContextValues}>
+            {children}
         </UserContext.Provider>
     );
 }

@@ -174,5 +174,16 @@ export default {
                 id: userId
             }
         });
+    },
+
+    async changeTheme(userId, theme) {
+        return await prisma.user.update({
+            data: {
+                theme
+            },
+            where: {
+                id: userId
+            }
+        });
     }
 }

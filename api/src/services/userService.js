@@ -132,5 +132,9 @@ export default {
 
     async uploadAvatar(userId, avatarUrl) {
         return await userRepository.uploadAvatar(userId, avatarUrl);
+    },
+
+    async changeTheme(userId, theme) {
+        return await userRepository.changeTheme(userId, theme);
     }
 }

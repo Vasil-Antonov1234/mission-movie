@@ -342,6 +342,20 @@ userController.patch("/uplpad/avatar", isAuthMiddleware, async (req, res) => {
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
     };
+});
+
+userController.patch("/theme", isAuthMiddleware, async (req, res) => {
+    const userId = Number(req.user.id);
+    const theme = req.body.theme;
+
+    try {
+      const result = await userService.changeTheme(userId, theme);
+
+      res.status(200).json(result);
+
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    };
 })
 
 export default userController;

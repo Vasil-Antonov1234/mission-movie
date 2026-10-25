@@ -75,13 +75,14 @@ export default function useFetch<T>(url?: string, initialState?: T, config: Conf
             options.body = JSON.stringify(body);
         };
 
+        
         if (config.accessToken) {
             options.headers = {
                 ...options.headers,
                 "authorization": config.accessToken
             }
         }
-
+                
         const response = await fetch(`${BASE_URL}${url}`, options);
 
         if (!response.ok) {
