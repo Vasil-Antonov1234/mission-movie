@@ -5,7 +5,7 @@ import type { TopUsersProps } from "../../types/types";
 import { Activity } from "react";
 
 export default function TopUsersCard(props: TopUsersProps) {
-    const avatar = props.avatarUrl ? props.avatarUrl : "";
+    const avatar = props.avatarUrl ? props.avatarUrl : undefined;
 
     return (
         <Link className={styles["link"]} to={`/user/${props.id}/public`}>

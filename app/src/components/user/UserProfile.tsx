@@ -85,7 +85,7 @@ export default function UserProfile() {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [uploading, setUploading] = useState(false);
 
-    const avatar = user && user.avatarUrl ? user.avatarUrl : "";
+    const avatar = user?.avatarUrl?.trim() || undefined;
 
     function validateProfileHandler(event: React.BaseSyntheticEvent) {
         setTouched((state) => ({
@@ -304,7 +304,7 @@ export default function UserProfile() {
                         <Activity mode={avatar ? "visible" : "hidden"}>
                             <div className={styles.avatarWrapper}>
                                 <div className={styles.avatarFallback}>
-                                    <img src={avatar} className={styles["avatar"]}></img>
+                                    <img src={avatar} className={styles["avatar"]} alt="User avatar" />
                                 </div>
                             </div>
                         </Activity>

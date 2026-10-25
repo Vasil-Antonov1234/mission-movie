@@ -4,20 +4,23 @@ import useFetch from "../hooks/useFetch";
 import UserContext from "./UserContext";
 import { usePersistedState } from "../hooks/usePersistedState";
 import { errorMessageHandler } from "../utils/errorUtil";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function UserProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = usePersistedState({});
     const navigate = useNavigate();
     const { request } = useFetch();
-    const [isDarkTheme, setIsDarckTheme] = useState(() => {
-        
-        if (user.theme) {
-            return user.theme === "DARK" ? true : false;
-        };
+    const [isDarkTheme, setIsDarckTheme] = useState(true);
 
-        return true
-    });
+    useEffect(() => {
+
+        (() => {
+            if (user.theme && user.theme === "WHITE") {
+                setIsDarckTheme(false);
+            }
+        })()
+
+    }, [user.theme]);
 
     function loginHandler(user: User) {
 
