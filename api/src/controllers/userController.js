@@ -25,7 +25,10 @@ userController.post("/register", async (req, res) => {
             lastName: user.lastName,
             isuserGoogleUser: false,
             accessToken: token,
-            createdAt: user.createdAt
+            createdAt: user.createdAt,
+            avatarUrl: user.avatarUrl,
+            theme: user.theme,
+            role: user.role
         });
     } catch (error) {
         res.status(400).json({ error: getErrorMessage(error) });
@@ -62,7 +65,8 @@ userController.post("/login", async (req, res) => {
             isGoogleUser: false,
             createdAt: user.createdAt,
             role: user.role,
-            avatarUrl: user.avatarUrl
+            avatarUrl: user.avatarUrl,
+            theme: user.theme
         });
     } catch (error) {
         res.status(400).json(error.message);

@@ -40,7 +40,9 @@ authController.get("/me", async (req, res) => {
             lastName: user.lastName,
             accessToken: token,
             isGoogleUser: true,
-            createdAt: user.createdAt
+            createdAt: user.createdAt,
+            avatarUrl: user.avatarUrl,
+            theme: user.theme
         });
     } catch (error) {
         res.status(401).json(getErrorMessage(error));

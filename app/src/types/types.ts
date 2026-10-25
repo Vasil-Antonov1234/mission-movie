@@ -370,7 +370,8 @@ export type UserCtx = {
         isGoogleUser?: boolean,
         createdAt?: string,
         role?: string,
-        avatarUrl?: string | null
+        avatarUrl?: string | null,
+        theme?: "WHITE" | "DARK"
     }
     onLogin: (user: User) => void,
     onLogout: (navigateTo?: string) => void,

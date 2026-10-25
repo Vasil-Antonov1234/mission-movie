@@ -11,7 +11,8 @@ const UserContext = createContext<UserCtx>({
         isGoogleUser: undefined,
         createdAt: "",
         role: "USER",
-        avatarUrl: ""
+        avatarUrl: "",
+        theme: "DARK"
     },
     onLogin() {},
     onLogout() {},
