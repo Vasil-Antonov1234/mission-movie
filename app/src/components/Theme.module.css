@@ -1,10 +1,12 @@
-div .white-theme {
+div .white-theme,
+.white-theme {
     background-color: ghostwhite;
     color: #0d0d0d;
     transition: background-color 1.2s, color 1.2s;
 }
 
-.white-theme .text {
+.white-theme .text,
+.text {
     color: #0d0d0d;
 }
 
@@ -42,6 +44,12 @@ div .white-theme {
     transition: background-color 1.2s, color 1.2s;
 }
 
+.movieCard {
+    background-color: gainsboro;
+    color: #0d0d0d;
+    transition: transform 0.25s, border-color 0.25s;
+}
+
 .white-theme .card {
     background-color: rgb(234, 234, 234);
     color: #0d0d0d;
@@ -54,7 +62,8 @@ div .white-theme {
     border: 2px solid #e8b84b
 }
 
-.white-theme .pageEyebrow {
+.white-theme .pageEyebrow,
+.pageEyebrow {
     color: rgb(102, 28, 32);
     font-weight: 500;
     transition: background-color 1.2s, color 1.2s;

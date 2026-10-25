@@ -5,6 +5,7 @@ import Reviews from "../reviews/Reviews";
 import SelectionFilter from "../trending/SelectionFilter";
 import Trending from "../trending/Trending";
 import styles from "./Home.module.css";
+import theme from "../Theme.module.css";
 import type { Featured, Movie } from "../../types/types";
 // import filterRecordsHandler from "../../utils/filterRecordsHandler";
 import UserContext from "../../contexts/UserContext";
@@ -23,7 +24,7 @@ export default function Home() {
     const [heroState, setHeroState] = useState(1);
     const [moveState, SetMoveState] = useState("next");
     const [activeGenre, setActiveGenre] = useState("All");
-    const { isAuthenticated } = useContext(UserContext);
+    const { isAuthenticated, isDarkTheme } = useContext(UserContext);
     const { data: trending, isPending } = useFetch(`/movies/latest?where=genre%3D%22${activeGenre}%22`, initialStateTrending);
     const { data: featuredMovies } = useFetch("/movies/featured", initialStateFeatuted);
     usePageTitle("Home");
@@ -59,7 +60,7 @@ export default function Home() {
     }
 
     return (
-        <div className={styles["home-wrapper"]}>
+        <div className={`${styles["home-wrapper"]} ${!isDarkTheme ? theme["white-theme"] : ""}`}>
             <CinematicLoader startFrom={60} pending={isPending} />
             <section className={styles["hero-wrapper"]}>
                 <div className={styles["slide"]}>
