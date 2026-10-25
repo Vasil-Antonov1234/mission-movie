@@ -393,7 +393,8 @@ export type User = {
     isGoogleUser?: boolean,
     createdAt?: string,
     role?: string,
-    avatarUrl?: string | null
+    avatarUrl?: string | null,
+    theme?: "WHITE" | "DARK"
 };
 
 export type Config = {

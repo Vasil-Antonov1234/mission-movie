@@ -34,13 +34,16 @@ export default function UserProvider({ children }: { children: React.ReactNode }
     };
 
     function updateUserCtx(user: User) {
+        console.log("Updating user context with:", user);
         setUser((state: User) => ({
             ...state,
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
-            avatarUrl: user.avatarUrl
+            avatarUrl: user.avatarUrl,
+            theme: user.theme
         }));
+        localStorage.setItem("auth", JSON.stringify(user));
     };
 
     async function logoutHandler(navigateTo?: string) {
@@ -75,6 +78,10 @@ export default function UserProvider({ children }: { children: React.ReactNode }
         isDarkTheme,
         onChangeTheme() {
             setIsDarckTheme((state) => !state);
+            updateUserCtx({
+                ...user,
+                theme: user.theme === "DARK" ? "WHITE" : "DARK"
+            });
         },
     };
 
