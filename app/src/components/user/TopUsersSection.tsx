@@ -2,16 +2,20 @@ import useFetch from "../../hooks/useFetch";
 import type { TopUsersProps } from "../../types/types";
 import TopUsersCard from "./TopUsersCard";
 import styles from "./TopUsersSection.module.css";
+import theme from "../Theme.module.css";
+import { useContext } from "react";
+import UserContext from "../../contexts/UserContext";
 
 export default function TopUsersSection() {
     const { data } = useFetch<TopUsersProps[]>("/users/top/users", []);
+    const { isDarkTheme } = useContext(UserContext);
 
     return (
-        <section className={styles["top-users-section"]}>
+        <section className={`${styles["top-users-section"]} ${!isDarkTheme ? theme["box"] : ""}`}>
             <div className={styles["section-header"]}>
                 <div>
-                    <div className={`${styles["section-label"]} ${styles["section-label--spaced"]}`}>People</div>
-                    <h2 className={styles["section-heading"]}>Top users</h2>
+                    <div className={`${styles["section-label"]} ${styles["section-label--spaced"]} ${!isDarkTheme ? theme["pageEyebrow"] : ""}`}>People</div>
+                    <h2 className={`${styles["section-heading"]} ${!isDarkTheme ? theme["text"] : ""}`}>Top users</h2>
                 </div>
             </div>
             <div className={styles["top-users-container"]}>
