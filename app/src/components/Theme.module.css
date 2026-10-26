@@ -18,7 +18,8 @@ div .white-theme,
     color: #555;
 }
 
-.white-theme .text-gray {
+.white-theme .text-gray,
+.text-gray {
     color: #555;
     transition: background-color 1.2s, color 1.2s;
 }

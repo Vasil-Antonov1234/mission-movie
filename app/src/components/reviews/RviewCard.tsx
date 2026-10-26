@@ -1,7 +1,10 @@
 import { Link } from "react-router";
 import type { Review } from "../../types/types";
 import styles from "./ReviewCard.module.css";
+import theme from "../Theme.module.css";
 import { convertDate } from "../../utils/convertDate";
+import { useContext } from "react";
+import UserContext from "../../contexts/UserContext";
 
 // function StarRating({ rating }: Rating) {
 //     const filled = Math.round((Number(rating)));
@@ -13,20 +16,20 @@ import { convertDate } from "../../utils/convertDate";
 //     );
 // }
 
-export default function ReviewCard(
-    review: Review
-) {
+export default function ReviewCard(review: Review) {
+    const { isDarkTheme } = useContext(UserContext);
+
     return (
-        <Link to={`/review/${review.id}`} className={styles["review-card"]}>
+        <Link to={`/review/${review.id}`} className={`${styles["review-card"]} ${!isDarkTheme ? theme["card"] : ""}`}>
             <div className={styles["review-card-header"]}>
                 <img src={review.movie.poster} alt={review.movie.title} className={styles["review-card-poster"]} />
                 <div>
-                    <div className={styles["review-card-title"]}>{review.movie.title}</div>
+                    <div className={`${styles["review-card-title"]} ${!isDarkTheme ? theme["text"] : ""}`}>{review.movie.title}</div>
                     {/* <StarRating rating={review.rating} /> */}
                 </div>
             </div>
             <div className={styles["text-wrapper"]}>
-                <p className={styles["review-card-excerpt"]}>"{review.review}"</p>
+                <p className={`${styles["review-card-excerpt"]} ${!isDarkTheme ? theme["text"] : ""}`}>"{review.review}"</p>
                 <span className={styles["ellipsis"]}>...</span>
             </div>
             <div className={styles["review-card-meta"]}>
