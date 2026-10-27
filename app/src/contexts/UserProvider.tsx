@@ -47,8 +47,8 @@ export default function UserProvider({ children }: { children: React.ReactNode }
 
     async function logoutHandler(navigateTo?: string) {
         try {
-
             await request("/users/logout", "GET", { accessToken: user.accessToken });
+            setIsDarckTheme(true);
         } catch (error) {
             errorMessageHandler(error);
         } finally {
