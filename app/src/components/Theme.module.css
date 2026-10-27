@@ -6,6 +6,7 @@ div .white-theme,
 }
 
 .white-theme .text,
+div .text,
 .text {
     color: #0d0d0d;
 }
@@ -40,12 +41,14 @@ div .text-inverse,
 }
 
 .white-theme .box,
+div .box,
 .box {
     background-color: gainsboro;
     color: #0d0d0d;
     transition: background-color 1.2s, color 1.2s;
 }
 
+div .movieCard,
 .movieCard {
     background-color: gainsboro;
     color: #0d0d0d;
@@ -67,7 +70,7 @@ div .text-inverse,
 .white-theme .pageEyebrow,
 .pageEyebrow {
     color: rgb(102, 28, 32);
-    font-weight: 500;
+    font-weight: 600;
     transition: background-color 1.2s, color 1.2s;
 }
 

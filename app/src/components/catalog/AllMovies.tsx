@@ -2,13 +2,15 @@ import PaginationContainer from "../pagination/PaginationContainer";
 import SelectionFilter from "../trending/SelectionFilter";
 import MovieCard from "../trending/MovieCard";
 import styles from "./AllMovies.module.css";
-import { Activity, useState } from "react";
+import theme from "../Theme.module.css";
+import { Activity, useContext, useState } from "react";
 // import filterRecordsHandler from "../../utils/filterRecordsHandler";
 import useFetch from "../../hooks/useFetch";
 import type { Movie } from "../../types/types";
 import { countPages } from "../../utils/pagesCounter";
 import usePageTitle from "../../hooks/usePageTitle";
 import CinematicLoader from "../countdown-spinner/CinematicLoader";
+import UserContext from "../../contexts/UserContext";
 
 // const paginationCount = [1, 2, 3];
 const options = ["All", "Action", "Drama", "Sci-Fi", "Comedy", "Horror", "Romance", "Documentary"];
@@ -18,6 +20,7 @@ const initialState: Movie[] = []
 export default function AllMovies() {
     const [activePage, setActivePage] = useState(1);
     const [activeGenre, setActiveGenre] = useState("All");
+    const { isDarkTheme } = useContext(UserContext);
 
     const { data, isPending } = useFetch(`/movies?where=activePage%3D%22${activePage}%22&where=genre%3D%22${activeGenre}%22`, initialState);
     const { data: moviesCount } = useFetch("/movies/all/count", "0");
@@ -39,7 +42,7 @@ export default function AllMovies() {
     };
 
     return (
-        <section className={styles["trending-section"]}>
+        <section className={`${styles["trending-section"]} ${!isDarkTheme ? theme["white-theme"] : ""}`}>
             <CinematicLoader startFrom={5} pending={isPending} />
             <SelectionFilter
                 options={options}
@@ -47,7 +50,7 @@ export default function AllMovies() {
                 activeState={activeGenre}
             />
             <div>
-                <h1 className={styles["section-heading-title"]}>Watch new titles</h1>
+                <h1 className={`${styles["section-heading-title"]} ${!isDarkTheme ? theme["pageEyebrow"] : ""}`}>Watch new titles</h1>
             </div>
             <Activity mode={filteredMovies && filteredMovies.length > 0 ? "visible" : "hidden"}>
                 <section className={styles["trending-wrapper"]}>
