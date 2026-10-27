@@ -25,6 +25,7 @@ div .white-theme,
 }
 
 .white-theme .text-inverse,
+div .text-inverse,
 .text-inverse {
     color: #e8e2d9;
 }
@@ -107,13 +108,14 @@ div .white-theme,
     transition: background-color 1.2s, color 1.2s;
 }
 
+div .black-box,
 .black-box {
     background-color: #555;
     transition: background-color 1.2s, color 1.2s;
 }
 
 div .top-user-card {
-    background-color:white;
+    background-color: white;
     border: 2px solid #e8b84b;
 }
 
