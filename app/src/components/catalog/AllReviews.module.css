@@ -1,5 +1,5 @@
 .review-section {
-    background: rgb(241, 241, 241);
+    background: #0d0d0d;
     min-height: 100vh;
     max-width: 2700px;
     margin: 0 auto;
@@ -9,7 +9,7 @@
 }
 
 .section-heading-title {
-    color: rgb(102, 28, 32);
+    color: #e8b84b;
     margin-bottom: 10px;
     font-size: clamp(10px, 5vw, 37px);
 }

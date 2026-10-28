@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import type { Review } from "../../types/types";
 import filterRecordsHandler from "../../utils/filterRecordsHandler";
 import ReviewCard from "../reviews/RviewCard";
 import SelectionFilter from "../trending/SelectionFilter";
 import styles from "./AllReviews.module.css";
+import theme from "../Theme.module.css";
 import useFetch from "../../hooks/useFetch";
 import usePageTitle from "../../hooks/usePageTitle";
 import CinematicLoader from "../countdown-spinner/CinematicLoader";
+import UserContext from "../../contexts/UserContext";
 
 const options = ["All", "Latest by year", "Oldest by year", "Alphabetically"];
 
@@ -14,11 +16,12 @@ export default function AllReviews() {
     const [activeReview, setActiveReviwe] = useState("All");
     const { data, isPending } = useFetch<Review[]>("/reviews", []);
     usePageTitle("Reviews");
+    const { isDarkTheme } = useContext(UserContext);
 
     const filteredReviews = data ? filterRecordsHandler.filterReviews(data, activeReview) : [];
 
     return (
-        <section className={styles["review-section"]}>
+        <section className={`${styles["review-section"]} ${!isDarkTheme ? theme["white-theme"] : ""}`}>
             <CinematicLoader startFrom={5} pending={isPending} />
             <h1 className={styles["section-heading-title"]}>Read new reviews</h1>
             <SelectionFilter

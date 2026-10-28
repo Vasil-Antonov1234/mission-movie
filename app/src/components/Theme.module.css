@@ -55,10 +55,16 @@ div .movieCard,
     transition: transform 0.25s, border-color 0.25s;
 }
 
-.white-theme .card {
+.white-theme .card,
+div .card,
+.card {
     background-color: rgb(234, 234, 234);
     color: #0d0d0d;
-    transition: background-color 1.2s, color 1.2s;
+    transition: all 0.3s ease;
+}
+
+div .card:hover {
+    box-shadow: 0 0 10px 3px #0d0d0d;
 }
 
 .white-theme .avatarFallback {

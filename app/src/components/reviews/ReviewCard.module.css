@@ -17,7 +17,7 @@
 
 .review-card:hover {
     border-color: #e8b84b;
-    box-shadow: #111 0px 0px 10px 3px;
+    box-shadow: 0 0 10px 3px #e8e2d99f;
 }
 
 .review-card-small {
