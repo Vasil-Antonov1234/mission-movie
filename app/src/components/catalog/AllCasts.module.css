@@ -10,12 +10,12 @@
 
 .section-heading-title {
     color: #e8b84b;
-    margin-bottom: 10px;
     font-size: clamp(10px, 5vw, 37px);
 }
 
 .trending-wrapper {
     min-height: 403.3px;
+    margin-top: 30px;
 }
 
 .trending-container {

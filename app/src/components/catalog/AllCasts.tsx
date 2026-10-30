@@ -3,20 +3,21 @@ import useFetch from "../../hooks/useFetch";
 import type { CastSmall } from "../../types/types";
 import CastCardSmall from "../cast/CastCardSmall";
 import styles from "./AllCasts.module.css"
+import theme from "../Theme.module.css";
 import UserContext from "../../contexts/UserContext";
 import usePageTitle from "../../hooks/usePageTitle";
 import CinematicLoader from "../countdown-spinner/CinematicLoader";
 
 export default function AllCasts() {
-    const { user } = useContext(UserContext);
+    const { user, isDarkTheme } = useContext(UserContext);
     const { data, isPending } = useFetch<CastSmall[]>("/casts/get/all", [], { accessToken: user.accessToken });
     usePageTitle("Actors")
 
     return (
-        <section className={styles["trending-section"]}>
+        <section className={`${styles["trending-section"]} ${!isDarkTheme ? theme["white-theme"] : ""}`}>
             <CinematicLoader startFrom={5} pending={isPending} />
             <div>
-                <h1 className={styles["section-heading-title"]}>Cast managment</h1>
+                <h1 className={`${styles["section-heading-title"]} ${!isDarkTheme ? theme["pageEyebrow"] : ""}`}>Cast managment</h1>
             </div>
             <section className={styles["trending-wrapper"]}>
                 <div className={styles["trending-container"]}>

@@ -31,12 +31,16 @@ div .text-inverse,
     color: #e8e2d9;
 }
 
-.white-theme .btnDanger {
+.white-theme .btnDanger, 
+div .btnDanger,
+.btnDanger {
     background-color: white;
     color: rgb(102, 28, 32);
 }
 
-.white-theme .btnDanger:hover {
+.white-theme .btnDanger:hover, 
+div .btnDanger:hover,
+.btnDanger:hover {
     color: white;
 }
 
@@ -45,7 +49,7 @@ div .box,
 .box {
     background-color: gainsboro;
     color: #0d0d0d;
-    transition: background-color 1.2s, color 1.2s;
+    transition: background-color 1.2s, color 1.2s, transform 0.25s, border-color 0.25s;
 }
 
 div .movieCard,

@@ -23,7 +23,7 @@ export default function AllReviews() {
     return (
         <section className={`${styles["review-section"]} ${!isDarkTheme ? theme["white-theme"] : ""}`}>
             <CinematicLoader startFrom={5} pending={isPending} />
-            <h1 className={styles["section-heading-title"]}>Read new reviews</h1>
+            <h1 className={`${styles["section-heading-title"]} ${!isDarkTheme ? theme["pageEyebrow"] : ""}`}>Read new reviews</h1>
             <SelectionFilter
                 options={options}
                 setSortBy={setActiveReviwe}
